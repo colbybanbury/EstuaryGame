@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import Model.Game;
+import model.Game;
 
 public class GameTest {
 
