@@ -50,4 +50,13 @@ public class Board {
 	void drought(){}
 	void storm(){}
 	void construction(){}
+	void update(){  // moves enemies, player, and scent trail one increment forward
+		Rectangle endRectangle;
+		for (Enemy e : enemies){
+			e.update();
+		}
+		player.update();
+		scentTrail.remove(0);
+		
+	} 
 }
