@@ -1,4 +1,7 @@
 package model;
-public abstract class Mover implements Movable{
 
+import java.awt.Rectangle;
+
+public abstract class Mover implements Movable{
+	Rectangle location;
 }
