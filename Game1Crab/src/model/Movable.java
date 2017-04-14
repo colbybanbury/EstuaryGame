@@ -1,12 +1,18 @@
 package model;
-
 import java.awt.Rectangle;
 
 public interface Movable {
+	public void setYLoc(int yLoc);
+	public int getYLoc();
+	public void setXLoc(int xLoc);
+	public int getXLoc();
+	public void setYVel(int yVel);
+	public int getYVel();
+	public int getXVel();
+	public int getYAcc();
+	public void update();
 	
 	public int getImgWidth();
 	public int getImgHeight();
-	public int getXLoc();
-	public int getYLoc();
 	public Rectangle getLocation();
 }
