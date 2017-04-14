@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 
+//Board class stores the size of the screen, size of the racing circle, an array of all of the sections of the estuary,
+//and an object array with all the objects on the board.
 public class Board {
 	private int height;
 	private int width;

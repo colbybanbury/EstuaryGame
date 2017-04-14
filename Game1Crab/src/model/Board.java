@@ -2,40 +2,40 @@ package model;
 
 import java.util.ArrayList;
 
+import java.util.List;
 
-
-//Board class stores the size of the screen, size of the racing circle, an array of all of the sections of the estuary,
-//and an object array with all the objects on the board.
 public class Board {
-	private int height;	//size of the screen
-	private int width;
-	private int outerDiameter;	//size of the circle that you race in
-	private int innerDiameter;
-	static ArrayList<Estuary> estuaries = new ArrayList<Estuary>();	//the list of all of the estuaries on the board
-	static Object[][] boardArray;	//an array the same size as the board that stores all the objects on the board
-	
-	public Board(int h, int w, int outer, int inner){
-		this.height = h;
-		this.width = w;
-		this.innerDiameter = inner;
-		this.outerDiameter = outer;
-		this.boardArray = new Object[height][width];
+	int width;
+	int height;
+	Player player;
+	List<Enemy> enemies = new ArrayList<Enemy>();
+	int[][] scentTrail;
+	int progress;
+	Board(int width, int height){
+		this.width = width;
+		this.height = height;
+		scentTrail = new int[width][height];
+		progress = 0;
+		player = new Player();
 	}
-	
-	public int getHeight() {
-		return height;
-	}
-
-	public int getWidth() {
+	public int getWidth(){
 		return width;
 	}
-
-	public int getOuterDiameter() {
-		return outerDiameter;
+	public int getHeight(){
+		return height;
 	}
-
-	public int getInnerDiameter() {
-		return innerDiameter;
+	public void checkSalinity(){}
+	// iterates through enemies on board to check for collisions with
+	// player
+	public boolean checkCollision(){   // changed from UML
+		for (Enemy enemy: enemies){
+			if (enemy.getXLoc() <= player.getXLoc() + player.getImgWidth()){
+				return true;
+			}
+		}
+		return false;
 	}
-
+	void drought(){}
+	void storm(){}
+	void construction(){}
 }
