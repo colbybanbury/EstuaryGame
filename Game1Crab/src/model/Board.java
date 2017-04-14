@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.Rectangle;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -7,16 +8,18 @@ import java.util.List;
 public class Board {
 	int width;
 	int height;
-	Player player;
+	Player player = new Player();
 	List<Enemy> enemies = new ArrayList<Enemy>();
-	int[][] scentTrail;
-	int progress;
+	int scentTrailDiv = 50;  // number of rectangles that compose a scent trail
+	List<Rectangle> scentTrail = new ArrayList<Rectangle>(scentTrailDiv);
+	int progress = 0;
 	Board(int width, int height){
 		this.width = width;
 		this.height = height;
-		scentTrail = new int[width][height];
-		progress = 0;
-		player = new Player();
+		for (int i = 0; i < scentTrailDiv; i++){
+			scentTrail.add(new Rectangle(i * width / scentTrailDiv, height / 3, 
+										 width / scentTrailDiv, height / 3));
+		}
 	}
 	public int getWidth(){
 		return width;
@@ -24,12 +27,21 @@ public class Board {
 	public int getHeight(){
 		return height;
 	}
-	public void checkSalinity(){}
-	// iterates through enemies on board to check for collisions with
-	// player
+	public int checkSalinity(){
+		// TODO: only check rectangles the player is in, since player.xLoc does not change
+		int totalOverlap = 0;
+		Rectangle intersect;
+		for (Rectangle r : scentTrail){
+			intersect = r.intersection(player.getLocation());
+			totalOverlap += intersect.getHeight() * intersect.getWidth();
+		}
+		return totalOverlap;
+	}
 	public boolean checkCollision(){   // changed from UML
+		// iterates through enemies on board to check for collisions with
+		// player
 		for (Enemy enemy: enemies){
-			if (enemy.getXLoc() <= player.getXLoc() + player.getImgWidth()){
+			if (player.getLocation().intersects(enemy.getLocation())){
 				return true;
 			}
 		}
