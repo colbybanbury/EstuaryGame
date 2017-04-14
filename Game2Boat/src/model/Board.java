@@ -7,33 +7,14 @@ import java.util.ArrayList;
 public class Board {
 	private int height;
 	private int width;
-	private int outerDiameter;
-	private int innerDiameter;
-	static ArrayList<Estuary> estuaries = new ArrayList<Estuary>();
-	static int[][] boardGrid;
+	private int lapLength;	//
+	final int estuaryCount = 10; //the number of estuary shore lines
+	Estuary[] lapPath = new Estuary[estuaryCount];
 	
-	public Board(int h, int w, int outer, int inner){
+	public Board(int h, int w, int lL){
 		this.height = h;
 		this.width = w;
-		this.outerDiameter = outer;
-		this.innerDiameter = inner;
-		this.boardGrid = new int[width][height];
-	}
-	
-	public static ArrayList<Estuary> getEstuaries() {
-		return estuaries;
-	}
-
-	public static void setEstuaries(ArrayList<Estuary> estuaries) {
-		Board.estuaries = estuaries;
-	}
-
-	public static int[][] getBoardGrid() {
-		return boardGrid;
-	}
-
-	public static void setBoardGrid(int[][] boardGrid) {
-		Board.boardGrid = boardGrid;
+		this.lapLength = lL;
 	}
 
 	public int getHeight() {
@@ -44,12 +25,18 @@ public class Board {
 		return width;
 	}
 
-	public int getOuterDiameter() {
-		return outerDiameter;
+	public int getLapLength() {
+		return lapLength;
 	}
 
-	public int getInnerDiameter() {
-		return innerDiameter;
+	public int getEstuaryCount() {
+		return estuaryCount;
 	}
+
+	public Estuary[] getLapPath() {
+		return lapPath;
+	}
+	
+	
 	
 }
