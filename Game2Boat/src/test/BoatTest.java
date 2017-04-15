@@ -6,30 +6,27 @@ import org.junit.Test;
 
 public class BoatTest {
 
+	int accel = 1;
+	int mSpeed = 1;
+	int speedInc = 1;
+	int xLoc, speed;
 	@Test
-	public void test() {
-		int oldDir, oldYIncr, oldXIncr;
-		Boat b1 = new Boat();
-		assertEquals(b1.getXLoc(), b1.xLoc);
-		assertEquals(b1.getYLoc(), b1.yLoc);
-		assertEquals(b1.getSpeed(), Math.sqrt((b1.xIncr)**2 +
-											  (b1.yIncr)**2));
-		assertEquals(b1.getSpeed(), b1.speed);
-		assertEquals(b1.getDirection(), b1.direction);
-		
+	public void throttleTest() {
+		Boat b1 = new Boat(accel, speedInc, mSpeed);
 		for (int i = 0; i < 15; i++){
+			speed = b1.getSpeed();
 			b1.throttle();
-			assertTrue(b1.maxspeed >= b1.getSpeed());
+			assertEquals(b1.getSpeed(), speed + speedInc);
+			assertTrue(b1.getSpeed() < b1.getMaxSpeed());
 		}
-		
-		oldDir = b1.getDirection();
-		oldYIncr = b1.yIncr;
-		oldXIncr = b1.xIncr;
-		b1.turn();
-		assertNotSame(oldDir, b1.getDirection());
-		assertNotSame(oldYIncr, b1.yIncr);
-		assertNotSame(oldXIncr, b1.xIncr);
-		
 	}
-
+	@Test
+	public void moveTest(){
+		Boat b1 = new Boat(accel, speedInc, mSpeed);
+		xLoc = b1.getXLoc();
+		speed = b1.getSpeed();
+		b1.move();
+		assertEquals(b1.getSpeed() + xLoc, b1.getXLoc());
+		assertEquals(b1.getSpeed(), b1.getAcceleration() + speed);
+	}
 }
