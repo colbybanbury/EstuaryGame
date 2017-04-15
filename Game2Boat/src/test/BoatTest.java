@@ -6,8 +6,8 @@ import org.junit.Test;
 
 public class BoatTest {
 
-	int accel = 1;
-	int mSpeed = 1;
+	int accel = -1;
+	int mSpeed = 2;
 	int speedInc = 1;
 	int xLoc, speed;
 	@Test
@@ -16,8 +16,8 @@ public class BoatTest {
 		for (int i = 0; i < 15; i++){
 			speed = b1.getSpeed();
 			b1.throttle();
-			assertEquals(b1.getSpeed(), speed + speedInc);
-			assertTrue(b1.getSpeed() < b1.getMaxSpeed());
+			assertTrue((b1.getSpeed() == speed + speedInc) || b1.getSpeed() == b1.getMaxSpeed());
+			assertTrue(b1.getSpeed() <= b1.getMaxSpeed());
 		}
 	}
 	@Test
@@ -26,7 +26,7 @@ public class BoatTest {
 		xLoc = b1.getXLoc();
 		speed = b1.getSpeed();
 		b1.move();
-		assertEquals(b1.getSpeed() + xLoc, b1.getXLoc());
-		assertEquals(b1.getSpeed(), b1.getAcceleration() + speed);
+		assertEquals(speed + xLoc, b1.getXLoc());
+		assertTrue((b1.getSpeed()== b1.getAcceleration() + speed) || (b1.getSpeed() == 0));
 	}
 }

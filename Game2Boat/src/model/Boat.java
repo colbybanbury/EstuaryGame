@@ -1,7 +1,7 @@
 package model;
 
 public class Boat {
-	private int xLoc;
+	private int xLoc = 0;
 	private int speed;
 	private int acceleration; //always negative, essentially drag
 	private int speedInc; //How much speed is increased on button press
@@ -15,7 +15,9 @@ public class Boat {
 	}
 	
 	public void throttle(){	//called when button is pressed
-		speed += speedInc;
+		this.speed += speedInc;
+		if(speed > maxSpeed)
+			speed = maxSpeed;
 	} 
 	
 	public void generateWake(){	//needs implementation not sure how this will work
@@ -23,8 +25,10 @@ public class Boat {
 	}
 	
 	public void move(){	//should be called every tick
-		xLoc += speed;
-		speed += acceleration;
+		this.xLoc += speed;
+		this.speed += acceleration;
+		if(speed < 0)
+			speed = 0;
 	}
 	
 	//getters. Currently no setters but can be added if needed for testing
