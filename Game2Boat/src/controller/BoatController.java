@@ -1,21 +1,26 @@
 package controller;
 
+import java.awt.event.ActionEvent;
+
 import model.Board;
 import model.Boat;
 import model.Estuary;
 import model.Game;
+import view.View;
 
 public class BoatController {
 	public Board board;
-	public Boat boat;
+	public static Boat boat;
 	public Game game;
 	public Estuary curEstuary;
+	public View view;
 	
 	public BoatController(){
 		this.board = new Board(400, 400, 400);//adjust values for size of board and length of path
 		this.boat = new Boat(-1, 3, 6);//adjust values on acceleration, speedInc, and max speed
 		this.game = new Game();
 		this.curEstuary = board.getLapPath()[0];//starts at the first estuary
+		this.view = new View(400, 400);
 	}
 	
 	public void onTick(){
@@ -28,8 +33,17 @@ public class BoatController {
 		}
 		game.decreaseTime();
 		curEstuary = board.getLapPath()[(boat.getXLoc()*board.getEstuaryCount())/board.getLapLength()];
-		//finds current estuary. curEsutuary = (xLoc * estuaryCount)/lapLength)
+		//^finds current estuary. curEsutuary = (xLoc * estuaryCount)/lapLength)
 		//TODO View.repaint() or whatever the view needs
+	}
+	
+	public void setUp(){
+		
+		//TODO I'm sure there is more setup needed
+	}
+	
+	public static void buttonPress(){
+		boat.move();
 	}
 
 }
