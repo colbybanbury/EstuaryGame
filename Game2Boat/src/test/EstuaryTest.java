@@ -20,7 +20,7 @@ public class EstuaryTest {
 		assertEquals(e1.getDamage(), 0);
 		assertEquals(e2.getDamage(), 0);
 		assertEquals(e3.getDamage(), 0);
-		System.out.println(e1.getIntegrity());
+		//System.out.println(e1.getIntegrity());
 		assertEquals(e1.getIntegrity(), 0);
 		assertEquals(e2.getIntegrity(), 2);
 		assertEquals(e3.getIntegrity(), 10);
@@ -48,6 +48,7 @@ public class EstuaryTest {
 				oldDamage = e.getDamage();
 				e.damage(damage);
 				if (oldIntegrity > 0){
+					//System.out.println(e.getIntegrity());
 					assertEquals(e.getIntegrity(), oldIntegrity - damage);
 				}
 				else {

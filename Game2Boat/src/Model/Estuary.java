@@ -23,10 +23,12 @@ public class Estuary{
 	}
 	
 	public void damage(int wakeDamage){//updates the integrity of the wall and returns the damage left over
-		if(integrity>wakeDamage)
+		if(integrity>=wakeDamage)
 			integrity -= wakeDamage;
 		else
 			damage += wakeDamage - integrity;
+		if(integrity == 0)
+			type = 0;
 	}
 	
 	public int getDamage() {
