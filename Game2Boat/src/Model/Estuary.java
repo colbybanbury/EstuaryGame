@@ -1,6 +1,6 @@
 package model;
 
-public class Estuary {
+public class Estuary{
 	private int damage = 0;//increase as the estuary gets damaged without protection
 
 	private int integrity;//how much more damage the protection can take before it falls
@@ -10,9 +10,15 @@ public class Estuary {
 	public Estuary(int t){
 		this.type = t;
 		switch(t){
-			case 0: this.integrity = 0; //no wall so no protection
-			case 1: this.integrity = 2; //sea wall so some protection
-			case 2: this.integrity = 10;//Gabion so a lot of protection
+			case 0: 
+				this.integrity = 0; //no wall so no protection
+				break;
+			case 1: 
+				this.integrity = 2; //sea wall so some protection
+				break;
+			case 2: 
+				this.integrity = 10;//Gabion so a lot of protection
+				break;
 		}
 	}
 	
@@ -43,8 +49,19 @@ public class Estuary {
 		return type;
 	}
 
-	public void setType(int type) {
+	public void setType(int type) {	//updates type and ingegrity changes with it
 		this.type = type;
+		switch(type){
+		case 0: 
+			this.integrity = 0; //no wall so no protection
+			break;
+		case 1: 
+			this.integrity = 2; //sea wall so some protection
+			break;
+		case 2: 
+			this.integrity = 10;//Gabion so a lot of protection
+			break;
+	}
 	}
 	
 	
