@@ -20,7 +20,7 @@ public class Boat {
 			speed = maxSpeed;
 	} 
 	
-	public void generateWake(){	//needs implementation not sure how this will work
+	public void generateWake(){	//TODO needs implementation not sure how this will work
 		
 	}
 	
@@ -33,6 +33,7 @@ public class Boat {
 	
 	//getters. Currently no setters but can be added if needed for testing
 	public int getXLoc(){return this.xLoc;}
+	public void setXLoc(int loc){this.xLoc = loc;}
 	public int getSpeed() {return this.speed;}
 	public int getAcceleration(){return this.acceleration;}
 	public int getMaxSpeed(){return this.maxSpeed;}

@@ -3,6 +3,7 @@ package model;
 public class Game {
 	int score = 0;
 	int time = 120; // two minutes?
+	int lap = 0;
 	
 	public void decreaseScore(){
 		/* 
@@ -34,4 +35,13 @@ public class Game {
 		 */
 		return time;
 	}
+	
+	public int getLap() {
+		return lap;
+	}
+	public void setLap(int lap) {
+		this.lap = lap;
+	}
+	
+	
 }

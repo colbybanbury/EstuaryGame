@@ -20,10 +20,16 @@ public class BoatController {
 	
 	public void onTick(){
 		boat.move();
+		if(boat.getXLoc()>= board.getLapLength()){
+			boat.setXLoc(0);
+			game.setLap(game.getLap()+1);
+			//TODO figure out how we want scoring to work
+			//game.increaseScore();
+		}
 		game.decreaseTime();
 		curEstuary = board.getLapPath()[(boat.getXLoc()*board.getEstuaryCount())/board.getLapLength()];
 		//finds current estuary. curEsutuary = (xLoc * estuaryCount)/lapLength)
-		//View.repaint() or whatever the view needs
+		//TODO View.repaint() or whatever the view needs
 	}
 
 }
