@@ -16,30 +16,32 @@ public class BoardTest {
 	@Test
 	//TODO
 	public void checkSalinityTest() {
-		//Not sure how to test
+		//Setter needed to place player
+		//Setter needed to place rectangles?
 	}
 	
 	@Test
 	//TODO
 	public void checkCollisionTest() {
 		//Need setters and getters for enemy and player location
-		//NOTE: Player instantiation is not currently valid in Board
 	}
 	
 	@Test
 	public void droughtTest(){
 		Board b2 = new Board(400, 800);
 		b2.drought();
+		//TODO
 		//Need getter for scent trail height
-		assertEquals(b2.scentTrailHeight, 133); //Height/3/2 results in truncation, so 133
+		assertEquals(b2.getScentTrailHeight(), 133); //Height/3/2 results in truncation, so 133
 	}
 	
 	@Test
 	public void stormTest(){
 		Board b3 = new Board(400, 800);
 		b3.storm();
+		//TODO
 		//Need getter for wavyFactor
-		assertEquals(b3.wavyFactor, 10);
+		assertEquals(b3.getWavyFactor(), 10);
 	}
 	
 	@Test
