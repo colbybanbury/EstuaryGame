@@ -1,5 +1,11 @@
 package model;
 
+import controller.BoatController;
+
+/**
+ * @author colby
+ *
+ */
 public class Boat {
 	private int xLoc = 0;
 	private int speed;
@@ -8,10 +14,19 @@ public class Boat {
 	
 	private int maxSpeed; //changes based on the boat
 	
-	public Boat(int accel, int sInc, int mSpeed){
+	private double theta = 0.0;	//needed for circular representation in game
+	private int boatCircleX;
+	private int boatCircleY;
+	
+	private int initX;	//the intitial x and y values on the board
+	private int initY;
+	
+	public Boat(int accel, int sInc, int mSpeed, int initialX, int initialY){
 		this.acceleration = accel;
 		this.speedInc = sInc;
 		this.maxSpeed = mSpeed;
+		this.initX = initialX;
+		this.initY = initialY;
 	}
 	
 	public void throttle(){	//called when button is pressed
@@ -26,6 +41,9 @@ public class Boat {
 	
 	public void move(){	//should be called every tick
 		this.xLoc += speed;
+		this.theta = 2*Math.PI*(this.xLoc / BoatController.board.getLapLength());
+		this.boatCircleX = initX + (int) (BoatController.board.getRadius() * Math.cos(theta));
+		this.boatCircleY = initY + (int) (BoatController.board.getRadius() * Math.sin(theta));
 		this.speed += acceleration;
 		if(speed < 0)
 			speed = 0;
@@ -37,4 +55,10 @@ public class Boat {
 	public int getSpeed() {return this.speed;}
 	public int getAcceleration(){return this.acceleration;}
 	public int getMaxSpeed(){return this.maxSpeed;}
+
+	public int getBoatCircleX() {return boatCircleX;}
+
+	public int getBoatCircleY() {return boatCircleY;}
+	
+	
 }

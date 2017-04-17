@@ -9,15 +9,15 @@ import model.Game;
 import view.View;
 
 public class BoatController {
-	public Board board;
+	public static Board board;
 	public static Boat boat;
 	public Game game;
 	public Estuary curEstuary;
 	public View view;
 	
 	public BoatController(){
-		this.board = new Board(400, 400, 400);//adjust values for size of board and length of path
-		this.boat = new Boat(-1, 3, 6);//adjust values on acceleration, speedInc, and max speed
+		this.board = new Board(400, 400, 150, 400);//adjust values for size of board and length of path
+		this.boat = new Boat(-1, 3, 6, 350, 200);//adjust values on acceleration, speedInc, and max speed
 		this.game = new Game();
 		this.curEstuary = board.getLapPath()[0];//starts at the first estuary
 		this.view = new View(400, 400);

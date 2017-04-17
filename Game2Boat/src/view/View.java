@@ -4,15 +4,21 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JButton;
+import javax.swing.JPanel;
 
 import controller.BoatController;
 
-public class View {
+public class View extends JPanel{
 	private int height;
 	private int width;
-	public static JButton move = new JButton("move");;
+	
+	public static JButton move = new JButton("move");
+	
+	private BufferedImage backgroundImage;
+	private BufferedImage boatImage;
 	
 	
 	public View(int h, int w){
@@ -25,7 +31,7 @@ public class View {
 		move.setBounds(0, 0, w, h);
 		move.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-	//when the mouse is clicked it calls buttonPress in the controller
+				//when the mouse is clicked it calls buttonPress in the controller
 				BoatController.buttonPress();
 			}
 		});
@@ -34,7 +40,7 @@ public class View {
 	}
 	
 	public void paint(Graphics g){
-		//g.drawImage(boat, x, y, Observer)
+		//g.drawImage(boatImg, BoatController.boat.getBoatCircleX(), BoatController.boat.getBoatCircleY(), Observer);
 		//TODO
 	}
 	
