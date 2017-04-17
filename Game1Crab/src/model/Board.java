@@ -10,7 +10,7 @@ public class Board {
 	int width;
 	int height;
 	Random rand = new Random();
-	Player player = new Player();
+	Player player = new Player(this);
 	List<Enemy> enemies = new ArrayList<Enemy>();
 	int scentTrailDiv = 50;  // number of rectangles that compose a scent trail
 	int wavyFactor = 5;
@@ -18,7 +18,7 @@ public class Board {
 	int waveDirection = 1; // 1 = up, -1 = down
 	List<Rectangle> scentTrail = new ArrayList<Rectangle>(scentTrailDiv);
 	int progress = 0;
-	Board(int width, int height){
+	public Board(int width, int height){
 		this.width = width;
 		this.height = height;
 		for (int i = 0; i < scentTrailDiv; i++){
@@ -52,14 +52,14 @@ public class Board {
 		}
 		return false;
 	}
-	void drought(){
+	public void drought(){
 		scentTrailHeight /= 2;
 	}
-	void storm(){
+	public void storm(){
 		wavyFactor = 10;
 	}
-	void construction(){}
-	void update(){  // moves enemies, player, and scent trail one increment forward
+	public void construction(){}
+	public void update(){  // moves enemies, player, and scent trail one increment forward
 		Rectangle endRectangle;
 		// check where to place next rectangle in scentTrail
 		int newY = (int)scentTrail.get(scentTrailDiv-1).getY() - waveDirection*wavyFactor;
