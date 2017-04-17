@@ -36,7 +36,7 @@ public class BoardTest {
 	
 	@Test
 	//TODO
-	public void checkCollisionTest2() {
+	public void checkCollisionTest2() { //Right edge of Player meets Left edge of Enemy
 		Board b1 = new Board(400, 800);
 		Player p1 = new Player(b1);
 		p1.setXLoc(50);
@@ -49,7 +49,20 @@ public class BoardTest {
 	
 	@Test
 	//TODO
-	public void checkCollisionTest3() {
+	public void checkCollisionTest3() { //Bottom of Player meets Top of Enemy
+		Board b1 = new Board(400, 800);
+		Player p1 = new Player(b1);
+		p1.setXLoc(50);
+		p1.setYLoc(50);
+		Enemy e1 = new Enemy(b1);
+		e1.setXLoc(?);
+		e1.setYLoc(?);
+		assertTrue(b1.checkCollision());
+	}
+	
+	@Test
+	//TODO
+	public void checkCollisionTest4() { //Top of Player meets Bottom of Enemy
 		Board b1 = new Board(400, 800);
 		Player p1 = new Player(b1);
 		p1.setXLoc(50);
