@@ -10,7 +10,7 @@ public class Board {
 	int width;
 	int height;
 	Random rand = new Random();
-	Player player = new Player();
+	Player player = new Player(this);
 	List<Enemy> enemies = new ArrayList<Enemy>();
 	int scentTrailDiv = 50;  // number of rectangles that compose a scent trail
 	int wavyFactor = 5;
