@@ -1,4 +1,5 @@
 package model;
+import java.awt.Point;
 import java.awt.Rectangle;
 
 public abstract class Mover implements Movable{
@@ -9,19 +10,19 @@ public abstract class Mover implements Movable{
 	Rectangle location;
 
 	public void setYLoc(int yLoc){
-		location.setY(yLoc);
+		location.setLocation(new Point((int) location.getX(), yLoc));
 	}
 	
 	public int getYLoc(){
-		return location.getY();
+		return (int) location.getY();
 	}
 
 	public void setXLoc(int xLoc){
-		location.setX(xLoc);
+		location.setLocation(new Point(xLoc, (int) location.getY()));
 	}
 
 	public int getXLoc(){
-		return location.getX();
+		return (int) location.getX();
 	}
 	
 	public void setYVel(double yVel){
@@ -41,17 +42,17 @@ public abstract class Mover implements Movable{
 	}
 	
 	public void update(){
-		location.setX(location.getX() + xVel);
+		location.setLocation(new Point((int) (location.getX() + xVel), (int) location.getY()));
 		this.yVel += yAcc;
-		location.setY(location.getY() + yVel);
+		location.setLocation(new Point((int) (location.getY() + yVel), (int) location.getX()));
 	}
 	
 	public int getImgWidth(){
-		return location.getWidth();
+		return (int) location.getWidth();
 	}
 	
 	public int getImgHeight(){
-		return location.getHeight();
+		return (int) location.getHeight();
 	}
 	
 	public Rectangle getLocation(){
