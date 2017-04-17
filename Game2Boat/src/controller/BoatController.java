@@ -9,6 +9,7 @@ import model.Game;
 import view.View;
 
 public class BoatController {
+	
 	public static Board board;
 	public static Boat boat;
 	public Game game;
@@ -21,6 +22,10 @@ public class BoatController {
 		this.game = new Game();
 		this.curEstuary = board.getLapPath()[0];//starts at the first estuary
 		this.view = new View(400, 400);
+	}
+	
+	public static void main(String[] args){
+		BoatController boatControll = new BoatController();
 	}
 	
 	public void onTick(){
