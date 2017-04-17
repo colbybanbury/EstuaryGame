@@ -6,7 +6,7 @@ public interface Movable {
 	public int getYLoc();
 	public void setXLoc(int xLoc);
 	public int getXLoc();
-	public void setYVel(int yVel);
+	public void setYVel(double yVel);
 	public double getYVel();
 	public double getXVel();
 	public double getYAcc();
