@@ -2,60 +2,56 @@ package model;
 import java.awt.Rectangle;
 
 public abstract class Mover implements Movable{
-	public int imgHeight;
-	public int imgWidth;
-	public int yLoc;
-	public int xLoc;
-	public int yVel;
-	public int xVel;
-	public int yAcc;
+	public double yVel;
+	public double xVel;
+	public double yAcc;
 
 	Rectangle location;
-	
+
 	public void setYLoc(int yLoc){
-		this.yLoc = yLoc;
+		location.setY(yLoc);
 	}
 	
 	public int getYLoc(){
-		return this.yLoc;
+		return location.getY();
 	}
-	
+
 	public void setXLoc(int xLoc){
-		this.xLoc = xLoc;
+		location.setX(xLoc);
 	}
 
 	public int getXLoc(){
-		return this.xLoc;
+		return location.getX();
 	}
 	
-	public void setYVel(int yVel){
+	public void setYVel(double yVel){
 		this.yVel = yVel;
 	}
 	
-	public int getYVel(){
+	public double getYVel(){
 		return this.yVel;
 	}
 
-	public int getXVel(){
+	public double getXVel(){
 		return this.xVel;
 	}
 	
-	public int getYAcc(){
+	public double getYAcc(){
 		return this.yAcc;
 	}
 	
 	public void update(){
-		this.xLoc += xVel;
+		location.setX(location.getX() + xVel);
 		this.yVel += yAcc;
-		this.yLoc += yVel;
+		location.setY(location.getY() + yVel);
 	}
 	
 	public int getImgWidth(){
-		return this.imgWidth;
+		return location.getWidth();
 	}
 	
 	public int getImgHeight(){
-		return this.imgHeight;
+		return location.getHeight();
 	}
 	
 	public Rectangle getLocation(){
