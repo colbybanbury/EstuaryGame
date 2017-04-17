@@ -18,7 +18,7 @@ public class BoatController {
 	
 	public BoatController(){
 		this.board = new Board(400, 400, 150, 400);//adjust values for size of board and length of path
-		this.boat = new Boat(-1, 3, 6, 350, 200);//adjust values on acceleration, speedInc, and max speed
+		this.boat = new Boat(-1, 3, 7, 350, 200);//adjust values on acceleration, speedInc, and max speed
 		this.game = new Game();
 		this.curEstuary = board.getLapPath()[0];//starts at the first estuary
 		this.view = new View(400, 400);
@@ -39,6 +39,8 @@ public class BoatController {
 		game.decreaseTime();
 		curEstuary = board.getLapPath()[(boat.getXLoc()*board.getEstuaryCount())/board.getLapLength()];
 		//^finds current estuary. curEsutuary = (xLoc * estuaryCount)/lapLength)
+		boat.generateWake(curEstuary); //can return a boolean if it damages it if nessisary
+		
 		//TODO View.repaint() or whatever the view needs
 	}
 	

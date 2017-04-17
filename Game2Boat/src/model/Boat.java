@@ -21,6 +21,8 @@ public class Boat {
 	private int initX;	//the intitial x and y values on the board
 	private int initY;
 	
+	private int threshold = 5;
+	
 	public Boat(int accel, int sInc, int mSpeed, int initialX, int initialY){
 		this.acceleration = accel;
 		this.speedInc = sInc;
@@ -35,8 +37,13 @@ public class Boat {
 			speed = maxSpeed;
 	} 
 	
-	public void generateWake(){	//TODO needs implementation not sure how this will work
-		
+	public boolean generateWake(Estuary curEstuary){	
+		if(this.getSpeed() >= threshold){
+			//damage scales based on how much you are above the threshold
+			curEstuary.damage(this.getSpeed()- (threshold -1));
+			return true;
+		}
+		else{return false;}
 	}
 	
 	public void move(){	//should be called every tick
