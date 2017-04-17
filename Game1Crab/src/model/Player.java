@@ -3,20 +3,16 @@ package model;
 public class Player extends Mover{
 	final int jumpInc = 5; //this is how quickly the crab moves up after jumping
 	
-	public Player( int imgH, int imgW,int yL, int xL, int yV, int xV, int yA, Rectangle loc){
-		this.imgHeight = imgH;
-		this.imgWidth = imgW;
-		this.yLoc = yL;
-		this.xLoc = xL;
-		this.yVel = yV;
-		this.xVel = xV;
-		this.yAcc = yA;
-		this.location = loc;
+	public Player(Board b){ 
+		this.yVel = 0;
+		this.xVel = 0;
+		this.yAcc = -0.8;
+		this.location = new Rectangle((b.width / 10), (b.height / 2), 300, 300); // Rectangle(int x, int y, int width, int height)
 	}
 	
 	//when the jump button is pressed the crabs yVelocity is increased by a set amount
 	public void jump(){	
-		this.yVel += jumpInc;
+		this.yVel = jumpInc;
 	}
 	
 }
