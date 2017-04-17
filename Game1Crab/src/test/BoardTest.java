@@ -35,41 +35,41 @@ public class BoardTest {
 	}
 	
 	@Test
-	//TODO
+	//TODO: Replace values for different image heights/widths
 	public void checkCollisionTest2() { //Right edge of Player meets Left edge of Enemy
 		Board b1 = new Board(400, 800);
 		Player p1 = new Player(b1);
 		p1.setXLoc(50);
 		p1.setYLoc(50);
 		Enemy e1 = new Enemy(b1);
-		e1.setXLoc(?);
-		e1.setYLoc(?);
+		e1.setXLoc(350);
+		e1.setYLoc(50);
 		assertTrue(b1.checkCollision());
 	}
 	
 	@Test
-	//TODO
+	//TODO: Replace values for different image heights/widths
 	public void checkCollisionTest3() { //Bottom of Player meets Top of Enemy
 		Board b1 = new Board(400, 800);
 		Player p1 = new Player(b1);
 		p1.setXLoc(50);
-		p1.setYLoc(50);
+		p1.setYLoc(650);
 		Enemy e1 = new Enemy(b1);
-		e1.setXLoc(?);
-		e1.setYLoc(?);
+		e1.setXLoc(50);
+		e1.setYLoc(350);
 		assertTrue(b1.checkCollision());
 	}
 	
 	@Test
-	//TODO
+	//TODO: Replace values for different image heights/widths
 	public void checkCollisionTest4() { //Top of Player meets Bottom of Enemy
 		Board b1 = new Board(400, 800);
 		Player p1 = new Player(b1);
 		p1.setXLoc(50);
-		p1.setYLoc(50);
+		p1.setYLoc(350);
 		Enemy e1 = new Enemy(b1);
-		e1.setXLoc(?);
-		e1.setYLoc(?);
+		e1.setXLoc(50);
+		e1.setYLoc(350+e1.enemyHeight????????);
 		assertTrue(b1.checkCollision());
 	}
 	
@@ -79,7 +79,7 @@ public class BoardTest {
 		b1.drought();
 		//TODO
 		//Need getter for scent trail height
-		assertEquals(b1.getScentTrailHeight(), 133); //Height/3/2 results in truncation, so 133
+		assertEquals(b1.scentTrailHeight(), 133); //Height/3 results in truncation, so 133
 	}
 	
 	@Test
@@ -88,7 +88,7 @@ public class BoardTest {
 		b1.storm();
 		//TODO
 		//Need getter for wavyFactor
-		assertEquals(b1.getWavyFactor(), 10);
+		assertEquals(b1.wavyFactor(), 10);
 	}
 	
 	@Test
