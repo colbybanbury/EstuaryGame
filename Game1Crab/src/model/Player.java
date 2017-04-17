@@ -1,5 +1,7 @@
 package model;
 
+import java.awt.Rectangle;
+
 public class Player extends Mover{
 	final int jumpInc = 5; //this is how quickly the crab moves up after jumping
 	
@@ -14,5 +16,5 @@ public class Player extends Mover{
 	public void jump(){	
 		this.yVel = jumpInc;
 	}
-	
+
 }
