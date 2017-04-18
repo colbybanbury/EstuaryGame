@@ -39,4 +39,13 @@ public class BoatTest {
 		assertEquals(speed + xLoc, b1.getXLoc());
 		assertTrue((b1.getSpeed()== b1.getAcceleration() + speed) || (b1.getSpeed() == 0));
 	}
+	
+	@Test
+	public void updateCircleLocTest(){
+		Boat b1 = new Boat(accel, speedInc, mSpeed, initialX, initialY);
+		assertTrue(b1.getBoatCircleX() == initialX && b1.getBoatCircleY() == initialY);
+		b1.updateCircleLoc();
+		//TODO hard to test since it uses data from the controller
+	}
+	
 }

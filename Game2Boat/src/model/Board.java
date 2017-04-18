@@ -19,11 +19,11 @@ public class Board {
 	Estuary[] lapPath = new Estuary[estuaryCount];
 	
 	
-	public Board(int h, int w, int r, int lL){
+	public Board(int w, int h, int r, int lapL){
 		this.height = h;
 		this.width = w;
 		this.radius = r;
-		this.lapLength = lL;
+		this.lapLength = lapL;
 	}
 
 	public int getHeight() {

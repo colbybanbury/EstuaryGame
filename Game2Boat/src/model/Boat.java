@@ -29,12 +29,14 @@ public class Boat {
 		this.maxSpeed = mSpeed;
 		this.initX = initialX;
 		this.initY = initialY;
+		updateCircleLoc();
 	}
 	
 	public void throttle(){	//called when button is pressed
 		this.speed += speedInc;
 		if(speed > maxSpeed)
 			speed = maxSpeed;
+		System.out.println("boat was throttled");
 	} 
 	
 	public boolean generateWake(Estuary curEstuary){	
@@ -47,13 +49,22 @@ public class Boat {
 	}
 	
 	public void move(){	//should be called every tick
+		System.out.println("move called");
 		this.xLoc += speed;
-		this.theta = 2*Math.PI*(this.xLoc / BoatController.board.getLapLength());
+		updateCircleLoc();
+		this.speed += acceleration;
+		if(speed < 0){
+			speed = 0;
+		}
+	}
+	
+	public void updateCircleLoc(){
+		this.theta = (2*Math.PI*this.xLoc) / BoatController.board.getLapLength();
+		System.out.println((2*Math.PI*this.xLoc));
+		System.out.println("Theta: " + this.theta);
 		this.boatCircleX = initX + (int) (BoatController.board.getRadius() * Math.cos(theta));
 		this.boatCircleY = initY + (int) (BoatController.board.getRadius() * Math.sin(theta));
-		this.speed += acceleration;
-		if(speed < 0)
-			speed = 0;
+		System.out.println("in boat x: " + this.boatCircleX + ", y: " + this.boatCircleY);
 	}
 	
 	//getters. Currently no setters but can be added if needed for testing

@@ -10,26 +10,31 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 import controller.BoatController;
 
 public class View extends JPanel{
-	private int height;
-	private int width;
+	private int frameHeight;
+	private int frameWidth;
 	
-	private int boatHeight = 666;
-	private int boatWidth = 1300;
 	
-	public static JButton move = new JButton("move");
+	private int boatHeight = 34;
+	private int boatWidth = 65;
+	
+	public static JButton move = new JButton("");
 	
 	private BufferedImage backgroundImage;
 	private BufferedImage boatImage;
 	
 	
-	public View(int h, int w){
-		this.height = h;
-		this.width = w;
+	public View(int w, int h){
+		JFrame frame = new JFrame();
+		this.frameHeight = h;
+		this.frameWidth = w;
+		loadImages();
 		//makes a button that covers the whole screen and is invisible
 		move.setOpaque(false);
 		move.setContentAreaFilled(false);
@@ -38,15 +43,24 @@ public class View extends JPanel{
 		move.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				//when the mouse is clicked it calls buttonPress in the controller
+				System.out.println("button pressed");
 				BoatController.buttonPress();
 			}
 		});
+		
+		frame.add(move);
+		frame.getContentPane().add(this);
+		frame.setBackground(Color.BLUE);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(frameWidth, frameHeight);
+		frame.setVisible(true);
 		
 		//TODO
 	}
 	
 	public void paint(Graphics g){
 		g.drawImage(boatImage, BoatController.boat.getBoatCircleX(), BoatController.boat.getBoatCircleY(), this);
+		System.out.println("In View x: " + BoatController.boat.getBoatCircleX() + ", y: " + BoatController.boat.getBoatCircleY());
 		//TODO
 	}
 	

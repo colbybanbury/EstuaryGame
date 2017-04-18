@@ -1,6 +1,9 @@
 package controller;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.Timer;
 
 import model.Board;
 import model.Boat;
@@ -9,19 +12,29 @@ import model.Game;
 import view.View;
 
 public class BoatController {
+	final int HEIGHT = 1000;
+	final int WIDTH = 1500;
 	
 	public static Board board;
 	public static Boat boat;
 	public Game game;
 	public Estuary curEstuary;
 	public View view;
+	private Timer timer;
 	
 	public BoatController(){
-		this.board = new Board(400, 400, 150, 400);//adjust values for size of board and length of path
-		this.boat = new Boat(-1, 3, 7, 350, 200);//adjust values on acceleration, speedInc, and max speed
+		this.board = new Board(WIDTH, HEIGHT, 250, 400);//adjust values for size of board and length of path
+		this.boat = new Boat(-1, 3, 7, WIDTH/2, HEIGHT/2);//adjust values on acceleration, speedInc, and max speed
 		this.game = new Game();
 		this.curEstuary = board.getLapPath()[0];//starts at the first estuary
-		this.view = new View(400, 400);
+		this.view = new View(WIDTH, HEIGHT);
+		this.timer = new Timer(30, new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				onTick();
+			}
+		});
 	}
 	
 	public static void main(String[] args){
@@ -37,11 +50,12 @@ public class BoatController {
 			//game.increaseScore();
 		}
 		game.decreaseTime();
+		//TODO if time is up end game
 		curEstuary = board.getLapPath()[(boat.getXLoc()*board.getEstuaryCount())/board.getLapLength()];
 		//^finds current estuary. curEsutuary = (xLoc * estuaryCount)/lapLength)
-		boat.generateWake(curEstuary); //can return a boolean if it damages it if nessisary
-		
-		//TODO View.repaint() or whatever the view needs
+		boat.generateWake(curEstuary); //can return a boolean if it damages it if necessary
+		view.repaint();
+		//TODO whatever the view needs
 	}
 	
 	public void setUp(){
@@ -50,7 +64,8 @@ public class BoatController {
 	}
 	
 	public static void buttonPress(){
-		boat.move();
+		System.out.println("Controller knows button was pressed");
+		boat.throttle();
 	}
 
 }
