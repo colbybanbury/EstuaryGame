@@ -17,6 +17,8 @@ public class EstuaryTest {
 		Estuary e2 = new Estuary(1); // sea wall
 		Estuary e3 = new Estuary(2); // gabion
 		Estuary e4 = new Estuary(3); // error handling
+		assertEquals(e4.getDamage(), 0);
+		assertEquals(e4.getIntegrity(), 0);
 		assertEquals(e1.getDamage(), 0);
 		assertEquals(e2.getDamage(), 0);
 		assertEquals(e3.getDamage(), 0);
@@ -60,6 +62,6 @@ public class EstuaryTest {
 				}
 			}
 		}
-		
+		Estuary e1 = new Estuary(2);
 	}	
 }
