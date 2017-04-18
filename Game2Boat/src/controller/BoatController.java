@@ -27,7 +27,7 @@ public class BoatController {
 	
 	public BoatController(){
 		this.board = new Board(WIDTH, HEIGHT, RADIUS, LAPLENGTH);//adjust values for size of board and length of path
-		this.boat = new Boat(-3, 30, 100, WIDTH/2, HEIGHT/2);//adjust values on acceleration, speedInc, and max speed
+		this.boat = new Boat(-1.0, 30, 100, WIDTH/2, HEIGHT/2);//adjust values on acceleration, speedInc, and max speed
 		this.game = new Game();
 		this.curEstuary = board.getLapPath()[0];//starts at the first estuary
 		this.view = new View(WIDTH, HEIGHT);

@@ -78,6 +78,7 @@ public class View extends JPanel{
 	}
 	
 	public void paint(Graphics g){
+		g.drawImage(backgroundImage, 0, 0, this);
 		g.drawImage(op.filter(boatImage, null), (int) boatX, (int)boatY, this);
 		System.out.println("In View x: " + BoatController.boat.getBoatCircleX() + ", y: " + BoatController.boat.getBoatCircleY());
 		//TODO
@@ -90,6 +91,7 @@ public class View extends JPanel{
 	
 	public void loadImages(){
 		boatImage = createImage("images/boat.jpg");
+		backgroundImage = createImage("images/tempBackGround.jpg");
 		//TODO
 	}
 	

@@ -9,7 +9,7 @@ import controller.BoatController;
 public class Boat {
 	private int xLoc = 0;
 	private int speed;
-	private int acceleration; //always negative, essentially drag
+	private double acceleration; //always negative, essentially drag
 	private int speedInc; //How much speed is increased on button press
 	
 	private int maxSpeed; //changes based on the boat
@@ -23,7 +23,7 @@ public class Boat {
 	
 	private int threshold = 30;
 	
-	public Boat(int accel, int sInc, int mSpeed, int initialX, int initialY){
+	public Boat(double accel, int sInc, int mSpeed, int initialX, int initialY){
 		this.acceleration = accel;
 		this.speedInc = sInc;
 		this.maxSpeed = mSpeed;
@@ -53,7 +53,7 @@ public class Boat {
 		System.out.println("move called");
 		this.xLoc += speed;
 		updateCircleLoc();
-		this.speed += acceleration;
+		this.speed += (acceleration / 10)*speed;
 		if(speed < 0){
 			speed = 0;
 		}
@@ -72,7 +72,7 @@ public class Boat {
 	public int getXLoc(){return this.xLoc;}
 	public void setXLoc(int loc){this.xLoc = loc;}
 	public int getSpeed() {return this.speed;}
-	public int getAcceleration(){return this.acceleration;}
+	public double getAcceleration(){return this.acceleration;}
 	public int getMaxSpeed(){return this.maxSpeed;}
 
 	public double getBoatCircleX() {return boatCircleX;}
