@@ -59,7 +59,7 @@ public class Boat {
 		}
 	}
 	
-	public void updateCircleLoc(){
+	private void updateCircleLoc(){
 		this.theta = (2*Math.PI*this.xLoc) / BoatController.board.getLapLength();
 		System.out.println((2*Math.PI*this.xLoc));
 		System.out.println("Theta: " + this.theta);

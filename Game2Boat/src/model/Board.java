@@ -15,7 +15,7 @@ public class Board {
 	private int width;
 	private int radius;
 	private int lapLength;	//
-	final int estuaryCount = 10; //the number of estuary shore lines
+	final int estuaryCount = 20; //the number of estuary shore lines
 	Estuary[] lapPath = new Estuary[estuaryCount];
 	
 	

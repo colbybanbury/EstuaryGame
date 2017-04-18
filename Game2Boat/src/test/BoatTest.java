@@ -44,7 +44,7 @@ public class BoatTest {
 	public void updateCircleLocTest(){
 		Boat b1 = new Boat(accel, speedInc, mSpeed, initialX, initialY);
 		assertTrue(b1.getBoatCircleX() == initialX && b1.getBoatCircleY() == initialY);
-		b1.updateCircleLoc();
+		//b1.updateCircleLoc();
 		//TODO hard to test since it uses data from the controller
 	}
 	
