@@ -84,7 +84,7 @@ public class View extends JPanel{
 	}
 	
 	public void changeBoatAngle(){//rotates the boat image depending on the part of the circle it's on
-		AffineTransform tx = AffineTransform.getRotateInstance(boatAngle, boatHeight, boatWidth);
+		AffineTransform tx = AffineTransform.getRotateInstance(boatAngle, boatHeight/2, boatWidth/2);
 		op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
 	}
 	

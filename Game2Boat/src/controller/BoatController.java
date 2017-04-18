@@ -21,13 +21,13 @@ public class BoatController {
 	public static Estuary curEstuary;
 	public View view;
 	private Timer timer;
-	private final int LAPLENGTH = 1000;
+	private final int LAPLENGTH = 5000;
 	private final int RADIUS = 300;
 	
 	
 	public BoatController(){
 		this.board = new Board(WIDTH, HEIGHT, RADIUS, LAPLENGTH);//adjust values for size of board and length of path
-		this.boat = new Boat(-1, 10, 35, WIDTH/2, HEIGHT/2);//adjust values on acceleration, speedInc, and max speed
+		this.boat = new Boat(-3, 30, 100, WIDTH/2, HEIGHT/2);//adjust values on acceleration, speedInc, and max speed
 		this.game = new Game();
 		this.curEstuary = board.getLapPath()[0];//starts at the first estuary
 		this.view = new View(WIDTH, HEIGHT);
