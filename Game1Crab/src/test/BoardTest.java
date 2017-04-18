@@ -69,7 +69,7 @@ public class BoardTest {
 		p1.setYLoc(350);
 		Enemy e1 = new Enemy(b1);
 		e1.setXLoc(50);
-		e1.setYLoc(350+e1.enemyHeight????????);
+		e1.setYLoc(350+e1.getImgWidth());
 		assertTrue(b1.checkCollision());
 	}
 	

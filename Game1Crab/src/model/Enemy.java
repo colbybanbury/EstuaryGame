@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.Rectangle;
 import java.util.Random;
 
 public class Enemy extends Mover{
