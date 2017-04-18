@@ -1,5 +1,7 @@
 package model;
 
+import java.awt.Rectangle;
+
 public class Friend extends Mover{
 	
 	public Friend(Board b){ 

@@ -1,9 +1,10 @@
 package test;
 
 import static org.junit.Assert.*;
-import model.Board;
+
 import org.junit.Test;
 import model.Player;
+import model.Board;
 import model.Enemy;
 
 public class BoardTest {
@@ -77,18 +78,14 @@ public class BoardTest {
 	public void droughtTest(){
 		Board b1 = new Board(400, 800);
 		b1.drought();
-		//TODO
-		//Need getter for scent trail height
-		assertEquals(b1.scentTrailHeight(), 133); //Height/3 results in truncation, so 133
+		assertEquals(b1.scentTrailHeight, 133); //Height/3 results in truncation, so 133
 	}
 	
 	@Test
 	public void stormTest(){
 		Board b1 = new Board(400, 800);
 		b1.storm();
-		//TODO
-		//Need getter for wavyFactor
-		assertEquals(b1.wavyFactor(), 10);
+		assertEquals(b1.wavyFactor, 10);
 	}
 	
 	@Test
