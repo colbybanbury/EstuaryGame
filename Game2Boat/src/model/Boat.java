@@ -15,8 +15,8 @@ public class Boat {
 	private int maxSpeed; //changes based on the boat
 	
 	private double theta = 0.0;	//needed for circular representation in game
-	private int boatCircleX;
-	private int boatCircleY;
+	private double boatCircleX;
+	private double boatCircleY;
 	
 	private int initX;	//the intitial x and y values on the board
 	private int initY;
@@ -63,8 +63,8 @@ public class Boat {
 		this.theta = (2*Math.PI*this.xLoc) / BoatController.board.getLapLength();
 		System.out.println((2*Math.PI*this.xLoc));
 		System.out.println("Theta: " + this.theta);
-		this.boatCircleX = initX + (int) (BoatController.board.getRadius() * Math.cos(theta));
-		this.boatCircleY = initY + (int) (BoatController.board.getRadius() * Math.sin(theta));
+		this.boatCircleX = initX + (BoatController.board.getRadius() * Math.cos(theta));
+		this.boatCircleY = initY + (BoatController.board.getRadius() * Math.sin(theta));
 		System.out.println("in boat x: " + this.boatCircleX + ", y: " + this.boatCircleY);
 	}
 	
@@ -75,9 +75,9 @@ public class Boat {
 	public int getAcceleration(){return this.acceleration;}
 	public int getMaxSpeed(){return this.maxSpeed;}
 
-	public int getBoatCircleX() {return boatCircleX;}
-
-	public int getBoatCircleY() {return boatCircleY;}
+	public double getBoatCircleX() {return boatCircleX;}
+	public double getBoatCircleY() {return boatCircleY;}
+	public double getTheta(){return theta;}
 	
 	
 }

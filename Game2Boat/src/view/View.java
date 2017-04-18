@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +25,12 @@ public class View extends JPanel{
 	
 	private int boatHeight = 34;
 	private int boatWidth = 65;
+	
+	private double boatX;
+	private double boatY;
+	private double boatAngle;
+	
+	AffineTransformOp op;
 	
 	public static JButton move = new JButton("");
 	
@@ -60,13 +68,24 @@ public class View extends JPanel{
 	}
 	
 	public void animate(){
+		boatX = BoatController.boat.getBoatCircleX();
+		boatY = BoatController.boat.getBoatCircleY();
+		boatAngle = BoatController.boat.getTheta();
+		
+		changeBoatAngle();
+		
 		frame.repaint();
 	}
 	
 	public void paint(Graphics g){
-		g.drawImage(boatImage, BoatController.boat.getBoatCircleX(), BoatController.boat.getBoatCircleY(), this);
+		g.drawImage(op.filter(boatImage, null), (int) boatX, (int)boatY, this);
 		System.out.println("In View x: " + BoatController.boat.getBoatCircleX() + ", y: " + BoatController.boat.getBoatCircleY());
 		//TODO
+	}
+	
+	public void changeBoatAngle(){//rotates the boat image depending on the part of the circle it's on
+		AffineTransform tx = AffineTransform.getRotateInstance(boatAngle, boatHeight, boatWidth);
+		op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
 	}
 	
 	public void loadImages(){
