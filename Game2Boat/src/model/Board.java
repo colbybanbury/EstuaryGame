@@ -19,13 +19,13 @@ public class Board {
 	Estuary[] lapPath = new Estuary[estuaryCount];
 	
 	
-	public Board(int w, int h, int r, int lapL){
+	public Board(int w, int h){
 		this.height = h;
 		this.width = w;
-		this.radius = r;
-		this.lapLength = lapL;
+		this.radius = (w > h) ? 3 * h / 8 : 3 * w / 8;
+		this.lapLength = (int) (Math.PI * radius);
 		for(int i= 0; i<estuaryCount; i++){
-			lapPath[1] = new Estuary(2);
+			lapPath[i] = new Estuary(2);
 		}
 	}
 
