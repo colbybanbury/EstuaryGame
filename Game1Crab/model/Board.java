@@ -13,8 +13,8 @@ public class Board {
 	Player player = new Player(this);
 	List<Enemy> enemies = new ArrayList<Enemy>();
 	int scentTrailDiv = 50;  // number of rectangles that compose a scent trail
-	int wavyFactor = 5;
-	int scentTrailHeight = height / 3;
+	public int wavyFactor = 5;
+	public int scentTrailHeight = height / 3;
 	int waveDirection = 1; // 1 = up, -1 = down
 	List<Rectangle> scentTrail = new ArrayList<Rectangle>(scentTrailDiv);
 	int progress = 0;
