@@ -29,9 +29,10 @@ public class View extends JPanel{
 	private BufferedImage backgroundImage;
 	private BufferedImage boatImage;
 	
+	JFrame frame;
 	
 	public View(int w, int h){
-		JFrame frame = new JFrame();
+		frame = new JFrame();
 		this.frameHeight = h;
 		this.frameWidth = w;
 		loadImages();
@@ -56,6 +57,10 @@ public class View extends JPanel{
 		frame.setVisible(true);
 		
 		//TODO
+	}
+	
+	public void animate(){
+		frame.repaint();
 	}
 	
 	public void paint(Graphics g){

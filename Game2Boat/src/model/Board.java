@@ -24,6 +24,9 @@ public class Board {
 		this.width = w;
 		this.radius = r;
 		this.lapLength = lapL;
+		for(int i= 0; i<estuaryCount; i++){
+			lapPath[1] = new Estuary(2);
+		}
 	}
 
 	public int getHeight() {

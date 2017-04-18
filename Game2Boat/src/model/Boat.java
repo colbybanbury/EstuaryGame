@@ -21,7 +21,7 @@ public class Boat {
 	private int initX;	//the intitial x and y values on the board
 	private int initY;
 	
-	private int threshold = 5;
+	private int threshold = 30;
 	
 	public Boat(int accel, int sInc, int mSpeed, int initialX, int initialY){
 		this.acceleration = accel;
@@ -39,10 +39,11 @@ public class Boat {
 		System.out.println("boat was throttled");
 	} 
 	
-	public boolean generateWake(Estuary curEstuary){	
+	public boolean generateWake(){	//TODO throws a nullpointer but not sure why
 		if(this.getSpeed() >= threshold){
 			//damage scales based on how much you are above the threshold
-			curEstuary.damage(this.getSpeed()- (threshold -1));
+			System.out.println("Generate wake ///// NOT FINISHED");
+			//BoatController.curEstuary.damage(this.getSpeed()- (threshold -1));
 			return true;
 		}
 		else{return false;}

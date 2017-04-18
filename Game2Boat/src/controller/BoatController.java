@@ -18,23 +18,28 @@ public class BoatController {
 	public static Board board;
 	public static Boat boat;
 	public Game game;
-	public Estuary curEstuary;
+	public static Estuary curEstuary;
 	public View view;
 	private Timer timer;
+	private final int LAPLENGTH = 1000;
+	private final int RADIUS = 300;
+	
 	
 	public BoatController(){
-		this.board = new Board(WIDTH, HEIGHT, 250, 400);//adjust values for size of board and length of path
-		this.boat = new Boat(-1, 3, 7, WIDTH/2, HEIGHT/2);//adjust values on acceleration, speedInc, and max speed
+		this.board = new Board(WIDTH, HEIGHT, RADIUS, LAPLENGTH);//adjust values for size of board and length of path
+		this.boat = new Boat(-1, 10, 35, WIDTH/2, HEIGHT/2);//adjust values on acceleration, speedInc, and max speed
 		this.game = new Game();
 		this.curEstuary = board.getLapPath()[0];//starts at the first estuary
 		this.view = new View(WIDTH, HEIGHT);
-		this.timer = new Timer(30, new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				onTick();
+		
+		for (int i = 0; i < 1000; i++) {
+			onTick();
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
-		});
+		}
 	}
 	
 	public static void main(String[] args){
@@ -42,6 +47,7 @@ public class BoatController {
 	}
 	
 	public void onTick(){
+		System.out.println("onTick() ran");
 		boat.move();
 		if(boat.getXLoc()>= board.getLapLength()){
 			boat.setXLoc(0);
@@ -51,17 +57,14 @@ public class BoatController {
 		}
 		game.decreaseTime();
 		//TODO if time is up end game
+		System.out.println("currently on estuary # " +(boat.getXLoc()*board.getEstuaryCount())/board.getLapLength());
 		curEstuary = board.getLapPath()[(boat.getXLoc()*board.getEstuaryCount())/board.getLapLength()];
 		//^finds current estuary. curEsutuary = (xLoc * estuaryCount)/lapLength)
-		boat.generateWake(curEstuary); //can return a boolean if it damages it if necessary
-		view.repaint();
+		boat.generateWake(); //can return a boolean if it damages it if necessary
+		view.animate();
 		//TODO whatever the view needs
 	}
 	
-	public void setUp(){
-		
-		//TODO I'm sure there is more setup needed
-	}
 	
 	public static void buttonPress(){
 		System.out.println("Controller knows button was pressed");
