@@ -19,7 +19,10 @@ public class BoardTest {
 	@Test
 	//TODO
 	public void checkSalinityTest() {
-		//Setter needed to place player
+		Board b1 = new Board(400, 800);
+		Player p1 = new Player(b1);
+		p1.setXLoc(50);
+		p1.setYLoc(50);
 		//Setter needed to place rectangles?
 	}
 	
@@ -27,11 +30,11 @@ public class BoardTest {
 	public void checkCollisionTest1() { //Player same coords as Enemy
 		Board b1 = new Board(400, 800);
 		Player p1 = new Player(b1);
-		p1.setXLoc(50);
-		p1.setYLoc(50);
+		p1.setXLoc(350);
+		p1.setYLoc(350);
 		Enemy e1 = new Enemy(b1);
-		e1.setXLoc(50);
-		e1.setYLoc(50);
+		e1.setXLoc(350);
+		e1.setYLoc(350);
 		assertTrue(b1.checkCollision());
 	}
 	
@@ -41,10 +44,10 @@ public class BoardTest {
 		Board b1 = new Board(400, 800);
 		Player p1 = new Player(b1);
 		p1.setXLoc(50);
-		p1.setYLoc(50);
+		p1.setYLoc(350);
 		Enemy e1 = new Enemy(b1);
 		e1.setXLoc(350);
-		e1.setYLoc(50);
+		e1.setYLoc(350);
 		assertTrue(b1.checkCollision());
 	}
 	
@@ -70,7 +73,7 @@ public class BoardTest {
 		p1.setYLoc(350);
 		Enemy e1 = new Enemy(b1);
 		e1.setXLoc(50);
-		e1.setYLoc(350+e1.getImgWidth());
+		e1.setYLoc(350+e1.getImgHeight());
 		assertTrue(b1.checkCollision());
 	}
 	
