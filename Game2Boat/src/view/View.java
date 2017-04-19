@@ -17,14 +17,11 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import controller.BoatController;
+import model.Estuary;
 
 public class View extends JPanel{
 	private int frameHeight;
 	private int frameWidth;
-	
-	
-	private int boatHeight = 34;
-	private int boatWidth = 65;
 	
 	private double boatX;
 	private double boatY;
@@ -36,6 +33,9 @@ public class View extends JPanel{
 	
 	private BufferedImage backgroundImage;
 	private BufferedImage boatImage;
+	private BufferedImage estuary;
+	private BufferedImage seaWall;
+	private BufferedImage gabion;
 	
 	JFrame frame;
 	
@@ -80,18 +80,37 @@ public class View extends JPanel{
 	public void paint(Graphics g){
 		g.drawImage(backgroundImage, 0, 0, this);
 		g.drawImage(op.filter(boatImage, null), (int) boatX, (int)boatY, this);
+		for(Estuary e : BoatController.board.getLapPath()){
+			if(e.getType()!=3){
+				g.drawImage(estuary, e.getCircleX(), e.getCircleY(), this);
+				switch(e.getType()){//draws the protection type on top of the estuary centered
+				case 0://TODO no protection add change based on damage
+					//g.drawImage(image, e.getCircleX(), e.getCircleY(), this);
+					break;
+				case 1://sea wall
+					g.drawImage(seaWall, e.getCircleX() + (estuary.getWidth()/2 - seaWall.getWidth()/2), e.getCircleY() + (estuary.getHeight()/2 - seaWall.getHeight()/3), this);
+					break;
+				case 2://Gabion
+					g.drawImage(gabion, e.getCircleX() + (estuary.getWidth()/2 - seaWall.getWidth()/2), e.getCircleY() + (estuary.getHeight()/2 - seaWall.getHeight()/3), this);
+					break;
+				}
+			}
+		}
 		System.out.println("In View x: " + BoatController.boat.getBoatCircleX() + ", y: " + BoatController.boat.getBoatCircleY());
 		//TODO
 	}
 	
 	private void changeBoatAngle(){//rotates the boat image depending on the part of the circle it's on
-		AffineTransform tx = AffineTransform.getRotateInstance(boatAngle, boatHeight/2, boatWidth/2);
+		AffineTransform tx = AffineTransform.getRotateInstance(boatAngle, boatImage.getHeight()/2, boatImage.getWidth()/2);
 		op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
 	}
 	
 	private void loadImages(){
 		boatImage = createImage("images/boat.jpg");
 		backgroundImage = createImage("images/tempBackGround.jpg");
+		estuary = createImage("images/grass_tile.jpg");
+		seaWall = createImage("images/box.png");
+		gabion = createImage("images/bucket.png");
 		//TODO
 	}
 	

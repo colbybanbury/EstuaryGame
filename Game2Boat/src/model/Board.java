@@ -18,15 +18,25 @@ public class Board {
 	final int estuaryCount = 20; //the number of estuary shore lines
 	Estuary[] lapPath = new Estuary[estuaryCount];
 	
-	
 	public Board(int w, int h, int lapL, int r){
 		this.height = h;
 		this.width = w;
 		this.radius = r;
 		this.lapLength = lapL;
-		for(int i= 0; i<estuaryCount; i++){
-			lapPath[i] = new Estuary(2);
+		for(int i= 0; i<estuaryCount/3; i++){
+			double tempTheta = (2*Math.PI*i) / estuaryCount;
+			double tempX =   width/2 + (radius+65) * Math.cos(tempTheta);
+			double tempY = height/2 + (radius+65) * Math.sin(tempTheta);
+			lapPath[i] = new Estuary(0, (int)tempX, (int)tempY);
 		}
+		for(int i= estuaryCount/3; i<estuaryCount; i++){
+			double tempTheta = (2*Math.PI*i) / estuaryCount;
+			double tempX =   width/2 + (radius+100) * Math.cos(tempTheta);
+			double tempY = height/2 + (radius+100) * Math.sin(tempTheta);
+			lapPath[i] = new Estuary(2, (int)tempX, (int)tempY);
+		}
+		
+		
 	}
 
 	public int getHeight() {
