@@ -43,7 +43,7 @@ public abstract class Mover implements Movable{
 	
 	public void update(){
 		this.yVel += yAcc;
-		location.setLocation(new Point((int) (location.getX() + xVel), (int) (location.getY() + yVel)));
+		location.setLocation((int) (location.getX() + xVel), (int) (location.getY() + yVel));
 	}
 	
 	public int getImgWidth(){
