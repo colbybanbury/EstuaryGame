@@ -23,10 +23,6 @@ public class View extends JPanel{
 	private int frameHeight;
 	private int frameWidth;
 	
-	
-	private int boatHeight = 34;
-	private int boatWidth = 65;
-	
 	private double boatX;
 	private double boatY;
 	private double boatAngle;
@@ -87,15 +83,15 @@ public class View extends JPanel{
 		for(Estuary e : BoatController.board.getLapPath()){
 			if(e.getType()!=3){
 				g.drawImage(estuary, e.getCircleX(), e.getCircleY(), this);
-				switch(e.getType()){
+				switch(e.getType()){//draws the protection type on top of the estuary centered
 				case 0://TODO no protection add change based on damage
 					//g.drawImage(image, e.getCircleX(), e.getCircleY(), this);
 					break;
 				case 1://sea wall
-					g.drawImage(seaWall, e.getCircleX(), e.getCircleY(), this);
+					g.drawImage(seaWall, e.getCircleX() + (estuary.getWidth()/2 - seaWall.getWidth()/2), e.getCircleY() + (estuary.getHeight()/2 - seaWall.getHeight()/3), this);
 					break;
 				case 2://Gabion
-					g.drawImage(gabion, e.getCircleX(), e.getCircleY(), this);
+					g.drawImage(gabion, e.getCircleX() + (estuary.getWidth()/2 - seaWall.getWidth()/2), e.getCircleY() + (estuary.getHeight()/2 - seaWall.getHeight()/3), this);
 					break;
 				}
 			}
@@ -105,7 +101,7 @@ public class View extends JPanel{
 	}
 	
 	private void changeBoatAngle(){//rotates the boat image depending on the part of the circle it's on
-		AffineTransform tx = AffineTransform.getRotateInstance(boatAngle, boatHeight/2, boatWidth/2);
+		AffineTransform tx = AffineTransform.getRotateInstance(boatAngle, boatImage.getHeight()/2, boatImage.getWidth()/2);
 		op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
 	}
 	
