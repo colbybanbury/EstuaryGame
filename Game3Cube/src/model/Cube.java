@@ -18,11 +18,12 @@ public class Cube {
 		this.board = b;
 		location = new Rectangle(rand.nextInt(board.getWidth() - sideLength),
 								rand.nextInt(board.getHeight() - sideLength),
-										sideLength,sideLength);
+								sideLength,sideLength);
 	}
 	public void roll(){
 		picNum = rand.nextInt(6);
-		location.setLocation(rand.nextInt(board.getWidth()), rand.nextInt(board.getHeight()));
+		location.setLocation(rand.nextInt(board.getWidth() - sideLength),
+							rand.nextInt(board.getHeight()) - sideLength);
 	}
 	public int getPicNum(){
 		return picNum;

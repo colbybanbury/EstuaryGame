@@ -20,16 +20,18 @@ public class Boat {
 	private double boatCircleX;
 	private double boatCircleY;
 	
-	private int initX;	//the initial x and y values on the board
-	private int initY;
+	private int centerX;	//center of the board, boat rotates around
+	private int centerY;
 	
 	private int threshold = 30;
 	private Board board;
 	
 	public Boat(Board board){
 		this.board = board;
-		this.initX = board.getWidth() / 2;
-		this.initY = board.getHeight()/2;
+
+		this.centerX = board.getWidth() / 2;
+		this.centerY = board.getHeight() / 2;
+
 		updateCircleLoc();
 	}
 	
@@ -40,8 +42,9 @@ public class Boat {
 		System.out.println("boat was throttled");
 	} 
 	
-	public boolean generateWake(){	//TODO throws a nullpointer but not sure why
-		System.out.println("Generate wake ///// NOT FINISHED");
+	public boolean generateWake(){
+		if (this.getSpeed() >= threshold)
+			System.out.println("Generate wake ///// NOT FINISHED");
 		return this.getSpeed() >= threshold;
 			//damage scales based on how much you are above the threshold
 			//BoatController.curEstuary.damage(this.getSpeed()- (threshold -1));
@@ -61,8 +64,8 @@ public class Boat {
 		this.theta = (2*Math.PI*this.xLoc) / board.getLapLength();
 		System.out.println((2*Math.PI*this.xLoc));
 		System.out.println("Theta: " + this.theta);
-		this.boatCircleX = initX + (board.getRadius() * Math.cos(theta));
-		this.boatCircleY = initY + (board.getRadius() * Math.sin(theta));
+		this.boatCircleX = centerX + (board.getRadius() * Math.cos(theta));
+		this.boatCircleY = centerY + (board.getRadius() * Math.sin(theta));
 		System.out.println("in boat x: " + this.boatCircleX + ", y: " + this.boatCircleY);
 	}
 	
@@ -72,7 +75,7 @@ public class Boat {
 	public int getSpeed() {return this.speed;}
 	public int getSpeedInc() {return this.speedInc;}
 	public double getAcceleration(){return this.acceleration;}
-	public int getMaxSpeed(){return this.maxSpeed;}
+	public int getMaxSpeed(){return 0;}
 
 	public double getBoatCircleX() {return boatCircleX;}
 	public double getBoatCircleY() {return boatCircleY;}

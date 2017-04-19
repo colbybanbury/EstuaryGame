@@ -5,11 +5,12 @@ import java.util.List;
 
 public class Board {
 	int width, height;
-	List<Cube> cubes = new ArrayList<Cube>(9);
+	final int NUM_CUBES = 6;
+	List<Cube> cubes = new ArrayList<Cube>(NUM_CUBES);
 	public Board(int w, int h){
 		this.width = w;
 		this.height = h;
-		for (int i = 0; i < 9; i++){
+		for (int i = 0; i < NUM_CUBES; i++){
 			cubes.add(new Cube(i, this));
 		}
 	}

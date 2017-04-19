@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import model.Board;
 import model.Boat;
+
 import org.junit.Test;
 
 public class BoatTest {
@@ -12,7 +13,8 @@ public class BoatTest {
 	int xLoc, speed;
 	@Test
 	public void throttleTest() {
-		Boat b1 = new Boat(b);
+		Boat b1 = new 
+				Boat(b);
 		for (int i = 0; i < 8; i++){
 			speed = b1.getSpeed();
 			b1.throttle();
