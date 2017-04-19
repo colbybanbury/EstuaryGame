@@ -95,7 +95,7 @@ public class View extends JPanel{
 		//TODO
 	}
 	
-	private BufferedImage createImage(String file) {
+	private BufferedImage createImage(String file){
 		BufferedImage bufferedImage;
 		try {
 			bufferedImage = ImageIO.read(new File(file));

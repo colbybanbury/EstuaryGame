@@ -15,31 +15,31 @@ public class BoardTest {
 	
 	@Test
 	public void Boardtest() {
-		Board b = new Board(height, width);
+		Board b = new Board(height, width, lapLength, radius);
 		assertTrue(b instanceof Board);
 	}
 	
 	@Test
 	public void getLapLengthtest() {
-		Board b = new Board(height, width);
+		Board b = new Board(height, width, lapLength, radius);
 		assertEquals(b.getLapLength(), lapLength);
 	}
 	
 	@Test
 	public void getLapPathTest(){
-		Board b = new Board(height, width);
+		Board b = new Board(height, width, lapLength, radius);
 		assertTrue(b.getLapPath() instanceof Estuary[]);
 	}
 	
 	@Test
 	public void getHeighttest() {
-		Board b = new Board(height, width);
+		Board b = new Board(height, width, lapLength, radius);
 		assertEquals(b.getHeight(), height);
 	}
 	
 	@Test
 	public void getWidthTest(){
-		Board b = new Board(height, width);
+		Board b = new Board(height, width, lapLength, radius);
 		assertEquals(b.getWidth(), width);
 	}
 	

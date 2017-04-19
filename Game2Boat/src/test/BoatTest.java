@@ -4,18 +4,17 @@ import static org.junit.Assert.*;
 
 import model.Board;
 import model.Boat;
-import model.Sailboat;
-import model.Speedboat;
 
 import org.junit.Test;
 
 public class BoatTest {
 
-	Board b = new Board(500,500);
+	Board b = new Board(500,500, 300, 100);
 	int xLoc, speed;
 	@Test
 	public void throttleTest() {
-		Boat b1 = new Speedboat(b);
+		Boat b1 = new 
+				Boat(b);
 		for (int i = 0; i < 8; i++){
 			speed = b1.getSpeed();
 			b1.throttle();
@@ -27,7 +26,7 @@ public class BoatTest {
 	}
 	@Test
 	public void moveTest(){
-		Boat b1 = new Sailboat(b);
+		Boat b1 = new Boat(b);
 		xLoc = b1.getXLoc();
 		speed = b1.getSpeed();
 		System.out.println("xLoc: " + xLoc + " speed: " + speed);
