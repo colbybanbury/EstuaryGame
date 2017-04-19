@@ -76,7 +76,7 @@ public class View extends JPanel{
 	}
 	
 	private void loadImages(){
-		crabImage = createImage("images/crab.jpg");
+		crabImage = createImage("images/bluecrab_0.png");
 		backgroundImage = createImage("images/tempBackGround.jpg");
 		//TODO
 	}
