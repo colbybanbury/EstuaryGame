@@ -19,7 +19,7 @@ public class BoatTest {
 			speed = b1.getSpeed();
 			b1.throttle();
 			System.out.println("xLoc: " + b1.getXLoc() + " Speed: " + b1.getSpeed() 
-								+ " Accel: " + b1.getAcceleration());
+								+ " drag: " + b1.getDrag());
 			assertTrue(b1.getSpeed() == speed + b1.getSpeedInc() || b1.getSpeed() == b1.getMaxSpeed());
 			assertTrue(b1.getSpeed() <= b1.getMaxSpeed());
 		}
@@ -43,7 +43,7 @@ public class BoatTest {
 		b1.move();
 		System.out.println("xLoc: " + xLoc + " speed: " + speed);
 		assertEquals(speed + xLoc, b1.getXLoc());
-		assertTrue(b1.getSpeed()== b1.getAcceleration() + speed);
+		assertTrue(b1.getSpeed()== speed - b1.getDrag());
 	}
 	@Test
 	public void wakeTest(){
