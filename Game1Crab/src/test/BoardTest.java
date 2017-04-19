@@ -19,7 +19,7 @@ public class BoardTest {
 	@Test
 	//TODO
 	public void checkSalinityTest() {
-		Board b1 = new Board(400, 800);
+		Board b1 = new Board(1000, 1200);
 		Player p1 = new Player(b1);
 		p1.setXLoc(50);
 		p1.setYLoc(50);
@@ -28,7 +28,7 @@ public class BoardTest {
 	
 	@Test
 	public void checkCollisionTest1() { //Player same coords as Enemy
-		Board b1 = new Board(400, 800);
+		Board b1 = new Board(1000, 1200);
 		Player p1 = new Player(b1);
 		p1.setXLoc(350);
 		p1.setYLoc(350);
@@ -41,7 +41,7 @@ public class BoardTest {
 	@Test
 	//TODO: Replace values for different image heights/widths
 	public void checkCollisionTest2() { //Right edge of Player meets Left edge of Enemy
-		Board b1 = new Board(1000, 1000);
+		Board b1 = new Board(1000, 1200);
 		Player p1 = new Player(b1);
 		Enemy e1 = new Enemy(b1);
 		p1.setXLoc(50);
@@ -54,7 +54,7 @@ public class BoardTest {
 	@Test
 	//TODO: Replace values for different image heights/widths
 	public void checkCollisionTest3() { //Bottom of Player meets Top of Enemy
-		Board b1 = new Board(1000, 1000);
+		Board b1 = new Board(1000, 1200);
 		Player p1 = new Player(b1);
 		Enemy e1 = new Enemy(b1);
 		p1.setXLoc(50);
@@ -66,7 +66,7 @@ public class BoardTest {
 	
 	@Test
 	public void checkCollisionTest4() { //Top of Player meets Bottom of Enemy
-		Board b1 = new Board(1000, 1000);
+		Board b1 = new Board(1000, 1200);
 		Player p1 = new Player(b1);
 		Enemy e1 = new Enemy(b1);
 		p1.setXLoc(50);
@@ -78,14 +78,14 @@ public class BoardTest {
 	
 	@Test
 	public void droughtTest(){
-		Board b1 = new Board(1000, 1000);
+		Board b1 = new Board(1000, 1200);
 		b1.drought();
 		assertEquals(b1.scentTrailHeight, 133); //Height/3 results in truncation, so 133
 	}
 	
 	@Test
 	public void stormTest(){
-		Board b1 = new Board(400, 800);
+		Board b1 = new Board(1000, 1200);
 		b1.storm();
 		assertEquals(b1.wavyFactor, 10);
 	}
