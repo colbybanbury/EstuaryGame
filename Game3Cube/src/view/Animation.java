@@ -27,6 +27,7 @@ public class Animation extends JPanel{
 	int numFrame;
 	BufferedImage[] pics;
     BufferedImage all_imgs[][]=new BufferedImage[5][10];
+    private BufferedImage backgroundImage;
     static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	final static int frameWidth=(int) screenSize.getWidth();
 	final static int frameHeight=(int) screenSize.getHeight();
@@ -38,6 +39,7 @@ public class Animation extends JPanel{
 	
 	public void paint(Graphics g){
 		Random rand = new Random();
+		g.drawImage(backgroundImage, 0, 0, this);
 		for(int i=0;i<board.getNumCubes();i++){
 			Rectangle rTemp=board.getCubes().get(i).getLocation();
 			g.drawRect((int)rTemp.getX(),(int)rTemp.getY(),(int)rTemp.getWidth(),(int)rTemp.getHeight());
@@ -70,6 +72,7 @@ public class Animation extends JPanel{
         	for(int i = 0; i < frameCount; i++)
         		all_imgs[j][i] = img.getSubimage(imgWidth[j]*i, 0, imgWidth[j], imgHeight[j]);
     	}
+    	backgroundImage = createImage("images/tempBackGround.jpg");
 	}
 	
 	public void paintBoard(){
