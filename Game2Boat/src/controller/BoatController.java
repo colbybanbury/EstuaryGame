@@ -12,8 +12,8 @@ import model.Game;
 import view.View;
 
 public class BoatController {
-	final int HEIGHT = 1000;
-	final int WIDTH = 1500;
+	final int HEIGHT = 900;
+	final int WIDTH = 1000;
 	
 	public static Board board;
 	public static Boat boat;

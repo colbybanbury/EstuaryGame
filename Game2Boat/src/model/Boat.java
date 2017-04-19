@@ -11,10 +11,10 @@ import controller.BoatController;
 public class Boat {
 	private int xLoc = 0;
 	private int speed = 0;
-	private double acceleration = -1.0; //always negative, essentially drag
-	private int speedInc = 1; //How much speed is increased on button press
+	private double acceleration = -0.01; //always negative, essentially drag
+	private int speedInc = 10; //How much speed is increased on button press
 	
-	private int maxSpeed = 4; //changes based on the boat
+	private int maxSpeed = 50; //changes based on the boat
 	
 	private double theta = 0.0;	//needed for circular representation in game
 	private double boatCircleX;
@@ -28,8 +28,8 @@ public class Boat {
 	
 	public Boat(Board board){
 		this.board = board;
-		this.initX = board.getWidth() / 2 + board.getRadius();
-		this.initY = board.getHeight();
+		this.initX = board.getWidth() / 2;
+		this.initY = board.getHeight()/2;
 		updateCircleLoc();
 	}
 	
@@ -51,7 +51,7 @@ public class Boat {
 		System.out.println("move called");
 		this.xLoc += speed;
 		updateCircleLoc();
-		this.speed += (acceleration / 10)*speed;
+		this.speed += acceleration *speed*speed;
 		if(speed < 0){
 			speed = 0;
 		}
