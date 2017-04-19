@@ -2,6 +2,8 @@ package model;
 import java.awt.Point;
 import java.awt.Rectangle;
 
+import model.Board;
+
 public abstract class Mover implements Movable{
 	public double yVel;
 	public double xVel;
@@ -9,6 +11,8 @@ public abstract class Mover implements Movable{
 	public double yAcc_down;
 
 	public Rectangle location;
+		
+	public Board board;
 
 	public void setYLoc(int yLoc){
 		location.setLocation(new Point((int) location.getX(), yLoc));
@@ -52,7 +56,16 @@ public abstract class Mover implements Movable{
 		}else{
 			this.yVel += yAcc_up;
 		}
-		location.setLocation((int) (location.getX() + xVel), (int) (location.getY() + yVel));
+		if (location.getY() + location.getHeight() >= this.board.height - location.getHeight()){
+			if (yVel <= 0){
+				location.setLocation((int) (location.getX() + xVel), (int) (location.getY() + yVel));
+			}else{
+				yVel = 0;
+				location.setLocation((int) (location.getX() + xVel), (int) (board.height - location.getHeight()));
+			}
+		}else{
+			location.setLocation((int) (location.getX() + xVel), (int) (location.getY() + yVel));
+		}
 	}
 	
 	public int getImgWidth(){

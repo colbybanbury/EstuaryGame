@@ -26,8 +26,8 @@ public class View extends JPanel{
 	private double crabX;
 	private double crabY;
 	
-	private int crabHeight = 40;
-	private int crabWidth = 81;
+	private int crabHeight = 42;
+	private int crabWidth = 85;
 	
 	public static JButton jump = new JButton("");
 	
