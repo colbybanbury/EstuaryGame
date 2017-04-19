@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import model.Board;
 import model.Boat;
+import model.Estuary;
 
 import org.junit.Test;
 
@@ -54,10 +55,10 @@ public class BoatTest {
 			b1.throttle();
 			System.out.println(b1.getSpeed());
 			if (b1.getSpeed() > threshold){
-				assertTrue(b1.generateWake());
+				assertTrue(b1.generateWake(new Estuary(0,0,0)));
 			}
 			else {
-				assertFalse(b1.generateWake());
+				assertFalse(b1.generateWake(new Estuary(0,0,0)));
 			}
 		}
 	}

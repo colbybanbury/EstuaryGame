@@ -42,12 +42,12 @@ public class Boat {
 		System.out.println("boat was throttled");
 	} 
 	
-	public boolean generateWake(){
+	public boolean generateWake(Estuary curEstuary){
 		System.out.println(this.getSpeed() + " >= ?" + threshold);
 		if (this.getSpeed() >= threshold){
 			System.out.println("generated Wake");
 			//damage scales based on how much you are above the threshold
-			BoatController.curEstuary.damage(this.getSpeed()- (threshold -1));
+			curEstuary.damage(this.getSpeed()- (threshold -1));
 			return true;
 		}
 		return false;

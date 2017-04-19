@@ -65,7 +65,7 @@ public class BoatController {
 		System.out.println("currently on estuary # " +(boat.getXLoc()*board.getEstuaryCount())/board.getLapLength());
 		curEstuary = board.getLapPath()[(boat.getXLoc()*board.getEstuaryCount())/board.getLapLength()];
 		//^finds current estuary. curEsutuary = (xLoc * estuaryCount)/lapLength)
-		boat.generateWake(); //can return a boolean if it damages it if necessary
+		boat.generateWake(curEstuary); //can return a boolean if it damages it if necessary
 		view.animate();
 		//TODO whatever the view needs
 	}
