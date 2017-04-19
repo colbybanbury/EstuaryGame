@@ -43,11 +43,13 @@ public class Boat {
 	} 
 	
 	public boolean generateWake(){
-		if (this.getSpeed() >= threshold)
-			System.out.println("Generate wake ///// NOT FINISHED");
-		return this.getSpeed() >= threshold;
+		if (this.getSpeed() >= threshold){
+			System.out.println("generated Wake");
 			//damage scales based on how much you are above the threshold
-			//BoatController.curEstuary.damage(this.getSpeed()- (threshold -1));
+			BoatController.curEstuary.damage(this.getSpeed()- (threshold -1));
+			return true;
+		}
+		return false;
 	}
 	
 	public void move(){	//should be called every tick
