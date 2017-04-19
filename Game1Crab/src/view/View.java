@@ -19,7 +19,7 @@ import javax.swing.Timer;
 
 import controller.CrabController;
 
-public class View {
+public class View extends JPanel{
 	private int frameHeight;
 	private int frameWidth;	
 	
@@ -55,7 +55,7 @@ public class View {
 		});	
 		
 		frame.add(jump);
-		frame.getContentPane().add(frame, this);
+		frame.getContentPane().add(this);
 		frame.setBackground(Color.BLUE);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(frameWidth, frameHeight);
@@ -70,8 +70,8 @@ public class View {
 	}
 	
 	public void paint(Graphics g){
-		g.drawImage(backgroundImage, 0, 0, (ImageObserver) this);
-		g.drawImage(crabImage, (int) crabX, (int) crabY, (ImageObserver) this);
+		g.drawImage(backgroundImage, 0, 0, this);
+		g.drawImage(crabImage, (int) crabX, (int) crabY, this);
 		//TODO
 	}
 	
