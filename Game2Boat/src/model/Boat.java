@@ -11,10 +11,10 @@ import controller.BoatController;
 public class Boat {
 	private int xLoc = 0;
 	private int speed = 0;
-	private double acceleration = -0.01; //always negative, essentially drag
-	private int speedInc = 10; //How much speed is increased on button press
+	private double acceleration = -0.002; //always negative, essentially drag
+	private int speedInc = 50; //How much speed is increased on button press
 	
-	private int maxSpeed = 50; //changes based on the boat
+	private int maxSpeed = 300; //changes based on the boat
 	
 	private double theta = 0.0;	//needed for circular representation in game
 	private double boatCircleX;

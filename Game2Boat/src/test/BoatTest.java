@@ -8,7 +8,7 @@ import org.junit.Test;
 
 public class BoatTest {
 
-	Board b = new Board(500,500);
+	Board b = new Board(500,500, 300, 100);
 	int xLoc, speed;
 	@Test
 	public void throttleTest() {
