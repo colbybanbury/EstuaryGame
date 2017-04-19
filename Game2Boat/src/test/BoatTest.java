@@ -45,6 +45,22 @@ public class BoatTest {
 		assertEquals(speed + xLoc, b1.getXLoc());
 		assertTrue(b1.getSpeed()== b1.getAcceleration() + speed);
 	}
+	@Test
+	public void wakeTest(){
+		Boat b1 = new Boat(b);
+		int threshold = b1.getThreshold();
+		int speedInc = b1.getSpeedInc();
+		for (int i=0; i < 8; i++){
+			b1.throttle();
+			System.out.println(b1.getSpeed());
+			if (b1.getSpeed() > threshold){
+				assertTrue(b1.generateWake());
+			}
+			else {
+				assertFalse(b1.generateWake());
+			}
+		}
+	}
 	/*
 	@Test
 	public void updateCircleLocTest(){
