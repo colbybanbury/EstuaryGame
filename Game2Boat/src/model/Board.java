@@ -25,7 +25,7 @@ public class Board {
 		this.radius = r;
 		this.lapLength = lapL;
 		for(int i= 0; i<estuaryCount; i++){
-			lapPath[i] = new Estuary(2);
+			lapPath[i] = new Estuary(2, 0, 0);//TODO needs to give the estuarys x and ys
 		}
 	}
 
