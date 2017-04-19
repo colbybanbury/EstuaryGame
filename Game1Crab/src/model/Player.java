@@ -13,7 +13,7 @@ public class Player extends Mover{
 	
 	//when the jump button is pressed the crabs yVelocity is increased by a set amount
 	public void jump(){	
-		yVel = 5;
+		yVel = 20;
 	}
 
 }
