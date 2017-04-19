@@ -7,7 +7,7 @@ public abstract class Mover implements Movable{
 	public double xVel;
 	public double yAcc;
 
-	Rectangle location;
+	public Rectangle location;
 
 	public void setYLoc(int yLoc){
 		location.setLocation(new Point((int) location.getX(), yLoc));
