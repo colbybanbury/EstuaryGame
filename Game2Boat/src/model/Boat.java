@@ -28,8 +28,10 @@ public abstract class Boat {
 	
 	public Boat(Board board){
 		this.board = board;
+
 		this.centerX = board.getWidth() / 2;
 		this.centerY = board.getHeight() / 2;
+
 		updateCircleLoc();
 	}
 	
@@ -52,7 +54,7 @@ public abstract class Boat {
 		System.out.println("move called");
 		this.xLoc += speed;
 		updateCircleLoc();
-		this.speed += (acceleration / 10)*speed;
+		this.speed += acceleration *speed*speed;
 		if(speed < 0){
 			speed = 0;
 		}
