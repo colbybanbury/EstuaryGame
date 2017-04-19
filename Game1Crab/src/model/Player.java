@@ -8,12 +8,13 @@ public class Player extends Mover{
 		this.yVel = 0;
 		this.xVel = 0;
 		this.location = new Rectangle((b.width / 10), (b.height / 4), 243, 119); // Rectangle(int x, int y, int width, int height)
-		this.yAcc = 2.1;
+		this.yAcc_down = 1.6;
+		this.yAcc_up = 2.5;
 	}
 	
 	//when the jump button is pressed the crabs yVelocity is increased by a set amount
 	public void jump(){	
-		yVel = -24;
+		yVel = -29;
 	}
 
 }

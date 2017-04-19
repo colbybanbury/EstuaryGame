@@ -5,7 +5,8 @@ import java.awt.Rectangle;
 public abstract class Mover implements Movable{
 	public double yVel;
 	public double xVel;
-	public double yAcc;
+	public double yAcc_up;
+	public double yAcc_down;
 
 	public Rectangle location;
 
@@ -37,12 +38,20 @@ public abstract class Mover implements Movable{
 		return this.xVel;
 	}
 	
-	public double getYAcc(){
-		return this.yAcc;
+	public double getYAcc_up(){
+		return this.yAcc_up;
+	}
+	
+	public double getYAcc_down(){
+		return this.yAcc_down;
 	}
 	
 	public void update(){
-		this.yVel += yAcc;
+		if (yVel > 0){
+			this.yVel += yAcc_down;
+		}else{
+			this.yVel += yAcc_up;
+		}
 		location.setLocation((int) (location.getX() + xVel), (int) (location.getY() + yVel));
 	}
 	
