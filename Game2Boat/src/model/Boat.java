@@ -23,7 +23,7 @@ public class Boat {
 	private int centerX;	//center of the board, boat rotates around
 	private int centerY;
 	
-	private int threshold = 3*speedInc;
+	private int threshold = 2*speedInc;
 	private Board board;
 	
 	public Boat(Board board){
@@ -43,6 +43,7 @@ public class Boat {
 	} 
 	
 	public boolean generateWake(){
+		System.out.println(this.getSpeed() + " >= ?" + threshold);
 		if (this.getSpeed() >= threshold){
 			System.out.println("generated Wake");
 			//damage scales based on how much you are above the threshold
