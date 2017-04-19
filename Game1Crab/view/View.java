@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 
@@ -24,6 +25,9 @@ public class View {
 	
 	private double crabX;
 	private double crabY;
+	
+	private int crabHeight = 119;
+	private int crabWidth = 243;
 	
 	public static JButton jump = new JButton("");
 	
@@ -49,6 +53,13 @@ public class View {
 				CrabController.buttonPress();
 			}
 		});	
+		
+		frame.add(jump);
+		frame.getContentPane().add(frame, this);
+		frame.setBackground(Color.BLUE);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(frameWidth, frameHeight);
+		frame.setVisible(true);
 	}
 	
 	public void animate(){
@@ -59,8 +70,8 @@ public class View {
 	}
 	
 	public void paint(Graphics g){
-		g.drawImage(backgroundImage, 0, 0, this);
-		g.drawImage(op.filter(boatImage, null), (int) crabX, (int) crabY, this);
+		g.drawImage(backgroundImage, 0, 0, (ImageObserver) this);
+		g.drawImage(crabImage, (int) crabX, (int) crabY, (ImageObserver) this);
 		//TODO
 	}
 	
