@@ -23,7 +23,7 @@ public class Boat {
 	private int centerX;	//center of the board, boat rotates around
 	private int centerY;
 	
-	private int threshold = 30;
+	private int threshold = 3*speedInc;
 	private Board board;
 	
 	public Boat(Board board){
@@ -80,6 +80,7 @@ public class Boat {
 	public double getBoatCircleX() {return boatCircleX;}
 	public double getBoatCircleY() {return boatCircleY;}
 	public double getTheta(){return theta;}
+	public int getThreshold(){return threshold;}
 	
 	
 }
