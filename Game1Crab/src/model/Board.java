@@ -18,6 +18,7 @@ public class Board {
 	int waveDirection = 1; // 1 = up, -1 = down
 	List<Rectangle> scentTrail = new ArrayList<Rectangle>(scentTrailDiv);
 	int progress = 0;
+	
 	public Board(int width, int height){
 		this.width = width;
 		this.height = height;
