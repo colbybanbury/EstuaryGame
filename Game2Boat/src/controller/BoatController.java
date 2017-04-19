@@ -9,11 +9,13 @@ import model.Board;
 import model.Boat;
 import model.Estuary;
 import model.Game;
+import model.Speedboat;
 import view.View;
 
 public class BoatController {
-	final int HEIGHT = 1000;
-	final int WIDTH = 1500;
+
+	final int HEIGHT = 700;
+	final int WIDTH = 1000;
 	
 	public static Board board;
 	public static Boat boat;
@@ -21,13 +23,11 @@ public class BoatController {
 	public static Estuary curEstuary;
 	public View view;
 	private Timer timer;
-	private final int LAPLENGTH = 5000;
-	private final int RADIUS = 300;
 	
 	
 	public BoatController(){
-		this.board = new Board(WIDTH, HEIGHT, RADIUS, LAPLENGTH);//adjust values for size of board and length of path
-		this.boat = new Boat(-1.0, 30, 100, WIDTH/2, HEIGHT/2);//adjust values on acceleration, speedInc, and max speed
+		this.board = new Board(WIDTH, HEIGHT);//adjust values for size of board and length of path
+		this.boat = new Speedboat(board);
 		this.game = new Game();
 		this.curEstuary = board.getLapPath()[0];//starts at the first estuary
 		this.view = new View(WIDTH, HEIGHT);

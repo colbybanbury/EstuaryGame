@@ -1,16 +1,18 @@
 package model;
 
+import java.awt.Point;
+
 import controller.BoatController;
 
 /**
  * @author colby
  *
  */
-public class Boat {
+public abstract class Boat {
 	private int xLoc = 0;
-	private int speed;
-	private double acceleration; //always negative, essentially drag
-	private int speedInc; //How much speed is increased on button press
+	private int speed = 0;
+	private double acceleration = -0.6; //always negative, essentially drag
+	private int speedInc = 5; //How much speed is increased on button press
 	
 	private int maxSpeed; //changes based on the boat
 	
@@ -18,17 +20,18 @@ public class Boat {
 	private double boatCircleX;
 	private double boatCircleY;
 	
-	private int initX;	//the intitial x and y values on the board
-	private int initY;
+	private int centerX;	//center of the board, boat rotates around
+	private int centerY;
 	
 	private int threshold = 30;
+	private Board board;
 	
-	public Boat(double accel, int sInc, int mSpeed, int initialX, int initialY){
-		this.acceleration = accel;
-		this.speedInc = sInc;
-		this.maxSpeed = mSpeed;
-		this.initX = initialX;
-		this.initY = initialY;
+	public Boat(Board board){
+		this.board = board;
+
+		this.centerX = board.getWidth() / 2;
+		this.centerY = board.getHeight() / 2;
+
 		updateCircleLoc();
 	}
 	
@@ -39,32 +42,30 @@ public class Boat {
 		System.out.println("boat was throttled");
 	} 
 	
-	public boolean generateWake(){	//TODO throws a nullpointer but not sure why
-		if(this.getSpeed() >= threshold){
-			//damage scales based on how much you are above the threshold
+	public boolean generateWake(){
+		if (this.getSpeed() >= threshold)
 			System.out.println("Generate wake ///// NOT FINISHED");
+		return this.getSpeed() >= threshold;
+			//damage scales based on how much you are above the threshold
 			//BoatController.curEstuary.damage(this.getSpeed()- (threshold -1));
-			return true;
-		}
-		else{return false;}
 	}
 	
 	public void move(){	//should be called every tick
 		System.out.println("move called");
 		this.xLoc += speed;
 		updateCircleLoc();
-		this.speed += (acceleration / 10)*speed;
+		this.speed += acceleration *speed*speed;
 		if(speed < 0){
 			speed = 0;
 		}
 	}
 	
-	public void updateCircleLoc(){
-		this.theta = (2*Math.PI*this.xLoc) / BoatController.board.getLapLength();
+	private void updateCircleLoc(){
+		this.theta = (2*Math.PI*this.xLoc) / board.getLapLength();
 		System.out.println((2*Math.PI*this.xLoc));
 		System.out.println("Theta: " + this.theta);
-		this.boatCircleX = initX + (BoatController.board.getRadius() * Math.cos(theta));
-		this.boatCircleY = initY + (BoatController.board.getRadius() * Math.sin(theta));
+		this.boatCircleX = centerX + (board.getRadius() * Math.cos(theta));
+		this.boatCircleY = centerY + (board.getRadius() * Math.sin(theta));
 		System.out.println("in boat x: " + this.boatCircleX + ", y: " + this.boatCircleY);
 	}
 	
@@ -72,8 +73,9 @@ public class Boat {
 	public int getXLoc(){return this.xLoc;}
 	public void setXLoc(int loc){this.xLoc = loc;}
 	public int getSpeed() {return this.speed;}
+	public int getSpeedInc() {return this.speedInc;}
 	public double getAcceleration(){return this.acceleration;}
-	public int getMaxSpeed(){return this.maxSpeed;}
+	public int getMaxSpeed(){return 0;}
 
 	public double getBoatCircleX() {return boatCircleX;}
 	public double getBoatCircleY() {return boatCircleY;}

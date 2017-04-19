@@ -51,7 +51,7 @@ public class Estuary{
 		return type;
 	}
 
-	public void setType(int type) {	//updates type and ingegrity changes with it
+	public void setType(int type) {	//updates type and integrity changes with it
 		this.type = type;
 		switch(type){
 		case 0: 
@@ -63,7 +63,7 @@ public class Estuary{
 		case 2: 
 			this.integrity = 10;//Gabion so a lot of protection
 			break;
-	}
+		}
 	}
 	
 	
