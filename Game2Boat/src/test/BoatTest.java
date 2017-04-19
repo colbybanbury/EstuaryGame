@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import model.Board;
 import model.Boat;
+import model.Estuary;
 
 import org.junit.Test;
 
@@ -19,7 +20,7 @@ public class BoatTest {
 			speed = b1.getSpeed();
 			b1.throttle();
 			System.out.println("xLoc: " + b1.getXLoc() + " Speed: " + b1.getSpeed() 
-								+ " Accel: " + b1.getAcceleration());
+								+ " drag: " + b1.getDrag());
 			assertTrue(b1.getSpeed() == speed + b1.getSpeedInc() || b1.getSpeed() == b1.getMaxSpeed());
 			assertTrue(b1.getSpeed() <= b1.getMaxSpeed());
 		}
@@ -43,7 +44,7 @@ public class BoatTest {
 		b1.move();
 		System.out.println("xLoc: " + xLoc + " speed: " + speed);
 		assertEquals(speed + xLoc, b1.getXLoc());
-		assertTrue(b1.getSpeed()== b1.getAcceleration() + speed);
+		assertTrue(b1.getSpeed()== speed - b1.getDrag());
 	}
 	@Test
 	public void wakeTest(){
@@ -54,10 +55,10 @@ public class BoatTest {
 			b1.throttle();
 			System.out.println(b1.getSpeed());
 			if (b1.getSpeed() > threshold){
-				assertTrue(b1.generateWake());
+				assertTrue(b1.generateWake(new Estuary(0,0,0)));
 			}
 			else {
-				assertFalse(b1.generateWake());
+				assertFalse(b1.generateWake(new Estuary(0,0,0)));
 			}
 		}
 	}

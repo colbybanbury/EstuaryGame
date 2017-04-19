@@ -27,7 +27,7 @@ public class Board {
 			double tempTheta = (2*Math.PI*i) / estuaryCount;
 			double tempX =   width/2 + (radius+65) * Math.cos(tempTheta);
 			double tempY = height/2 + (radius+65) * Math.sin(tempTheta);
-			lapPath[i] = new Estuary(0, (int)tempX, (int)tempY);
+			lapPath[i] = new Estuary(3, (int)tempX, (int)tempY);
 		}
 		for(int i= estuaryCount/3; i<estuaryCount; i++){
 			double tempTheta = (2*Math.PI*i) / estuaryCount;

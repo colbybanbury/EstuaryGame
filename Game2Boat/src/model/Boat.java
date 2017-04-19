@@ -11,7 +11,7 @@ import controller.BoatController;
 public class Boat {
 	private int xLoc = 0;
 	private int speed = 0;
-	private double acceleration = -0.002; //always negative, essentially drag
+	private double drag = 0.002; //always negative, essentially drag
 	private int speedInc = 50; //How much speed is increased on button press
 	
 	private int maxSpeed = 400; //changes based on the boat
@@ -23,7 +23,7 @@ public class Boat {
 	private int centerX;	//center of the board, boat rotates around
 	private int centerY;
 	
-	private int threshold = 3*speedInc;
+	private int threshold = 2*speedInc;
 	private Board board;
 	
 	public Boat(Board board){
@@ -42,22 +42,22 @@ public class Boat {
 		System.out.println("boat was throttled");
 	} 
 	
-	public boolean generateWake(){
-		if (this.getSpeed() >= threshold)
-			System.out.println("Generate wake ///// NOT FINISHED");
-		return this.getSpeed() >= threshold;
+	public boolean generateWake(Estuary curEstuary){
+		System.out.println(this.getSpeed() + " >= ?" + threshold);
+		if (this.getSpeed() >= threshold){
+			System.out.println("generated Wake");
 			//damage scales based on how much you are above the threshold
-			//BoatController.curEstuary.damage(this.getSpeed()- (threshold -1));
+			curEstuary.damage(this.getSpeed()- (threshold -1));
+			return true;
+		}
+		return false;
 	}
 	
 	public void move(){	//should be called every tick
 		System.out.println("move called");
 		this.xLoc += speed;
 		updateCircleLoc();
-		this.speed += acceleration *speed*speed;
-		if(speed < 0){
-			speed = 0;
-		}
+		this.speed -= drag *speed*speed;
 	}
 	
 	private void updateCircleLoc(){
@@ -74,7 +74,7 @@ public class Boat {
 	public void setXLoc(int loc){this.xLoc = loc;}
 	public int getSpeed() {return this.speed;}
 	public int getSpeedInc() {return this.speedInc;}
-	public double getAcceleration(){return this.acceleration;}
+	public double getDrag(){return this.drag;}
 	public int getMaxSpeed(){return 0;}
 
 	public double getBoatCircleX() {return boatCircleX;}
