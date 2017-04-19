@@ -1,5 +1,7 @@
 package controller;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,8 +14,11 @@ import model.Game;
 import view.View;
 
 public class BoatController {
-	final int HEIGHT = 700;
-	final int WIDTH = 1000;
+	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	
+	final int HEIGHT = (int)screenSize.getHeight() - 50;
+	final int WIDTH = (int)screenSize.getWidth();
+	
 	
 	public static Board board;
 	public static Boat boat;
@@ -22,7 +27,7 @@ public class BoatController {
 	public View view;
 	private Timer timer;
 	private final int LAPLENGTH = 5000;
-	private final int RADIUS = 200;
+	private final int RADIUS = (HEIGHT>WIDTH)? 3* WIDTH / 8 : 3*HEIGHT / 8;
 	
 	
 	public BoatController(){
