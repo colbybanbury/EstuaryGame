@@ -25,7 +25,10 @@ public class Board {
 		this.radius = r;
 		this.lapLength = lapL;
 		for(int i= 0; i<estuaryCount; i++){
-			lapPath[i] = new Estuary(2, 0, 0);//TODO needs to give the estuarys x and ys
+			double tempTheta = (2*Math.PI*i) / estuaryCount;
+			double tempX =   width/2 + (radius+50) * Math.cos(tempTheta);
+			double tempY = height/2 + (radius+50) * Math.sin(tempTheta);
+			lapPath[i] = new Estuary(2, (int)tempX, (int)tempY);
 		}
 	}
 

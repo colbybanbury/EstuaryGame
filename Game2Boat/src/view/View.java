@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import controller.BoatController;
+import model.Estuary;
 
 public class View extends JPanel{
 	private int frameHeight;
@@ -36,6 +37,9 @@ public class View extends JPanel{
 	
 	private BufferedImage backgroundImage;
 	private BufferedImage boatImage;
+	private BufferedImage estuary;
+	private BufferedImage seaWall;
+	private BufferedImage gabion;
 	
 	JFrame frame;
 	
@@ -80,6 +84,22 @@ public class View extends JPanel{
 	public void paint(Graphics g){
 		g.drawImage(backgroundImage, 0, 0, this);
 		g.drawImage(op.filter(boatImage, null), (int) boatX, (int)boatY, this);
+		for(Estuary e : BoatController.board.getLapPath()){
+			if(e.getType()!=3){
+				g.drawImage(estuary, e.getCircleX(), e.getCircleY(), this);
+				switch(e.getType()){
+				case 0://TODO no protection add change based on damage
+					//g.drawImage(image, e.getCircleX(), e.getCircleY(), this);
+					break;
+				case 1://sea wall
+					g.drawImage(seaWall, e.getCircleX(), e.getCircleY(), this);
+					break;
+				case 2://Gabion
+					g.drawImage(gabion, e.getCircleX(), e.getCircleY(), this);
+					break;
+				}
+			}
+		}
 		System.out.println("In View x: " + BoatController.boat.getBoatCircleX() + ", y: " + BoatController.boat.getBoatCircleY());
 		//TODO
 	}
@@ -92,6 +112,9 @@ public class View extends JPanel{
 	private void loadImages(){
 		boatImage = createImage("images/boat.jpg");
 		backgroundImage = createImage("images/tempBackGround.jpg");
+		estuary = createImage("images/grass_tile.jpg");
+		seaWall = createImage("images/box.png");
+		gabion = createImage("images/bucket.png");
 		//TODO
 	}
 	
