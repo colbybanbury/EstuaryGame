@@ -8,7 +8,7 @@ public abstract class Mover implements Movable{
 	public double yVel;
 	public double xVel;
 	public double yAcc;
-	public boolean started;
+	boolean started;
 
 	public Rectangle location;
 		
@@ -76,5 +76,13 @@ public abstract class Mover implements Movable{
 	
 	public Rectangle getLocation(){
 		return this.location;
+	}
+	
+	public void setStarted(boolean start){
+		this.started = start;
+	}
+	
+	public boolean getStarted(){
+		return started;
 	}
 }
