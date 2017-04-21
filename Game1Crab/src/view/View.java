@@ -66,13 +66,13 @@ public class View extends JPanel{
 		g.drawImage(backgroundImage, 0, 0, this);
 		g.drawImage(crabImage, (int) CrabController.player.location.getX(), (int) CrabController.player.location.getY(), this);
 		
-		if (!CrabController.enemies.isEmpty()){
-			for (model.Enemy e: CrabController.enemies){
+		if (!CrabController.board.enemies.isEmpty()){
+			for (model.Enemy e: CrabController.board.enemies){
 				g.drawImage(enemyImage, (int) e.location.getX(), (int) e.location.getY(), this);
 			}
 		}
-		if (!CrabController.friends.isEmpty()){
-			for (model.Friend f: CrabController.friends){
+		if (!CrabController.board.friends.isEmpty()){
+			for (model.Friend f: CrabController.board.friends){
 				g.drawImage(friendImage, (int) f.location.getX(), (int) f.location.getY(), this);
 			}
 		}
