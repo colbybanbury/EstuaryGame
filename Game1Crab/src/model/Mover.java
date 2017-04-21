@@ -7,8 +7,8 @@ import model.Board;
 public abstract class Mover implements Movable{
 	public double yVel;
 	public double xVel;
-	public double yAcc_up;
-	public double yAcc_down;
+	public double yAcc;
+	public boolean started;
 
 	public Rectangle location;
 		
@@ -42,29 +42,27 @@ public abstract class Mover implements Movable{
 		return this.xVel;
 	}
 	
-	public double getYAcc_up(){
-		return this.yAcc_up;
+	public double getYAcc(){
+		return this.yAcc;
 	}
 	
-	public double getYAcc_down(){
-		return this.yAcc_down;
-	}
-	
-	public void update(){
-		if (yVel > 0){
-			this.yVel += yAcc_down;
-		}else{
-			this.yVel += yAcc_up;
-		}
-		if (location.getY() + location.getHeight() >= this.board.height - location.getHeight()){
-			if (yVel <= 0){
-				location.setLocation((int) (location.getX() + xVel), (int) (location.getY() + yVel));
+	public void update(){		
+		if (this.started){
+			
+			//TODO: Call Board checkCollision and checkSalinity methods before moving
+			
+			yVel += yAcc;
+			
+			if (location.getY() + location.getHeight() >= this.board.getHeight() - location.getHeight()){
+				if (yVel <= 0){
+					location.setLocation((int) (location.getX() + xVel), (int) (location.getY() + yVel));
+				}else{
+					yVel = 0;
+					location.setLocation((int) (location.getX() + xVel), (int) (board.height - location.getHeight()));
+				}
 			}else{
-				yVel = 0;
-				location.setLocation((int) (location.getX() + xVel), (int) (board.height - location.getHeight()));
+				location.setLocation((int) (location.getX() + xVel), (int) (location.getY() + yVel));
 			}
-		}else{
-			location.setLocation((int) (location.getX() + xVel), (int) (location.getY() + yVel));
 		}
 	}
 	

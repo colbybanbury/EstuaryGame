@@ -9,8 +9,7 @@ public interface Movable {
 	public void setYVel(double yVel);
 	public double getYVel();
 	public double getXVel();
-	public double getYAcc_up();
-	public double getYAcc_down();
+	public double getYAcc();
 	public void update();
 	
 	public int getImgWidth();
