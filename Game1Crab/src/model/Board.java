@@ -11,7 +11,8 @@ public class Board {
 	int height;
 	Random rand = new Random();
 	Player player = new Player(this);
-	List<Enemy> enemies = new ArrayList<Enemy>();
+	public List<Enemy> enemies = new ArrayList<Enemy>();
+	public List<Friend> friends = new ArrayList<Friend>();
 	int scentTrailDiv = 50;  // number of rectangles that compose a scent trail
 	public int wavyFactor = 5;
 	public int scentTrailHeight = height / 3;
@@ -33,6 +34,7 @@ public class Board {
 	public int getHeight(){
 		return height;
 	}
+	
 	public int checkSalinity(){ // changed from UML
 		// TODO: only check rectangles the player is in, since player.xLoc does not change
 		int totalOverlap = 0;
