@@ -21,18 +21,14 @@ import controller.CrabController;
 
 public class View extends JPanel{
 	private int frameHeight;
-	private int frameWidth;	
-	
-	private double crabX;
-	private double crabY;
-	
-	private int crabHeight = 42;
-	private int crabWidth = 85;
+	private int frameWidth;
 	
 	public static JButton jump = new JButton("");
 	
 	private BufferedImage backgroundImage;
 	private BufferedImage crabImage;
+	private BufferedImage enemyImage;
+	private BufferedImage friendImage;
 	
 	JFrame frame;
 	
@@ -62,23 +58,31 @@ public class View extends JPanel{
 		frame.setVisible(true);
 	}
 	
-	public void animate(){
-		crabX = CrabController.player.location.getX();
-		crabY = CrabController.player.location.getY();
-		
+	public void animate(){		
 		frame.repaint();
 	}
 	
 	public void paint(Graphics g){
 		g.drawImage(backgroundImage, 0, 0, this);
-		g.drawImage(crabImage, (int) crabX, (int) crabY, this);
-		//TODO
+		g.drawImage(crabImage, (int) CrabController.player.location.getX(), (int) CrabController.player.location.getY(), this);
+		
+		if (!CrabController.enemies.isEmpty()){
+			for (model.Enemy e: CrabController.enemies){
+				g.drawImage(enemyImage, (int) e.location.getX(), (int) e.location.getY(), this);
+			}
+		}
+		if (!CrabController.friends.isEmpty()){
+			for (model.Friend f: CrabController.friends){
+				g.drawImage(friendImage, (int) f.location.getX(), (int) f.location.getY(), this);
+			}
+		}
 	}
 	
 	private void loadImages(){
 		crabImage = createImage("images/bluecrab_0.png");
 		backgroundImage = createImage("images/tempBackGround.jpg");
-		//TODO
+		enemyImage = createImage("images/fish_bass_left.png");
+		friendImage = createImage("images/bogturtle_left_1.png");
 	}
 	
 	private BufferedImage createImage(String file) {
