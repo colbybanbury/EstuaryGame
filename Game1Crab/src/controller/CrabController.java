@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.Timer;
 
@@ -19,6 +20,8 @@ public class CrabController {
 	
 	public static Board board;
 	public static Player player;
+	public static ArrayList<Enemy> enemies;
+	public static ArrayList<Friend> friends;
 	public View view;
 	private Timer timer;
 
@@ -26,9 +29,11 @@ public class CrabController {
 		this.board = new Board(WIDTH, HEIGHT);//adjust values for size of board and length of path
 		this.player = new Player(board);
 		this.view = new View(WIDTH, HEIGHT);
+		this.enemies = new ArrayList<Enemy>();
+		this.friends = new ArrayList<Friend>();
 		
 		for (int i = 0; i < 1000; i++) {
-			onTick();
+			onTick(i);
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
@@ -41,16 +46,28 @@ public class CrabController {
 		CrabController crabContoller = new CrabController();
 	}
 	
-	public void onTick(){
-		System.out.println("onTick() ran");
+	public void onTick(int tick){
+		System.out.println("onTick() ran " + tick);
 		player.update();
+		if (tick % 100 == 0){
+			System.out.println("HEY YOU EVER HERE?");
+			enemies.add(new Enemy(board));
+		}
+		if (!enemies.isEmpty()){
+			System.out.println("Enemy update ran " + tick);
+			for (Enemy e: enemies){
+				e.update();
+			}
+		}
 		view.animate();
-		//TODO whatever the view needs
 	}
 	
 	
 	public static void buttonPress(){
 		System.out.println("Controller knows button was pressed");
+		if (!player.started){
+			player.started = true;
+		}
 		player.jump();
 	}
 }
