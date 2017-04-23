@@ -12,7 +12,7 @@ public class Boat {
 	private int xLoc = 0;
 	private int speed = 0;
 	private double drag = 0.002; //always negative, essentially drag
-	private int speedInc = 50; //How much speed is increased on button press
+	private int speedInc = 25; //How much speed is increased on button press
 	
 	private int maxSpeed = 400; //changes based on the boat
 	

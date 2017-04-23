@@ -36,6 +36,9 @@ public class View extends JPanel{
 	private BufferedImage estuary;
 	private BufferedImage seaWall;
 	private BufferedImage gabion;
+	private BufferedImage damage1;
+	private BufferedImage damage2;
+	private BufferedImage damage3;
 	
 	JFrame frame;
 	
@@ -85,7 +88,13 @@ public class View extends JPanel{
 				g.drawImage(estuary, e.getCircleX(), e.getCircleY(), this);
 				switch(e.getType()){//draws the protection type on top of the estuary centered
 				case 0://TODO no protection add change based on damage
-					//g.drawImage(image, e.getCircleX(), e.getCircleY(), this);
+					if(e.getDamage()>6)//most damage
+						g.drawImage(damage3, e.getCircleX(), e.getCircleY(), this);
+					else if(e.getDamage()>3)//middle
+						g.drawImage(damage2, e.getCircleX(), e.getCircleY(), this);
+					else if(e.getDamage() >0){//least
+						g.drawImage(damage1, e.getCircleX(), e.getCircleY(), this);
+					}
 					break;
 				case 1://sea wall
 					g.drawImage(seaWall, e.getCircleX() + (estuary.getWidth()/2 - seaWall.getWidth()/2), e.getCircleY() + (estuary.getHeight()/2 - seaWall.getHeight()/3), this);
@@ -111,6 +120,9 @@ public class View extends JPanel{
 		estuary = createImage("images/grass_tile.jpg");
 		seaWall = createImage("images/box.png");
 		gabion = createImage("images/bucket.png");
+		damage1 = createImage("images/puddle small.png");
+		damage2 = createImage("images/puddle medium.png");
+		damage3 = createImage("images/puddle large.png");
 		//TODO
 	}
 	
