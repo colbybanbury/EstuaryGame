@@ -16,6 +16,10 @@ public class Boat {
 	
 	private int maxSpeed = 400; //changes based on the boat
 	
+	private double phi = 1.0; //TODO reset to 0 to start
+	private double radiusScale = 1.0;
+	private final double RADIUS_SPEED_SCALER = .001;//TODO find the right value for this
+	
 	private double theta = 0.0;	//needed for circular representation in game
 	private double boatCircleX;
 	private double boatCircleY;
@@ -42,6 +46,18 @@ public class Boat {
 		System.out.println("boat was throttled");
 	} 
 	
+	public void turnLeft(){//turns the boat left and changes move()
+		this.phi -= 1;//TODO figure out good levels for actualy gameplay
+		if(this.phi<-2.0)
+			this.phi = -2.0;
+	}
+	
+	public void turnRight(){
+		this.phi += 1;
+		if(this.phi>2.0)
+			this.phi = 2.0;
+	}
+	
 	public boolean generateWake(Estuary curEstuary){
 		System.out.println(this.getSpeed() + " >= ?" + threshold);
 		if (this.getSpeed() >= threshold){
@@ -55,7 +71,10 @@ public class Boat {
 	
 	public void move(){	//should be called every tick
 		System.out.println("move called");
-		this.xLoc += speed;
+		this.xLoc += speed * Math.cos(phi);
+		this.radiusScale += speed * Math.sin(phi) * RADIUS_SPEED_SCALER;
+		if(this.radiusScale>1.2){this.radiusScale = 1.2;}
+		else if(this.radiusScale<0.8){this.radiusScale = 0.8;}
 		updateCircleLoc();
 		this.speed -= drag *speed*speed;
 	}
@@ -64,8 +83,8 @@ public class Boat {
 		this.theta = (2*Math.PI*this.xLoc) / board.getLapLength();
 		System.out.println((2*Math.PI*this.xLoc));
 		System.out.println("Theta: " + this.theta);
-		this.boatCircleX = centerX + (board.getRadius() * Math.cos(theta));
-		this.boatCircleY = centerY + (board.getRadius() * Math.sin(theta));
+		this.boatCircleX = centerX + ((board.getRadius()*this.radiusScale) * Math.cos(theta));
+		this.boatCircleY = centerY + ((board.getRadius()*this.radiusScale) * Math.sin(theta));
 		System.out.println("in boat x: " + this.boatCircleX + ", y: " + this.boatCircleY);
 	}
 	
@@ -81,6 +100,8 @@ public class Boat {
 	public double getBoatCircleY() {return boatCircleY;}
 	public double getTheta(){return theta;}
 	public int getThreshold(){return threshold;}
+	public double getPhi(){return phi;}
+	public double getRadiusScale(){return radiusScale;}
 	
 	
 }

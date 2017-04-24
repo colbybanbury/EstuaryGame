@@ -71,9 +71,17 @@ public class BoatController {
 	}
 	
 	
-	public static void buttonPress(){
+	public static void throttleAction(){
 		System.out.println("Controller knows button was pressed");
 		boat.throttle();
+	}
+	
+	public static void turnLeftAction(){
+		boat.turnLeft();
+	}
+	
+	public static void turnRightAction(){
+		boat.turnRight();
 	}
 
 }

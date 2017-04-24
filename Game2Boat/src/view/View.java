@@ -55,10 +55,12 @@ public class View extends JPanel{
 		move.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				//when the mouse is clicked it calls buttonPress in the controller
-				System.out.println("button pressed");
-				BoatController.buttonPress();
+				System.out.println("throttle button pressed");
+				BoatController.throttleAction();
 			}
 		});
+		
+		//TODO action listeners on the left and right arrows for turning
 		
 		frame.add(move);
 		frame.getContentPane().add(this);
@@ -73,7 +75,8 @@ public class View extends JPanel{
 	public void animate(){
 		boatX = BoatController.boat.getBoatCircleX();
 		boatY = BoatController.boat.getBoatCircleY();
-		boatAngle = BoatController.boat.getTheta();
+		boatAngle = BoatController.boat.getTheta() - BoatController.boat.getPhi();
+		//^the angle around the circle + phi or the angle that that boat has turned
 		
 		changeBoatAngle();
 		
