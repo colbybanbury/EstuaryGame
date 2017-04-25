@@ -45,7 +45,7 @@ public class CrabController {
 	public void onTick(int tick){
 		System.out.println("onTick() ran " + tick);
 		player.update();
-		if (tick % 100 == 0 && player.getStarted()){
+		if (tick % 100 == 0 && player.getStarted()){lp
 			board.enemies.add(new Enemy(board));
 		}
 		if (!board.enemies.isEmpty()){
