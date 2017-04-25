@@ -73,8 +73,14 @@ public class Boat {
 		System.out.println("move called");
 		this.xLoc += speed * Math.cos(phi);
 		this.radiusScale += speed * Math.sin(phi) * RADIUS_SPEED_SCALER;
-		if(this.radiusScale>1.2){this.radiusScale = 1.2;}
-		else if(this.radiusScale<0.8){this.radiusScale = 0.8;}
+		if(this.radiusScale>1.2){
+			this.radiusScale = 1.18;
+			this.phi -= 0.2;
+			}
+		else if(this.radiusScale<0.8){
+			this.radiusScale = 0.82;
+			this.phi += 0.2;
+			}
 		updateCircleLoc();
 		this.speed -= drag *speed*speed;
 	}
