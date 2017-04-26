@@ -59,11 +59,11 @@ public class Boat {
 	}
 	
 	public boolean generateWake(Estuary curEstuary){
-		System.out.println(this.getSpeed() + " >= ?" + threshold);
-		if (this.getSpeed() >= threshold){
+		System.out.println(this.getSpeed() + " > ?" + threshold);
+		if (this.getSpeed() > threshold){
 			System.out.println("generated Wake");
 			//damage scales based on how much you are above the threshold
-			curEstuary.damage(this.getSpeed()- (threshold -1));
+			curEstuary.damage(this.getSpeed()- threshold);
 			return true;
 		}
 		return false;
