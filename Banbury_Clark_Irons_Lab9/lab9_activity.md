@@ -7,7 +7,7 @@ A. Form teams
 Form a 2-person team. Try to find someone who uses the same platform as you (e.g., Windows, Linux, etc.). If you can't, that's fine. If you are the odd-person-out, join a team of 2.
 
 Complete the exercises below, and fill in your answers in the spaces provided below each question.
-Once you have completed all the exercises and filled in this file with your answers, 
+Once you have completed all the exercises and filled in this file with your answers,
 add this file to your Lab 9 directory (which you will create in section G) and push it to your team repo.
 This file is the deliverable for this lab, so make sure you do not forget to push it at the end!
 
@@ -238,18 +238,14 @@ Run the following commands:
     same thing. What does it hold?
 
     ```
-
-
-
+    The index is the where files are placed that you want to commit to your local repository
     ```
 
 9.  Why have a `stage`? Why not just commit all changes since the last
     commit?
 
     ```
-
-
-
+    sometimes you don't want to commit all your changes in your workspace. Like when something is a work in progress
     ```
 
 I. Undo
@@ -266,9 +262,7 @@ Run the following commands:
 1.  What does `git reset --soft ``"HEAD^" `do?
 
     ```
-
-
-
+    it deletes your commit but it leaves the changes in your workspace
     ```
 
 Run the following commands:
@@ -283,31 +277,25 @@ Run the following commands:
 1.  What does `git reset --hard ``"HEAD^"`` `do?
 
     ```
-
-
-
+    it resets the local repository and restores the files in the workspace to the previous HEAD
     ```
 
 2.  What is the difference between `--hard` and `--soft`?
 
     ```
-
-
-
+    both reset the local repository but only hard resets the files in the workspace
     ```
 
 3.  What do you think `HEAD` means?
 
     ```
-
-
+    HEAD is the current commit
     ```
 
 4.  What do you think `HEAD^` means?
 
     ```
-
-
+    it refers to the previous commit
     ```
 
 J. Helpful resources
