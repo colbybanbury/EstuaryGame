@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
@@ -44,8 +45,6 @@ public class View extends JPanel{
 		jump.setBounds(0, 0, w, h);
 		jump.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				//when the mouse is clicked it calls buttonPress in the controller
-				System.out.println("button pressed");
 				CrabController.buttonPress();
 			}
 		});	
@@ -64,7 +63,7 @@ public class View extends JPanel{
 	
 	public void paint(Graphics g){
 		g.drawImage(backgroundImage, 0, 0, this);
-		g.drawImage(crabImage, (int) CrabController.player.getLocation().getX(), (int) CrabController.player.getLocation().getY(), this);
+		g.drawImage(crabImage, (int) CrabController.board.player.getLocation().getX(), (int) CrabController.board.player.getLocation().getY(), this);
 		
 		if (!CrabController.board.enemies.isEmpty()){
 			for (model.Enemy e: CrabController.board.enemies){
@@ -75,6 +74,13 @@ public class View extends JPanel{
 			for (model.Friend f: CrabController.board.friends){
 				g.drawImage(friendImage, (int) f.location.getX(), (int) f.location.getY(), this);
 			}
+		}
+		
+		g.setColor(new Color(239, 211, 70, 127));
+		
+		for (Rectangle r: CrabController.board.scentTrail){
+			System.out.println("RECTANLGE (X,Y): (" + r.getX() + ", " + r.getY() + ")");
+			g.fill3DRect((int) r.getX(), (int) r.getY(), (int) r.getWidth()-1, (int) r.getHeight()-1, false);
 		}
 	}
 	
@@ -95,4 +101,5 @@ public class View extends JPanel{
 		}
 		return null;
 	}
+	
 }

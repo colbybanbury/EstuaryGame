@@ -10,22 +10,23 @@ public class Board {
 	int width;
 	int height;
 	Random rand = new Random();
-	Player player = new Player(this);
+	public Player player;
 	public List<Enemy> enemies = new ArrayList<Enemy>();
 	public List<Friend> friends = new ArrayList<Friend>();
-	int scentTrailDiv = 50;  // number of rectangles that compose a scent trail
+	int scentTrailDiv = 500;  // number of rectangles that compose a scent trail
 	public int wavyFactor = 5;
-	public int scentTrailHeight = height / 3;
+	public int scentTrailHeight;
 	int waveDirection = 1; // 1 = up, -1 = down
-	List<Rectangle> scentTrail = new ArrayList<Rectangle>(scentTrailDiv);
+	public List<Rectangle> scentTrail = new ArrayList<Rectangle>(scentTrailDiv);
 	int progress = 0;
 	
 	public Board(int width, int height){
 		this.width = width;
 		this.height = height;
+		this.player = new Player(this);
+		this.scentTrailHeight = height / 3;
 		for (int i = 0; i < scentTrailDiv; i++){
-			scentTrail.add(new Rectangle(i * width / scentTrailDiv, scentTrailHeight, 
-										 width / scentTrailDiv, scentTrailHeight));
+			scentTrail.add(new Rectangle(i * width / scentTrailDiv, scentTrailHeight, width / scentTrailDiv + 1, scentTrailHeight));
 		}
 	}
 	public int getWidth(){
@@ -62,19 +63,21 @@ public class Board {
 		wavyFactor = 10;
 	}
 	public void construction(){}
-	public void update(){  // moves enemies, player, and scent trail one increment forward
-		Rectangle endRectangle;
-		// check where to place next rectangle in scentTrail
-		int newY = (int)scentTrail.get(scentTrailDiv-1).getY() - waveDirection*wavyFactor;
-		// if we hit the top, start moving down
-		if (newY < 0) waveDirection = -1;
-		// if we hit the bottom, start moving back up
-		else if (newY > height - scentTrailHeight) waveDirection = 1;
+	
+	public void update(){  // moves enemies, player, and scent trail one increment forward		
 		for (Enemy e : enemies){
 			e.update();
 		}
 		player.update();
-		scentTrail.remove(0);
-		scentTrail.add(new Rectangle(width, newY, width/scentTrailDiv, scentTrailHeight));
+		
+//		Rectangle endRectangle;
+//		// check where to place next rectangle in scentTrail
+//		int newY = (int)scentTrail.get(scentTrailDiv-1).getY() - waveDirection*wavyFactor;
+//		// if we hit the top, start moving down
+//		if (newY < 0) waveDirection = -1;
+//		// if we hit the bottom, start moving back up
+//		else if (newY > height - scentTrailHeight) waveDirection = 1;		
+//		scentTrail.remove(0);
+//		scentTrail.add(new Rectangle(width, newY, width/scentTrailDiv, scentTrailHeight));
 	} 
 }

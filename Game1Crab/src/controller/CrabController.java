@@ -25,7 +25,6 @@ public class CrabController {
 
 	public CrabController(){
 		this.board = new Board(WIDTH, HEIGHT);//adjust values for size of board and length of path
-		this.player = new Player(board);
 		this.view = new View(WIDTH, HEIGHT);
 	}
 	
@@ -43,26 +42,18 @@ public class CrabController {
 	}
 	
 	public void onTick(int tick){
-		System.out.println("onTick() ran " + tick);
-		player.update();
-		if (tick % 100 == 0 && player.getStarted()){
+		if (tick % 100 == 0 && board.player.getStarted()){
 			board.enemies.add(new Enemy(board));
 		}
-		if (!board.enemies.isEmpty()){
-			System.out.println("Enemy update ran " + tick);
-			for (Enemy e: board.enemies){
-				e.update();
-			}
-		}
+		board.update();
 		view.animate();
 	}
 	
 	
 	public static void buttonPress(){
-		System.out.println("Controller knows button was pressed");
-		if (!player.getStarted()){
-			player.setStarted(true);
+		if (!board.player.getStarted()){
+			board.player.setStarted(true);
 		}
-		player.jump();
+		board.player.jump();
 	}
 }
