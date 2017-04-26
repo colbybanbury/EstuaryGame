@@ -1,5 +1,7 @@
 package controller;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -14,9 +16,10 @@ import model.Friend;
 import view.View;
 
 public class CrabController {
+	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-	final int HEIGHT = 700;
-	final int WIDTH = 1000;
+	final int HEIGHT = (int)screenSize.getHeight();
+	final int WIDTH = (int)screenSize.getWidth();
 	
 	public static Board board;
 	public static Player player;
