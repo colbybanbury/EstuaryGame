@@ -20,6 +20,7 @@ public class Board {
 	public List<Rectangle> scentTrail = new ArrayList<Rectangle>(scentTrailDiv);
 	int progress = 30;
 	int totalProgress = 1000;
+	int totalOverlap = 5250;
 	
 	public Board(int width, int height){
 		this.width = width;
@@ -39,6 +40,9 @@ public class Board {
 	public int getProgress(){
 		return progress;
 	}
+	public void setProgress(int progress){
+		this.progress += progress;
+	}
 	public int getTotalProgress(){
 		return totalProgress;
 	}
@@ -48,8 +52,10 @@ public class Board {
 		int totalOverlap = 0;
 		Rectangle intersect;
 		for (Rectangle r : scentTrail){
-			intersect = r.intersection(player.getLocation());
-			totalOverlap += intersect.getHeight() * intersect.getWidth();
+			if((r.getX() <= player.getLocation().getX() + player.getLocation().getWidth()) && r.getX() >= player.getLocation().getX()){
+				intersect = r.intersection(player.getLocation());
+				totalOverlap += intersect.getHeight() * intersect.getWidth();
+			}
 		}
 		return totalOverlap;
 	}
@@ -71,24 +77,32 @@ public class Board {
 	}
 	public void construction(){}
 	
-	public void update(){  // moves enemies, player, and scent trail one increment forward		
+	public void update(){		
 		for (Enemy e : enemies){
 			e.update();
 		}
 		player.update();
 		
 		Rectangle endRectangle;
-		// check where to place next rectangle in scentTrail
+		
 		double newY = scentTrail.get(scentTrailDiv-1).getY() - waveDirection*wavyFactor;
-		// if we hit the top, start moving down
-		if (newY <= 0) waveDirection = -1;
-		// if we hit the bottom, start moving back up
-		else if (newY > height - scentTrailHeight) waveDirection = 1;		
+		
+		if (newY - (2 * scentTrailHeight/3) <= 0){
+			waveDirection = -1;
+		}else if (newY > height - scentTrailHeight - (2 * scentTrailHeight / 3)){
+			waveDirection = 1;
+		}
+		
 		scentTrail.remove(0);
 		scentTrail.add(new Rectangle(width, (int) newY, width/scentTrailDiv, scentTrailHeight));
 		
 		for (Rectangle r: scentTrail){
 			r.setLocation((int) r.getX() - (width/scentTrailDiv), (int) r.getY());
 		}
+		
+		setProgress((checkSalinity() / 5250));
+		System.out.println("BOARD'S PROGRESS " + progress);
+		
+		
 	} 
 }

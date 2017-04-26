@@ -79,7 +79,6 @@ public class View extends JPanel{
 		g.setColor(new Color(239, 211, 70, 127));
 		
 		for (Rectangle r: CrabController.board.scentTrail){
-			System.out.println("RECTANLGE (X,Y): (" + r.getX() + ", " + r.getY() + ")");
 			g.fill3DRect((int) r.getX(), (int) r.getY(), (int) r.getWidth()-1, (int) r.getHeight()-1, false);
 		}
 		
@@ -87,7 +86,10 @@ public class View extends JPanel{
 		g.draw3DRect(20, CrabController.board.getHeight() - 40, CrabController.board.getWidth() - 40, 20, false);
 		
 		g.setColor(new Color(255, 0, 0, 255));
-		g.fill3DRect(20, CrabController.board.getHeight() - 40, 20 + ((CrabController.board.getWidth() - 40)*(CrabController.board.getProgress()/CrabController.board.getTotalProgress())), 20, false);
+		double doob1 = CrabController.board.getProgress();
+		double doob2 = CrabController.board.getTotalProgress();
+		double doob3 = doob1/doob2;
+		g.fill3DRect(20, CrabController.board.getHeight() - 40, (int) (20 + ((CrabController.board.getWidth() - 40)*(doob3))), 20, false);
 	}
 	
 	private void loadImages(){
