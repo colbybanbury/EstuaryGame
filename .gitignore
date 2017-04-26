@@ -1,5 +1,7 @@
 */bin/*
 *~
+.swp
+.gitignore
 .metadata
 .recommenders/*
 */.classpath
