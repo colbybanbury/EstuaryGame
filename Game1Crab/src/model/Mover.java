@@ -53,7 +53,7 @@ public abstract class Mover implements Movable{
 			
 			yVel += yAcc;
 			
-			if (location.getY() + location.getHeight()>= this.board.getHeight() - location.getHeight() - 60){
+			if (location.getY() + location.getHeight()>= this.board.getHeight() - location.getHeight() - 70){
 				if (yVel <= 0){
 					location.setLocation((int) (location.getX() + xVel), (int) (location.getY() + yVel));
 				}else{

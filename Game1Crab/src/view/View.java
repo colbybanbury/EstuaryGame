@@ -83,13 +83,11 @@ public class View extends JPanel{
 		}
 		
 		g.setColor(new Color(0, 0, 0, 255));
-		g.draw3DRect(20, CrabController.board.getHeight() - 40, CrabController.board.getWidth() - 40, 20, false);
+		g.draw3DRect(20, 40, CrabController.board.getWidth() - 40, 20, false);
 		
 		g.setColor(new Color(255, 0, 0, 255));
-		double doob1 = CrabController.board.getProgress();
-		double doob2 = CrabController.board.getTotalProgress();
-		double doob3 = doob1/doob2;
-		g.fill3DRect(20, CrabController.board.getHeight() - 40, (int) (20 + ((CrabController.board.getWidth() - 40)*(doob3))), 20, false);
+		
+		g.fill3DRect(21, 41, (int) CrabController.board.getProgress(), 19, false);
 	}
 	
 	private void loadImages(){
