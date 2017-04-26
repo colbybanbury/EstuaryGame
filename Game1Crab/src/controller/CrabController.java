@@ -27,9 +27,13 @@ public class CrabController {
 		this.board = new Board(WIDTH, HEIGHT);//adjust values for size of board and length of path
 		this.player = new Player(board);
 		this.view = new View(WIDTH, HEIGHT);
+	}
+	
+	public static void main(String[] args){
+		CrabController crabController = new CrabController();
 		
 		for (int i = 0; i < 1000; i++) {
-			onTick(i);
+			crabController.onTick(i);
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
@@ -38,14 +42,10 @@ public class CrabController {
 		}
 	}
 	
-	public static void main(String[] args){
-		CrabController crabContoller = new CrabController();
-	}
-	
 	public void onTick(int tick){
 		System.out.println("onTick() ran " + tick);
 		player.update();
-		if (tick % 100 == 0 && player.getStarted()){lp
+		if (tick % 100 == 0 && player.getStarted()){
 			board.enemies.add(new Enemy(board));
 		}
 		if (!board.enemies.isEmpty()){
