@@ -47,13 +47,13 @@ public class Boat {
 	} 
 	
 	public void turnRight(){//turns the boat right and changes move()
-		this.phi -= 0.5;//TODO figure out good levels for actualy gameplay
+		this.phi -= 0.25;//TODO figure out good levels for actualy gameplay
 		if(this.phi<-2.0)
 			this.phi = -2.0;
 	}
 	
 	public void turnLeft(){//turns the boat left and changes move()
-		this.phi += 0.5;
+		this.phi += 0.25;
 		if(this.phi>2.0)
 			this.phi = 2.0;
 	}

@@ -30,6 +30,7 @@ public class View extends JPanel{
 	private double boatAngle;
 	
 	AffineTransformOp op;
+	AffineTransform tx;
 	
 	
 	private BufferedImage backgroundImage;
@@ -51,6 +52,7 @@ public class View extends JPanel{
 		frame.getContentPane().add(panel);
 		
 		panel.addKeyListener(new KeyListener(){
+			//action listener that calls the handling function in the controller
 			@Override
 			public void keyPressed(KeyEvent e){
 				BoatController.keyPressed(e);
@@ -69,9 +71,8 @@ public class View extends JPanel{
 		this.frameHeight = h;
 		this.frameWidth = w;
 		loadImages();
-		//makes a button that covers the whole screen and is invisible
 		
-		//TODO action listeners on the left and right arrows for turning
+		
 		frame.getContentPane().add(this);
 		frame.setBackground(Color.BLUE);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -124,7 +125,7 @@ public class View extends JPanel{
 	
 	
 	private void changeBoatAngle(){//rotates the boat image depending on the part of the circle it's on
-		AffineTransform tx = AffineTransform.getRotateInstance(boatAngle, boatImage.getHeight()/2, boatImage.getWidth()/2);
+		tx = AffineTransform.getRotateInstance(boatAngle, boatImage.getWidth()/2, boatImage.getHeight()/2);
 		op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
 	}
 	

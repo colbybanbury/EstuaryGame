@@ -22,7 +22,7 @@ public class BoatController implements ActionListener{
 	final int WIDTH = (int)screenSize.getWidth();
 	
 	private Timer timer;
-	private final int DELAY = 50;
+	private final int DELAY = 50;//update rate (50ms) may need to make faster
 	
 	
 	public static Board board;
@@ -87,7 +87,7 @@ public class BoatController implements ActionListener{
     	    BoatController.boat.turnRight();
     	}
     	if(key == KeyEvent.VK_SPACE){
-    		System.out.println("space");
+    		System.out.println("space key sensed");
     		boat.throttle();
     	}
     }
