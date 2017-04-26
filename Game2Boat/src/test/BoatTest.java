@@ -62,15 +62,20 @@ public class BoatTest {
 		Boat b1 = new Boat(b);
 		int threshold = b1.getThreshold();
 		int speedInc = b1.getSpeedInc();
+		Estuary e1 = new Estuary(0,0,0);
+		int damage = e1.getDamage();
 		for (int i=0; i < 8; i++){
 			b1.throttle();
 			System.out.println(b1.getSpeed());
 			if (b1.getSpeed() > threshold){
-				assertTrue(b1.generateWake(new Estuary(0,0,0)));
+				assertTrue(b1.generateWake(e1));
+				assertEquals(damage + b1.getSpeed() - threshold, e1.getDamage());
 			}
 			else {
-				assertFalse(b1.generateWake(new Estuary(0,0,0)));
+				assertFalse(b1.generateWake(e1));
+				assertEquals(damage, e1.getDamage());
 			}
+			damage = e1.getDamage();
 		}
 		System.out.println();
 	}
