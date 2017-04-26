@@ -40,14 +40,12 @@ public class CrabController  implements ActionListener{
 	}
 	
 	@Override
-    public void actionPerformed(ActionEvent e) {
-		//onTick();
+    public void actionPerformed(ActionEvent e){
+		onTick();
     }
 	
-	public void onTick(int tick){
-		if (tick % 100 == 0 && board.player.getStarted()){
-			board.enemies.add(new Enemy(board));
-		}
+	public void onTick(){
+		board.enemies.add(new Enemy(board));
 		board.update();
 		view.animate();
 	}
