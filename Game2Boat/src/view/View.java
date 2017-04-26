@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
@@ -29,7 +31,6 @@ public class View extends JPanel{
 	
 	AffineTransformOp op;
 	
-	public static JButton move = new JButton("");
 	
 	private BufferedImage backgroundImage;
 	private BufferedImage boatImage;
@@ -41,33 +42,42 @@ public class View extends JPanel{
 	private BufferedImage damage3;
 	
 	JFrame frame;
+	JPanel panel;
 	
 	public View(int w, int h){
 		frame = new JFrame();
+		panel = new JPanel();
+		
+		frame.getContentPane().add(panel);
+		
+		panel.addKeyListener(new KeyListener(){
+			@Override
+			public void keyPressed(KeyEvent e){
+				BoatController.keyPressed(e);
+			}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {}
+
+			@Override
+			public void keyTyped(KeyEvent e) {}
+		});
+		
+		panel.setFocusable(true);
+        panel.requestFocusInWindow();
+		
 		this.frameHeight = h;
 		this.frameWidth = w;
 		loadImages();
 		//makes a button that covers the whole screen and is invisible
-		move.setOpaque(false);
-		move.setContentAreaFilled(false);
-		move.setBorderPainted(false);
-		move.setBounds(0, 0, w, h);
-		move.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				//when the mouse is clicked it calls buttonPress in the controller
-				System.out.println("throttle button pressed");
-				BoatController.throttleAction();
-			}
-		});
 		
 		//TODO action listeners on the left and right arrows for turning
-		
-		frame.add(move);
 		frame.getContentPane().add(this);
 		frame.setBackground(Color.BLUE);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(frameWidth, frameHeight);
 		frame.setVisible(true);
+		
 		
 		//TODO
 	}
@@ -112,13 +122,14 @@ public class View extends JPanel{
 		//TODO
 	}
 	
+	
 	private void changeBoatAngle(){//rotates the boat image depending on the part of the circle it's on
 		AffineTransform tx = AffineTransform.getRotateInstance(boatAngle, boatImage.getHeight()/2, boatImage.getWidth()/2);
 		op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
 	}
 	
 	private void loadImages(){
-		boatImage = createImage("images/boat.jpg");
+		boatImage = createImage("images/boat.png");
 		backgroundImage = createImage("images/tempBackGround.jpg");
 		estuary = createImage("images/grass_tile.jpg");
 		seaWall = createImage("images/box.png");

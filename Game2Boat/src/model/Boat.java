@@ -16,7 +16,7 @@ public class Boat {
 	
 	private int maxSpeed = 400; //changes based on the boat
 	
-	private double phi = 1.0; //TODO reset to 0 to start
+	private double phi = 0.0; //TODO reset to 0 to start
 	private double radiusScale = 1.0;
 	private final double RADIUS_SPEED_SCALER = .001;//TODO find the right value for this
 	
@@ -46,14 +46,14 @@ public class Boat {
 		System.out.println("boat was throttled");
 	} 
 	
-	public void turnLeft(){//turns the boat left and changes move()
-		this.phi -= 1;//TODO figure out good levels for actualy gameplay
+	public void turnRight(){//turns the boat right and changes move()
+		this.phi -= 0.5;//TODO figure out good levels for actualy gameplay
 		if(this.phi<-2.0)
 			this.phi = -2.0;
 	}
 	
-	public void turnRight(){
-		this.phi += 1;
+	public void turnLeft(){//turns the boat left and changes move()
+		this.phi += 0.5;
 		if(this.phi>2.0)
 			this.phi = 2.0;
 	}

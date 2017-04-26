@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.Timer;
 
@@ -13,11 +15,14 @@ import model.Estuary;
 import model.Game;
 import view.View;
 
-public class BoatController {
+public class BoatController implements ActionListener{
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	
 	final int HEIGHT = (int)screenSize.getHeight() - 50;
 	final int WIDTH = (int)screenSize.getWidth();
+	
+	private Timer timer;
+	private final int DELAY = 50;
 	
 	
 	public static Board board;
@@ -25,7 +30,6 @@ public class BoatController {
 	public Game game;
 	public static Estuary curEstuary;
 	public View view;
-	private Timer timer;
 	private final int LAPLENGTH = 5000;
 	private final int RADIUS = (HEIGHT>WIDTH)? 3* WIDTH / 8 : 3*HEIGHT / 8;
 	
@@ -37,18 +41,13 @@ public class BoatController {
 		this.curEstuary = board.getLapPath()[0];//starts at the first estuary
 		this.view = new View(WIDTH, HEIGHT);
 		
-		for (int i = 0; i < 1000; i++) {
-			onTick();
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
+		timer = new Timer(DELAY, this);
+		timer.start();
 	}
 	
 	public static void main(String[] args){
 		BoatController boatControll = new BoatController();
+		
 	}
 	
 	public void onTick(){
@@ -68,13 +67,31 @@ public class BoatController {
 		boat.generateWake(curEstuary); //can return a boolean if it damages it if necessary
 		view.animate();
 		//TODO whatever the view needs
+		
+		
 	}
 	
+	@Override
+    public void actionPerformed(ActionEvent e) {
+		onTick();
+    }
 	
-	public static void throttleAction(){
-		System.out.println("Controller knows button was pressed");
-		boat.throttle();
-	}
+    public static void keyPressed(KeyEvent e) {
+    	int key = e.getKeyCode();
+    	if (key == KeyEvent.VK_LEFT) {
+    		System.out.println("left key sensed");
+    	    BoatController.boat.turnLeft();
+    	}
+    	if (key == KeyEvent.VK_RIGHT) {
+    		System.out.println("right key sensed");
+    	    BoatController.boat.turnRight();
+    	}
+    	if(key == KeyEvent.VK_SPACE){
+    		System.out.println("space");
+    		boat.throttle();
+    	}
+    }
+    
 	
 	public static void turnLeftAction(){
 		boat.turnLeft();
