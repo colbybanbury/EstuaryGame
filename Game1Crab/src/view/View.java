@@ -64,7 +64,7 @@ public class View extends JPanel{
 	
 	public void paint(Graphics g){
 		g.drawImage(backgroundImage, 0, 0, this);
-		g.drawImage(crabImage, (int) CrabController.player.location.getX(), (int) CrabController.player.location.getY(), this);
+		g.drawImage(crabImage, (int) CrabController.player.getLocation().getX(), (int) CrabController.player.getLocation().getY(), this);
 		
 		if (!CrabController.board.enemies.isEmpty()){
 			for (model.Enemy e: CrabController.board.enemies){
