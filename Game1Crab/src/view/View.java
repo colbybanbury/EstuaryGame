@@ -62,7 +62,13 @@ public class View extends JPanel{
 	}
 	
 	public void paint(Graphics g){
-		g.drawImage(backgroundImage, 0, 0, this);
+		
+		g.setColor(new Color(103, 229, 255, 255));
+		g.fill3DRect(0, 0, CrabController.board.getWidth(), CrabController.board.getHeight(), false);
+		
+		g.setColor(new Color(225, 200, 100, 255));
+		g.fill3DRect(0, CrabController.board.getHeight() - 110, CrabController.board.getWidth(), CrabController.board.getHeight(), false);
+		
 		g.drawImage(crabImage, (int) CrabController.board.player.getLocation().getX(), (int) CrabController.board.player.getLocation().getY(), this);
 		
 		if (!CrabController.board.enemies.isEmpty()){
