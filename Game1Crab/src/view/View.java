@@ -82,6 +82,12 @@ public class View extends JPanel{
 			System.out.println("RECTANLGE (X,Y): (" + r.getX() + ", " + r.getY() + ")");
 			g.fill3DRect((int) r.getX(), (int) r.getY(), (int) r.getWidth()-1, (int) r.getHeight()-1, false);
 		}
+		
+		g.setColor(new Color(0, 0, 0, 255));
+		g.draw3DRect(20, CrabController.board.getHeight() - 40, CrabController.board.getWidth() - 40, 20, false);
+		
+		g.setColor(new Color(255, 0, 0, 255));
+		g.fill3DRect(20, CrabController.board.getHeight() - 40, 20 + ((CrabController.board.getWidth() - 40)*(CrabController.board.getProgress()/CrabController.board.getTotalProgress())), 20, false);
 	}
 	
 	private void loadImages(){

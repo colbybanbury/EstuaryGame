@@ -18,7 +18,8 @@ public class Board {
 	public int scentTrailHeight;
 	int waveDirection = 1; // 1 = up, -1 = down
 	public List<Rectangle> scentTrail = new ArrayList<Rectangle>(scentTrailDiv);
-	int progress = 0;
+	int progress = 30;
+	int totalProgress = 1000;
 	
 	public Board(int width, int height){
 		this.width = width;
@@ -35,8 +36,14 @@ public class Board {
 	public int getHeight(){
 		return height;
 	}
+	public int getProgress(){
+		return progress;
+	}
+	public int getTotalProgress(){
+		return totalProgress;
+	}
 	
-	public int checkSalinity(){ // changed from UML
+	public int checkSalinity(){
 		// TODO: only check rectangles the player is in, since player.xLoc does not change
 		int totalOverlap = 0;
 		Rectangle intersect;
