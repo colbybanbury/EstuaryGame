@@ -14,7 +14,7 @@ public class Player extends Mover{
 		
 	}
 	
-	//when the jump button is pressed the crabs yVelocity is increased by a set amount
+	//When the jump button is pressed the crabs yVelocity is increased by a set amount
 	public void jump(){
 		if (location.getY() >= 0){
 			yVel = -30;

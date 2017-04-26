@@ -56,7 +56,8 @@ public class CrabController {
 	public static void buttonPress(){
 		if (!board.player.getStarted()){
 			board.player.setStarted(true);
+		}else{
+			board.player.jump();
 		}
-		board.player.jump();
 	}
 }
