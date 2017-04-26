@@ -100,7 +100,7 @@ public class Boat {
 	public int getSpeed() {return this.speed;}
 	public int getSpeedInc() {return this.speedInc;}
 	public double getDrag(){return this.drag;}
-	public int getMaxSpeed(){return 0;}
+	public int getMaxSpeed(){return this.maxSpeed;}
 
 	public double getBoatCircleX() {return boatCircleX;}
 	public double getBoatCircleY() {return boatCircleY;}
