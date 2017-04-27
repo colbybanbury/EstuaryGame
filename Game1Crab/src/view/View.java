@@ -62,7 +62,13 @@ public class View extends JPanel{
 	}
 	
 	public void paint(Graphics g){
-		g.drawImage(backgroundImage, 0, 0, this);
+		
+		g.setColor(new Color(103, 229, 255, 255));
+		g.fill3DRect(0, 0, CrabController.board.getWidth(), CrabController.board.getHeight(), false);
+		
+		g.setColor(new Color(225, 200, 100, 255));
+		g.fill3DRect(0, CrabController.board.getHeight() - 110, CrabController.board.getWidth(), CrabController.board.getHeight(), false);
+		
 		g.drawImage(crabImage, (int) CrabController.board.player.getLocation().getX(), (int) CrabController.board.player.getLocation().getY(), this);
 		
 		if (!CrabController.board.enemies.isEmpty()){
@@ -83,13 +89,11 @@ public class View extends JPanel{
 		}
 		
 		g.setColor(new Color(0, 0, 0, 255));
-		g.draw3DRect(20, CrabController.board.getHeight() - 40, CrabController.board.getWidth() - 40, 20, false);
+		g.draw3DRect(20, 40, CrabController.board.getWidth() - 40, 20, false);
 		
 		g.setColor(new Color(255, 0, 0, 255));
-		double doob1 = CrabController.board.getProgress();
-		double doob2 = CrabController.board.getTotalProgress();
-		double doob3 = doob1/doob2;
-		g.fill3DRect(20, CrabController.board.getHeight() - 40, (int) (20 + ((CrabController.board.getWidth() - 40)*(doob3))), 20, false);
+		
+		g.fill3DRect(21, 41, (int) CrabController.board.getProgress(), 19, false);
 	}
 	
 	private void loadImages(){
