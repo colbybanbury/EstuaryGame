@@ -15,7 +15,7 @@ import model.Enemy;
 import model.Friend;
 import view.View;
 
-public class CrabController {
+public class CrabController  implements ActionListener{
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
 	final int HEIGHT = (int)screenSize.getHeight();
@@ -25,29 +25,27 @@ public class CrabController {
 	public static Player player;
 	public View view;
 	private Timer timer;
+	private final int DELAY = 50;//update rate (50ms) may need to make faster
 
 	public CrabController(){
 		this.board = new Board(WIDTH, HEIGHT);//adjust values for size of board and length of path
 		this.view = new View(WIDTH, HEIGHT);
+		
+		timer = new Timer(DELAY, this);
+		timer.start();
 	}
 	
 	public static void main(String[] args){
 		CrabController crabController = new CrabController();
-		
-		for (int i = 0; i < 1000; i++) {
-			crabController.onTick(i);
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
 	}
 	
-	public void onTick(int tick){
-		if (tick % 100 == 0 && board.player.getStarted()){
-			board.enemies.add(new Enemy(board));
-		}
+	@Override
+    public void actionPerformed(ActionEvent e){
+		onTick();
+    }
+	
+	public void onTick(){
+		board.enemies.add(new Enemy(board));
 		board.update();
 		view.animate();
 	}

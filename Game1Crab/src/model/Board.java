@@ -2,7 +2,7 @@ package model;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
-
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -13,23 +13,20 @@ public class Board {
 	public Player player;
 	public List<Enemy> enemies = new ArrayList<Enemy>();
 	public List<Friend> friends = new ArrayList<Friend>();
-	int scentTrailDiv = 500;  // number of rectangles that compose a scent trail
+	int scentTrailDiv = 300;  // number of rectangles that compose a scent trail
 	public double wavyFactor = 1;
 	public int scentTrailHeight;
 	int waveDirection = 1; // 1 = up, -1 = down
 	public List<Rectangle> scentTrail = new ArrayList<Rectangle>(scentTrailDiv);
-	int progress = 30;
-	int totalProgress = 1000;
-	int totalOverlap = 5250;
+	double progress = 0;
+	double[] progressArray = {-1.6, -1.0, -0.6, -0.4, -0.2, 0, 0.2, 0.4, 0.6, 1.0, 1.6};
 	
 	public Board(int width, int height){
 		this.width = width;
 		this.height = height;
 		this.player = new Player(this);
 		this.scentTrailHeight = height / 3;
-		for (int i = 0; i < scentTrailDiv; i++){
-			scentTrail.add(new Rectangle(i * width / scentTrailDiv, scentTrailHeight, width / scentTrailDiv + 1, scentTrailHeight));
-		}
+		scentTrail.add(new Rectangle(width, scentTrailHeight, width/scentTrailDiv, scentTrailHeight));
 	}
 	public int getWidth(){
 		return width;
@@ -37,18 +34,21 @@ public class Board {
 	public int getHeight(){
 		return height;
 	}
-	public int getProgress(){
+	public double getProgress(){
 		return progress;
 	}
 	public void setProgress(int progress){
-		this.progress += progress;
-	}
-	public int getTotalProgress(){
-		return totalProgress;
+		
+		if (this.progress + progressArray[progress] <= 0){
+			this.progress = 0;
+		}else if(this.progress + progressArray[progress] >= width - 40){
+			this.progress = width - 40;
+		}else{
+			this.progress += progressArray[progress];
+		}
 	}
 	
 	public int checkSalinity(){
-		// TODO: only check rectangles the player is in, since player.xLoc does not change
 		int totalOverlap = 0;
 		Rectangle intersect;
 		for (Rectangle r : scentTrail){
@@ -57,18 +57,25 @@ public class Board {
 				totalOverlap += intersect.getHeight() * intersect.getWidth();
 			}
 		}
-		return totalOverlap;
+		if (totalOverlap > 0){
+			return totalOverlap;
+		}else{
+			return 0;
+		}
 	}
-	public boolean checkCollision(){   // changed from UML
-		// iterates through enemies on board to check for collisions with
-		// player
-		for (Enemy enemy: enemies){
+	
+	public boolean checkCollision(){
+		for (Iterator<Enemy> enemyIterator = enemies.iterator(); enemyIterator.hasNext();){
+			Enemy enemy = enemyIterator.next();
+			
 			if (player.getLocation().intersects(enemy.getLocation())){
+				enemyIterator.remove();
 				return true;
 			}
 		}
 		return false;
 	}
+	
 	public void drought(){
 		scentTrailHeight /= 2;
 	}
@@ -77,32 +84,51 @@ public class Board {
 	}
 	public void construction(){}
 	
-	public void update(){		
-		for (Enemy e : enemies){
-			e.update();
+	public void update(){
+		if (player.getStarted()){
+			//Updates enemy locations
+			for (Enemy e : enemies){
+				e.update();
+			}
+			//Updates player location
+			player.update();
+			
+			//Initializes the yLoc for the next scent trail Rectangle
+			double newY = scentTrail.get(scentTrail.size()-1).getY() - waveDirection*wavyFactor;
+			
+			//Checks to see if scent trail is out of arbitrary boundary, changes direction if so
+			if (newY - (2 * scentTrailHeight/3) <= 0){
+				waveDirection = -1;
+			}else if (newY > height - scentTrailHeight - (2 * scentTrailHeight / 3)){
+				waveDirection = 1;
+			}
+			
+			//Creates new Rectangle
+			scentTrail.add(new Rectangle(width, (int) newY, width/scentTrailDiv, scentTrailHeight));
+			
+			//Loops through all Rectangles and increments locations and removes them if they are off screen
+			for (Iterator<Rectangle> rectIterator = scentTrail.iterator(); rectIterator.hasNext();){
+				Rectangle newRect = rectIterator.next();
+				
+				newRect.setLocation((int) (newRect.getX() - newRect.getWidth()), (int) newRect.getY());
+				
+				if (newRect.getX() <= 0){
+					rectIterator.remove();
+				}
+			}
+			
+			//Calculates how much of the player is in the scent trail
+			//Sets progress bar to increase/decrease accordingly
+			setProgress(checkSalinity() / 352);	
+			
+			//Checks the collisions with the enemies
+			if (!enemies.isEmpty()){
+				if (checkCollision()){
+					player.setStarted(false);
+				}
+			}
+		}else{
+			setProgress(0);
 		}
-		player.update();
-		
-		Rectangle endRectangle;
-		
-		double newY = scentTrail.get(scentTrailDiv-1).getY() - waveDirection*wavyFactor;
-		
-		if (newY - (2 * scentTrailHeight/3) <= 0){
-			waveDirection = -1;
-		}else if (newY > height - scentTrailHeight - (2 * scentTrailHeight / 3)){
-			waveDirection = 1;
-		}
-		
-		scentTrail.remove(0);
-		scentTrail.add(new Rectangle(width, (int) newY, width/scentTrailDiv, scentTrailHeight));
-		
-		for (Rectangle r: scentTrail){
-			r.setLocation((int) r.getX() - (width/scentTrailDiv), (int) r.getY());
-		}
-		
-		setProgress((checkSalinity() / 5250));
-		System.out.println("BOARD'S PROGRESS " + progress);
-		
-		
-	} 
+	}
 }
