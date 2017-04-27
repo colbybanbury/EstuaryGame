@@ -29,7 +29,7 @@ public class MoverTest {
 		m.update();
 		// started
 		assertEquals(xLoc + xVel, m.getXLoc(), 0);
-		assertEquals(yVel + yAcc, m.getYAcc(), 0);
+		assertEquals(yVel + yAcc, m.getYVel(), 0);
 		assertEquals(yLoc + yVel + yAcc, m.getYLoc(), 0);
 		assertEquals(xVel, m.getXVel(), 0);
 	}
