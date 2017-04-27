@@ -92,7 +92,7 @@ public class View extends JPanel{
 		boatAngle = BoatController.boat.getTheta() - BoatController.boat.getPhi();
 		//^the angle around the circle + phi or the angle that that boat has turned
 		
-		if(BoatController.boat.getSpeed()> (BoatController.boat.getThreshold() / 6) *5){
+		if(BoatController.boat.getSpeed()> (BoatController.boat.getThreshold() / 3) *2){
 			if(BoatController.boat.getSpeed()> BoatController.boat.getThreshold()){
 				boatImage = boatWake2;}	//boat speed is over the threshold so max wake displayed
 			else{boatImage = boatWake1;}//close to the threshold so middle wake

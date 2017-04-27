@@ -19,7 +19,7 @@ public class Boat {
 	private double phi = 0.0; //TODO reset to 0 to start
 	private double radiusScale = 1.0;
 	private final double RADIUS_SPEED_SCALER = .001;//TODO find the right value for this
-	private final int DAMAGE_SCALE = 4;
+	private final int DAMAGE_SCALE = 50;
 	
 	private double theta = 0.0;	//needed for circular representation in game
 	private double boatCircleX;
@@ -64,7 +64,7 @@ public class Boat {
 		if (this.getSpeed() > threshold){
 			System.out.println("generated Wake");
 			//damage scales based on how much you are above the threshold
-			curEstuary.damage((this.getSpeed()- threshold)/DAMAGE_SCALE);
+			curEstuary.damage((this.getSpeed()- threshold)/DAMAGE_SCALE + 1);
 			return true;
 		}
 		return false;
