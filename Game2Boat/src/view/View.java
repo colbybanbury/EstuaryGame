@@ -35,6 +35,9 @@ public class View extends JPanel{
 	
 	private BufferedImage backgroundImage;
 	private BufferedImage boatImage;
+	private BufferedImage boatWake0;
+	private BufferedImage boatWake1;
+	private BufferedImage boatWake2;
 	private BufferedImage estuary;
 	private BufferedImage seaWall;
 	private BufferedImage gabion;
@@ -89,6 +92,13 @@ public class View extends JPanel{
 		boatAngle = BoatController.boat.getTheta() - BoatController.boat.getPhi();
 		//^the angle around the circle + phi or the angle that that boat has turned
 		
+		if(BoatController.boat.getSpeed()> (BoatController.boat.getThreshold() / 6) *5){
+			if(BoatController.boat.getSpeed()> BoatController.boat.getThreshold()){
+				boatImage = boatWake2;}	//boat speed is over the threshold so max wake displayed
+			else{boatImage = boatWake1;}//close to the threshold so middle wake
+		}
+		else{boatImage = boatWake0;}	//well under threshold so no wake
+		
 		changeBoatAngle();
 		
 		frame.repaint();
@@ -130,7 +140,9 @@ public class View extends JPanel{
 	}
 	
 	private void loadImages(){
-		boatImage = createImage("images/boat.png");
+		boatWake0 = createImage("images/boat.png");
+		boatWake1 = createImage("images/boatWake1.gif");//TODO add images that have different levels of Wake
+		boatWake2 = createImage("images/boatWake2.gif");
 		backgroundImage = createImage("images/tempBackGround.jpg");
 		estuary = createImage("images/grass_tile.jpg");
 		seaWall = createImage("images/box.png");
