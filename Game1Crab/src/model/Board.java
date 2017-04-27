@@ -41,7 +41,7 @@ public class Board {
 		
 		if (this.progress + progressArray[progress] <= 0){
 			this.progress = 0;
-		}else if(this.progress + progressArray[progress] >= width - 40){
+		}else if(this.progress + progressArray[progress] >= width - 41){
 			this.progress = width - 40;
 		}else{
 			this.progress += progressArray[progress];
@@ -86,10 +86,7 @@ public class Board {
 	
 	public void update(){
 		if (player.getStarted()){
-			//Updates enemy locations
-			for (Enemy e : enemies){
-				e.update();
-			}
+			
 			//Updates player location
 			player.update();
 			
@@ -114,6 +111,28 @@ public class Board {
 				
 				if (newRect.getX() <= 0){
 					rectIterator.remove();
+				}
+			}
+			
+			//Updates enemy locations and removes enemies that are off screen
+			for(Iterator<Enemy> enemyIterator = enemies.iterator(); enemyIterator.hasNext();){
+				Enemy e = enemyIterator.next();				
+
+				e.update();
+				
+				if (e.getXLoc() + e.getLocation().getWidth() <= 0){
+					enemyIterator.remove();
+				}
+			}
+			
+			//Updates friend locations and removes friends that are off screen
+			for(Iterator<Friend> friendIterator = friends.iterator(); friendIterator.hasNext();){
+				Friend f = friendIterator.next();
+
+				f.update();
+				
+				if (f.getXLoc() + f.getLocation().getWidth() <= 0){
+					friendIterator.remove();
 				}
 			}
 			

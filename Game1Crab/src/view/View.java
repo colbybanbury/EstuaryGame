@@ -38,6 +38,7 @@ public class View extends JPanel{
 		this.frameHeight = h;
 		this.frameWidth = w;
 		loadImages();
+		
 		//makes a button that covers the whole screen and is invisible
 		jump.setOpaque(false);
 		jump.setContentAreaFilled(false);

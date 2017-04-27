@@ -25,12 +25,13 @@ public class CrabController  implements ActionListener{
 	public static Player player;
 	public View view;
 	private Timer timer;
-	private Timer timer2;
+	private Timer enemyTimer;
 	private Timer timer3;
+	private Timer friendTimer;
 	private final int DELAY = 70; //update rate = 70ms
 	private final int DELAY2 = 3000; // update rate = 3s
-	private final int DELAY3 = 24500; //update rate = 24.5s
-
+	private final int DELAY3 = 24500; //update rate = 24.5s (waits until the scentTrail bricks fill screen
+	
 	public CrabController(){
 		this.board = new Board(WIDTH, HEIGHT);//adjust values for size of board and length of path
 		this.view = new View(WIDTH, HEIGHT);
@@ -38,8 +39,11 @@ public class CrabController  implements ActionListener{
 		timer = new Timer(DELAY, this);
 		timer.start();
 		
-		timer2 = new Timer(DELAY2, this);
-		timer2.start();
+		enemyTimer = new Timer(DELAY2, this);
+		
+		timer3 = new Timer(DELAY3, this);
+		
+		friendTimer = new Timer(DELAY2, this);
 	}
 	
 	public static void main(String[] args){
@@ -50,10 +54,20 @@ public class CrabController  implements ActionListener{
     public void actionPerformed(ActionEvent e){
 		if(e.getSource() == timer){
 			onTick();
-		}else if(e.getSource() == timer2){
+			if(board.player.getStarted() && !enemyTimer.isRunning()){
+				timer3.start();
+				friendTimer.start();
+			}
+		}else if(e.getSource() == enemyTimer){
 			if(board.player.getStarted()){
 				board.enemies.add(new Enemy(board));
 			}
+		}else if(e.getSource() == timer3){
+			enemyTimer.start();
+			friendTimer.stop();
+			timer3.stop();
+		}else if(e.getSource() == friendTimer){
+			board.friends.add(new Friend(board));
 		}
     }
 	
