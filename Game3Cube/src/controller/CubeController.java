@@ -33,5 +33,5 @@ public class CubeController {
 		Animation animation=new Animation(board);
 	    animation.paintBoard();
 		
-	};
+	}
 }
