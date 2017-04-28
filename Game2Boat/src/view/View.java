@@ -27,6 +27,7 @@ public class View extends JPanel{
 	
 	private double boatX;
 	private double boatY;
+	private double boatTheta;
 	private double boatAngle;
 	
 	AffineTransformOp op;
@@ -35,6 +36,9 @@ public class View extends JPanel{
 	
 	private BufferedImage backgroundImage;
 	private BufferedImage boatImage;
+	private BufferedImage boatWake0;
+	private BufferedImage boatWake1;
+	private BufferedImage boatWake2;
 	private BufferedImage estuary;
 	private BufferedImage seaWall;
 	private BufferedImage gabion;
@@ -84,10 +88,20 @@ public class View extends JPanel{
 	}
 	
 	public void animate(){
-		boatX = BoatController.boat.getBoatCircleX();
-		boatY = BoatController.boat.getBoatCircleY();
-		boatAngle = BoatController.boat.getTheta() - BoatController.boat.getPhi();
+		boatTheta = (2*Math.PI*BoatController.boat.getXLoc()) / BoatController.board.getLapLength();
+		boatX = BoatController.board.getWidth()/2 + ((BoatController.board.getRadius()*
+				BoatController.boat.getRadiusScale()) * Math.cos(boatTheta));
+		boatY = BoatController.board.getHeight()/2 + ((BoatController.board.getRadius()*
+				BoatController.boat.getRadiusScale()) * Math.sin(boatTheta));
+		boatAngle = boatTheta - BoatController.boat.getPhi();
 		//^the angle around the circle + phi or the angle that that boat has turned
+		
+		if(BoatController.boat.getSpeed()> (BoatController.boat.getThreshold() / 3) *2){
+			if(BoatController.boat.getSpeed()> BoatController.boat.getThreshold()){
+				boatImage = boatWake2;}	//boat speed is over the threshold so max wake displayed
+			else{boatImage = boatWake1;}//close to the threshold so middle wake
+		}
+		else{boatImage = boatWake0;}	//well under threshold so no wake
 		
 		changeBoatAngle();
 		
@@ -119,7 +133,7 @@ public class View extends JPanel{
 				}
 			}
 		}
-		System.out.println("In View x: " + BoatController.boat.getBoatCircleX() + ", y: " + BoatController.boat.getBoatCircleY());
+		System.out.println("In View x: " + boatX + ", y: " + boatY);
 		//TODO
 	}
 	
@@ -130,7 +144,9 @@ public class View extends JPanel{
 	}
 	
 	private void loadImages(){
-		boatImage = createImage("images/boat.png");
+		boatWake0 = createImage("images/boat.png");
+		boatWake1 = createImage("images/boatWake1.gif");//TODO add images that have different levels of Wake
+		boatWake2 = createImage("images/boatWake2.gif");
 		backgroundImage = createImage("images/tempBackGround.jpg");
 		estuary = createImage("images/grass_tile.jpg");
 		seaWall = createImage("images/box.png");

@@ -22,7 +22,7 @@ public class Estuary{
 				this.integrity = 2; //sea wall so some protection
 				break;
 			case 2: 
-				this.integrity = 10;//Gabion so a lot of protection
+				this.integrity = 6;//Gabion so a lot of protection
 				break;
 			case 3:
 				this.integrity = 0;	//open water
@@ -71,7 +71,7 @@ public class Estuary{
 			this.integrity = 2; //sea wall so some protection
 			break;
 		case 2: 
-			this.integrity = 10;//Gabion so a lot of protection
+			this.integrity = 6;//Gabion so a lot of protection
 			break;
 		}
 	}

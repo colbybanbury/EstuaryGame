@@ -49,8 +49,6 @@ public abstract class Mover implements Movable{
 	public void update(){		
 		if (this.started){
 			
-			//TODO: Call Board checkCollision and checkSalinity methods before moving
-			
 			yVel += yAcc;
 			
 			if (location.getY() + location.getHeight()>= this.board.getHeight() - location.getHeight() - 80){

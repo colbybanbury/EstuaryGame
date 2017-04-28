@@ -69,7 +69,7 @@ public class BoatTest {
 			System.out.println(b1.getSpeed());
 			if (b1.getSpeed() > threshold){
 				assertTrue(b1.generateWake(e1));
-				assertEquals(damage + b1.getSpeed() - threshold, e1.getDamage());
+				assertEquals((b1.getSpeed()- threshold)/b1.DAMAGE_SCALE + 1, e1.getDamage());
 			}
 			else {
 				assertFalse(b1.generateWake(e1));
@@ -79,14 +79,6 @@ public class BoatTest {
 		}
 		System.out.println();
 	}
-	/*
-	@Test
-	public void updateCircleLocTest(){
-		Boat b1 = new Boat(accel, speedInc, mSpeed, initialX, initialY);
-		assertTrue(b1.getBoatCircleX() == initialX && b1.getBoatCircleY() == initialY);
-		//b1.updateCircleLoc();
-		//TODO hard to test since it uses data from the controller
-	}
-	*/
+	
 	
 }
