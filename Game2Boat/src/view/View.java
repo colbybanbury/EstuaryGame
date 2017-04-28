@@ -27,6 +27,7 @@ public class View extends JPanel{
 	
 	private double boatX;
 	private double boatY;
+	private double boatTheta;
 	private double boatAngle;
 	
 	AffineTransformOp op;
@@ -87,9 +88,12 @@ public class View extends JPanel{
 	}
 	
 	public void animate(){
-		boatX = BoatController.boat.getBoatCircleX();
-		boatY = BoatController.boat.getBoatCircleY();
-		boatAngle = BoatController.boat.getTheta() - BoatController.boat.getPhi();
+		boatTheta = (2*Math.PI*BoatController.boat.getXLoc()) / BoatController.board.getLapLength();
+		boatX = BoatController.board.getWidth()/2 + ((BoatController.board.getRadius()*
+				BoatController.boat.getRadiusScale()) * Math.cos(boatTheta));
+		boatY = BoatController.board.getHeight()/2 + ((BoatController.board.getRadius()*
+				BoatController.boat.getRadiusScale()) * Math.sin(boatTheta));
+		boatAngle = boatTheta - BoatController.boat.getPhi();
 		//^the angle around the circle + phi or the angle that that boat has turned
 		
 		if(BoatController.boat.getSpeed()> (BoatController.boat.getThreshold() / 3) *2){
@@ -129,7 +133,7 @@ public class View extends JPanel{
 				}
 			}
 		}
-		System.out.println("In View x: " + BoatController.boat.getBoatCircleX() + ", y: " + BoatController.boat.getBoatCircleY());
+		System.out.println("In View x: " + boatX + ", y: " + boatY);
 		//TODO
 	}
 	

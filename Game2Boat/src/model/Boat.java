@@ -21,23 +21,11 @@ public class Boat {
 	private final double RADIUS_SPEED_SCALER = .001;//TODO find the right value for this
 	private final int DAMAGE_SCALE = 50;
 	
-	private double theta = 0.0;	//needed for circular representation in game
-	private double boatCircleX;
-	private double boatCircleY;
-	
-	private int centerX;	//center of the board, boat rotates around
-	private int centerY;
-	
 	private int threshold = 2*speedInc;
 	private Board board;
 	
 	public Boat(Board board){
 		this.board = board;
-
-		this.centerX = board.getWidth() / 2;
-		this.centerY = board.getHeight() / 2;
-
-		updateCircleLoc();
 	}
 	
 	public void throttle(){	//called when button is pressed
@@ -82,17 +70,7 @@ public class Boat {
 			this.radiusScale = 0.82;
 			this.phi += 0.2;
 			}
-		updateCircleLoc();
 		this.speed -= drag *speed*speed;
-	}
-	
-	private void updateCircleLoc(){
-		this.theta = (2*Math.PI*this.xLoc) / board.getLapLength();
-		System.out.println((2*Math.PI*this.xLoc));
-		System.out.println("Theta: " + this.theta);
-		this.boatCircleX = centerX + ((board.getRadius()*this.radiusScale) * Math.cos(theta));
-		this.boatCircleY = centerY + ((board.getRadius()*this.radiusScale) * Math.sin(theta));
-		System.out.println("in boat x: " + this.boatCircleX + ", y: " + this.boatCircleY);
 	}
 	
 	//getters. Currently no setters but can be added if needed for testing
@@ -102,10 +80,7 @@ public class Boat {
 	public int getSpeedInc() {return this.speedInc;}
 	public double getDrag(){return this.drag;}
 	public int getMaxSpeed(){return this.maxSpeed;}
-
-	public double getBoatCircleX() {return boatCircleX;}
-	public double getBoatCircleY() {return boatCircleY;}
-	public double getTheta(){return theta;}
+	
 	public int getThreshold(){return threshold;}
 	public double getPhi(){return phi;}
 	public double getRadiusScale(){return radiusScale;}
