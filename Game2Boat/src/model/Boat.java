@@ -19,7 +19,7 @@ public class Boat {
 	private double phi = 0.0; //TODO reset to 0 to start
 	private double radiusScale = 1.0;
 	private final double RADIUS_SPEED_SCALER = .001;//TODO find the right value for this
-	private final int DAMAGE_SCALE = 50;
+	public static final int DAMAGE_SCALE = 50;
 	
 	private int threshold = 2*speedInc;
 	private Board board;

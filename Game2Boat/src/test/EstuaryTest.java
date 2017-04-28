@@ -25,10 +25,10 @@ public class EstuaryTest {
 		//System.out.println(e1.getIntegrity());
 		assertEquals(e1.getIntegrity(), 0);
 		assertEquals(e2.getIntegrity(), 2);
-		assertEquals(e3.getIntegrity(), 10);
+		assertEquals(e3.getIntegrity(), 6);
 		e1.setType(2); // gabion
 		assertEquals(e1.getDamage(), 0);
-		assertEquals(e1.getIntegrity(), 10);
+		assertEquals(e1.getIntegrity(), 6);
 		e3.setType(1); // sea wall
 		assertEquals(e3.getDamage(), 0);
 		assertEquals(e3.getIntegrity(), 2);
