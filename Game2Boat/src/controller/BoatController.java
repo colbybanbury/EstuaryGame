@@ -97,15 +97,21 @@ public class BoatController implements ActionListener{
     }
     
     public void checkCollision(){
+    	int rowNum = (boat.getXLoc()*board.getlapDivisions())/board.getLapLength();
+    	int columnNum = (int) ((boat.getRadiusScale() - 0.8)*7.5);
     	//gets what ever powerup is at the boats current location and if there is one there it does whatever it needs to
-    	curPowerUp = board.getPowerUps()[(boat.getXLoc()*board.getlapDivisions())/board.getLapLength()][(int) ((boat.getRadiusScale() - 0.8)*7.5) ];
+    	curPowerUp = board.getPowerUps()[rowNum][columnNum];
     	System.out.println("boat is at powerUP["+(boat.getXLoc()*board.getlapDivisions())/board.getLapLength()+"][" + (int) ((boat.getRadiusScale() - 0.8)*7.5) +"]" );
     	//TODO test this to make sure it's on the right powerUp, Did some testing and I think it works
     	switch(curPowerUp){	//TODO the actual implementation of this
     	case OYSTER:
+    		System.out.println("picked up an Oyster");
+    		board.getPowerUps()[rowNum][columnNum] = POWER_UP.NONE;
     		//activates oyster power up
     		break;
     	case SEAGRASS:
+    		System.out.println("picked up SeaGrass");
+    		board.getPowerUps()[rowNum][columnNum] = POWER_UP.NONE;
     		//activates sea grass
     		break;
     	default:

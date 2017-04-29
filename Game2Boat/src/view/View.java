@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import controller.BoatController;
+import enums.POWER_UP;
 import model.Estuary;
 
 public class View extends JPanel{
@@ -45,6 +46,8 @@ public class View extends JPanel{
 	private BufferedImage damage1;
 	private BufferedImage damage2;
 	private BufferedImage damage3;
+	private BufferedImage oyster;
+	private BufferedImage seaGrass;
 	
 	JFrame frame;
 	JPanel panel;
@@ -133,6 +136,24 @@ public class View extends JPanel{
 				}
 			}
 		}
+		for(int i = 0; i< 3; i++){
+			int tempRadius  = (int) (BoatController.board.getRadius()* (0.9+0.1*i));
+			for(int j = 0; j<BoatController.board.getlapDivisions(); j++){
+				double tempTheta = (2*Math.PI*j) / BoatController.board.getlapDivisions();
+				int tempX = (int) (frameWidth/2 + tempRadius * Math.cos(tempTheta));
+				int tempY = (int) (frameHeight/2 + tempRadius * Math.sin(tempTheta));
+				switch(BoatController.board.getPowerUps()[j][i]){
+				case OYSTER:
+					g.drawImage(oyster, tempX, tempY, this);
+					break;
+				case SEAGRASS:
+					g.drawImage(seaGrass, tempX, tempY, this);
+					break;
+				default://NONE
+					break;
+				}
+			}
+		}
 		System.out.println("In View x: " + boatX + ", y: " + boatY);
 		//TODO
 	}
@@ -154,6 +175,8 @@ public class View extends JPanel{
 		damage1 = createImage("images/puddle small.png");
 		damage2 = createImage("images/puddle medium.png");
 		damage3 = createImage("images/puddle large.png");
+		oyster = createImage("images/clam_back_0.png");
+		seaGrass = createImage("images/seagrass.png");
 		//TODO
 	}
 	

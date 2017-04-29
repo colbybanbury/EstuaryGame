@@ -44,6 +44,7 @@ public class Board {
 			powerUps[i][2] = POWER_UP.NONE;
 		}
 		
+		powerUps[0][0] =  POWER_UP.OYSTER;
 	}
 
 	public int getHeight() {
