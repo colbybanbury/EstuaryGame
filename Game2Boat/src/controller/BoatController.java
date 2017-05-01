@@ -108,11 +108,13 @@ public class BoatController implements ActionListener{
     		System.out.println("picked up an Oyster");
     		board.getPowerUps()[rowNum][columnNum] = POWER_UP.NONE;
     		//activates oyster power up
+    		//TODO ADD OYSTER FUNCTION
     		break;
     	case SEAGRASS:
     		System.out.println("picked up SeaGrass");
     		board.getPowerUps()[rowNum][columnNum] = POWER_UP.NONE;
     		//activates sea grass
+    		//TODO ADD SEAGRASS FUNCTION
     		break;
     	default:
     		//no powerUp aka NONE

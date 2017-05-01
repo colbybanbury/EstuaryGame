@@ -16,7 +16,7 @@ public class Boat {
 	
 	private int maxSpeed = 400; //changes based on the boat
 	
-	private double phi = 0.0; //TODO reset to 0 to start
+	private double phi = 0.0;//angle of the boat
 	private double radiusScale = 1.0;
 	private final double RADIUS_SPEED_SCALER = .001;//TODO find the right value for this
 	public static final int DAMAGE_SCALE = 50;

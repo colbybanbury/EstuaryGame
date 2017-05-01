@@ -85,9 +85,6 @@ public class View extends JPanel{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(frameWidth, frameHeight);
 		frame.setVisible(true);
-		
-		
-		//TODO
 	}
 	
 	public void animate(){
@@ -118,7 +115,7 @@ public class View extends JPanel{
 			if(e.getType()!=3){
 				g.drawImage(estuary, e.getCircleX(), e.getCircleY(), this);
 				switch(e.getType()){//draws the protection type on top of the estuary centered
-				case 0://TODO no protection add change based on damage
+				case 0:
 					if(e.getDamage()>6)//most damage
 						g.drawImage(damage3, e.getCircleX(), e.getCircleY(), this);
 					else if(e.getDamage()>3)//middle
@@ -127,10 +124,10 @@ public class View extends JPanel{
 						g.drawImage(damage1, e.getCircleX(), e.getCircleY(), this);
 					}
 					break;
-				case 1://sea wall
+				case 1://sea wall TODO the wall should visably deteriorate based on integrity
 					g.drawImage(seaWall, e.getCircleX() + (estuary.getWidth()/2 - seaWall.getWidth()/2), e.getCircleY() + (estuary.getHeight()/2 - seaWall.getHeight()/3), this);
 					break;
-				case 2://Gabion
+				case 2://Gabion TODO the wall should visably deteriorate based on integrity
 					g.drawImage(gabion, e.getCircleX() + (estuary.getWidth()/2 - seaWall.getWidth()/2), e.getCircleY() + (estuary.getHeight()/2 - seaWall.getHeight()/3), this);
 					break;
 				}
@@ -155,7 +152,6 @@ public class View extends JPanel{
 			}
 		}
 		System.out.println("In View x: " + boatX + ", y: " + boatY);
-		//TODO
 	}
 	
 	
@@ -177,7 +173,7 @@ public class View extends JPanel{
 		damage3 = createImage("images/puddle large.png");
 		oyster = createImage("images/clam_back_0.png");
 		seaGrass = createImage("images/seagrass.png");
-		//TODO
+		//TODO add the different levels of Gabion and seaWall damage
 	}
 	
 	private BufferedImage createImage(String file){
