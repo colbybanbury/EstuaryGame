@@ -40,7 +40,7 @@ public class BoatTest {
 		b1.move();
 		System.out.println("xLoc: " + xLoc + " speed: " + speed);
 		assertEquals(speed + xLoc, b1.getXLoc());
-		assertTrue(b1.getSpeed() == 0);
+		assertEquals(b1.getSpeed(), 0);
 
 		for (int i = 0; i < 5; i++){
 			b1.throttle();
@@ -51,7 +51,7 @@ public class BoatTest {
 			b1.move();
 			System.out.println("xLoc: " + xLoc + " speed: " + speed);
 			assertEquals(speed + xLoc, b1.getXLoc());
-			assertTrue(b1.getSpeed() == (int) (speed - b1.getDrag()*speed*speed));
+			assertEquals(b1.getSpeed(), (int) (speed - b1.getDrag()*speed*speed));
 		}
 		System.out.println();
 	}
@@ -81,6 +81,4 @@ public class BoatTest {
 		}
 		System.out.println();
 	}
-	
-	
 }
