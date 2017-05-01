@@ -70,7 +70,7 @@ public class BoatController implements ActionListener{
 		view.animate();
 		
 		checkCollision();
-		//TODO whatever the view needs
+		
 		
 		
 	}

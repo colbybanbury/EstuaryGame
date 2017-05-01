@@ -162,7 +162,7 @@ public class View extends JPanel{
 	
 	private void loadImages(){
 		boatWake0 = createImage("images/boat.png");
-		boatWake1 = createImage("images/boatWake1.gif");//TODO add images that have different levels of Wake
+		boatWake1 = createImage("images/boatWake1.gif");
 		boatWake2 = createImage("images/boatWake2.gif");
 		backgroundImage = createImage("images/tempBackGround.jpg");
 		estuary = createImage("images/grass_tile.jpg");
