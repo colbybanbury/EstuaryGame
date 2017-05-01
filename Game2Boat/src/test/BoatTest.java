@@ -68,8 +68,10 @@ public class BoatTest {
 			b1.throttle();
 			System.out.println(b1.getSpeed());
 			if (b1.getSpeed() > threshold){
+				damage+=(b1.getSpeed()- threshold)/b1.DAMAGE_SCALE + 1;
 				assertTrue(b1.generateWake(e1));
-				assertEquals((b1.getSpeed()- threshold)/b1.DAMAGE_SCALE + 1, e1.getDamage());
+				System.out.println(((b1.getSpeed()- threshold)/b1.DAMAGE_SCALE + 1) + " vs " + e1.getDamage());
+				assertEquals(damage, e1.getDamage());
 			}
 			else {
 				assertFalse(b1.generateWake(e1));
