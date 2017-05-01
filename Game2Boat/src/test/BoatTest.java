@@ -40,7 +40,7 @@ public class BoatTest {
 		b1.move();
 		System.out.println("xLoc: " + xLoc + " speed: " + speed);
 		assertEquals(speed + xLoc, b1.getXLoc());
-		assertTrue(b1.getSpeed() == 0);
+		assertEquals(b1.getSpeed(), 0);
 
 		for (int i = 0; i < 5; i++){
 			b1.throttle();
@@ -51,7 +51,7 @@ public class BoatTest {
 			b1.move();
 			System.out.println("xLoc: " + xLoc + " speed: " + speed);
 			assertEquals(speed + xLoc, b1.getXLoc());
-			assertTrue(b1.getSpeed() == (int) (speed - b1.getDrag()*speed*speed));
+			assertEquals(b1.getSpeed(), (int) (speed - b1.getDrag()*speed*speed));
 		}
 		System.out.println();
 	}
@@ -69,7 +69,7 @@ public class BoatTest {
 			System.out.println(b1.getSpeed());
 			if (b1.getSpeed() > threshold){
 				assertTrue(b1.generateWake(e1));
-				assertEquals((b1.getSpeed()- threshold)/b1.DAMAGE_SCALE + 1, e1.getDamage());
+				assertEquals((b1.getSpeed()- threshold)/b1.DAMAGE_SCALE + 1 - e1.getIntegrity(), e1.getDamage());
 			}
 			else {
 				assertFalse(b1.generateWake(e1));
@@ -79,6 +79,4 @@ public class BoatTest {
 		}
 		System.out.println();
 	}
-	
-	
 }
