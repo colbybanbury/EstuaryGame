@@ -135,8 +135,8 @@ public class View extends JPanel{
 		}
 		for(int i = 0; i< 3; i++){
 			int tempRadius  = (int) (BoatController.board.getRadius()* (0.9+0.1*i));
-			for(int j = 0; j<BoatController.board.getlapDivisions(); j++){
-				double tempTheta = (2*Math.PI*j) / BoatController.board.getlapDivisions();
+			for(int j = 0; j<BoatController.board.getLapDivisions(); j++){
+				double tempTheta = (2*Math.PI*j) / BoatController.board.getLapDivisions();
 				int tempX = (int) (frameWidth/2 + tempRadius * Math.cos(tempTheta));
 				int tempY = (int) (frameHeight/2 + tempRadius * Math.sin(tempTheta));
 				switch(BoatController.board.getPowerUps()[j][i]){
