@@ -117,7 +117,13 @@ public class BoatController implements ActionListener{
     		//TODO ADD SEAGRASS FUNCTION
     		break;
     	case ROCK:
-    		boat.setXLoc(boat.getXLoc() - 100);//TODO make this a bit cleaner. Speed can not be negative so don't do that
+    		boat.setXLoc(boat.getXLoc() - 30);//TODO make this a bit cleaner. Speed can not be negative so don't do that
+    		view.animate();
+    		boat.setXLoc(boat.getXLoc() - 30);
+    		view.animate();
+    		boat.setXLoc(boat.getXLoc() - 30);
+    		view.animate();
+    		boat.setXLoc(boat.getXLoc() - 30);
     		boat.setSpeed(0);
     		break;
     	default:
