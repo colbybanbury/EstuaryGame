@@ -61,7 +61,7 @@ public class Board {
 		return lapLength;
 	}
 
-	public int getlapDivisions() {
+	public int getLapDivisions() {
 		return lapDivisions;
 	}
 

@@ -51,4 +51,15 @@ public class BoardTest {
 		assertEquals(b.getPowerUps()[0][0], POWER_UP.NONE);
 	}
 	
+	@Test
+	public void getLapDivisionsTest(){
+		Board b = new Board(height, width, lapLength, radius);
+		assertEquals(20, b.getLapDivisions());
+	}	
+	
+	@Test
+	public void getRadiusTest(){
+		Board b = new Board(height, width, lapLength, radius);
+		assertEquals(radius, b.getRadius());
+	}
 }
