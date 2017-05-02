@@ -54,7 +54,7 @@ public class BoardTest {
 	@Test
 	public void getLapDivisionsTest(){
 		Board b = new Board(height, width, lapLength, radius);
-		assertEquals(20, b.getLapDivisions());
+		assertEquals(40, b.getLapDivisions());
 	}	
 	
 	@Test

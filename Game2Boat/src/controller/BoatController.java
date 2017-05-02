@@ -116,6 +116,10 @@ public class BoatController implements ActionListener{
     		//activates sea grass
     		//TODO ADD SEAGRASS FUNCTION
     		break;
+    	case ROCK:
+    		boat.setXLoc(boat.getXLoc() - 100);//TODO make this a bit cleaner. Speed can not be negative so don't do that
+    		boat.setSpeed(0);
+    		break;
     	default:
     		//no powerUp aka NONE
     		break;

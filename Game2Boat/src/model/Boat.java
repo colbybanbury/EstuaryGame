@@ -77,6 +77,8 @@ public class Boat {
 	public int getXLoc(){return this.xLoc;}
 	public void setXLoc(int loc){this.xLoc = loc;}
 	public int getSpeed() {return this.speed;}
+	public void setSpeed(int speed) {this.speed = speed;}
+
 	public int getSpeedInc() {return this.speedInc;}
 	public double getDrag(){return this.drag;}
 	public int getMaxSpeed(){return this.maxSpeed;}
