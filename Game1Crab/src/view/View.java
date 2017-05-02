@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
@@ -21,18 +22,14 @@ import controller.CrabController;
 
 public class View extends JPanel{
 	private int frameHeight;
-	private int frameWidth;	
-	
-	private double crabX;
-	private double crabY;
-	
-	private int crabHeight = 119;
-	private int crabWidth = 243;
+	private int frameWidth;
 	
 	public static JButton jump = new JButton("");
 	
 	private BufferedImage backgroundImage;
 	private BufferedImage crabImage;
+	private BufferedImage enemyImage;
+	private BufferedImage friendImage;
 	
 	JFrame frame;
 	
@@ -41,6 +38,7 @@ public class View extends JPanel{
 		this.frameHeight = h;
 		this.frameWidth = w;
 		loadImages();
+		
 		//makes a button that covers the whole screen and is invisible
 		jump.setOpaque(false);
 		jump.setContentAreaFilled(false);
@@ -48,8 +46,6 @@ public class View extends JPanel{
 		jump.setBounds(0, 0, w, h);
 		jump.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				//when the mouse is clicked it calls buttonPress in the controller
-				System.out.println("button pressed");
 				CrabController.buttonPress();
 			}
 		});	
@@ -62,23 +58,50 @@ public class View extends JPanel{
 		frame.setVisible(true);
 	}
 	
-	public void animate(){
-		crabX = CrabController.player.location.getX();
-		crabY = CrabController.player.location.getY();
-		
+	public void animate(){		
 		frame.repaint();
 	}
 	
 	public void paint(Graphics g){
-		g.drawImage(backgroundImage, 0, 0, this);
-		g.drawImage(crabImage, (int) crabX, (int) crabY, this);
-		//TODO
+		
+		g.setColor(new Color(103, 229, 255, 255));
+		g.fill3DRect(0, 0, CrabController.board.getWidth(), CrabController.board.getHeight(), false);
+		
+		g.setColor(new Color(225, 200, 100, 255));
+		g.fill3DRect(0, CrabController.board.getHeight() - 110, CrabController.board.getWidth(), CrabController.board.getHeight(), false);
+		
+		g.drawImage(crabImage, (int) CrabController.board.player.getLocation().getX(), (int) CrabController.board.player.getLocation().getY(), this);
+		
+		if (!CrabController.board.enemies.isEmpty()){
+			for (model.Enemy e: CrabController.board.enemies){
+				g.drawImage(enemyImage, (int) e.location.getX(), (int) e.location.getY(), this);
+			}
+		}
+		if (!CrabController.board.friends.isEmpty()){
+			for (model.Friend f: CrabController.board.friends){
+				g.drawImage(friendImage, (int) f.location.getX(), (int) f.location.getY(), this);
+			}
+		}
+		
+		g.setColor(new Color(239, 211, 70, 127));
+		
+		for (Rectangle r: CrabController.board.scentTrail){
+			g.fill3DRect((int) r.getX(), (int) r.getY(), (int) r.getWidth()-1, (int) r.getHeight()-1, false);
+		}
+		
+		g.setColor(new Color(0, 0, 0, 255));
+		g.draw3DRect(20, 40, CrabController.board.getWidth() - 40, 20, false);
+		
+		g.setColor(new Color(255, 0, 0, 255));
+		
+		g.fill3DRect(21, 41, (int) CrabController.board.getProgress(), 19, false);
 	}
 	
 	private void loadImages(){
 		crabImage = createImage("images/bluecrab_0.png");
 		backgroundImage = createImage("images/tempBackGround.jpg");
-		//TODO
+		enemyImage = createImage("images/fish_bass_left.png");
+		friendImage = createImage("images/bogturtle_left_1.png");
 	}
 	
 	private BufferedImage createImage(String file) {
@@ -91,4 +114,5 @@ public class View extends JPanel{
 		}
 		return null;
 	}
+	
 }

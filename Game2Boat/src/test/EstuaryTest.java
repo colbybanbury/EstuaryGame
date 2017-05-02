@@ -13,10 +13,10 @@ public class EstuaryTest {
 
 	@Test
 	public void constructorTest() {
-		Estuary e1 = new Estuary(0); // no wall
-		Estuary e2 = new Estuary(1); // sea wall
-		Estuary e3 = new Estuary(2); // gabion
-		Estuary e4 = new Estuary(3); // error handling
+		Estuary e1 = new Estuary(0, 0, 0); // no wall
+		Estuary e2 = new Estuary(1, 0, 0); // sea wall
+		Estuary e3 = new Estuary(2, 0, 0); // gabion
+		Estuary e4 = new Estuary(3, 0, 0); // error handling
 		assertEquals(e4.getDamage(), 0);
 		assertEquals(e4.getIntegrity(), 0);
 		assertEquals(e1.getDamage(), 0);
@@ -25,10 +25,10 @@ public class EstuaryTest {
 		//System.out.println(e1.getIntegrity());
 		assertEquals(e1.getIntegrity(), 0);
 		assertEquals(e2.getIntegrity(), 2);
-		assertEquals(e3.getIntegrity(), 10);
+		assertEquals(e3.getIntegrity(), 6);
 		e1.setType(2); // gabion
 		assertEquals(e1.getDamage(), 0);
-		assertEquals(e1.getIntegrity(), 10);
+		assertEquals(e1.getIntegrity(), 6);
 		e3.setType(1); // sea wall
 		assertEquals(e3.getDamage(), 0);
 		assertEquals(e3.getIntegrity(), 2);
@@ -41,9 +41,9 @@ public class EstuaryTest {
 		int oldIntegrity, oldDamage;
 		int damage = 1;
 		List<Estuary> l1 = new ArrayList<Estuary> ();
-		l1.add(new Estuary(0));
-		l1.add(new Estuary(1));
-		l1.add(new Estuary(2));
+		l1.add(new Estuary(0, 0, 0));
+		l1.add(new Estuary(1, 0, 0));
+		l1.add(new Estuary(2, 0, 0));
 		for (int i=0; i < 13; i++){
 			for (Estuary e : l1){
 				oldIntegrity = e.getIntegrity();
@@ -62,6 +62,6 @@ public class EstuaryTest {
 				}
 			}
 		}
-		Estuary e1 = new Estuary(2);
+		Estuary e1 = new Estuary(2, 0, 0);
 	}	
 }

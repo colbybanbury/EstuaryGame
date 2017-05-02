@@ -33,5 +33,5 @@ public class CubeController extends JPanel{
 		Animation animation=new Animation(board);
 	    animation.paintBoard();
 		
-	};
+	}
 }

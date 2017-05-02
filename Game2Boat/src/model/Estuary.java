@@ -7,7 +7,12 @@ public class Estuary{
 	private int type; //0 is empty, 1 is sea wall, 2 is Gabion
 						//needed for different image representations
 	
-	public Estuary(int t){
+	int circleX;
+	int circleY;
+	
+	public Estuary(int t, int cX, int cY){
+		this.circleX = cX;
+		this.circleY = cY;
 		this.type = t;
 		switch(t){
 			case 0: 
@@ -17,18 +22,23 @@ public class Estuary{
 				this.integrity = 2; //sea wall so some protection
 				break;
 			case 2: 
-				this.integrity = 10;//Gabion so a lot of protection
+				this.integrity = 6;//Gabion so a lot of protection
+				break;
+			case 3:
+				this.integrity = 0;	//open water
 				break;
 		}
 	}
 	
 	public void damage(int wakeDamage){//updates the integrity of the wall and returns the damage left over
-		if(integrity>=wakeDamage)
-			integrity -= wakeDamage;
-		else
-			damage += wakeDamage - integrity;
-		if(integrity == 0)
-			type = 0;
+		if(type!=3){	//if it's not open water
+			if(integrity>=wakeDamage)
+				integrity -= wakeDamage;
+			else
+				damage += wakeDamage - integrity;
+			if(integrity == 0)
+				type = 0;
+		}
 	}
 	
 	public int getDamage() {
@@ -61,9 +71,17 @@ public class Estuary{
 			this.integrity = 2; //sea wall so some protection
 			break;
 		case 2: 
-			this.integrity = 10;//Gabion so a lot of protection
+			this.integrity = 6;//Gabion so a lot of protection
 			break;
 		}
+	}
+
+	public int getCircleX() {
+		return circleX;
+	}
+
+	public int getCircleY() {
+		return circleY;
 	}
 	
 	
