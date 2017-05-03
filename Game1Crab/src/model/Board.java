@@ -54,7 +54,14 @@ public class Board {
 	public double getProgress(){
 		return progress;
 	}
-	public void setProgress(int progress){		
+
+	public void setProgress(int progress){
+		//TODO: write test for this function
+		/* cases:
+		 * 		1. progress is less than zero
+		 * 		2. progress is greater than width - 41
+		 * 		3. progress is between above ranges
+		 */
 		if (this.progress + progressArray[progress] <= 0){
 			this.progress = 0;
 		}else if(this.progress + progressArray[progress] >= width - 41){
@@ -74,6 +81,12 @@ public class Board {
 	 * 					 and any possible rectangle it could intersect
 	 */
 	public int checkSalinity(){
+		// TODO: write tests for this method
+		/* cases:
+		 * 		1. player is inside scent trail
+		 * 		2. player is outside scent trail
+		 * 		3. player is partially in scent trail
+		 */
 		int totalOverlap = 0;
 		Rectangle intersect;
 		for (Rectangle r : scentTrail){
@@ -98,6 +111,7 @@ public class Board {
 	 * @return collided- boolean whether or not player has collided with enemy
 	 */
 	public boolean checkCollision(){
+		// TODO: write test for no collisions condition
 		for (Iterator<Enemy> enemyIterator = enemies.iterator(); enemyIterator.hasNext();){
 			Enemy enemy = enemyIterator.next();
 			
@@ -138,7 +152,9 @@ public class Board {
 	 * @return void
 	 * @see scent trail has holes in it and becomes harder to stayw within
 	 */
-	public void construction(){}	
+	public void construction(){
+		// TODO: come up with a way to implement holes in scent trail
+	}	
 
 	/**
 	 * Updates the positions of player, enemies, friends, and scent trail rectangles.
@@ -150,6 +166,8 @@ public class Board {
 	 * 		progress bar is update and increases/decreases
 	 */
 	public void update(){
+		// TODO: write tests for this method
+		// TODO: outline cases that need coverage for this method
 		if (player.getStarted()){
 			
 			//Updates player location

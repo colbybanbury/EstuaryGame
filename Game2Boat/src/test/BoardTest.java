@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import enums.POWER_UP;
 import model.Board;
 import model.Estuary;
 
@@ -43,6 +44,22 @@ public class BoardTest {
 		assertEquals(b.getWidth(), width);
 	}
 	
+	@Test
+	public void getPowerUpsTest(){
+		Board b = new Board(height, width, lapLength, radius);
+		System.out.println(b.getPowerUps());
+		assertEquals(b.getPowerUps()[0][0], POWER_UP.NONE);
+	}
 	
+	@Test
+	public void getLapDivisionsTest(){
+		Board b = new Board(height, width, lapLength, radius);
+		assertEquals(40, b.getLapDivisions());
+	}	
 	
+	@Test
+	public void getRadiusTest(){
+		Board b = new Board(height, width, lapLength, radius);
+		assertEquals(radius, b.getRadius());
+	}
 }

@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.Timer;
 
+import enums.POWER_UP;
 import model.Board;
 import model.Boat;
 import model.Estuary;
@@ -29,6 +30,7 @@ public class BoatController implements ActionListener{
 	public static Boat boat;
 	public Game game;
 	public static Estuary curEstuary;
+	public static POWER_UP curPowerUp;
 	public View view;
 	private final int LAPLENGTH = 5000;
 	private final int RADIUS = (HEIGHT>WIDTH)? 3* WIDTH / 8 : 3*HEIGHT / 8;
@@ -57,16 +59,18 @@ public class BoatController implements ActionListener{
 			boat.setXLoc(0);
 			game.setLap(game.getLap()+1);
 			//TODO figure out how we want scoring to work
-			//game.increaseScore();
+			game.increaseScore();
 		}
 		game.decreaseTime();
 		//TODO if time is up end game
-		System.out.println("currently on estuary # " +(boat.getXLoc()*board.getEstuaryCount())/board.getLapLength());
-		curEstuary = board.getLapPath()[(boat.getXLoc()*board.getEstuaryCount())/board.getLapLength()];
+		System.out.println("currently on estuary # " +(boat.getXLoc()*board.getLapDivisions())/board.getLapLength());
+		curEstuary = board.getLapPath()[(boat.getXLoc()*board.getLapDivisions())/board.getLapLength()];
 		//^finds current estuary. curEsutuary = (xLoc * estuaryCount)/lapLength)
 		boat.generateWake(curEstuary); //can return a boolean if it damages it if necessary
 		view.animate();
-		//TODO whatever the view needs
+		
+		checkCollision();
+		
 		
 		
 	}
@@ -92,6 +96,41 @@ public class BoatController implements ActionListener{
     	}
     }
     
+    public void checkCollision(){
+    	int rowNum = (boat.getXLoc()*board.getLapDivisions())/board.getLapLength();
+    	int columnNum = (int) ((boat.getRadiusScale() - 0.8)*7.5);
+    	//gets what ever powerup is at the boats current location and if there is one there it does whatever it needs to
+    	curPowerUp = board.getPowerUps()[rowNum][columnNum];
+    	System.out.println("boat is at powerUP["+(boat.getXLoc()*board.getLapDivisions())/board.getLapLength()+"][" + (int) ((boat.getRadiusScale() - 0.8)*7.5) +"]" );
+    	//TODO test this to make sure it's on the right powerUp, Did some testing and I think it works
+    	switch(curPowerUp){	//TODO the actual implementation of this
+    	case OYSTER:
+    		System.out.println("picked up an Oyster");
+    		board.getPowerUps()[rowNum][columnNum] = POWER_UP.NONE;
+    		//activates oyster power up
+    		//TODO ADD OYSTER FUNCTION
+    		break;
+    	case SEAGRASS:
+    		System.out.println("picked up SeaGrass");
+    		board.getPowerUps()[rowNum][columnNum] = POWER_UP.NONE;
+    		//activates sea grass
+    		//TODO ADD SEAGRASS FUNCTION
+    		break;
+    	case ROCK:
+    		boat.setXLoc(boat.getXLoc() - 30);//TODO make this a bit cleaner. Speed can not be negative so don't do that
+    		view.animate();
+    		boat.setXLoc(boat.getXLoc() - 30);
+    		view.animate();
+    		boat.setXLoc(boat.getXLoc() - 30);
+    		view.animate();
+    		boat.setXLoc(boat.getXLoc() - 30);
+    		boat.setSpeed(0);
+    		break;
+    	default:
+    		//no powerUp aka NONE
+    		break;
+    	}
+    }
 	
 	public static void turnLeftAction(){
 		boat.turnLeft();

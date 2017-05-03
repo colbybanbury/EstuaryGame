@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import controller.BoatController;
+import enums.POWER_UP;
 import model.Estuary;
 
 public class View extends JPanel{
@@ -27,6 +28,7 @@ public class View extends JPanel{
 	
 	private double boatX;
 	private double boatY;
+	private double boatTheta;
 	private double boatAngle;
 	
 	AffineTransformOp op;
@@ -44,6 +46,9 @@ public class View extends JPanel{
 	private BufferedImage damage1;
 	private BufferedImage damage2;
 	private BufferedImage damage3;
+	private BufferedImage oyster;
+	private BufferedImage seaGrass;
+	private BufferedImage rock;
 	
 	JFrame frame;
 	JPanel panel;
@@ -81,18 +86,18 @@ public class View extends JPanel{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(frameWidth, frameHeight);
 		frame.setVisible(true);
-		
-		
-		//TODO
 	}
 	
 	public void animate(){
-		boatX = BoatController.boat.getBoatCircleX();
-		boatY = BoatController.boat.getBoatCircleY();
-		boatAngle = BoatController.boat.getTheta() - BoatController.boat.getPhi();
+		boatTheta = (2*Math.PI*BoatController.boat.getXLoc()) / BoatController.board.getLapLength();
+		boatX = BoatController.board.getWidth()/2 + ((BoatController.board.getRadius()*
+				BoatController.boat.getRadiusScale()) * Math.cos(boatTheta));
+		boatY = BoatController.board.getHeight()/2 + ((BoatController.board.getRadius()*
+				BoatController.boat.getRadiusScale()) * Math.sin(boatTheta));
+		boatAngle = boatTheta - BoatController.boat.getPhi();
 		//^the angle around the circle + phi or the angle that that boat has turned
 		
-		if(BoatController.boat.getSpeed()> (BoatController.boat.getThreshold() / 6) *5){
+		if(BoatController.boat.getSpeed()> (BoatController.boat.getThreshold() / 3) *2){
 			if(BoatController.boat.getSpeed()> BoatController.boat.getThreshold()){
 				boatImage = boatWake2;}	//boat speed is over the threshold so max wake displayed
 			else{boatImage = boatWake1;}//close to the threshold so middle wake
@@ -111,7 +116,7 @@ public class View extends JPanel{
 			if(e.getType()!=3){
 				g.drawImage(estuary, e.getCircleX(), e.getCircleY(), this);
 				switch(e.getType()){//draws the protection type on top of the estuary centered
-				case 0://TODO no protection add change based on damage
+				case 0:
 					if(e.getDamage()>6)//most damage
 						g.drawImage(damage3, e.getCircleX(), e.getCircleY(), this);
 					else if(e.getDamage()>3)//middle
@@ -120,17 +125,37 @@ public class View extends JPanel{
 						g.drawImage(damage1, e.getCircleX(), e.getCircleY(), this);
 					}
 					break;
-				case 1://sea wall
+				case 1://sea wall TODO the wall should visably deteriorate based on integrity
 					g.drawImage(seaWall, e.getCircleX() + (estuary.getWidth()/2 - seaWall.getWidth()/2), e.getCircleY() + (estuary.getHeight()/2 - seaWall.getHeight()/3), this);
 					break;
-				case 2://Gabion
+				case 2://Gabion TODO the wall should visably deteriorate based on integrity
 					g.drawImage(gabion, e.getCircleX() + (estuary.getWidth()/2 - seaWall.getWidth()/2), e.getCircleY() + (estuary.getHeight()/2 - seaWall.getHeight()/3), this);
 					break;
 				}
 			}
 		}
-		System.out.println("In View x: " + BoatController.boat.getBoatCircleX() + ", y: " + BoatController.boat.getBoatCircleY());
-		//TODO
+		for(int i = 0; i< 3; i++){
+			int tempRadius  = (int) (BoatController.board.getRadius()* (0.9+0.1*i));
+			for(int j = 0; j<BoatController.board.getLapDivisions(); j++){
+				double tempTheta = (2*Math.PI*j) / BoatController.board.getLapDivisions();
+				int tempX = (int) (frameWidth/2 + tempRadius * Math.cos(tempTheta));
+				int tempY = (int) (frameHeight/2 + tempRadius * Math.sin(tempTheta));
+				switch(BoatController.board.getPowerUps()[j][i]){
+				case OYSTER:
+					g.drawImage(oyster, tempX, tempY, this);
+					break;
+				case SEAGRASS:
+					g.drawImage(seaGrass, tempX, tempY, this);
+					break;
+				case ROCK:
+					g.drawImage(rock, tempX, tempY, this);
+					break;
+				default://NONE
+					break;
+				}
+			}
+		}
+		System.out.println("In View x: " + boatX + ", y: " + boatY);
 	}
 	
 	
@@ -141,7 +166,7 @@ public class View extends JPanel{
 	
 	private void loadImages(){
 		boatWake0 = createImage("images/boat.png");
-		boatWake1 = createImage("images/boatWake1.gif");//TODO add images that have different levels of Wake
+		boatWake1 = createImage("images/boatWake1.gif");
 		boatWake2 = createImage("images/boatWake2.gif");
 		backgroundImage = createImage("images/tempBackGround.jpg");
 		estuary = createImage("images/grass_tile.jpg");
@@ -150,7 +175,10 @@ public class View extends JPanel{
 		damage1 = createImage("images/puddle small.png");
 		damage2 = createImage("images/puddle medium.png");
 		damage3 = createImage("images/puddle large.png");
-		//TODO
+		oyster = createImage("images/clam_back_0.png");
+		seaGrass = createImage("images/seagrass.png");
+		//TODO add the different levels of Gabion and seaWall damage
+		rock = createImage("images/seed.png");//TODO make this actually be a better size/shape Will probably have to adjust the x y in paint for these
 	}
 	
 	private BufferedImage createImage(String file){
