@@ -16,7 +16,7 @@ public class BoatTest {
 	public void throttleTest() {
 		System.out.println("throttleTest");
 		System.out.println();
-		Boat b1 = new Boat(b);
+		Boat b1 = new Boat();
 		for (int i = 0; i < 17; i++){
 			speed = b1.getSpeed();
 			b1.throttle();
@@ -33,7 +33,7 @@ public class BoatTest {
 	public void moveTest(){
 		System.out.println("moveTest");
 		System.out.println();
-		Boat b1 = new Boat(b);
+		Boat b1 = new Boat();
 		xLoc = b1.getXLoc();
 		speed = b1.getSpeed();
 		System.out.println("xLoc: " + xLoc + " speed: " + speed);
@@ -61,7 +61,7 @@ public class BoatTest {
 		double phi, radiusScale;
 		System.out.println("turnLeftMoveTest: ");
 		System.out.println();
-		Boat b1 = new Boat(b);
+		Boat b1 = new Boat();
 		for (int i = 0; i < 15; i++){
 			b1.setXLoc(0);
 			b1.turnLeft(); // increase phi
@@ -87,7 +87,7 @@ public class BoatTest {
 	public void turnRightMoveTest(){
 		System.out.println("turnLeftMoveTest: ");
 		System.out.println();
-		Boat b1 = new Boat(b);
+		Boat b1 = new Boat();
 		b1.setXLoc(0);
 		b1.turnRight(); // increase phi
 		b1.throttle();
@@ -115,7 +115,7 @@ public class BoatTest {
 	
 	@Test
 	public void turnTest(){
-		Boat b1 = new Boat(b);
+		Boat b1 = new Boat();
 		double phi = b1.getPhi();
 		for (int i = 0; i < 17; i++){
 			b1.turnLeft();
@@ -135,7 +135,7 @@ public class BoatTest {
 	public void wakeTest(){
 		System.out.println("wakeTest");
 		System.out.println();
-		Boat b1 = new Boat(b);
+		Boat b1 = new Boat();
 		int threshold = b1.getThreshold();
 		int speedInc = b1.getSpeedInc();
 		Estuary e1 = new Estuary(0,0,0);

@@ -33,8 +33,6 @@ public class Boat {
 	
 	/**
 	 * The trottle() method increases the speed by speedInc. If the speed exceeds the maxSpeed it is reset to maxSpeed.
-	 * 
-	 * @return void
 	 *
 	 */
 	public void throttle(){	//called when button is pressed
@@ -47,8 +45,6 @@ public class Boat {
 	/**
 	 * The turnRight() method subtracts 0.25 from Phi(the angle of the boat). Phi is limited to be more than -2.0.
 	 * 
-	 * @return void
-	 *
 	 */
 	public void turnRight(){//turns the boat right and changes move()
 		this.phi -= 0.25;//TODO figure out good levels for actualy gameplay
@@ -68,15 +64,17 @@ public class Boat {
 			this.phi = 2.0;
 	}
 	
+
 	/**
 	 * The generateWake() method checks to see if the boat speed is above the threshold
 	 * and if it is it damages the current estuary based on the current speed and the DAMAGE_SCALE.
 	 * 
 	 * @param curEstuary The estuary that the boat is currently next to.
 	 * 
-	 * @return boolean	if the speed is above the threshold it returns true otherwise it returns false.
+	 * @return if the speed is above the threshold it returns true otherwise it returns false.
 	 *
 	 */
+	 
 	public boolean generateWake(Estuary curEstuary){
 		System.out.println(this.getSpeed() + " > ?" + threshold);
 		if (this.getSpeed() > threshold){
@@ -94,7 +92,6 @@ public class Boat {
 	 * If the radiusScale is less than 0.8 (too close to the center) the radiusScale is set to 0.82 and 0.2 is added to phi(straighten out the boat).
 	 * The Speed is decreased by the square of the speed multiplied by a drag scaling variable
 	 * 
-	 * @return void
 	 */
 	public void move(){	//should be called every tick
 		System.out.println("move called");
