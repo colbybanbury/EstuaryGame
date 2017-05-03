@@ -38,7 +38,7 @@ public class BoatController implements ActionListener{
 	
 	public BoatController(){
 		this.board = new Board(WIDTH, HEIGHT, LAPLENGTH, RADIUS);//adjust values for size of board and length of path
-		this.boat = new Boat(board);//adjust values on acceleration, speedInc, and max speed
+		this.boat = new Boat();//adjust values on acceleration, speedInc, and max speed
 		this.game = new Game();
 		this.curEstuary = board.getLapPath()[0];//starts at the first estuary
 		this.view = new View(WIDTH, HEIGHT);
@@ -63,8 +63,8 @@ public class BoatController implements ActionListener{
 		}
 		game.decreaseTime();
 		//TODO if time is up end game
-		System.out.println("currently on estuary # " +(boat.getXLoc()*board.getlapDivisions())/board.getLapLength());
-		curEstuary = board.getLapPath()[(boat.getXLoc()*board.getlapDivisions())/board.getLapLength()];
+		System.out.println("currently on estuary # " +(boat.getXLoc()*board.getLapDivisions())/board.getLapLength());
+		curEstuary = board.getLapPath()[(boat.getXLoc()*board.getLapDivisions())/board.getLapLength()];
 		//^finds current estuary. curEsutuary = (xLoc * estuaryCount)/lapLength)
 		boat.generateWake(curEstuary); //can return a boolean if it damages it if necessary
 		view.animate();
@@ -97,11 +97,11 @@ public class BoatController implements ActionListener{
     }
     
     public void checkCollision(){
-    	int rowNum = (boat.getXLoc()*board.getlapDivisions())/board.getLapLength();
+    	int rowNum = (boat.getXLoc()*board.getLapDivisions())/board.getLapLength();
     	int columnNum = (int) ((boat.getRadiusScale() - 0.8)*7.5);
     	//gets what ever powerup is at the boats current location and if there is one there it does whatever it needs to
     	curPowerUp = board.getPowerUps()[rowNum][columnNum];
-    	System.out.println("boat is at powerUP["+(boat.getXLoc()*board.getlapDivisions())/board.getLapLength()+"][" + (int) ((boat.getRadiusScale() - 0.8)*7.5) +"]" );
+    	System.out.println("boat is at powerUP["+(boat.getXLoc()*board.getLapDivisions())/board.getLapLength()+"][" + (int) ((boat.getRadiusScale() - 0.8)*7.5) +"]" );
     	//TODO test this to make sure it's on the right powerUp, Did some testing and I think it works
     	switch(curPowerUp){	//TODO the actual implementation of this
     	case OYSTER:
@@ -115,6 +115,16 @@ public class BoatController implements ActionListener{
     		board.getPowerUps()[rowNum][columnNum] = POWER_UP.NONE;
     		//activates sea grass
     		//TODO ADD SEAGRASS FUNCTION
+    		break;
+    	case ROCK:
+    		boat.setXLoc(boat.getXLoc() - 30);//TODO make this a bit cleaner. Speed can not be negative so don't do that
+    		view.animate();
+    		boat.setXLoc(boat.getXLoc() - 30);
+    		view.animate();
+    		boat.setXLoc(boat.getXLoc() - 30);
+    		view.animate();
+    		boat.setXLoc(boat.getXLoc() - 30);
+    		boat.setSpeed(0);
     		break;
     	default:
     		//no powerUp aka NONE

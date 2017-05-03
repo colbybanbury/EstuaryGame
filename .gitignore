@@ -6,3 +6,4 @@
 .recommenders/*
 */.classpath
 */.settings/*
+*/doc/*

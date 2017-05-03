@@ -48,6 +48,7 @@ public class View extends JPanel{
 	private BufferedImage damage3;
 	private BufferedImage oyster;
 	private BufferedImage seaGrass;
+	private BufferedImage rock;
 	
 	JFrame frame;
 	JPanel panel;
@@ -135,8 +136,8 @@ public class View extends JPanel{
 		}
 		for(int i = 0; i< 3; i++){
 			int tempRadius  = (int) (BoatController.board.getRadius()* (0.9+0.1*i));
-			for(int j = 0; j<BoatController.board.getlapDivisions(); j++){
-				double tempTheta = (2*Math.PI*j) / BoatController.board.getlapDivisions();
+			for(int j = 0; j<BoatController.board.getLapDivisions(); j++){
+				double tempTheta = (2*Math.PI*j) / BoatController.board.getLapDivisions();
 				int tempX = (int) (frameWidth/2 + tempRadius * Math.cos(tempTheta));
 				int tempY = (int) (frameHeight/2 + tempRadius * Math.sin(tempTheta));
 				switch(BoatController.board.getPowerUps()[j][i]){
@@ -145,6 +146,9 @@ public class View extends JPanel{
 					break;
 				case SEAGRASS:
 					g.drawImage(seaGrass, tempX, tempY, this);
+					break;
+				case ROCK:
+					g.drawImage(rock, tempX, tempY, this);
 					break;
 				default://NONE
 					break;
@@ -174,6 +178,7 @@ public class View extends JPanel{
 		oyster = createImage("images/clam_back_0.png");
 		seaGrass = createImage("images/seagrass.png");
 		//TODO add the different levels of Gabion and seaWall damage
+		rock = createImage("images/seed.png");//TODO make this actually be a better size/shape Will probably have to adjust the x y in paint for these
 	}
 	
 	private BufferedImage createImage(String file){

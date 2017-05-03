@@ -9,14 +9,19 @@ import enums.POWER_UP;
 //and an object array with all the objects on the board.
 /**
  * @author colby
- *
+ * This class contains the dimensions of the screen and lap along with two collections containing the estuaries and the powerups.
+ * The constructor populates the collections with their default values. Other than the constructor the class only has getters and setters
+ * @param w 	Width of the screen.
+ * @param h 	Height of the screen.
+ * @param lapL 	the length of a lap that corresponds to the xLoc of the boat.
+ * @param r 	the radius of the circular lap.
  */
 public class Board {
 	private int height;
 	private int width;
 	private int radius;
 	private int lapLength;	//
-	final int lapDivisions = 20; //the number of estuary shore lines and the sections of the lap that can hold a power up
+	final int lapDivisions = 40; //the number of estuary shore lines and the sections of the lap that can hold a power up
 	Estuary[] lapPath = new Estuary[lapDivisions];
 	POWER_UP[][] powerUps = new POWER_UP[lapDivisions][3];
 	
@@ -27,11 +32,12 @@ public class Board {
 		this.lapLength = lapL;
 		for(int i= 0; i<lapDivisions/3; i++){	//initialize the first 1/3 to be open water
 			double tempTheta = (2*Math.PI*i) / lapDivisions;
-			double tempX =   width/2 + (radius+65) * Math.cos(tempTheta);
-			double tempY = height/2 + (radius+65) * Math.sin(tempTheta);
+			double tempX =   width/2 + (radius+100) * Math.cos(tempTheta);
+			double tempY = height/2 + (radius+100) * Math.sin(tempTheta);
 			lapPath[i] = new Estuary(3, (int)tempX, (int)tempY);
 		}
-		for(int i= lapDivisions/3; i<lapDivisions; i++){	//add estuaries to the other 2/3s and make them gabions for now TODO add variety		
+		for(int i= lapDivisions/3; i<lapDivisions; i++){	//add estuaries to the other 2/3s and make them gabions for now 
+			//TODO add variety. Not everythign should be gabions
 			double tempTheta = (2*Math.PI*i) / lapDivisions;
 			double tempX =   width/2 + (radius+100) * Math.cos(tempTheta);
 			double tempY = height/2 + (radius+100) * Math.sin(tempTheta);
@@ -42,6 +48,12 @@ public class Board {
 			powerUps[i][0] = POWER_UP.NONE;
 			powerUps[i][1] = POWER_UP.NONE;
 			powerUps[i][2] = POWER_UP.NONE;
+			
+			powerUps[lapDivisions*3/4][1] = POWER_UP.ROCK;
+			powerUps[lapDivisions*3/4][2] = POWER_UP.ROCK;//placing a dock in the way
+			
+			powerUps[lapDivisions*27/32][0] = POWER_UP.ROCK;
+			powerUps[lapDivisions*27/32][1] = POWER_UP.ROCK;//placing a dock in the way
 		}
 	}
 
@@ -61,7 +73,7 @@ public class Board {
 		return lapLength;
 	}
 
-	public int getlapDivisions() {
+	public int getLapDivisions() {
 		return lapDivisions;
 	}
 

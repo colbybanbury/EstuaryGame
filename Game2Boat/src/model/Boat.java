@@ -6,6 +6,11 @@ import controller.BoatController;
 
 /**
  * @author colby
+ * 
+ * This class represents the boat the player controls. 
+ * The boat's position is determined by an xLoc and a radiusScale which allows it's position to be independent of the size of the screen.
+ * The boat can be throttled, turned right and left, moved, and it can generate wake.
+ * The class keeps track of the boats xLoc, radiusScale, speed, and angle along with a number of attributes that control those 3 main attributes.
  *
  */
 public class Boat {
@@ -18,16 +23,20 @@ public class Boat {
 	
 	private double phi = 0.0;//angle of the boat
 	private double radiusScale = 1.0;
-	private final double RADIUS_SPEED_SCALER = .001;//TODO find the right value for this
+	public static final double RADIUS_SPEED_SCALER = .001;//TODO find the right value for this
 	public static final int DAMAGE_SCALE = 50;
 	
 	private int threshold = 2*speedInc;
-	private Board board;
 	
-	public Boat(Board board){
-		this.board = board;
-	}
+	public Boat(){}
 	
+	
+	/**
+	 * The trottle() method increases the speed by speedInc. If the speed exceeds the maxSpeed it is reset to maxSpeed.
+	 * 
+	 * @return void
+	 *
+	 */
 	public void throttle(){	//called when button is pressed
 		this.speed += speedInc;
 		if(speed > maxSpeed)
@@ -35,18 +44,39 @@ public class Boat {
 		System.out.println("boat was throttled");
 	} 
 	
+	/**
+	 * The turnRight() method subtracts 0.25 from Phi(the angle of the boat). Phi is limited to be more than -2.0.
+	 * 
+	 * @return void
+	 *
+	 */
 	public void turnRight(){//turns the boat right and changes move()
 		this.phi -= 0.25;//TODO figure out good levels for actualy gameplay
 		if(this.phi<-2.0)
 			this.phi = -2.0;
 	}
 	
+	/**
+	 * The turnLeft() method adds 0.25 from Phi(the angle of the boat). Phi is limited to be less than 2.0.
+	 * 
+	 * @return void
+	 *
+	 */
 	public void turnLeft(){//turns the boat left and changes move()
 		this.phi += 0.25;
 		if(this.phi>2.0)
 			this.phi = 2.0;
 	}
 	
+	/**
+	 * The generateWake() method checks to see if the boat speed is above the threshold
+	 * and if it is it damages the current estuary based on the current speed and the DAMAGE_SCALE.
+	 * 
+	 * @param curEstuary The estuary that the boat is currently next to.
+	 * 
+	 * @return boolean	if the speed is above the threshold it returns true otherwise it returns false.
+	 *
+	 */
 	public boolean generateWake(Estuary curEstuary){
 		System.out.println(this.getSpeed() + " > ?" + threshold);
 		if (this.getSpeed() > threshold){
@@ -58,6 +88,14 @@ public class Boat {
 		return false;
 	}
 	
+	/**
+	 * the move method changes xLoc and radiusScale based on the speed and the angle of the boat.
+	 * If the radiusScale is greater than 1.2 (too far from center) the radiusScale is set to 1.18 and 0.2 is subtracted from phi(straighten out the boat).
+	 * If the radiusScale is less than 0.8 (too close to the center) the radiusScale is set to 0.82 and 0.2 is added to phi(straighten out the boat).
+	 * The Speed is decreased by the square of the speed multiplied by a drag scaling variable
+	 * 
+	 * @return void
+	 */
 	public void move(){	//should be called every tick
 		System.out.println("move called");
 		this.xLoc += speed * Math.cos(phi);
@@ -77,6 +115,8 @@ public class Boat {
 	public int getXLoc(){return this.xLoc;}
 	public void setXLoc(int loc){this.xLoc = loc;}
 	public int getSpeed() {return this.speed;}
+	public void setSpeed(int speed) {this.speed = speed;}
+
 	public int getSpeedInc() {return this.speedInc;}
 	public double getDrag(){return this.drag;}
 	public int getMaxSpeed(){return this.maxSpeed;}
