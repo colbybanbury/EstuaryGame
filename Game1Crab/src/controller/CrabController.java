@@ -31,7 +31,7 @@ public class CrabController  implements ActionListener{
 	private final int DELAY = 70; //update rate = 70ms
 	private final int DELAY2 = 3000; // update rate = 3s
 	private final int DELAY3 = 24500; //update rate = 24.5s (waits until the scentTrail bricks fill screen
-	
+   	
 	public CrabController(){
 		this.board = new Board(WIDTH, HEIGHT);//adjust values for size of board and length of path
 		this.view = new View(WIDTH, HEIGHT);
