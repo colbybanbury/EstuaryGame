@@ -6,6 +6,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * @author Zachary
+ * 
+ * This class is the board class that includes all elements that exist in the board and
+ * 		are displayed on screen.
+ * It updates their positions and checks for any and all collisions.
+ */
 public class Board {
 	int width;
 	int height;
@@ -21,6 +28,15 @@ public class Board {
 	double progress = 0;
 	double[] progressArray = {-1.6, -1.0, -0.6, -0.4, -0.2, 0, 0.2, 0.4, 0.6, 1.0, 1.6};
 	
+	/**
+	 * Board constructor.
+	 * Initializes the player for the board as well as the List scentTrail that will
+	 * contain all the scent trail rectangle.
+	 * 
+	 * @param width of the board
+	 * @param height of the board
+	 * @return constructs a Board
+	 */
 	public Board(int width, int height){
 		this.width = width;
 		this.height = height;
@@ -28,6 +44,7 @@ public class Board {
 		this.scentTrailHeight = height / 3;
 		scentTrail.add(new Rectangle(width, scentTrailHeight, width/scentTrailDiv, scentTrailHeight));
 	}
+	
 	public int getWidth(){
 		return width;
 	}
@@ -37,8 +54,7 @@ public class Board {
 	public double getProgress(){
 		return progress;
 	}
-	public void setProgress(int progress){
-		
+	public void setProgress(int progress){		
 		if (this.progress + progressArray[progress] <= 0){
 			this.progress = 0;
 		}else if(this.progress + progressArray[progress] >= width - 41){
@@ -48,6 +64,15 @@ public class Board {
 		}
 	}
 	
+	/**
+	 * Checks the player's salinity, i.e., collisions with the scent trail.
+	 * Is calculated every tick.
+	 * Only checks the rectangles within the players x-width.
+	 * 
+	 * @param void
+	 * @return salinity- integer total amount of intersected area between the player
+	 * 					 and any possible rectangle it could intersect
+	 */
 	public int checkSalinity(){
 		int totalOverlap = 0;
 		Rectangle intersect;
@@ -64,6 +89,14 @@ public class Board {
 		}
 	}
 	
+	/**
+	 * Checks to see if the player has collided with an enemy.
+	 * Is calculated every tick.
+	 * Only checks enemies in the List Enemy
+	 * 
+	 * @param void
+	 * @return collided- boolean whether or not player has collided with enemy
+	 */
 	public boolean checkCollision(){
 		for (Iterator<Enemy> enemyIterator = enemies.iterator(); enemyIterator.hasNext();){
 			Enemy enemy = enemyIterator.next();
@@ -76,14 +109,46 @@ public class Board {
 		return false;
 	}
 	
+	/**
+	 * Causes the scent trail to become thinner
+	 * 
+	 * @param void
+	 * @return void
+	 * @see scent trail heights decrease and becomes thinner and harder to stay within
+	 */
 	public void drought(){
 		scentTrailHeight /= 2;
 	}
+	
+	/**
+	 * Causes the scent trail to become wavier
+	 * 
+	 * @param void
+	 * @return void
+	 * @see scent trail variance increases and zig-zag nature is exaggerated
+	 */
 	public void storm(){
 		wavyFactor = 10;
 	}
-	public void construction(){}
 	
+	/**
+	 * Causes the scent trail to become patchy
+	 * 
+	 * @param void
+	 * @return void
+	 * @see scent trail has holes in it and becomes harder to stayw within
+	 */
+	public void construction(){}	
+
+	/**
+	 * Updates the positions of player, enemies, friends, and scent trail rectangles.
+	 * Updates progress of player.
+	 * 
+	 * @param void
+	 * @return void
+	 * @see players, enemies, friends, rectangles all update location and move on screen
+	 * 		progress bar is update and increases/decreases
+	 */
 	public void update(){
 		if (player.getStarted()){
 			
