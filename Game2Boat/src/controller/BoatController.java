@@ -38,7 +38,7 @@ public class BoatController implements ActionListener{
 	
 	public BoatController(){
 		this.board = new Board(WIDTH, HEIGHT, LAPLENGTH, RADIUS);//adjust values for size of board and length of path
-		this.boat = new Boat(board);//adjust values on acceleration, speedInc, and max speed
+		this.boat = new Boat();//adjust values on acceleration, speedInc, and max speed
 		this.game = new Game();
 		this.curEstuary = board.getLapPath()[0];//starts at the first estuary
 		this.view = new View(WIDTH, HEIGHT);

@@ -9,7 +9,12 @@ import enums.POWER_UP;
 //and an object array with all the objects on the board.
 /**
  * @author colby
- *
+ * This class contains the dimensions of the screen and lap along with two collections containing the estuaries and the powerups.
+ * The constructor populates the collections with their default values. Other than the constructor the class only has getters and setters
+ * @param w 	Width of the screen.
+ * @param h 	Height of the screen.
+ * @param lapL 	the length of a lap that corresponds to the xLoc of the boat.
+ * @param r 	the radius of the circular lap.
  */
 public class Board {
 	private int height;
