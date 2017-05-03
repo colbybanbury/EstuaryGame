@@ -35,7 +35,6 @@ public class Board {
 	 * 
 	 * @param width of the board
 	 * @param height of the board
-	 * @return constructs a Board
 	 */
 	public Board(int width, int height){
 		this.width = width;
@@ -76,7 +75,6 @@ public class Board {
 	 * Is calculated every tick.
 	 * Only checks the rectangles within the players x-width.
 	 * 
-	 * @param void
 	 * @return salinity- integer total amount of intersected area between the player
 	 * 					 and any possible rectangle it could intersect
 	 */
@@ -107,7 +105,6 @@ public class Board {
 	 * Is calculated every tick.
 	 * Only checks enemies in the List Enemy
 	 * 
-	 * @param void
 	 * @return collided- boolean whether or not player has collided with enemy
 	 */
 	public boolean checkCollision(){
@@ -126,9 +123,6 @@ public class Board {
 	/**
 	 * Causes the scent trail to become thinner
 	 * 
-	 * @param void
-	 * @return void
-	 * @see scent trail heights decrease and becomes thinner and harder to stay within
 	 */
 	public void drought(){
 		scentTrailHeight /= 2;
@@ -137,9 +131,6 @@ public class Board {
 	/**
 	 * Causes the scent trail to become wavier
 	 * 
-	 * @param void
-	 * @return void
-	 * @see scent trail variance increases and zig-zag nature is exaggerated
 	 */
 	public void storm(){
 		wavyFactor = 10;
@@ -148,9 +139,6 @@ public class Board {
 	/**
 	 * Causes the scent trail to become patchy
 	 * 
-	 * @param void
-	 * @return void
-	 * @see scent trail has holes in it and becomes harder to stayw within
 	 */
 	public void construction(){
 		// TODO: come up with a way to implement holes in scent trail
@@ -160,10 +148,6 @@ public class Board {
 	 * Updates the positions of player, enemies, friends, and scent trail rectangles.
 	 * Updates progress of player.
 	 * 
-	 * @param void
-	 * @return void
-	 * @see players, enemies, friends, rectangles all update location and move on screen
-	 * 		progress bar is update and increases/decreases
 	 */
 	public void update(){
 		// TODO: write tests for this method
