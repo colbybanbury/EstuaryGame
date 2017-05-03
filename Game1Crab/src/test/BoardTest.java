@@ -81,6 +81,11 @@ public class BoardTest {
 	}
 	
 	@Test
+	public void checkCollisionTest5() {
+		//TODO: make this test check that there are no collisions
+	}
+	
+	@Test
 	public void droughtTest(){
 		Board b1 = new Board(1000, 1200);
 		b1.drought();

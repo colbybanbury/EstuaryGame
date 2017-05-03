@@ -38,7 +38,12 @@ public class Board {
 		return progress;
 	}
 	public void setProgress(int progress){
-		
+		//TODO: write test for this function
+		/* cases:
+		 * 		1. progress is less than zero
+		 * 		2. progress is greater than width - 41
+		 * 		3. progress is between above ranges
+		 */
 		if (this.progress + progressArray[progress] <= 0){
 			this.progress = 0;
 		}else if(this.progress + progressArray[progress] >= width - 41){
@@ -49,6 +54,12 @@ public class Board {
 	}
 	
 	public int checkSalinity(){
+		// TODO: write tests for this method
+		/* cases:
+		 * 		1. player is inside scent trail
+		 * 		2. player is outside scent trail
+		 * 		3. player is partially in scent trail
+		 */
 		int totalOverlap = 0;
 		Rectangle intersect;
 		for (Rectangle r : scentTrail){
@@ -65,6 +76,7 @@ public class Board {
 	}
 	
 	public boolean checkCollision(){
+		// TODO: write test for no collisions condition
 		for (Iterator<Enemy> enemyIterator = enemies.iterator(); enemyIterator.hasNext();){
 			Enemy enemy = enemyIterator.next();
 			
@@ -83,8 +95,11 @@ public class Board {
 		wavyFactor = 10;
 	}
 	public void construction(){}
+	// TODO: come up with a way to implement holes in scent trail
 	
 	public void update(){
+		// TODO: write tests for this method
+		// TODO: outline cases that need coverage for this method
 		if (player.getStarted()){
 			
 			//Updates player location
