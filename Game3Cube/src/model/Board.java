@@ -2,7 +2,10 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Contains all model components
+ * @author Collin Clark
+ */
 public class Board {
 	int width, height;
 	static final int NUM_CUBES = 6;
@@ -52,6 +55,7 @@ public class Board {
 	/**
 	 * returns list of cubes on board
 	 * @return cubes
+	 * @see Cube
 	 */
 	public List<Cube> getCubes(){
 		return cubes;
