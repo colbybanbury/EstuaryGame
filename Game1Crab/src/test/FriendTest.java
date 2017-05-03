@@ -12,6 +12,7 @@ public class FriendTest {
 		Friend f = new Friend(b);
 		assertEquals(f.getXLoc(), 1000);
 		assertEquals(f.getYLoc(), 1086);
-		//test yAcc and xAcc
+		//TODO: test yAcc, yVel, xVel
+		
 	}
 }
