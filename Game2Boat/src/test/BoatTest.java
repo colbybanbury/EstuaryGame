@@ -17,6 +17,7 @@ public class BoatTest {
 		System.out.println("throttleTest");
 		System.out.println();
 		Boat b1 = new Boat();
+		b1.setSpeed(0);
 		for (int i = 0; i < 17; i++){
 			speed = b1.getSpeed();
 			b1.throttle();
