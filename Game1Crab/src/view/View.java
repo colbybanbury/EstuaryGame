@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -74,12 +75,20 @@ public class View extends JPanel{
 		
 		if (!CrabController.board.enemies.isEmpty()){
 			for (model.Enemy e: CrabController.board.enemies){
-				g.drawImage(enemyImage, (int) e.location.getX(), (int) e.location.getY(), this);
+				g.drawImage(enemyImage, (int) e.getLocation().getX(), (int) e.getLocation().getY(), this);
 			}
 		}
+		
+		g.setColor(new Color(0, 0, 0, 255));
+		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),30));
+		
 		if (!CrabController.board.friends.isEmpty()){
 			for (model.Friend f: CrabController.board.friends){
-				g.drawImage(friendImage, (int) f.location.getX(), (int) f.location.getY(), this);
+				g.drawImage(friendImage, (int) f.getLocation().getX(), (int) f.getLocation().getY(), this);
+			
+				f.setTextSize(g.getFontMetrics().stringWidth(CrabController.board.facts[f.getFriendCounter()]));
+				
+				g.drawString(CrabController.board.facts[f.getFriendCounter()], (int) (f.getLocation().getX() + f.getLocation().getWidth()), (int) f.getLocation().getY());
 			}
 		}
 		
@@ -95,6 +104,12 @@ public class View extends JPanel{
 		g.setColor(new Color(255, 0, 0, 255));
 		
 		g.fill3DRect(21, 41, (int) CrabController.board.getProgress(), 19, false);
+		
+		if(CrabController.board.isAnswering){			
+			g.setColor(new Color(255, 255, 255, 255));
+			g.fill3DRect(20, 20, CrabController.board.getWidth() - 39, CrabController.board.getHeight() - 60, false);
+		}
+		
 	}
 	
 	private void loadImages(){

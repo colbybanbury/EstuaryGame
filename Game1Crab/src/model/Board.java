@@ -27,6 +27,11 @@ public class Board {
 	public List<Rectangle> scentTrail = new ArrayList<Rectangle>(scentTrailDiv);
 	double progress = 0;
 	double[] progressArray = {-1.6, -1.0, -0.6, -0.4, -0.2, 0, 0.2, 0.4, 0.6, 1.0, 1.6};
+	int friendCounter;
+	public String[] facts = {"FACT 1", "FACT 2", "FACT 3", "FACT 4", "FACT 5"};
+	public String[] questions = {"QUESTION 1", "QUESTION 2", "QUESTION 3", "QUESTION 4", "QUESTION 5"};
+	public String[] answers = {"ANSWER 1", "ANSWER 2", "ANSWER 3", "ANSWER 4", "ANSWER 5"};
+	public boolean isAnswering = false;
 	
 	/**
 	 * Board constructor.
@@ -43,6 +48,8 @@ public class Board {
 		this.player = new Player(this);
 		this.scentTrailHeight = height / 3;
 		scentTrail.add(new Rectangle(width, scentTrailHeight, width/scentTrailDiv, scentTrailHeight));
+		
+		this.friendCounter = 0;
 	}
 	
 	public int getWidth(){
@@ -117,6 +124,7 @@ public class Board {
 			
 			if (player.getLocation().intersects(enemy.getLocation())){
 				enemyIterator.remove();
+				isAnswering = true;
 				return true;
 			}
 		}
@@ -134,6 +142,10 @@ public class Board {
 		scentTrailHeight /= 2;
 	}
 	
+	public void stopDrought(){
+		scentTrailHeight *= 2;
+	}
+	
 	/**
 	 * Causes the scent trail to become wavier
 	 * 
@@ -142,7 +154,11 @@ public class Board {
 	 * @see scent trail variance increases and zig-zag nature is exaggerated
 	 */
 	public void storm(){
-		wavyFactor = 10;
+		wavyFactor += 10;
+	}
+	
+	public void stopStorm(){
+		wavyFactor -= 10;
 	}
 	
 	/**
@@ -165,14 +181,52 @@ public class Board {
 	 * @see players, enemies, friends, rectangles all update location and move on screen
 	 * 		progress bar is update and increases/decreases
 	 */
-	public void update(){
+	public void moverUpdate(){
 		// TODO: write tests for this method
 		// TODO: outline cases that need coverage for this method
 		if (player.getStarted()){
 			
 			//Updates player location
 			player.update();
+						
+			//Updates enemy locations and removes enemies that are off screen
+			for(Iterator<Enemy> enemyIterator = enemies.iterator(); enemyIterator.hasNext();){
+				Enemy e = enemyIterator.next();				
+
+				e.update();
+				
+				if (e.getXLoc() + e.getLocation().getWidth() <= 0){
+					enemyIterator.remove();
+				}
+			}
 			
+			//Updates friend locations and removes friends that are off screen
+			for(Iterator<Friend> friendIterator = friends.iterator(); friendIterator.hasNext();){
+				Friend f = friendIterator.next();
+
+				f.update();
+				
+				if (f.getXLoc() + f.getLocation().getWidth() + f.getTextSize() <= 0){
+					friendIterator.remove();
+				}
+			}
+			
+			//Calculates how much of the player is in the scent trail
+			//Sets progress bar to increase/decrease accordingly
+			setProgress(checkSalinity() / 352);	
+			
+			//Checks the collisions with the enemies
+			if (!enemies.isEmpty()){
+				player.setStarted(!checkCollision());
+				isAnswering = !player.getStarted();
+			}
+		}else{
+			setProgress(0);
+		}
+	}
+	
+	public void rectangleUpdate(){
+		if (player.getStarted()){	
 			//Initializes the yLoc for the next scent trail Rectangle
 			double newY = scentTrail.get(scentTrail.size()-1).getY() - waveDirection*wavyFactor;
 			
@@ -196,41 +250,6 @@ public class Board {
 					rectIterator.remove();
 				}
 			}
-			
-			//Updates enemy locations and removes enemies that are off screen
-			for(Iterator<Enemy> enemyIterator = enemies.iterator(); enemyIterator.hasNext();){
-				Enemy e = enemyIterator.next();				
-
-				e.update();
-				
-				if (e.getXLoc() + e.getLocation().getWidth() <= 0){
-					enemyIterator.remove();
-				}
-			}
-			
-			//Updates friend locations and removes friends that are off screen
-			for(Iterator<Friend> friendIterator = friends.iterator(); friendIterator.hasNext();){
-				Friend f = friendIterator.next();
-
-				f.update();
-				
-				if (f.getXLoc() + f.getLocation().getWidth() <= 0){
-					friendIterator.remove();
-				}
-			}
-			
-			//Calculates how much of the player is in the scent trail
-			//Sets progress bar to increase/decrease accordingly
-			setProgress(checkSalinity() / 352);	
-			
-			//Checks the collisions with the enemies
-			if (!enemies.isEmpty()){
-				if (checkCollision()){
-					player.setStarted(false);
-				}
-			}
-		}else{
-			setProgress(0);
 		}
 	}
 }
