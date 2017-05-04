@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Random;
 
 import javax.swing.Timer;
 
@@ -23,6 +24,7 @@ public class BoatController implements ActionListener{
 	final int WIDTH = (int)screenSize.getWidth();
 	
 	private Timer timer;
+	private Timer powerUpTimer;
 	private final int DELAY = 50;//update rate (50ms) may need to make faster
 	
 	
@@ -34,6 +36,9 @@ public class BoatController implements ActionListener{
 	public View view;
 	private final int LAPLENGTH = 5000;
 	private final int RADIUS = (HEIGHT>WIDTH)? 3* WIDTH / 8 : 3*HEIGHT / 8;
+	Random random = new Random();
+	private boolean spawn = true;//if a powerUp should spawn or be taken away
+	int wait = 0; //counter for how many powerUps are spawned before they are cleared
 	
 	
 	public BoatController(){
@@ -44,12 +49,13 @@ public class BoatController implements ActionListener{
 		this.view = new View(WIDTH, HEIGHT);
 		
 		timer = new Timer(DELAY, this);
+		powerUpTimer = new Timer(DELAY*50, this);
 		timer.start();
+		powerUpTimer.start();
 	}
 	
 	public static void main(String[] args){
 		BoatController boatControll = new BoatController();
-		
 	}
 	
 	public void onTick(){
@@ -70,14 +76,44 @@ public class BoatController implements ActionListener{
 		view.animate();
 		
 		checkCollision();
-		
+	}
+	
+	private void powerUpTick(boolean spawn){
 		//TODO Have power ups spawn at random places in the PowerUps[][] array
+		if(spawn){
+			int a = random.nextInt(board.getLapDivisions());
+			int b = random.nextInt(3);
+			System.out.println("spawning powerUp");
+			if(board.getPowerUps()[a][b] != POWER_UP.ROCK){//don't replace rocks
+				if(random.nextInt(5)==0)
+					board.getPowerUps()[a][b] = POWER_UP.SEAGRASS;//happens less often than oysters
+				else
+					board.getPowerUps()[a][b] = POWER_UP.OYSTER;
+			}
+			
+		}
+		else{//clear powerups
+			System.out.println("De-spawning powerUps");
+			for(int i = 0; i<3; i++){
+				for(int j = 0; j < board.getLapDivisions(); j++){
+					if(board.getPowerUps()[j][i] != POWER_UP.ROCK)//but don't clear rocks
+						board.getPowerUps()[j][i] = POWER_UP.NONE;
+				}
+			}
+		}
 		
 	}
 	
 	@Override
     public void actionPerformed(ActionEvent e) {
-		onTick();
+		if(e.getSource() == timer){
+			onTick();
+		}
+		if(e.getSource() == powerUpTimer){
+			spawn = wait < 4;
+			powerUpTick(spawn);
+			wait = (wait +1) % 5;
+		}
     }
 	
     public static void keyPressed(KeyEvent e) {
@@ -110,7 +146,7 @@ public class BoatController implements ActionListener{
     		//activates oyster power up
     		Estuary tempE;
     		for(int i = -1; i<=1; i++){
-    			tempE = board.getLapPath()[i+(boat.getXLoc()*board.getLapDivisions())/board.getLapLength()];
+    			tempE = board.getLapPath()[(i+(boat.getXLoc()*board.getLapDivisions())/board.getLapLength())%board.getLapDivisions()];
     			if(tempE.getType()!=3){//as long as the estuary isn't open water
     				tempE.setType(2);}// makes the current estuary and the two adjacent estuaries have gabions
     		}
