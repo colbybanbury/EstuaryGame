@@ -22,6 +22,13 @@ import controller.BoatController;
 import enums.POWER_UP;
 import model.Estuary;
 
+/**
+ * 
+ * @author colby
+ *
+ *Creates all the visuals and calculates the positions of things on the screen.
+ */
+
 public class View extends JPanel{
 	private int frameHeight;
 	private int frameWidth;
@@ -54,6 +61,13 @@ public class View extends JPanel{
 	JPanel panel;
 	
 	public View(int w, int h){
+		/**
+		 * sets up the frame, panel, and keylisteners. Calls load images to initialize the buffered images
+		 * 
+		 * @param w 	the width of the screen
+		 * @param h 	the height of the screen.
+		 */
+		
 		frame = new JFrame();
 		panel = new JPanel();
 		
@@ -89,6 +103,11 @@ public class View extends JPanel{
 	}
 	
 	public void animate(){
+		/**
+		 * Is called every tick. Calculates the boats x and y on the screen along with the the angle of the boat.
+		 * It determines what level of wake it should display.
+		 * It calls change boat angle as well and repaint as well.
+		 */
 		boatTheta = (2*Math.PI*BoatController.boat.getXLoc()) / BoatController.board.getLapLength();
 		boatX = BoatController.board.getWidth()/2 + ((BoatController.board.getRadius()*
 				BoatController.boat.getRadiusScale()) * Math.cos(boatTheta));
@@ -110,6 +129,11 @@ public class View extends JPanel{
 	}
 	
 	public void paint(Graphics g){
+		/**
+		 * draws everything on the screen as well as calculates the x and y locations of the estuaries.
+		 * different types of estuaries have different levels of damage draws as well as different kinds of protection.
+		 * Powerups x and y locations are also calculated
+		 */
 		g.drawImage(backgroundImage, 0, 0, this);
 		g.drawImage(op.filter(boatImage, null), (int) boatX, (int)boatY, this);
 		for(int j = 0; j < BoatController.board.getLapDivisions(); j++){
@@ -161,16 +185,25 @@ public class View extends JPanel{
 		}
 		System.out.println("In View x: " + boatX + ", y: " + boatY);
 		
-		//TODO Display game time and score.
+		//TODO Display game time and score. use g.drawString(String, x, y)
+		
+		//TODO improve background to actually have land around the estuaries
+		//TODO have an indication of where the lap ends (where the boat starts at 0 degrees on the circle)
 	}
 	
 	
 	private void changeBoatAngle(){//rotates the boat image depending on the part of the circle it's on
+		/**
+		 * uses affineTranformation library to change the angle of the boat
+		 */
 		tx = AffineTransform.getRotateInstance(boatAngle, boatImage.getWidth()/2, boatImage.getHeight()/2);
 		op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
 	}
 	
 	private void loadImages(){
+		/**
+		 * loads the buffered images in from the images folder
+		 */
 		boatWake0 = createImage("images/boat.png");
 		boatWake1 = createImage("images/boatWake1.gif");
 		boatWake2 = createImage("images/boatWake2.gif");
@@ -188,6 +221,9 @@ public class View extends JPanel{
 	}
 	
 	private BufferedImage createImage(String file){
+		/**
+		 * is used to read in each image
+		 */
 		BufferedImage bufferedImage;
 		try {
 			bufferedImage = ImageIO.read(new File(file));
