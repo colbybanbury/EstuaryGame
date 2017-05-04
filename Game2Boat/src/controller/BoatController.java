@@ -103,7 +103,7 @@ public class BoatController implements ActionListener{
     	curPowerUp = board.getPowerUps()[rowNum][columnNum];
     	System.out.println("boat is at powerUP["+(boat.getXLoc()*board.getLapDivisions())/board.getLapLength()+"][" + (int) ((boat.getRadiusScale() - 0.8)*7.5) +"]" );
     	//TODO test this to make sure it's on the right powerUp, Did some testing and I think it works
-    	switch(curPowerUp){	//TODO the actual implementation of this
+    	switch(curPowerUp){
     	case OYSTER:
     		System.out.println("picked up an Oyster");
     		board.getPowerUps()[rowNum][columnNum] = POWER_UP.NONE;
