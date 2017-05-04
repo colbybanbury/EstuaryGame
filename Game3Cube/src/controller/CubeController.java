@@ -22,7 +22,7 @@ import model.Board;
 import view.Animation;
 
 
-public class CubeController {
+public class CubeController extends JPanel{
 	static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	final static int frameWidth=(int) screenSize.getWidth();
 	final static int frameHeight=(int) screenSize.getHeight();

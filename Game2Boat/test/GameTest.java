@@ -29,11 +29,5 @@ public class GameTest {
 		g1.decreaseTime();
 		assertEquals(g1.getTime(), 0);  // check underflow
 	}
-	@Test
-	public void lapTest(){
-		Game g1 = new Game();
-		g1.setLap(6);
-		assertEquals(6, g1.getLap());
-	}
 
 }

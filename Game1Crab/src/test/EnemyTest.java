@@ -14,8 +14,8 @@ public class EnemyTest {
 		Enemy e = new Enemy(b);
 		assertEquals(e.getXLoc(), 1000);
 		assertTrue((e.getYLoc() >= 250) && (e.getYLoc() <= 750));
-		assertTrue(e.getXVel() == -18);
-		assertTrue(e.getYVel() == 0);
-		assertTrue(e.getYAcc() == 0);
+		assertEquals(e.getXVel(), -18, 0.000);
+		assertEquals(e.getYVel(), 0, 0.000);
+		assertEquals(e.getYAcc(), 0, 0.000);
 	}
 }

@@ -37,6 +37,7 @@ public class Animation extends JPanel{
 	static int imgHeightTemp;
 	static Board board;
 	
+	
 	public void paint(Graphics g){
 		Random rand = new Random();
 		g.drawImage(backgroundImage, 0, 0, this);
