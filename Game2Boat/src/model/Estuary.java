@@ -24,7 +24,7 @@ public class Estuary{
 			case 2: 
 				this.integrity = 6;//Gabion so a lot of protection
 				break;
-			case 3:
+			default:
 				this.integrity = 0;	//open water
 				break;
 		}
@@ -32,12 +32,13 @@ public class Estuary{
 	
 	public void damage(int wakeDamage){//updates the integrity of the wall and returns the damage left over
 		if(type!=3){	//if it's not open water
-			if(integrity>=wakeDamage)
+			if(integrity>wakeDamage)
 				integrity -= wakeDamage;
-			else
+			else{
 				damage += wakeDamage - integrity;
-			if(integrity == 0)
+				integrity = 0;
 				type = 0;
+			}
 		}
 	}
 	
@@ -72,6 +73,9 @@ public class Estuary{
 			break;
 		case 2: 
 			this.integrity = 6;//Gabion so a lot of protection
+			break;
+		default:
+			this.integrity = 0;
 			break;
 		}
 	}

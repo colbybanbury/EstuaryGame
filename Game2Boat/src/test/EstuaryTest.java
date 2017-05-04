@@ -44,6 +44,8 @@ public class EstuaryTest {
 		l1.add(new Estuary(0, 0, 0));
 		l1.add(new Estuary(1, 0, 0));
 		l1.add(new Estuary(2, 0, 0));
+		l1.add(new Estuary(3, 0, 0));
+		l1.add(new Estuary(4, 0, 0));
 		for (int i=0; i < 13; i++){
 			for (Estuary e : l1){
 				oldIntegrity = e.getIntegrity();
@@ -54,12 +56,15 @@ public class EstuaryTest {
 					assertEquals(e.getIntegrity(), oldIntegrity - damage);
 				}
 				else {
-					assertEquals(e.getDamage(), oldDamage + damage);
-					assertEquals(e.getType(), 0);
+					if (e.getType() != 3){
+						assertEquals(e.getDamage(), oldDamage + damage);
+						assertEquals(e.getType(), 0); // barrier should disappear if integrity is 0
+					}
+					else{
+						assertEquals(e.getDamage(), 0);
+					}
 				}
-				if (e.getIntegrity() <= 0){
-					assertEquals(e.getType(), 0); // barrier should disappear if integrity is 0
-				}
+
 			}
 		}
 		Estuary e1 = new Estuary(2, 0, 0);
