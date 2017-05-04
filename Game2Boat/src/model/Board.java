@@ -40,6 +40,7 @@ public class Board {
 			double tempTheta = (2*Math.PI*i) / lapDivisions;
 			double tempX =   width/2 + (radius+100) * Math.cos(tempTheta);
 			double tempY = height/2 + (radius+100) * Math.sin(tempTheta);
+			// i/3%3 makes protection groupings of 3
 			lapPath[i] = new Estuary(i/3%3, (int)tempX, (int)tempY);
 		}
 		

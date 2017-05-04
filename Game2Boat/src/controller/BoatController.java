@@ -108,13 +108,20 @@ public class BoatController implements ActionListener{
     		System.out.println("picked up an Oyster");
     		board.getPowerUps()[rowNum][columnNum] = POWER_UP.NONE;
     		//activates oyster power up
-    		//TODO ADD OYSTER FUNCTION
+    		Estuary tempE;
+    		for(int i = -1; i<=1; i++){
+    			tempE = board.getLapPath()[i+(boat.getXLoc()*board.getLapDivisions())/board.getLapLength()];
+    			if(tempE.getType()!=3){//as long as the estuary isn't open water
+    				tempE.setType(2);}// makes the current estuary and the two adjacent estuaries have gabions
+    		}
     		break;
     	case SEAGRASS:
     		System.out.println("picked up SeaGrass");
     		board.getPowerUps()[rowNum][columnNum] = POWER_UP.NONE;
     		//activates sea grass
-    		//TODO ADD SEAGRASS FUNCTION
+    		for(Estuary e: board.getLapPath()){
+    			e.setDamage(0);//resets the damage on all of the Estuaries
+    		}
     		break;
     	case ROCK:
     		boat.setXLoc(boat.getXLoc() - 30);//TODO make this a bit cleaner. Speed can not be negative so don't do that
