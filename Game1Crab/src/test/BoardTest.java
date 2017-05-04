@@ -6,6 +6,7 @@ import org.junit.Test;
 import model.Player;
 import model.Board;
 import model.Enemy;
+import model.Friend;
 
 public class BoardTest {
 
@@ -109,8 +110,63 @@ public class BoardTest {
 	
 	@Test
 	//TODO
-	public void updateTest(){
-		
+	public void updateTest1(){ //player hasn't started
+		Board b1 = new Board(1000, 1200);
+		Player p1 = new Player(b1);
+		b1.update();
+		assertEquals(b1.getProgress(), 0, 0.000);
 	}
 	
+	@Test
+	//TODO
+	public void updateTest2(){ //player has started
+		Board b1 = new Board(1000, 1200);
+		Player p1 = new Player(b1);
+	}
+	
+	public void updateTest3(){ //player has started, enemy goes off screen, test removed
+		Board b1 = new Board(1000, 1200);
+		Player p1 = new Player(b1);
+		Enemy e1 = new Enemy(b1);
+		b1.enemies.add(e1);
+		e1.setXLoc(18 - e1.getImgWidth());
+		b1.update();
+		assertTrue(b1.enemies.isEmpty());
+	}
+	
+	public void updateTest4(){ //player has started, friend goes off screen, test removed
+		Board b1 = new Board(1000, 1200);
+		Player p1 = new Player(b1);
+		Friend f1 = new Friend(b1);
+		b1.friends.add(f1);
+		f1.setXLoc(18 - f1.getImgWidth());
+		b1.update();
+		assertTrue(b1.friends.isEmpty());
+	}
+	
+	public void updateTest5(){ //player has started, collides with enemy
+		Board b1 = new Board(1000, 1200);
+		Player p1 = new Player(b1);
+		Enemy e1 = new Enemy(b1);
+		b1.enemies.add(e1);
+		p1.setXLoc(50);
+		p1.setYLoc(350);
+		e1.setXLoc(50+p1.getImgWidth()+18 - 1);
+		e1.setYLoc(350);
+		b1.update();
+		assertFalse(p1.getStarted());
+	}
+	
+	public void updateTest6(){ //player has started, doesn't collide with enemy
+		Board b1 = new Board(1000, 1200);
+		Player p1 = new Player(b1);
+		Enemy e1 = new Enemy(b1);
+		b1.enemies.add(e1);
+		p1.setXLoc(50);
+		p1.setYLoc(350);
+		e1.setXLoc(300);
+		e1.setYLoc(350);
+		b1.update();
+		assertTrue(p1.getStarted());
+	}
 }

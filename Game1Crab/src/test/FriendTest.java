@@ -12,9 +12,9 @@ public class FriendTest {
 		Friend f = new Friend(b);
 		assertEquals(f.getXLoc(), 1000);
 		assertEquals(f.getYLoc(), 1086);
-		assertTrue(f.getXVel() == -18);
-		assertTrue(f.getYVel() == 0);
-		assertTrue(f.getYAcc() == 0);
+		assertEquals(f.getXVel(), -18, 0.000);
+		assertEquals(f.getYVel(), 0, 0.000);
+		assertEquals(f.getYAcc(), 0, 0.000);
 		
 	}
 }
