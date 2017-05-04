@@ -35,6 +35,9 @@ public class EstuaryTest {
 		e2.setType(0);
 		assertEquals(e2.getDamage(), 0);
 		assertEquals(e2.getIntegrity(), 0);
+		e2.setType(3);
+		assertEquals(e2.getDamage(), 0);
+		assertEquals(e2.getIntegrity(), 0);
 	}
 	@Test
 	public void damageTest(){
@@ -68,6 +71,13 @@ public class EstuaryTest {
 
 			}
 		}
-		Estuary e1 = new Estuary(2);
+		Estuary e2 = new Estuary(2);
+		e2.setDamage(6);
+		e2.setIntegrity(6);
+		assertEquals(6, e2.getDamage());
+		assertEquals(6, e2.getIntegrity());
+		e2.damage(6);
+		assertEquals(6, e2.getDamage());
+		assertEquals(0, e2.getIntegrity());
 	}	
 }

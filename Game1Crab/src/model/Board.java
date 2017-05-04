@@ -151,7 +151,19 @@ public class Board {
 	 */
 	public void update(){
 		// TODO: write tests for this method
-		// TODO: outline cases that need coverage for this method
+		/*
+		 * cases:
+		 * 		1. started
+		 * 			a. scentTrail goes off screen up
+		 * 			b. scentTrail goes off screen down
+		 * 			c. leading rectangle of scentTrail goes off screen (x < 0)
+		 * 			d. enemy goes off screen (x < 0)
+		 * 			e. friend goes off screen (x < 0)
+		 * 			f. enemy is on screen
+		 * 				i. collision between player and enemy
+		 * 				ii. no collision
+		 * 		2. not started (progress = 0)
+		 */
 		if (player.getStarted()){
 			
 			//Updates player location
