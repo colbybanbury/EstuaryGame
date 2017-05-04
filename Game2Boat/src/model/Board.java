@@ -36,12 +36,11 @@ public class Board {
 			double tempY = height/2 + (radius+100) * Math.sin(tempTheta);
 			lapPath[i] = new Estuary(3, (int)tempX, (int)tempY);
 		}
-		for(int i= lapDivisions/3; i<lapDivisions; i++){	//add estuaries to the other 2/3s and make them gabions for now 
-			//TODO add variety. Not everythign should be gabions
+		for(int i= lapDivisions/3; i<lapDivisions; i++){	//add estuaries to the other 2/3s and place protection on some
 			double tempTheta = (2*Math.PI*i) / lapDivisions;
 			double tempX =   width/2 + (radius+100) * Math.cos(tempTheta);
 			double tempY = height/2 + (radius+100) * Math.sin(tempTheta);
-			lapPath[i] = new Estuary(2, (int)tempX, (int)tempY);
+			lapPath[i] = new Estuary(i/3%3, (int)tempX, (int)tempY);
 		}
 		
 		for(int i=0; i<lapDivisions; i++){	//initialize powerUps[][] to have no POWER_UPs
