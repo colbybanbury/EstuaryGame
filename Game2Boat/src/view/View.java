@@ -112,24 +112,28 @@ public class View extends JPanel{
 	public void paint(Graphics g){
 		g.drawImage(backgroundImage, 0, 0, this);
 		g.drawImage(op.filter(boatImage, null), (int) boatX, (int)boatY, this);
-		for(Estuary e : BoatController.board.getLapPath()){
+		for(int j = 0; j < BoatController.board.getLapDivisions(); j++){
+			Estuary e = BoatController.board.getLapPath()[j];
+			double tempTheta = (2*Math.PI*j) / BoatController.board.getLapDivisions();
+			int tempX =   (int) (BoatController.board.getWidth()/2 + (BoatController.board.getRadius()+100) * Math.cos(tempTheta));
+			int tempY = (int) (BoatController.board.getHeight()/2 + (BoatController.board.getRadius()+100) * Math.sin(tempTheta));
 			if(e.getType()!=3){
-				g.drawImage(estuary, e.getCircleX(), e.getCircleY(), this);
+				g.drawImage(estuary, tempX, tempY, this);
 				switch(e.getType()){//draws the protection type on top of the estuary centered
 				case 0:
 					if(e.getDamage()>6)//most damage
-						g.drawImage(damage3, e.getCircleX(), e.getCircleY(), this);
+						g.drawImage(damage3, tempX, tempY, this);
 					else if(e.getDamage()>3)//middle
-						g.drawImage(damage2, e.getCircleX(), e.getCircleY(), this);
+						g.drawImage(damage2, tempX, tempY, this);
 					else if(e.getDamage() >0){//least
-						g.drawImage(damage1, e.getCircleX(), e.getCircleY(), this);
+						g.drawImage(damage1, tempX, tempY, this);
 					}
 					break;
 				case 1://sea wall TODO the wall should visably deteriorate based on integrity
-					g.drawImage(seaWall, e.getCircleX() + (estuary.getWidth()/2 - seaWall.getWidth()/2), e.getCircleY() + (estuary.getHeight()/2 - seaWall.getHeight()/3), this);
+					g.drawImage(seaWall, tempX + (estuary.getWidth()/2 - seaWall.getWidth()/2), tempY + (estuary.getHeight()/2 - seaWall.getHeight()/3), this);
 					break;
 				case 2://Gabion TODO the wall should visably deteriorate based on integrity
-					g.drawImage(gabion, e.getCircleX() + (estuary.getWidth()/2 - seaWall.getWidth()/2), e.getCircleY() + (estuary.getHeight()/2 - seaWall.getHeight()/3), this);
+					g.drawImage(gabion, tempX + (estuary.getWidth()/2 - seaWall.getWidth()/2), tempY + (estuary.getHeight()/2 - seaWall.getHeight()/3), this);
 					break;
 				}
 			}
@@ -156,6 +160,8 @@ public class View extends JPanel{
 			}
 		}
 		System.out.println("In View x: " + boatX + ", y: " + boatY);
+		
+		//TODO Display game time and score.
 	}
 	
 	

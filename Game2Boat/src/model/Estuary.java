@@ -7,12 +7,9 @@ public class Estuary{
 	private int type; //0 is empty, 1 is sea wall, 2 is Gabion
 						//needed for different image representations
 	
-	int circleX;
-	int circleY;
 	
-	public Estuary(int t, int cX, int cY){
-		this.circleX = cX;
-		this.circleY = cY;
+	
+	public Estuary(int t){
 		this.type = t;
 		switch(t){
 			case 0: 
@@ -76,13 +73,7 @@ public class Estuary{
 		}
 	}
 
-	public int getCircleX() {
-		return circleX;
-	}
-
-	public int getCircleY() {
-		return circleY;
-	}
+	
 	
 	
 }

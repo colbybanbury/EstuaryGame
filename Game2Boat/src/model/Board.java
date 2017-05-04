@@ -31,17 +31,11 @@ public class Board {
 		this.radius = r;
 		this.lapLength = lapL;
 		for(int i= 0; i<lapDivisions/3; i++){	//initialize the first 1/3 to be open water
-			double tempTheta = (2*Math.PI*i) / lapDivisions;
-			double tempX =   width/2 + (radius+100) * Math.cos(tempTheta);
-			double tempY = height/2 + (radius+100) * Math.sin(tempTheta);
-			lapPath[i] = new Estuary(3, (int)tempX, (int)tempY);
+			lapPath[i] = new Estuary(3);
 		}
 		for(int i= lapDivisions/3; i<lapDivisions; i++){	//add estuaries to the other 2/3s and place protection on some
-			double tempTheta = (2*Math.PI*i) / lapDivisions;
-			double tempX =   width/2 + (radius+100) * Math.cos(tempTheta);
-			double tempY = height/2 + (radius+100) * Math.sin(tempTheta);
 			// i/3%3 makes protection groupings of 3
-			lapPath[i] = new Estuary(i/3%3, (int)tempX, (int)tempY);
+			lapPath[i] = new Estuary(i/3%3);
 		}
 		
 		for(int i=0; i<lapDivisions; i++){	//initialize powerUps[][] to have no POWER_UPs

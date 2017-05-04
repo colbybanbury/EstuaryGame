@@ -138,7 +138,7 @@ public class BoatTest {
 		Boat b1 = new Boat();
 		int threshold = b1.getThreshold();
 		int speedInc = b1.getSpeedInc();
-		Estuary e1 = new Estuary(0,0,0);
+		Estuary e1 = new Estuary(0);
 		int damage = e1.getDamage();
 		for (int i=0; i < 8; i++){
 			b1.throttle();

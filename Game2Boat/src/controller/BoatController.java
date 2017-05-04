@@ -62,7 +62,7 @@ public class BoatController implements ActionListener{
 			game.increaseScore();
 		}
 		game.decreaseTime();
-		//TODO if time is up end game
+		//TODO if time is up end game and set a condition to display the end screen.
 		System.out.println("currently on estuary # " +(boat.getXLoc()*board.getLapDivisions())/board.getLapLength());
 		curEstuary = board.getLapPath()[(boat.getXLoc()*board.getLapDivisions())/board.getLapLength()];
 		//^finds current estuary. curEsutuary = (xLoc * estuaryCount)/lapLength)
@@ -71,7 +71,7 @@ public class BoatController implements ActionListener{
 		
 		checkCollision();
 		
-		
+		//TODO Have power ups spawn at random places in the PowerUps[][] array
 		
 	}
 	
