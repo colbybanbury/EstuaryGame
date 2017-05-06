@@ -68,7 +68,7 @@ public class BoatController implements ActionListener{
 			boat.setXLoc(0);
 			game.setLap(game.getLap()+1);
 			//TODO figure out how we want scoring to work
-			game.increaseScore();
+			game.increaseScore(10);
 		}
 		System.out.println("currently on estuary # " +(boat.getXLoc()*board.getLapDivisions())/board.getLapLength());
 		curEstuary = board.getLapPath()[(boat.getXLoc()*board.getLapDivisions())/board.getLapLength()];
@@ -80,7 +80,6 @@ public class BoatController implements ActionListener{
 	}
 	
 	private void powerUpTick(boolean spawn){
-		//TODO Have power ups spawn at random places in the PowerUps[][] array
 		if(spawn){
 			int a = random.nextInt(board.getLapDivisions());
 			int b = random.nextInt(3);
@@ -119,6 +118,7 @@ public class BoatController implements ActionListener{
 			game.decreaseTime();
 			if(game.getTime() <= 0){
 				//TODO if time is up end game and set a condition to display the end screen.
+				//TODO tally up estuary damage at the end of the game and remove points
 			}
 		}
     }
