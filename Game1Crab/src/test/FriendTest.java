@@ -12,7 +12,7 @@ public class FriendTest {
 		Friend f = new Friend(b);
 		assertEquals(f.getXLoc(), 1000);
 		assertEquals(f.getYLoc(), 1086);
-		assertEquals(f.getXVel(), -18, 0.000);
+		assertEquals(f.getXVel(), -14, 0.000);
 		assertEquals(f.getYVel(), 0, 0.000);
 		assertEquals(f.getYAcc(), 0, 0.000);
 		
