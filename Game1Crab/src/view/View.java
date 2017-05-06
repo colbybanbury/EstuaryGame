@@ -108,6 +108,11 @@ public class View extends JPanel{
 		if(CrabController.board.isAnswering){			
 			g.setColor(new Color(255, 255, 255, 255));
 			g.fill3DRect(20, 20, CrabController.board.getWidth() - 39, CrabController.board.getHeight() - 60, false);
+		
+			g.setColor(new Color(0, 0, 0, 255));
+			g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),30));
+		
+		
 		}
 		
 	}

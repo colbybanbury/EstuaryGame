@@ -87,19 +87,23 @@ public class BoardTest {
 	}
 	
 	@Test
-	public void droughtTest(){
+	public void droughtTest(){ //includes stopDraught test
 		Board b1 = new Board(1000, 1200);
 		b1.drought();
 		assertEquals(b1.scentTrailHeight, 200); //Height/3 results in truncation, so 133
 												// it's actually height/2. Change this test
 												// if you change the implementation
+		b1.stopDrought();
+		assertEquals(b1.scentTrailHeight, 400);
 	}
 	
 	@Test
-	public void stormTest(){
+	public void stormTest(){ //includes stopStorm() test
 		Board b1 = new Board(1000, 1200);
 		b1.storm();
-		assertEquals(b1.wavyFactor, 10, 0.1);  // third argument is a delta, now required
+		assertEquals(b1.wavyFactor, 11, 0.1);  // third argument is a delta, now required
+		b1.stopStorm();
+		assertEquals(b1.wavyFactor, 1, 0.1);
 	}
 	
 	@Test
@@ -127,7 +131,7 @@ public class BoardTest {
 	@Test
 	public void updateTest3(){ //player has started, enemy goes off screen, test removed
 		Board b1 = new Board(1000, 1200);
-		Player p1 = new Player(b1);
+		b1.player.setStarted(true);
 		Enemy e1 = new Enemy(b1);
 		b1.enemies.add(e1);
 		e1.setXLoc(17 - e1.getImgWidth());
@@ -138,28 +142,26 @@ public class BoardTest {
 	@Test
 	public void updateTest4(){ //player has started, friend goes off screen, test removed
 		Board b1 = new Board(1000, 1200);
-		Player p1 = new Player(b1);
+		b1.player.setStarted(true);
 		Friend f1 = new Friend(b1);
 		b1.friends.add(f1);
-		f1.setXLoc(17 - f1.getImgWidth());
+		f1.setXLoc(13 - f1.getImgWidth());
 		b1.moverUpdate();
 		assertTrue(b1.friends.isEmpty());
-	}
-	
+	}	
 
 	@Test
 	public void updateTest5(){ //player has started, collides with enemy
 		Board b1 = new Board(1000, 1200);
-		Player p1 = new Player(b1);
-		p1.setStarted(true);
+		b1.player.setStarted(true);
 		Enemy e1 = new Enemy(b1);
 		b1.enemies.add(e1);
-		p1.setXLoc(50);
-		p1.setYLoc(350);
-		e1.setXLoc(50+p1.getImgWidth()+18 - 1);
+		b1.player.setXLoc(50);
+		b1.player.setYLoc(350);
+		e1.setXLoc(50+b1.player.getImgWidth()+18 - 1);
 		e1.setYLoc(350);
 		b1.moverUpdate();
-		assertFalse(p1.getStarted());
+		assertFalse(b1.player.getStarted());
 	}
 	
 	
@@ -177,4 +179,5 @@ public class BoardTest {
 		b1.moverUpdate();
 		assertTrue(p1.getStarted());
 	}
+
 }

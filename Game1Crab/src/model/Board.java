@@ -32,6 +32,7 @@ public class Board {
 	public String[] questions = {"QUESTION 1", "QUESTION 2", "QUESTION 3", "QUESTION 4", "QUESTION 5"};
 	public String[] answers = {"ANSWER 1", "ANSWER 2", "ANSWER 3", "ANSWER 4", "ANSWER 5"};
 	public boolean isAnswering = false;
+	public int currQuestion = -1;
 	
 	/**
 	 * Board constructor.
@@ -122,6 +123,7 @@ public class Board {
 			if (player.getLocation().intersects(enemy.getLocation())){
 				enemyIterator.remove();
 				isAnswering = true;
+				currQuestion = (currQuestion++) % questions.length;
 				return true;
 			}
 		}
