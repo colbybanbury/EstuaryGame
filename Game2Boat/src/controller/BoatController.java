@@ -31,7 +31,7 @@ public class BoatController implements ActionListener{
 	
 	public static Board board;
 	public static Boat boat;
-	public Game game;
+	public static Game game;
 	public static Estuary curEstuary;
 	public static POWER_UP curPowerUp;
 	public View view;

@@ -15,6 +15,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -185,8 +186,9 @@ public class View extends JPanel{
 		}
 		System.out.println("In View x: " + boatX + ", y: " + boatY);
 		
-		//TODO Display game time and score. use g.drawString(String, x, y)
-		
+		//TODO adjust size of score and time
+		g.drawString(BoatController.game.getScore().toString(), 20, 20);
+		g.drawString(BoatController.game.getTime().toString(), 20, 30);
 		//TODO improve background to actually have land around the estuaries
 		//TODO have an indication of where the lap ends (where the boat starts at 0 degrees on the circle)
 	}
