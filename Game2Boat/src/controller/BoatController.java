@@ -25,8 +25,9 @@ public class BoatController implements ActionListener{
 	
 	private Timer timer;
 	private Timer powerUpTimer;
+	private Timer secondTimer;
 	private final int DELAY = 50;//update rate (50ms) may need to make faster
-	
+	private final int SECOND_DELAY = 1000;//1000ms  = 1s
 	
 	public static Board board;
 	public static Boat boat;
@@ -50,8 +51,10 @@ public class BoatController implements ActionListener{
 		
 		timer = new Timer(DELAY, this);
 		powerUpTimer = new Timer(DELAY*50, this);
+		secondTimer = new Timer(SECOND_DELAY, this);
 		timer.start();
 		powerUpTimer.start();
+		secondTimer.start();
 	}
 	
 	public static void main(String[] args){
@@ -67,8 +70,6 @@ public class BoatController implements ActionListener{
 			//TODO figure out how we want scoring to work
 			game.increaseScore();
 		}
-		game.decreaseTime();
-		//TODO if time is up end game and set a condition to display the end screen.
 		System.out.println("currently on estuary # " +(boat.getXLoc()*board.getLapDivisions())/board.getLapLength());
 		curEstuary = board.getLapPath()[(boat.getXLoc()*board.getLapDivisions())/board.getLapLength()];
 		//^finds current estuary. curEsutuary = (xLoc * estuaryCount)/lapLength)
@@ -113,6 +114,12 @@ public class BoatController implements ActionListener{
 			spawn = wait < 4;
 			powerUpTick(spawn);
 			wait = (wait +1) % 5;
+		}
+		if(e.getSource() == secondTimer){
+			game.decreaseTime();
+			if(game.getTime() <= 0){
+				//TODO if time is up end game and set a condition to display the end screen.
+			}
 		}
     }
 	
