@@ -45,4 +45,13 @@ public class FriendTest {
 		assertEquals(f.friendCounter, -10);
 		assertEquals(f.getFriendCounter(), f.friendCounter);
 	}
+	
+	@Test
+	public void friendCounterTest4(){ //implicit test of friendCounter changes during constructor
+		Board b = new Board(1000, 1200);
+		Friend f1 = new Friend(b);
+		Friend f2 = new Friend(b);
+		assertEquals(f1.friendCounter, 0);
+		assertEquals(f2.friendCounter, 1);
+	}
 }
