@@ -1,7 +1,9 @@
 package view;
 
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
@@ -21,7 +23,7 @@ import java.awt.Dimension;
 
 import model.Board;
 
-public class Animation extends JPanel{
+public class Animation extends JPanel implements MouseMotionListener, MouseListener{
 	int frameCount=1;
 	int imageCount;
 	int numFrame;
@@ -103,7 +105,39 @@ public class Animation extends JPanel{
     	}
 		return null;
 	}
-	public static void actionHandler(ActionEvent e){
-		
+	
+	@Override
+	public void mousePressed(MouseEvent e){
+		System.out.println("Mouse Pressed");
+	}
+	
+	@Override
+	public void mouseDragged(MouseEvent e){
+		System.out.println("Mouse Dragged");
+	}
+	
+	@Override
+	public void mouseMoved(MouseEvent e){
+		System.out.println("Mouse Moved");
+	}
+	
+	@Override
+	public void mouseClicked(MouseEvent e){
+		System.out.println("Mouse Clicked");
+	}
+	
+	@Override
+	public void mouseReleased(MouseEvent e){
+		System.out.println("Mouse Released");
+	}
+	
+	@Override
+	public void mouseEntered(MouseEvent e){
+		System.out.println("Mouse Entered");
+	}
+	
+	@Override
+	public void mouseExited(MouseEvent e){
+		System.out.println("Mouse Exited");
 	}
 }
