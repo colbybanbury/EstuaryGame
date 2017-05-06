@@ -31,7 +31,6 @@ public class Board {
 	public String[] facts = {"FACT 1", "FACT 2", "FACT 3", "FACT 4", "FACT 5"};
 	public String[] questions = {"QUESTION 1", "QUESTION 2", "QUESTION 3", "QUESTION 4", "QUESTION 5"};
 	public String[] answers = {"ANSWER 1", "ANSWER 2", "ANSWER 3", "ANSWER 4", "ANSWER 5"};
-	public boolean isAnswering = false;
 	public int currQuestion = -1;
 	
 	/**
@@ -60,6 +59,12 @@ public class Board {
 	}
 	public double getProgress(){
 		return progress;
+	}
+	public int getCurrQuestion(){
+		return currQuestion;
+	}
+	public void setCurrQuestion(int cq){
+		this.currQuestion = cq;
 	}
 
 	public void setProgress(int progress){
@@ -122,8 +127,8 @@ public class Board {
 			
 			if (player.getLocation().intersects(enemy.getLocation())){
 				enemyIterator.remove();
-				isAnswering = true;
-				currQuestion = (currQuestion++) % questions.length;
+				player.setStarted(false);
+				setCurrQuestion((getCurrQuestion() + 1) % questions.length);
 				return true;
 			}
 		}
@@ -216,7 +221,6 @@ public class Board {
 			//Checks the collisions with the enemies
 			if (!enemies.isEmpty()){
 				player.setStarted(!checkCollision());
-				isAnswering = !player.getStarted();
 			}
 		}else{
 			setProgress(0);

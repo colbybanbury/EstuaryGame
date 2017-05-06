@@ -33,6 +33,7 @@ public class CrabController  implements ActionListener{
 	private final int DELAY2 = 5000; // update rate = 5s
 	private final int DELAY3 = 25500; //update rate = 24.5s (waits until the scentTrail bricks fill screen)
    	private final int DELAY4 = 35; //update rate = 35ms
+   	private static boolean canBeAskedAQuestion = false;
 	
 	public CrabController(){
 		this.board = new Board(WIDTH, HEIGHT);//adjust values for size of board and length of path
@@ -65,11 +66,12 @@ public class CrabController  implements ActionListener{
 				rectangleTimer.start();
 			}
 		}else if(e.getSource() == enemyTimer){
-			if(board.player.getStarted() && !board.isAnswering){
+			if(board.player.getStarted()){
 				board.enemies.add(new Enemy(board));
 			}
 		}else if(e.getSource() == timer3){
 			enemyTimer.start();
+			setCanBeAskedAQuestion(true);
 			friendTimer.stop();
 			timer3.stop();
 		}else if(e.getSource() == friendTimer){
@@ -78,6 +80,14 @@ public class CrabController  implements ActionListener{
 			onTick2();
 		}
     }
+	
+	public static void setCanBeAskedAQuestion(boolean bool){
+		canBeAskedAQuestion = bool;
+	}
+	
+	public static boolean getCanBeAskedAQuestion(){
+		return canBeAskedAQuestion;
+	}
 	
 	public void onTick(){
 		board.moverUpdate();

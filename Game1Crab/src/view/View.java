@@ -105,12 +105,16 @@ public class View extends JPanel{
 		
 		g.fill3DRect(21, 41, (int) CrabController.board.getProgress(), 19, false);
 		
-		if(CrabController.board.isAnswering){			
+		if(!CrabController.board.player.getStarted() && CrabController.getCanBeAskedAQuestion()){			
 			g.setColor(new Color(255, 255, 255, 255));
-			g.fill3DRect(20, 20, CrabController.board.getWidth() - 39, CrabController.board.getHeight() - 60, false);
+			g.fill3DRect(20, 70, CrabController.board.getWidth() - 39, CrabController.board.getHeight() - 160, false);
 		
 			g.setColor(new Color(0, 0, 0, 255));
-			g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),30));
+			g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),48));
+			
+			int newX = ((CrabController.board.getWidth() - 39) - (g.getFontMetrics().stringWidth(CrabController.board.questions[CrabController.board.getCurrQuestion()]))) / 2;
+			
+			g.drawString(CrabController.board.questions[CrabController.board.getCurrQuestion()], 20 + newX, 115);
 		
 		
 		}
