@@ -12,11 +12,11 @@ public class GameTest {
 	public void scoreTest() {
 		Game g1 = new Game();
 		assertEquals(g1.getScore(), 0);
-		g1.decreaseScore();
+		g1.decreaseScore(1);
 		assertEquals(g1.getScore(), 0); // check underflow
-		g1.increaseScore();
+		g1.increaseScore(1);
 		assertEquals(g1.getScore(), 1);
-		g1.decreaseScore();
+		g1.decreaseScore(1);
 		assertEquals(g1.getScore(), 0);
 	}
 	@Test

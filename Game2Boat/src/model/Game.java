@@ -9,13 +9,13 @@ public class Game {
 		/** 
 		 * decreases score by one, cannot go below zero
 		 */
-		score = (score > 0) ? score - scoreDown : score; // don't decrement 
+		score = (score - scoreDown >= 0) ? score - scoreDown : score; // don't decrement 
 	}											//score below zero
 	public void increaseScore(int scoreUp){
 		/**
 		 * increases score by one, no upper bound
 		 */
-		score+=score;
+		score+=scoreUp;
 	}
 	public void decreaseTime(){
 		/**
