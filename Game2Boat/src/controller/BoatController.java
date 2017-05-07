@@ -39,6 +39,7 @@ public class BoatController implements ActionListener{
 	private final int RADIUS = (HEIGHT>WIDTH)? 3* WIDTH / 8 : 3*HEIGHT / 8;
 	Random random = new Random();
 	private boolean spawn = true;//if a powerUp should spawn or be taken away
+	public static boolean end = false; //is the time up
 	int wait = 0; //counter for how many powerUps are spawned before they are cleared
 	
 	
@@ -117,7 +118,8 @@ public class BoatController implements ActionListener{
 		if(e.getSource() == secondTimer){
 			game.decreaseTime();
 			if(game.getTime() <= 0){
-				//TODO if time is up end game and set a condition to display the end screen.
+				secondTimer.stop();
+				end = true;
 				//TODO tally up estuary damage at the end of the game and remove points
 			}
 		}

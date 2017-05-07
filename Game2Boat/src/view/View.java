@@ -186,11 +186,25 @@ public class View extends JPanel{
 		}
 		System.out.println("In View x: " + boatX + ", y: " + boatY);
 		
-		//TODO adjust size of score and time
-		g.drawString(BoatController.game.getScore().toString(), 20, 20);
-		g.drawString(BoatController.game.getTime().toString(), 20, 30);
+		
+		g.setColor(new Color(0, 0, 0, 255));
+		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),48));
+		
+		
+		g.drawString("Score: " + BoatController.game.getScore().toString(), 20, 40);
+		g.drawString("Time: " + BoatController.game.getTime().toString(), 20, 80);
 		//TODO improve background to actually have land around the estuaries
 		//TODO have an indication of where the lap ends (where the boat starts at 0 degrees on the circle)
+		
+		if(BoatController.end){
+			g.setColor(new Color(255, 255, 255, 255));
+			g.fill3DRect(20, 70, frameWidth - 39, frameHeight - 160, false);
+			g.setColor(new Color(0, 0, 0, 255));
+			g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),64));
+			g.drawString("Time limit reached", frameWidth/2 - 80, frameHeight/3);
+			g.drawString("Score: " + BoatController.game.getScore().toString(), frameWidth/2 - 80, frameHeight/2);
+			g.drawString("Laps Completed: " + BoatController.game.getLap().toString(), frameWidth/2 - 80, frameHeight*2/3);
+		}
 	}
 	
 	

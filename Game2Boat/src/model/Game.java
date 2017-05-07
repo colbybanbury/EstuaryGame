@@ -2,8 +2,8 @@ package model;
 
 public class Game {
 	Integer score = 0;
-	Integer time = 120; // two minutes?
-	int lap = 0;
+	Integer time = 120; // one minutes?
+	Integer lap = 0;
 	
 	public void decreaseScore(int scoreDown){
 		/** 
@@ -36,7 +36,7 @@ public class Game {
 		return time;
 	}
 	
-	public int getLap() {
+	public Integer getLap() {
 		return lap;
 	}
 	public void setLap(int lap) {
