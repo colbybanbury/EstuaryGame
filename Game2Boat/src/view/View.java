@@ -143,7 +143,7 @@ public class View extends JPanel{
 			int tempX =   (int) (BoatController.board.getWidth()/2 + (BoatController.board.getRadius()+100) * Math.cos(tempTheta));
 			int tempY = (int) (BoatController.board.getHeight()/2 + (BoatController.board.getRadius()+100) * Math.sin(tempTheta));
 			if(e.getType()!=3){
-				g.drawImage(estuary, tempX, tempY, this);
+				//g.drawImage(estuary, tempX, tempY, this);
 				switch(e.getType()){//draws the protection type on top of the estuary centered
 				case 0:
 					if(e.getDamage()>6)//most damage
@@ -220,12 +220,12 @@ public class View extends JPanel{
 		/**
 		 * loads the buffered images in from the images folder
 		 */
-		boatWake0 = createImage("images/boat.png");
+		boatWake0 = createImage("images/boat.jpg");
 		boatWake1 = createImage("images/boatWake1.gif");
 		boatWake2 = createImage("images/boatWake2.gif");
-		backgroundImage = createImage("images/tempBackGround.jpg");
+		backgroundImage = createImage("images/tempBackGroundWithLand.jpg");
 		estuary = createImage("images/grass_tile.jpg");
-		seaWall = createImage("images/box.png");
+		seaWall = createImage("images/box2.png");
 		gabion = createImage("images/bucket.png");
 		damage1 = createImage("images/puddle small.png");
 		damage2 = createImage("images/puddle medium.png");

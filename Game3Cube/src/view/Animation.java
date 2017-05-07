@@ -157,10 +157,10 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 	@Override
 	public void mouseDragged(MouseEvent e){
 		Point curPoint=e.getPoint();
-			nextX=curPoint.x;
-			nextY=curPoint.y;
-			System.out.println(nextX);
-			System.out.println(nextY);
+		nextX=curPoint.x;
+		nextY=curPoint.y;
+		System.out.println(nextX);
+		System.out.println(nextY);
 		if(dragging){
 			System.out.println("Mouse Dragged, image selected: "+selectedImage);
 			if(selectedImage>=0){
@@ -187,10 +187,13 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 	
 	@Override
 	public void mouseReleased(MouseEvent e){
+		Point curPoint=e.getPoint();
+		curX=curPoint.x;
+		curY=curPoint.y;
 		System.out.println("Mouse Released");
 		dragging=false;
 		for(int z=0;z<=1100;z+=220){
-			if(curX>10+z && curX<10+z+200 && curY>10 && curY<10+200)
+			if(curX>(10+z) && curX<(10+z+200) && curY>10 && curY<(10+200))
 				board.getCubes().get(selectedImage).changeLocation(10+z,10);
 			repaint();
 		}
