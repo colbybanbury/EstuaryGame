@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -38,22 +39,27 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 	static int imgWidthTemp;
 	static int imgHeightTemp;
 	static Board board;
+	boolean dragging=false;
+	private int curX;
+	private int curY;
+	private int nextX;
+	private int nextY;
+	int selectedImage;
+	int[] randNums;
 	
-	
+	@Override
 	public void paint(Graphics g){
-		Random rand = new Random();
-		g.drawImage(backgroundImage, 0, 0, this);
+		System.out.println("painted");
+		//g.drawImage(backgroundImage, 0, 0, this);
 		for(int i=0;i<board.getNumCubes();i++){
+			System.out.println(randNums[i]);
 			Rectangle rTemp=board.getCubes().get(i).getLocation();
-			g.drawRect((int)rTemp.getX(),(int)rTemp.getY(),(int)rTemp.getWidth(),(int)rTemp.getHeight());
-			int r=rand.nextInt(5);///make sure this is the right number
+			g.fillRect((int)rTemp.getX(),(int)rTemp.getY(),(int)rTemp.getWidth(),(int)rTemp.getHeight());
+			int r=randNums[i];///make sure this is the right number
 			g.drawImage(all_imgs[r][0], (int) rTemp.getX(),(int) rTemp.getY(), 
-					(int) imgWidth[r],(int) imgHeight[r],Color.white, (ImageObserver) this);
-			//g.drawImage(all_imgs[r][0], (int) rTemp.getX(),(int) rTemp.getY(), 
-			//		(int) rTemp.getX()+(int) rTemp.getWidth(),(int) rTemp.getY()+(int) rTemp.getHeight(),(int) rTemp.getX(),
-			//		(int) rTemp.getY(),(int) rTemp.getX()+imgWidth[r],(int) rTemp.getY()+imgHeight[r],Color.white, (ImageObserver) this);
+					(int) imgWidth[r],(int) imgHeight[r], (ImageObserver) this);
 			
-		}
+		}//for
 	}
 	
 	
@@ -76,25 +82,30 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
         		all_imgs[j][i] = img.getSubimage(imgWidth[j]*i, 0, imgWidth[j], imgHeight[j]);
     	}
     	backgroundImage = createImage("images/tempBackGround.jpg");
+    	randNums= new int[board.getNumCubes()];
+		chooseImages();
+    	
 	}
 	
 	public void paintBoard(){
-		System.out.println(all_imgs.length);
 		JFrame frame = new JFrame();
     	frame.getContentPane().add(new Animation(board));
     	frame.setBackground(Color.gray);
     	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	frame.setSize(Animation.frameWidth, Animation.frameHeight);
+    	frame.addMouseListener(this);
+    	frame.addMouseMotionListener(this);
     	frame.setVisible(true);
-    	/*for(int i = 0; i < 1000; i++){
+    	for(int i = 0; i < 1000; i++){
     		frame.repaint();
     		try {
     			Thread.sleep(100);
     		} catch (InterruptedException e) {
     			e.printStackTrace();
     		}
-    	}*/
+    	}
 	}
+	
 	private BufferedImage createImage(String file_name){
 		BufferedImage bufferedImage;
     	try {
@@ -106,14 +117,55 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 		return null;
 	}
 	
+	private void chooseImages(){
+		
+		Random rand=new Random();
+		for(int i=0;i<board.getNumCubes();i++){
+			randNums[i]=rand.nextInt(all_imgs.length);
+			System.out.println(randNums[i]);
+		}
+	}
+	
 	@Override
 	public void mousePressed(MouseEvent e){
 		System.out.println("Mouse Pressed");
+		Rectangle rTemp;
+		selectedImage=-1;
+		Point point=e.getPoint();
+		curX=point.x;
+		curY=point.y;
+		dragging=true;
+		for(int i=0;i< board.getNumCubes();i++){
+			rTemp=board.getCubes().get(i).getLocation();
+			if(curX>rTemp.getX()&&curX<(rTemp.getX()+rTemp.getWidth())&&curY>rTemp.getY()&&curY<(rTemp.getY()+rTemp.getHeight()))
+			{
+				selectedImage=i;
+				System.out.println(i);
+				System.out.println(selectedImage);
+			}	
+		}//for each cube
+	
 	}
 	
 	@Override
 	public void mouseDragged(MouseEvent e){
-		System.out.println("Mouse Dragged");
+		Point curPoint=e.getPoint();
+			nextX=curPoint.x;
+			nextY=curPoint.y;
+			System.out.println(nextX);
+			System.out.println(nextY);
+		if(dragging){
+			System.out.println("Mouse Dragged, image selected: "+selectedImage);
+			if(selectedImage>=0){
+				Rectangle rTemp=board.getCubes().get(selectedImage).getLocation();
+				board.getCubes().get(selectedImage).changeLocation((int)rTemp.getX()+(nextX-curX),(int)rTemp.getY()+(nextY-curY));
+				System.out.println("changed location");
+				repaint();
+			}
+			System.out.println("passed repaint");
+			curX=nextX;
+			curY=nextY;
+		}//if dragging
 	}
 	
 	@Override
@@ -129,6 +181,7 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 	@Override
 	public void mouseReleased(MouseEvent e){
 		System.out.println("Mouse Released");
+		dragging=false;
 	}
 	
 	@Override

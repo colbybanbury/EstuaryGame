@@ -9,7 +9,7 @@ public class Cube {
 	Rectangle location;
 	int picNum;
 	int cubeNum;
-	int sideLength = 100;
+	int sideLength = 200;
 	Random rand = new Random();
 	Board board;
 	
@@ -51,4 +51,14 @@ public class Cube {
 	public Rectangle getLocation(){
 		return location;
 	}
+	
+	/**
+	 * changed the location of that cube
+	 * @param x
+	 * @param y
+	 */
+	public void changeLocation(int x, int y){
+		location.setLocation(x, y);
+	}
+	
 }
