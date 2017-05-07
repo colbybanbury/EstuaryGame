@@ -49,6 +49,10 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 	
 	@Override
 	public void paint(Graphics g){
+		for (int z=0;z<=1000;z+=220){
+			
+			g.drawRect(10+z,10,200,200);
+		}
 		System.out.println("painted");
 		//g.drawImage(backgroundImage, 0, 0, this);
 		for(int i=0;i<board.getNumCubes();i++){
@@ -56,10 +60,11 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 			Rectangle rTemp=board.getCubes().get(i).getLocation();
 			g.fillRect((int)rTemp.getX(),(int)rTemp.getY(),(int)rTemp.getWidth(),(int)rTemp.getHeight());
 			int r=randNums[i];///make sure this is the right number
-			g.drawImage(all_imgs[r][0], (int) rTemp.getX(),(int) rTemp.getY(), 
+			g.drawImage(all_imgs[r][0], (int) (rTemp.getX()+rTemp.getWidth()/2-imgWidth[r]/2),(int) (rTemp.getY()+rTemp.getHeight()/2-imgHeight[r]/2), 
 					(int) imgWidth[r],(int) imgHeight[r], (ImageObserver) this);
 			
 		}//for
+		
 	}
 	
 	
