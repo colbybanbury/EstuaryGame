@@ -121,6 +121,10 @@ public class BoatController implements ActionListener{
 				secondTimer.stop();
 				end = true;
 				//TODO tally up estuary damage at the end of the game and remove points
+				Estuary[] lapPath = board.getLapPath();
+				for (int i = 0; i < lapPath.length; i++){
+					game.decreaseScore(lapPath[i].getDamage());
+				}
 			}
 		}
     }
@@ -149,38 +153,38 @@ public class BoatController implements ActionListener{
     	System.out.println("boat is at powerUP["+(boat.getXLoc()*board.getLapDivisions())/board.getLapLength()+"][" + (int) ((boat.getRadiusScale() - 0.8)*7.5) +"]" );
     	//TODO test this to make sure it's on the right powerUp, Did some testing and I think it works
     	switch(curPowerUp){
-    	case OYSTER:
-    		System.out.println("picked up an Oyster");
-    		board.getPowerUps()[rowNum][columnNum] = POWER_UP.NONE;
-    		//activates oyster power up
-    		Estuary tempE;
-    		for(int i = -1; i<=1; i++){
-    			tempE = board.getLapPath()[(i+(boat.getXLoc()*board.getLapDivisions())/board.getLapLength())%board.getLapDivisions()];
-    			if(tempE.getType()!=3){//as long as the estuary isn't open water
-    				tempE.setType(2);}// makes the current estuary and the two adjacent estuaries have gabions
-    		}
-    		break;
-    	case SEAGRASS:
-    		System.out.println("picked up SeaGrass");
-    		board.getPowerUps()[rowNum][columnNum] = POWER_UP.NONE;
-    		//activates sea grass
-    		for(Estuary e: board.getLapPath()){
-    			e.setDamage(0);//resets the damage on all of the Estuaries
-    		}
-    		break;
-    	case ROCK:
-    		boat.setXLoc(boat.getXLoc() - 30);//TODO make this a bit cleaner. Speed can not be negative so don't do that
-    		view.animate();
-    		boat.setXLoc(boat.getXLoc() - 30);
-    		view.animate();
-    		boat.setXLoc(boat.getXLoc() - 30);
-    		view.animate();
-    		boat.setXLoc(boat.getXLoc() - 30);
-    		boat.setSpeed(0);
-    		break;
-    	default:
-    		//no powerUp aka NONE
-    		break;
+	    	case OYSTER:
+	    		System.out.println("picked up an Oyster");
+	    		board.getPowerUps()[rowNum][columnNum] = POWER_UP.NONE;
+	    		//activates oyster power up
+	    		Estuary tempE;
+	    		for(int i = -1; i<=1; i++){
+	    			tempE = board.getLapPath()[(i+(boat.getXLoc()*board.getLapDivisions())/board.getLapLength())%board.getLapDivisions()];
+	    			if(tempE.getType()!=3){//as long as the estuary isn't open water
+	    				tempE.setType(2);}// makes the current estuary and the two adjacent estuaries have gabions
+	    		}
+	    		break;
+	    	case SEAGRASS:
+	    		System.out.println("picked up SeaGrass");
+	    		board.getPowerUps()[rowNum][columnNum] = POWER_UP.NONE;
+	    		//activates sea grass
+	    		for(Estuary e: board.getLapPath()){
+	    			e.setDamage(0);//resets the damage on all of the Estuaries
+	    		}
+	    		break;
+	    	case ROCK:
+	    		boat.setXLoc(boat.getXLoc() - 30);//TODO make this a bit cleaner. Speed can not be negative so don't do that
+	    		view.animate();
+	    		boat.setXLoc(boat.getXLoc() - 30);
+	    		view.animate();
+	    		boat.setXLoc(boat.getXLoc() - 30);
+	    		view.animate();
+	    		boat.setXLoc(boat.getXLoc() - 30);
+	    		boat.setSpeed(0);
+	    		break;
+	    	default:
+	    		//no powerUp aka NONE
+	    		break;
     	}
     }
 	

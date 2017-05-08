@@ -4,7 +4,8 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
+
+import controller.CrabController;
 
 /**
  * @author Zachary
@@ -16,7 +17,6 @@ import java.util.Random;
 public class Board {
 	int width;
 	int height;
-	Random rand = new Random();
 	public Player player;
 	public List<Enemy> enemies = new ArrayList<Enemy>();
 	public List<Friend> friends = new ArrayList<Friend>();
@@ -30,7 +30,11 @@ public class Board {
 	int friendCounter;
 	public String[] facts = {"FACT 1", "FACT 2", "FACT 3", "FACT 4", "FACT 5"};
 	public String[] questions = {"QUESTION 1", "QUESTION 2", "QUESTION 3", "QUESTION 4", "QUESTION 5"};
-	public String[] answers = {"ANSWER 1", "ANSWER 2", "ANSWER 3", "ANSWER 4", "ANSWER 5"};
+	public String[][] answers = {{"ANSWER 1a","ANSWER 1b","ANSWER 1c"}, 
+								{"ANSWER 2a", "ANSWER 2b", "ANSWER 2c"}, 
+								{"ANSWER 3a", "ANSWER 3b", "ANSWER 3c"}, 
+								{"ANSWER 4a", "ANSWER 4b", "ANSWER 4c"}, 
+								{"ANSWER 5a", "ANSWER 5b", "ANSWER 5c"}};
 	public int currQuestion = -1;
 	
 	/**
@@ -128,7 +132,7 @@ public class Board {
 			if (player.getLocation().intersects(enemy.getLocation())){
 				enemyIterator.remove();
 				player.setStarted(false);
-				setCurrQuestion((getCurrQuestion() + 1) % questions.length);
+				setCurrQuestion((getCurrQuestion() + 1) % questions.length);				
 				return true;
 			}
 		}

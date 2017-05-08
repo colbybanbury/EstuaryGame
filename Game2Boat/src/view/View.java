@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -44,6 +45,7 @@ public class View extends JPanel{
 	
 	
 	private BufferedImage backgroundImage;
+	private Image scaledBackground;
 	private BufferedImage boatImage;
 	private BufferedImage boatWake0;
 	private BufferedImage boatWake1;
@@ -135,7 +137,7 @@ public class View extends JPanel{
 		 * different types of estuaries have different levels of damage draws as well as different kinds of protection.
 		 * Powerups x and y locations are also calculated
 		 */
-		g.drawImage(backgroundImage, 0, 0, this);
+		g.drawImage(scaledBackground, 0, 0, this);
 		g.drawImage(op.filter(boatImage, null), (int) boatX, (int)boatY, this);
 		for(int j = 0; j < BoatController.board.getLapDivisions(); j++){
 			Estuary e = BoatController.board.getLapPath()[j];
@@ -195,6 +197,10 @@ public class View extends JPanel{
 		g.drawString("Time: " + BoatController.game.getTime().toString(), 20, 80);
 		//TODO improve background to actually have land around the estuaries
 		//TODO have an indication of where the lap ends (where the boat starts at 0 degrees on the circle)
+		g.setColor(Color.YELLOW);
+		g.drawLine((BoatController.board.getWidth()/2)+BoatController.board.getRadius()-75, BoatController.board.getHeight()/2,
+				(BoatController.board.getWidth()/2)+BoatController.board.getRadius()+100, BoatController.board.getHeight()/2);
+		g.setColor(new Color(0,0,0,255));
 		
 		if(BoatController.end){
 			g.setColor(new Color(255, 255, 255, 255));
@@ -224,6 +230,7 @@ public class View extends JPanel{
 		boatWake1 = createImage("images/boatWake1.gif");
 		boatWake2 = createImage("images/boatWake2.gif");
 		backgroundImage = createImage("images/tempBackGroundWithLand.jpg");
+		scaledBackground = backgroundImage.getScaledInstance(frameWidth, frameHeight, backgroundImage.SCALE_DEFAULT);
 		estuary = createImage("images/grass_tile.jpg");
 		seaWall = createImage("images/box2.png");
 		gabion = createImage("images/bucket.png");

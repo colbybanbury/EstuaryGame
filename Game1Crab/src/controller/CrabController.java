@@ -5,6 +5,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.Timer;
 
@@ -23,16 +24,18 @@ public class CrabController  implements ActionListener{
 	
 	public static Board board;
 	public static Player player;
-	public View view;
+	public static View view;
+	public Random rand;
 	private Timer timer;
 	private Timer enemyTimer;
 	private Timer timer3;
 	private Timer friendTimer;
 	private Timer rectangleTimer;
 	private final int DELAY = 70; //update rate = 70ms
-	private final int DELAY2 = 5000; // update rate = 5s
-	private final int DELAY3 = 25500; //update rate = 24.5s (waits until the scentTrail bricks fill screen)
-   	private final int DELAY4 = 35; //update rate = 35ms
+	private final int DELAY2 = 1500; // update rate = 1.5s
+	private final int DELAY3 = 25500; //update rate = 25.5s (waits until the scentTrail bricks fill screen)
+   	private final int DELAY4 = 20; //update rate = 20ms
+	private final int DELAY5 = 5000; // update rate = 5s
    	private static boolean canBeAskedAQuestion = false;
 	
 	public CrabController(){
@@ -46,10 +49,12 @@ public class CrabController  implements ActionListener{
 		
 		timer3 = new Timer(DELAY3, this);
 		
-		friendTimer = new Timer(DELAY2, this);
+		friendTimer = new Timer(DELAY5, this);
 		
 		rectangleTimer = new Timer(DELAY4, this);
 		rectangleTimer.setInitialDelay(15000);
+		
+		this.rand = new Random();
 	}
 	
 	public static void main(String[] args){
@@ -67,7 +72,10 @@ public class CrabController  implements ActionListener{
 			}
 		}else if(e.getSource() == enemyTimer){
 			if(board.player.getStarted()){
-				board.enemies.add(new Enemy(board));
+				int doSpawn = rand.nextInt(5);
+				if(doSpawn % 2 == 1){
+					board.enemies.add(new Enemy(board));
+				}
 			}
 		}else if(e.getSource() == timer3){
 			enemyTimer.start();
@@ -105,5 +113,15 @@ public class CrabController  implements ActionListener{
 			board.player.setStarted(true);
 		}
 		board.player.jump();
+	}
+	
+	public static void answerButton1Press(){		
+		board.player.setStarted(true);
+	}
+	public static void answerButton2Press(){		
+		board.player.setStarted(true);
+	}
+	public static void answerButton3Press(){		
+		board.player.setStarted(true);
 	}
 }

@@ -37,8 +37,8 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
     static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	final static int frameWidth=(int) screenSize.getWidth();
 	final static int frameHeight=(int) screenSize.getHeight();
-	final static int[] imgWidth={100,243,227,254,249,279};
-	final static int[] imgHeight={100,119,125,97,132,173};
+	final static int[] imgWidth={100,256,243,227,254,249,241,256,252,253,279,256,254,256,257,254};
+	final static int[] imgHeight={100,166,119,125,97,132,249,256,84,95,173,166,124,256,257,159};
 	static int imgWidthTemp;
 	static int imgHeightTemp;
 	static Board board;
@@ -73,14 +73,23 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 	
 	public Animation(Board b){
 		board=b;
-		setBackground(new Color(0,true));
 		String img_list[]={
 				"images/QuestionMark.png",
+				"images/blackduck_right.png",
     			"images/bluecrab_0.png",
     			"images/bogturtle_left_0.png",
     			"images/clam_left_1.png",
     			"images/fish_bass_left.png",
-    			"images/horseshoe_crab_left_1.png"
+    			"images/fish_catfish_left_0.png",
+    			"images/fish_group_right.png",
+    			"images/fish_pickerel_right.png",
+    			"images/fish_trout_right.png",
+    			"images/horseshoe_crab_left_1.png",
+    			"images/mallard_left.png",
+    			"images/mittencrab_0.png",
+    			"images/mittencrabs_spawn_2.png",
+    			"images/otter_left.png",
+    			"images/wood_duck_right.png"			
     	};
     	
 		numPics=img_list.length;
