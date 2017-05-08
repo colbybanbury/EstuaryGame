@@ -122,6 +122,10 @@ public class BoatController implements ActionListener{
 				secondTimer.stop();
 				end = true;
 				//TODO tally up estuary damage at the end of the game and remove points
+				Estuary[] lapPath = board.getLapPath();
+				for (int i = 0; i < lapPath.length; i++){
+					game.decreaseScore(lapPath[i].getDamage());
+				}
 			}
 		}
     }

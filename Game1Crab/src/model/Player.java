@@ -3,6 +3,8 @@ package model;
 import java.awt.Rectangle;
 
 public class Player extends Mover{
+	int picNum = 0;
+	boolean finished = false;
 	
 	public Player(Board b){ 
 		this.yVel = 0;
@@ -14,11 +16,20 @@ public class Player extends Mover{
 		
 	}
 	
+	@Override
+	public void update(){
+		super.update();
+		picNum = ++picNum % 3;
+	}
+	
 	//When the jump button is pressed the crabs yVelocity is increased by a set amount
 	public void jump(){
 		if (location.getY() >= 0){
 			yVel = -30;
 		}
+	}
+	public int getPicNum(){
+		return picNum;
 	}
 
 }
