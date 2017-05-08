@@ -56,6 +56,7 @@ public class BoatController implements ActionListener{
 		timer.start();
 		powerUpTimer.start();
 		secondTimer.start();
+		
 	}
 	
 	public static void main(String[] args){
@@ -154,8 +155,12 @@ public class BoatController implements ActionListener{
     		board.getPowerUps()[rowNum][columnNum] = POWER_UP.NONE;
     		//activates oyster power up
     		Estuary tempE;
-    		for(int i = -1; i<=1; i++){
-    			tempE = board.getLapPath()[(i+(boat.getXLoc()*board.getLapDivisions())/board.getLapLength())%board.getLapDivisions()];
+    		for(int i = -1; i<=1; i++){ 
+    			int temp = (i+(boat.getXLoc()*board.getLapDivisions())/board.getLapLength())%board.getLapDivisions();
+    			if (temp <0){
+    				temp += board.getLapDivisions();
+    			}
+    			tempE = board.getLapPath()[temp];
     			if(tempE.getType()!=3){//as long as the estuary isn't open water
     				tempE.setType(2);}// makes the current estuary and the two adjacent estuaries have gabions
     		}
