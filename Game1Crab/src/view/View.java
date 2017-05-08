@@ -26,6 +26,9 @@ public class View extends JPanel{
 	private int frameWidth;
 	
 	public static JButton jump = new JButton("");
+	public static JButton answer1 = new JButton("");
+	public static JButton answer2 = new JButton("");
+	public static JButton answer3 = new JButton("");
 	
 	private BufferedImage backgroundImage;
 	private BufferedImage[] crabImage;
@@ -44,12 +47,49 @@ public class View extends JPanel{
 		jump.setOpaque(false);
 		jump.setContentAreaFilled(false);
 		jump.setBorderPainted(false);
+		jump.setText("JUMP");
 		jump.setBounds(0, 0, w, h);
 		jump.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				CrabController.buttonPress();
 			}
-		});	
+		});
+		
+		answer1.setContentAreaFilled(true);
+		answer1.setBorderPainted(true);
+		answer1.setEnabled(true);
+		answer1.setText("ANSWER a");
+		answer1.setBackground(Color.RED);
+		answer1.setBounds(28, CrabController.board.getHeight() - 240 , 80, 80);
+		answer1.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				CrabController.answerButton1Press();
+			}
+		});
+		
+		answer2.setContentAreaFilled(true);
+		answer2.setBorderPainted(true);
+		answer2.setEnabled(true);
+		answer2.setText("ANSWER b");
+		answer2.setBackground(Color.BLUE);
+		answer2.setBounds(118, CrabController.board.getHeight() - 240 , 80, 80);
+		answer2.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				CrabController.answerButton2Press();
+			}
+		});
+		
+		answer3.setContentAreaFilled(true);
+		answer3.setBorderPainted(true);
+		answer3.setEnabled(true);
+		answer3.setText("ANSWER c");
+		answer3.setBackground(Color.GREEN);
+		answer3.setBounds(208, CrabController.board.getHeight() - 240 , 80, 80);
+		answer3.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				CrabController.answerButton3Press();
+			}
+		});
 		
 		frame.add(jump);
 		frame.getContentPane().add(this);
@@ -57,6 +97,10 @@ public class View extends JPanel{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(frameWidth, frameHeight);
 		frame.setVisible(true);
+	}
+	
+	public JFrame getFrame(){
+		return this.frame;
 	}
 	
 	public void animate(){		
@@ -107,7 +151,7 @@ public class View extends JPanel{
 		
 		if(!CrabController.board.player.getStarted() && CrabController.getCanBeAskedAQuestion()){			
 			g.setColor(new Color(255, 255, 255, 255));
-			g.fill3DRect(20, 70, CrabController.board.getWidth() - 39, CrabController.board.getHeight() - 160, false);
+			g.fill3DRect(20, 70, CrabController.board.getWidth() - 39, CrabController.board.getHeight() - 160, true);
 		
 			g.setColor(new Color(0, 0, 0, 255));
 			g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),48));
@@ -115,6 +159,16 @@ public class View extends JPanel{
 			int newX = ((CrabController.board.getWidth() - 39) - (g.getFontMetrics().stringWidth(CrabController.board.questions[CrabController.board.getCurrQuestion()]))) / 2;
 			
 			g.drawString(CrabController.board.questions[CrabController.board.getCurrQuestion()], 20 + newX, 115);
+
+			g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),36));
+			
+			int answerYCoord = 180; // change
+			
+			for (String s: CrabController.board.answers[CrabController.board.getCurrQuestion()]){
+				g.drawString(s, 28, answerYCoord);
+				
+				answerYCoord += 50; // change
+			}
 		
 		
 		}
