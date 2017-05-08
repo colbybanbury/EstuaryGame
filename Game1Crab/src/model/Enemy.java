@@ -9,8 +9,9 @@ public class Enemy extends Mover{
 	Random rand = new Random();
 
 	public Enemy(Board b){ 
-		this.yVel = 0;
-		this.xVel = -18; //TODO: We need to decide how fast these guys go
+		this.yVel = 0;		
+		Random rand = new Random();		
+		this.xVel = -23 + rand.nextInt(10);
 		this.yAcc = 0;
 		int enemyHeight = rand.nextInt(b.height / 2) + b.height/4;
 		this.location = new Rectangle(b.width, enemyHeight, 125, 66); // Rectangle(int x, int y, int width, int height)
