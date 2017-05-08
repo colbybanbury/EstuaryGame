@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import controller.CrabController;
 
@@ -26,9 +27,13 @@ public class Board {
 	int waveDirection = 1; // 1 = up, -1 = down
 	public List<Rectangle> scentTrail = new ArrayList<Rectangle>(scentTrailDiv);
 	double progress = 0;
-	double[] progressArray = {-1.6, -1.0, -0.6, -0.4, -0.2, 0, 0.2, 0.4, 0.6, 1.0, 1.6};
+	double[] progressArray = {-1.1, -0.8, -0.5, -0.2, -0.1, 0, 0.1, 0.2, 0.5, 0.8, 1.1};
 	int friendCounter;
-	public String[] facts = {"FACT 1", "FACT 2", "FACT 3", "FACT 4", "FACT 5"};
+	public String[] facts = {"Welcome to Crab Game XL Lite II: Gabion Rises! Press Space to JUMP.", 
+							"The goal of this game is to fill up the progress bar above.", 
+							"You fill up the bar by staying within the scent trail leading you home.", 
+							"Avoid fish at all costs or you'll be forced to answer a question.", 
+							"Watch out for storms and droughts that make it more difficult to return home. Good Luck!"};
 	public String[] questions = {"QUESTION 1", "QUESTION 2", "QUESTION 3", "QUESTION 4", "QUESTION 5"};
 	public String[][] answers = {{"ANSWER 1a","ANSWER 1b","ANSWER 1c"}, 
 								{"ANSWER 2a", "ANSWER 2b", "ANSWER 2c"}, 
@@ -36,6 +41,8 @@ public class Board {
 								{"ANSWER 4a", "ANSWER 4b", "ANSWER 4c"}, 
 								{"ANSWER 5a", "ANSWER 5b", "ANSWER 5c"}};
 	public int currQuestion = -1;
+	private static boolean isDroughtHappening = false;
+	private static boolean isStormHappening = false;
 	
 	/**
 	 * Board constructor.
@@ -60,15 +67,17 @@ public class Board {
 	}
 	public int getHeight(){
 		return height;
-	}
-	public double getProgress(){
-		return progress;
-	}
+	}	
+	
 	public int getCurrQuestion(){
 		return currQuestion;
 	}
 	public void setCurrQuestion(int cq){
 		this.currQuestion = cq;
+	}
+	
+	public double getProgress(){
+		return progress;
 	}
 
 	public void setProgress(int progress){
@@ -144,11 +153,19 @@ public class Board {
 	 * 
 	 */
 	public void drought(){
-		scentTrailHeight /= 2;
+		scentTrailHeight /= 4;
+		scentTrailHeight *= 3;
+		isDroughtHappening = true;
 	}
 	
 	public void stopDrought(){
-		scentTrailHeight *= 2;
+		scentTrailHeight *= 4;
+		scentTrailHeight /= 3;
+		isDroughtHappening = false;
+	}
+	
+	public boolean maybeAddDrought(){
+		return getProgress() > 2*(width-41)/5;
 	}
 	
 	/**
@@ -156,11 +173,21 @@ public class Board {
 	 * 
 	 */
 	public void storm(){
-		wavyFactor += 10;
+		wavyFactor += 3;
+		scentTrailHeight /= 3;
+		scentTrailHeight *= 2;
+		isStormHappening = true;
 	}
 	
 	public void stopStorm(){
-		wavyFactor -= 10;
+		wavyFactor -= 3;
+		scentTrailHeight *= 3;
+		scentTrailHeight /= 2;
+		isStormHappening = false;
+	}
+	
+	public boolean maybeAddStorm(){
+		return getProgress() > (width-41)/2;
 	}
 	
 	/**
@@ -218,6 +245,10 @@ public class Board {
 				}
 			}
 			
+			if(friends.isEmpty()){
+				CrabController.setIsFriendTimerRunning(false);
+			}
+			
 			//Calculates how much of the player is in the scent trail
 			//Sets progress bar to increase/decrease accordingly
 			setProgress(checkSalinity() / 352);	
@@ -228,24 +259,43 @@ public class Board {
 			}
 		}else{
 			setProgress(0);
-		}
+		} 
 	}
 	
 	public void rectangleUpdate(){
-		if (player.getStarted()){	
+		if (player.getStarted()){
+			
+			boolean spawnRectangle = true;
+			
 			//Initializes the yLoc for the next scent trail Rectangle
 			double newY = scentTrail.get(scentTrail.size()-1).getY() - waveDirection*wavyFactor;
 			
 			//Checks to see if scent trail is out of arbitrary boundary, changes direction if so
 			if (newY - (2 * scentTrailHeight/3) <= 0){
 				waveDirection = -1;
-			}else if (newY > height - scentTrailHeight - (2 * scentTrailHeight / 3)){
+			}else if (newY > height - scentTrailHeight - (2 * scentTrailHeight / 3) - 30){
 				waveDirection = 1;
 			}
 			
-			//Creates new Rectangle
-			scentTrail.add(new Rectangle(width, (int) newY, width/scentTrailDiv, scentTrailHeight));
+			Random rand = new Random();
 			
+			if(isStormHappening){
+				if((rand.nextInt(10) + 1) % 3 == 0){
+					waveDirection *= -1;
+				}
+			}
+			
+			if(isDroughtHappening){
+				if((rand.nextInt(10) + 1) % 7 == 0){
+					spawnRectangle = false;
+				}
+			}
+			
+			//Creates new Rectangle
+			if(spawnRectangle){
+				scentTrail.add(new Rectangle(width, (int) newY, width/scentTrailDiv, scentTrailHeight));
+			}
+				
 			//Loops through all Rectangles and increments locations and removes them if they are off screen
 			for (Iterator<Rectangle> rectIterator = scentTrail.iterator(); rectIterator.hasNext();){
 				Rectangle newRect = rectIterator.next();
@@ -256,6 +306,10 @@ public class Board {
 					rectIterator.remove();
 				}
 			}
+		}
+		
+		if(getProgress() >= width - 41){
+			player.finished = true;
 		}
 	}
 }

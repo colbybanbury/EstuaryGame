@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 
 public class Player extends Mover{
 	int picNum = 0;
+	boolean finished = false;
 	
 	public Player(Board b){ 
 		this.yVel = 0;

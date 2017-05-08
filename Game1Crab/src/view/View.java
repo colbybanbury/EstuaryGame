@@ -47,7 +47,6 @@ public class View extends JPanel{
 		jump.setOpaque(false);
 		jump.setContentAreaFilled(false);
 		jump.setBorderPainted(false);
-		jump.setText("JUMP");
 		jump.setBounds(0, 0, w, h);
 		jump.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -60,7 +59,7 @@ public class View extends JPanel{
 		answer1.setEnabled(true);
 		answer1.setText("ANSWER a");
 		answer1.setBackground(Color.RED);
-		answer1.setBounds(28, CrabController.board.getHeight() - 240 , 80, 80);
+		answer1.setBounds(178, CrabController.board.getHeight() - 240 , 320, 80);
 		answer1.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				CrabController.answerButton1Press();
@@ -72,7 +71,7 @@ public class View extends JPanel{
 		answer2.setEnabled(true);
 		answer2.setText("ANSWER b");
 		answer2.setBackground(Color.BLUE);
-		answer2.setBounds(118, CrabController.board.getHeight() - 240 , 80, 80);
+		answer2.setBounds(518, CrabController.board.getHeight() - 240 , 320, 80);
 		answer2.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				CrabController.answerButton2Press();
@@ -84,7 +83,7 @@ public class View extends JPanel{
 		answer3.setEnabled(true);
 		answer3.setText("ANSWER c");
 		answer3.setBackground(Color.GREEN);
-		answer3.setBounds(208, CrabController.board.getHeight() - 240 , 80, 80);
+		answer3.setBounds(858, CrabController.board.getHeight() - 240 , 320, 80);
 		answer3.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				CrabController.answerButton3Press();
@@ -92,6 +91,9 @@ public class View extends JPanel{
 		});
 		
 		frame.add(jump);
+		//frame.add(answer1);
+		//frame.add(answer2);
+		//frame.add(answer3);
 		frame.getContentPane().add(this);
 		frame.setBackground(Color.BLUE);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -126,12 +128,12 @@ public class View extends JPanel{
 		g.setColor(new Color(0, 0, 0, 255));
 		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),30));
 		
-		if (!CrabController.board.friends.isEmpty()){
+		if (!CrabController.board.friends.isEmpty() && CrabController.getIsFriendTimerRunning()){
 			for (model.Friend f: CrabController.board.friends){
 				g.drawImage(friendImage[f.getPicNum()], (int) f.getLocation().getX(), (int) f.getLocation().getY(), this);
 				
-				f.setTextSize(g.getFontMetrics().stringWidth(CrabController.board.facts[f.getFriendCounter()]));
-				
+					f.setTextSize(g.getFontMetrics().stringWidth(CrabController.board.facts[f.getFriendCounter()]));
+					
 				g.drawString(CrabController.board.facts[f.getFriendCounter()], (int) (f.getLocation().getX() + f.getLocation().getWidth()), (int) f.getLocation().getY());
 			}
 		}
@@ -148,7 +150,8 @@ public class View extends JPanel{
 		g.setColor(new Color(255, 0, 0, 255));
 		
 		g.fill3DRect(21, 41, (int) CrabController.board.getProgress(), 19, false);
-		
+	
+
 		if(!CrabController.board.player.getStarted() && CrabController.getCanBeAskedAQuestion()){			
 			g.setColor(new Color(255, 255, 255, 255));
 			g.fill3DRect(20, 70, CrabController.board.getWidth() - 39, CrabController.board.getHeight() - 160, true);
@@ -165,14 +168,27 @@ public class View extends JPanel{
 			int answerYCoord = 180; // change
 			
 			for (String s: CrabController.board.answers[CrabController.board.getCurrQuestion()]){
-				g.drawString(s, 28, answerYCoord);
+				g.drawString(s, 40, answerYCoord);
 				
-				answerYCoord += 50; // change
-			}
-		
-		
+				answerYCoord += 70; // change
+			}			
 		}
 		
+		if(CrabController.getDroughtStatus() >= 2){			
+			g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),52));
+			
+			int droughtLength = g.getFontMetrics().stringWidth("DROUGHT APPROACHING");
+			
+			g.drawString("DROUGHT APPROACHING", (CrabController.board.getWidth() - droughtLength) / 2, CrabController.board.getHeight() / 2);
+		}
+		
+		if(CrabController.getStormStatus() >= 4){			
+			g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),52));
+			
+			int stormLength = g.getFontMetrics().stringWidth("STORM APPROACHING");
+			
+			g.drawString("STORM APPROACHING", (CrabController.board.getWidth() - stormLength) / 2, CrabController.board.getHeight() / 2);
+		}
 	}
 	
 	private void loadImages(){
