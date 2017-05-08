@@ -4,7 +4,6 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 
 /**
  * @author Zachary
@@ -16,7 +15,6 @@ import java.util.Random;
 public class Board {
 	int width;
 	int height;
-	Random rand = new Random();
 	public Player player;
 	public List<Enemy> enemies = new ArrayList<Enemy>();
 	public List<Friend> friends = new ArrayList<Friend>();
