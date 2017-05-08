@@ -30,7 +30,7 @@ public class View extends JPanel{
 	private BufferedImage backgroundImage;
 	private BufferedImage crabImage;
 	private BufferedImage enemyImage;
-	private BufferedImage friendImage;
+	private BufferedImage[] friendImage;
 	
 	JFrame frame;
 	
@@ -84,8 +84,8 @@ public class View extends JPanel{
 		
 		if (!CrabController.board.friends.isEmpty()){
 			for (model.Friend f: CrabController.board.friends){
-				g.drawImage(friendImage, (int) f.getLocation().getX(), (int) f.getLocation().getY(), this);
-			
+				g.drawImage(friendImage[f.getPicNum()], (int) f.getLocation().getX(), (int) f.getLocation().getY(), this);
+				
 				f.setTextSize(g.getFontMetrics().stringWidth(CrabController.board.facts[f.getFriendCounter()]));
 				
 				g.drawString(CrabController.board.facts[f.getFriendCounter()], (int) (f.getLocation().getX() + f.getLocation().getWidth()), (int) f.getLocation().getY());
@@ -125,7 +125,10 @@ public class View extends JPanel{
 		crabImage = createImage("images/bluecrab_0.png");
 		backgroundImage = createImage("images/tempBackGround.jpg");
 		enemyImage = createImage("images/fish_bass_left.png");
-		friendImage = createImage("images/bogturtle_left_1.png");
+		friendImage = new BufferedImage[3];
+		friendImage[0] = createImage("images/bogturtle_left_0.png");
+		friendImage[1] = createImage("images/bogturtle_left_1.png");
+		friendImage[2] = createImage("images/bogturtle_left_2.png");
 	}
 	
 	private BufferedImage createImage(String file) {

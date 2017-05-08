@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 public class Friend extends Mover{
 	public int friendCounter;
 	public int textSize;
+	private int picNum = 0;
 	
 	public Friend(Board b){ 
 		this.yVel = 0;
@@ -34,5 +35,10 @@ public class Friend extends Mover{
 
 	public int getTextSize(){
 		return this.textSize;
+	}
+	public int getPicNum(){
+		// returns current frame, increments automatically to next frame
+		picNum = ++picNum % 3;
+		return picNum;
 	}
 }
