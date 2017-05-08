@@ -29,7 +29,7 @@ public class View extends JPanel{
 	
 	private BufferedImage backgroundImage;
 	private BufferedImage[] crabImage;
-	private BufferedImage enemyImage;
+	private BufferedImage[] enemyImage;
 	private BufferedImage[] friendImage;
 	
 	JFrame frame;
@@ -75,7 +75,7 @@ public class View extends JPanel{
 		
 		if (!CrabController.board.enemies.isEmpty()){
 			for (model.Enemy e: CrabController.board.enemies){
-				g.drawImage(enemyImage, (int) e.getLocation().getX(), (int) e.getLocation().getY(), this);
+				g.drawImage(enemyImage[e.getPicNum()], (int) e.getLocation().getX(), (int) e.getLocation().getY(), this);
 			}
 		}
 		
@@ -127,7 +127,10 @@ public class View extends JPanel{
 		crabImage[1] = createImage("images/bluecrab_1.png");
 		crabImage[2] = createImage("images/bluecrab_2.png");
 		backgroundImage = createImage("images/tempBackGround.jpg");
-		enemyImage = createImage("images/fish_bass_left.png");
+		enemyImage = new BufferedImage[3];
+		enemyImage[0] = createImage("images/fish_bass_left.png");
+		enemyImage[1] = createImage("images/fish_pickerel_left.png");
+		enemyImage[2] = createImage("images/fish_trout_left.png");
 		friendImage = new BufferedImage[3];
 		friendImage[0] = createImage("images/bogturtle_left_0.png");
 		friendImage[1] = createImage("images/bogturtle_left_1.png");
