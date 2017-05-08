@@ -197,6 +197,10 @@ public class View extends JPanel{
 		g.drawString("Time: " + BoatController.game.getTime().toString(), 20, 80);
 		//TODO improve background to actually have land around the estuaries
 		//TODO have an indication of where the lap ends (where the boat starts at 0 degrees on the circle)
+		g.setColor(Color.YELLOW);
+		g.drawLine((BoatController.board.getWidth()/2)+BoatController.board.getRadius()-75, BoatController.board.getHeight()/2,
+				(BoatController.board.getWidth()/2)+BoatController.board.getRadius()+100, BoatController.board.getHeight()/2);
+		g.setColor(new Color(0,0,0,255));
 		
 		if(BoatController.end){
 			g.setColor(new Color(255, 255, 255, 255));
