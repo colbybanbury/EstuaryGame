@@ -2,12 +2,14 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 /**
  * Contains all model components
  * @author Collin Clark
  */
 public class Board {
-	int width, height;
+	private int width, height;
+	static Random rand=new Random();;
 	static final int NUM_CUBES = 6;
 	public List<Cube> cubes = new ArrayList<Cube>(NUM_CUBES);
 	/**
@@ -18,9 +20,7 @@ public class Board {
 	public Board(int w, int h){
 		this.width = w;
 		this.height = h;
-		for (int i = 0; i < NUM_CUBES; i++){
-			cubes.add(new Cube(i, this));
-		}
+		
 	}
 	/**
 	 * returns the height of the board
@@ -47,9 +47,9 @@ public class Board {
 	 * rolls all dice on the board (gives them a random location and 
 	 * side to display)
 	 */
-	public void shuffle(){
+	public void shuffle(int numPics){
 		for (Cube c : cubes){
-			c.roll();
+			c.roll(numPics);
 		}
 	}
 	/**
@@ -61,4 +61,9 @@ public class Board {
 		return cubes;
 	}
 	
+	public void addCubes(int numPics){
+		for (int i=0;i<NUM_CUBES;i++){
+			cubes.add(new Cube(i,0, this));
+		}
+	}
 }

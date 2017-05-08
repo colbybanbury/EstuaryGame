@@ -6,36 +6,38 @@ import java.util.Random;
 import model.Board;
 
 public class Cube {
-	Rectangle location;
-	int picNum;
-	int cubeNum;
-	int sideLength = 200;
-	Random rand = new Random();
-	Board board;
+	private Rectangle location;
+	private int picNum;
+	private int cubeNum;
+	private int sideLength;
+	private Random rand = new Random();
+	private Board board;
 	
 	/**
 	 * Constructor for this class
 	 * @param picNum  integer value specifying which picture to display
 	 * @param b		  board the cube has to stay within
 	 */
-	public Cube(int picNum, Board b){
-		this.cubeNum = cubeNum;
+	public Cube(int cubeNum,int picNum, Board b){
+		this.cubeNum=cubeNum;
+		this.picNum = picNum;
 		this.board = b;
+		this.sideLength=((board.getWidth()-20)/board.NUM_CUBES)-10;
 		/*
 		location = new Rectangle(rand.nextInt(board.getWidth() - sideLength),
 								rand.nextInt(board.getHeight() - sideLength),
 								sideLength,sideLength);
 		*/
-		location = new Rectangle(picNum * board.width / board.NUM_CUBES, board.height / 2, sideLength, sideLength);
+		location = new Rectangle(10+ cubeNum * (board.getWidth()-20) / board.NUM_CUBES, board.getHeight() / 2, sideLength, sideLength);
 	}
 	/**
 	 * Moves cube to random location within Board, assigns new picNum
 	 * (as if rolling a real cube on a board)
 	 */
-	public void roll(){
-		picNum = rand.nextInt(6);
-		location.setLocation(rand.nextInt(board.getWidth() - sideLength),
-							rand.nextInt(board.getHeight()) - sideLength);
+	public void roll(int numPics){
+		location.setLocation(10+ cubeNum * (board.getWidth()-20) / board.NUM_CUBES, board.getHeight() / 2);
+		picNum = rand.nextInt(numPics-1)+1;
+		
 	}
 	/**
 	 * returns the current side of the cube being shown
@@ -52,6 +54,9 @@ public class Cube {
 		return location;
 	}
 	
+	public int getSideLength(){
+		return sideLength;
+	}
 	/**
 	 * changed the location of that cube
 	 * @param x
