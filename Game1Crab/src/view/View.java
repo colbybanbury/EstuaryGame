@@ -28,7 +28,7 @@ public class View extends JPanel{
 	public static JButton jump = new JButton("");
 	
 	private BufferedImage backgroundImage;
-	private BufferedImage crabImage;
+	private BufferedImage[] crabImage;
 	private BufferedImage enemyImage;
 	private BufferedImage[] friendImage;
 	
@@ -71,7 +71,7 @@ public class View extends JPanel{
 		g.setColor(new Color(225, 200, 100, 255));
 		g.fill3DRect(0, CrabController.board.getHeight() - 110, CrabController.board.getWidth(), CrabController.board.getHeight(), false);
 		
-		g.drawImage(crabImage, (int) CrabController.board.player.getLocation().getX(), (int) CrabController.board.player.getLocation().getY(), this);
+		g.drawImage(crabImage[CrabController.board.player.getPicNum()], (int) CrabController.board.player.getLocation().getX(), (int) CrabController.board.player.getLocation().getY(), this);
 		
 		if (!CrabController.board.enemies.isEmpty()){
 			for (model.Enemy e: CrabController.board.enemies){
@@ -122,7 +122,10 @@ public class View extends JPanel{
 	}
 	
 	private void loadImages(){
-		crabImage = createImage("images/bluecrab_0.png");
+		crabImage = new BufferedImage[3];
+		crabImage[0] = createImage("images/bluecrab_0.png");
+		crabImage[1] = createImage("images/bluecrab_1.png");
+		crabImage[2] = createImage("images/bluecrab_2.png");
 		backgroundImage = createImage("images/tempBackGround.jpg");
 		enemyImage = createImage("images/fish_bass_left.png");
 		friendImage = new BufferedImage[3];

@@ -14,5 +14,6 @@ public interface Movable {
 	
 	public int getImgWidth();
 	public int getImgHeight();
+	public int getPicNum();
 	public Rectangle getLocation();
 }

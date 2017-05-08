@@ -3,6 +3,7 @@ package model;
 import java.awt.Rectangle;
 
 public class Player extends Mover{
+	int picNum = 0;
 	
 	public Player(Board b){ 
 		this.yVel = 0;
@@ -19,6 +20,10 @@ public class Player extends Mover{
 		if (location.getY() >= 0){
 			yVel = -30;
 		}
+	}
+	public int getPicNum(){
+		picNum = ++picNum % 3;
+		return picNum;
 	}
 
 }
