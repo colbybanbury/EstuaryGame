@@ -21,6 +21,12 @@ public class Friend extends Mover{
 		b.friendCounter++;
 	}
 	
+	@Override
+	public void update(){
+		super.update();
+		picNum = ++picNum % 3;
+	}
+	
 	public void setFriendCounter(int fc){
 		this.friendCounter = fc;
 	}
@@ -37,8 +43,6 @@ public class Friend extends Mover{
 		return this.textSize;
 	}
 	public int getPicNum(){
-		// returns current frame, increments automatically to next frame
-		picNum = ++picNum % 3;
 		return picNum;
 	}
 }
