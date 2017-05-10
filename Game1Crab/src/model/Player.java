@@ -32,4 +32,11 @@ public class Player extends Mover{
 		return picNum;
 	}
 
+	public void setFinished(boolean f){
+		this.finished = f;
+	}
+	
+	public boolean getFinished(){
+		return this.finished;
+	}
 }
