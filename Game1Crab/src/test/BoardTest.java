@@ -90,9 +90,7 @@ public class BoardTest {
 	public void droughtTest(){ //includes stopDraught test
 		Board b1 = new Board(1000, 1200);
 		b1.drought();
-		assertEquals(b1.scentTrailHeight, 200); //Height/3 results in truncation, so 133
-												// it's actually height/2. Change this test
-												// if you change the implementation
+		assertEquals(b1.scentTrailHeight, 300); // height * .75
 		b1.stopDrought();
 		assertEquals(b1.scentTrailHeight, 400);
 	}

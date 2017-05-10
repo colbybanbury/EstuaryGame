@@ -167,14 +167,12 @@ public class Board {
 	 * 
 	 */
 	public void drought(){
-		scentTrailHeight /= 4;
-		scentTrailHeight *= 3;
+		scentTrailHeight *= .75;
 		isDroughtHappening = true;
 	}
 	
 	public void stopDrought(){
-		scentTrailHeight *= 4;
-		scentTrailHeight /= 3;
+		scentTrailHeight /= .75;
 		isDroughtHappening = false;
 	}
 	
