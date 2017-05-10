@@ -42,7 +42,6 @@ public class CrabController  implements ActionListener{
    	private static boolean canBeAskedAQuestion = false;
    	private static boolean haventAddedDrought = true;
    	private static boolean haventAddedStorm = true;
-   	private static boolean isFriendTimerRunning = false;
    	private static int droughtStatus;
    	private static int stormStatus;
 	
@@ -85,7 +84,6 @@ public class CrabController  implements ActionListener{
 			if(board.player.getStarted() && !enemyTimer.isRunning()){
 				timer3.start();
 				friendTimer.start();
-				setIsFriendTimerRunning(true);
 				rectangleTimer.start();
 				droughtTimer.start();
 			}
@@ -102,7 +100,6 @@ public class CrabController  implements ActionListener{
 			friendTimer.stop();
 			timer3.stop();
 		}else if(e.getSource() == friendTimer){
-			setIsFriendTimerRunning(true);
 			board.friends.add(new Friend(board));
 		}else if(e.getSource() == rectangleTimer){
 			onTick2();
@@ -110,7 +107,7 @@ public class CrabController  implements ActionListener{
 			if(board.maybeAddDrought() && haventAddedDrought){
 				board.drought();
 				haventAddedDrought = false;
-				droughtStatus = 3;
+				droughtStatus = 2;
 			}
 			
 			if(!haventAddedDrought){
@@ -146,14 +143,6 @@ public class CrabController  implements ActionListener{
 		return canBeAskedAQuestion;
 	}
 	
-	public static void setIsFriendTimerRunning(boolean bool){
-		isFriendTimerRunning = bool;
-	}
-	
-	public static boolean getIsFriendTimerRunning(){
-		return isFriendTimerRunning;
-	}
-	
 	public static int getDroughtStatus(){
 		return droughtStatus;
 	}
@@ -175,19 +164,58 @@ public class CrabController  implements ActionListener{
 	
 	public static void buttonPress(){
 		if (!board.player.getStarted()){
-			board.friends.add(new Friend(board));
-			board.player.setStarted(true);
+			if(!canBeAskedAQuestion){
+				board.friends.add(new Friend(board));
+              				board.player.setStarted(true);
+			}
 		}
 		board.player.jump();
 	}
 	
 	public static void answerButton1Press(){		
 		board.player.setStarted(true);
+		
+		View.jump.setEnabled(true);
+		View.jump.setVisible(true);
+		
+		View.answer1.setEnabled(false);
+		View.answer1.setVisible(false);
+		
+		View.answer2.setEnabled(false);
+		View.answer2.setVisible(false);
+		
+		View.answer3.setEnabled(false);
+		View.answer3.setVisible(false);
+		
 	}
 	public static void answerButton2Press(){		
 		board.player.setStarted(true);
+		
+		View.jump.setEnabled(true);
+		View.jump.setVisible(true);
+		
+		View.answer1.setEnabled(false);
+		View.answer1.setVisible(false);
+		
+		View.answer2.setEnabled(false);
+		View.answer2.setVisible(false);
+		
+		View.answer3.setEnabled(false);
+		View.answer3.setVisible(false);
 	}
 	public static void answerButton3Press(){		
 		board.player.setStarted(true);
+		
+		View.jump.setEnabled(true);
+		View.jump.setVisible(true);
+		
+		View.answer1.setEnabled(false);
+		View.answer1.setVisible(false);
+		
+		View.answer2.setEnabled(false);
+		View.answer2.setVisible(false);
+		
+		View.answer3.setEnabled(false);
+		View.answer3.setVisible(false);
 	}
 }
