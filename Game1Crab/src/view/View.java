@@ -183,27 +183,24 @@ public class View extends JPanel{
 		g.fill3DRect(21, 41, (int) CrabController.board.getProgress(), 19, false);
 	
 
-		if(!CrabController.board.player.getStarted() && CrabController.getCanBeAskedAQuestion()){
+		if(!CrabController.board.player.getStarted() && CrabController.board.player.getFinished() && CrabController.getCanBeAskedAQuestion()){
+			g.setColor(new Color(255, 255, 255, 127));
+			g.fill3DRect(0, 0, CrabController.board.getWidth(), CrabController.board.getHeight(), false);
 			
-			g.setColor(new Color(255, 255, 255, 255));
-			g.fill3DRect(20, 70, CrabController.board.getWidth() - 39, CrabController.board.getHeight() - 160, true);
-		
+			Font defaultFont = g.getFont();
+			
+			g.setFont(titleFont);
 			g.setColor(new Color(0, 0, 0, 255));
-			g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),48));
+			g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),218));
 			
-			int newX = ((CrabController.board.getWidth() - 39) - (g.getFontMetrics().stringWidth(CrabController.board.questions[CrabController.board.getCurrQuestion()]))) / 2;
+			int titleLength = g.getFontMetrics().stringWidth("YOU WIN");
 			
-			g.drawString(CrabController.board.questions[CrabController.board.getCurrQuestion()], 20 + newX, 115);
-
-			g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),36));
+			g.drawString("YOU WIN", (CrabController.board.getWidth() - titleLength) / 2, CrabController.board.getHeight() / 2);
+		
+			g.setFont(defaultFont);
 			
-			int answerYCoord = 180; // change
+			//Add Replay button, oh boy
 			
-			for (String s: CrabController.board.answers[CrabController.board.getCurrQuestion()]){
-				g.drawString(s, 40, answerYCoord);
-				
-				answerYCoord += 70; // change
-			}			
 		}else if(!CrabController.board.player.getStarted() && !CrabController.getCanBeAskedAQuestion()){
 			g.setColor(new Color(255, 255, 255, 127));
 			g.fill3DRect(0, 0, CrabController.board.getWidth(), CrabController.board.getHeight(), false);
@@ -225,7 +222,28 @@ public class View extends JPanel{
 			g.drawString("CRAB RUN", (CrabController.board.getWidth() - titleLength) / 2, CrabController.board.getHeight() / 2);
 		
 			g.setFont(defaultFont);
-		}
+		}else if(!CrabController.board.player.getStarted() && CrabController.getCanBeAskedAQuestion()){
+			
+			g.setColor(new Color(255, 255, 255, 255));
+			g.fill3DRect(20, 70, CrabController.board.getWidth() - 39, CrabController.board.getHeight() - 160, true);
+		
+			g.setColor(new Color(0, 0, 0, 255));
+			g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),48));
+			
+			int newX = ((CrabController.board.getWidth() - 39) - (g.getFontMetrics().stringWidth(CrabController.board.questions[CrabController.board.getCurrQuestion()]))) / 2;
+			
+			g.drawString(CrabController.board.questions[CrabController.board.getCurrQuestion()], 20 + newX, 115);
+
+			g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),36));
+			
+			int answerYCoord = 180; // change
+			
+			for (String s: CrabController.board.answers[CrabController.board.getCurrQuestion()]){
+				g.drawString(s, 40, answerYCoord);
+				
+				answerYCoord += 70; // change
+			}			
+		} 
 		
 		if(CrabController.getDroughtStatus() >= 1){			
 			g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),52));
