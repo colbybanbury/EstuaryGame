@@ -23,7 +23,7 @@ public class Boat {
 	
 	private double phi = 0.0;//angle of the boat
 	private double radiusScale = 1.0;
-	public static final double RADIUS_SPEED_SCALER = .001;//TODO find the right value for this
+	public static final double RADIUS_SPEED_SCALER = .001;
 	public static final int DAMAGE_SCALE = 50;
 	
 	private int threshold = 2*speedInc;
@@ -47,7 +47,7 @@ public class Boat {
 	 * 
 	 */
 	public void turnRight(){//turns the boat right and changes move()
-		this.phi -= 0.25;//TODO figure out good levels for actualy gameplay
+		this.phi -= 0.25;
 		if(this.phi<-2.0)
 			this.phi = -2.0;
 	}

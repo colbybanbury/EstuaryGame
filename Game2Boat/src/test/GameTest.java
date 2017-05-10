@@ -20,9 +20,16 @@ public class GameTest {
 		assertEquals((int)g1.getScore(), 0);
 	}
 	@Test
+	public void damagePenaltyTest() {
+		Game g1 = new Game();
+		assertEquals((int)g1.getDamagePenalty(), 0);
+		g1.increaseDamagePenalty(2);
+		assertEquals((int)g1.getDamagePenalty(), 2);
+	}
+	@Test
 	public void timeTest(){
 		Game g1 = new Game();
-		for (int i = 120; i >= 0; i--){
+		for (int i = 60; i >= 0; i--){
 			assertEquals((int)g1.getTime(), i);
 			g1.decreaseTime();
 		}

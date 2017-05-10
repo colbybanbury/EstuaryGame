@@ -51,11 +51,9 @@ public class View extends JPanel{
 	private BufferedImage boatWake1;
 	private BufferedImage boatWake2;
 	private BufferedImage estuary;
-	private BufferedImage seaWall;
-	private BufferedImage gabion;
-	private BufferedImage damage1;
-	private BufferedImage damage2;
-	private BufferedImage damage3;
+	
+	private BufferedImage[][] protections = new BufferedImage[3][4];
+	
 	private BufferedImage oyster;
 	private BufferedImage seaGrass;
 	private BufferedImage rock;
@@ -148,19 +146,14 @@ public class View extends JPanel{
 				//g.drawImage(estuary, tempX, tempY, this);
 				switch(e.getType()){//draws the protection type on top of the estuary centered
 				case 0:
-					if(e.getDamage()>6)//most damage
-						g.drawImage(damage3, tempX, tempY, this);
-					else if(e.getDamage()>3)//middle
-						g.drawImage(damage2, tempX, tempY, this);
-					else if(e.getDamage() >0){//least
-						g.drawImage(damage1, tempX, tempY, this);
-					}
+					if(e.getDamage()>0)
+						g.drawImage(protections[0][e.getDamage()/3], tempX, tempY, this);
 					break;
-				case 1://sea wall TODO the wall should visably deteriorate based on integrity
-					g.drawImage(seaWall, tempX + (estuary.getWidth()/2 - seaWall.getWidth()/2), tempY + (estuary.getHeight()/2 - seaWall.getHeight()/3), this);
+				case 1://sea wall
+					g.drawImage(protections[1][e.getIntegrity()*3/2], tempX + (estuary.getWidth()/2 - protections[1][0].getWidth()/2), tempY + (estuary.getHeight()/2 - protections[1][0].getHeight()/3), this);
 					break;
-				case 2://Gabion TODO the wall should visably deteriorate based on integrity
-					g.drawImage(gabion, tempX + (estuary.getWidth()/2 - seaWall.getWidth()/2), tempY + (estuary.getHeight()/2 - seaWall.getHeight()/3), this);
+				case 2://Gabion 
+					g.drawImage(protections[2][e.getIntegrity()/2], tempX + (estuary.getWidth()/2 - protections[1][0].getWidth()/2), tempY + (estuary.getHeight()/2 - protections[1][0].getHeight()/3), this);
 					break;
 				}
 			}
@@ -169,8 +162,8 @@ public class View extends JPanel{
 			int tempRadius  = (int) (BoatController.board.getRadius()* (0.9+0.1*i));
 			for(int j = 0; j<BoatController.board.getLapDivisions(); j++){
 				double tempTheta = (2*Math.PI*j) / BoatController.board.getLapDivisions();
-				int tempX = (int) (frameWidth/2 + tempRadius * Math.cos(tempTheta));
-				int tempY = (int) (frameHeight/2 + tempRadius * Math.sin(tempTheta));
+				int tempX = (int) (frameWidth/2 + tempRadius * Math.cos(tempTheta)) + 15;
+				int tempY = (int) (frameHeight/2 + tempRadius * Math.sin(tempTheta)) + 15;
 				switch(BoatController.board.getPowerUps()[j][i]){
 				case OYSTER:
 					g.drawImage(oyster, tempX, tempY, this);
@@ -196,7 +189,7 @@ public class View extends JPanel{
 		g.drawString("Score: " + BoatController.game.getScore().toString(), 20, 40);
 		g.drawString("Time: " + BoatController.game.getTime().toString(), 20, 80);
 		//TODO improve background to actually have land around the estuaries
-		//TODO have an indication of where the lap ends (where the boat starts at 0 degrees on the circle)
+		//TODO have a better indication of where the lap ends (where the boat starts at 0 degrees on the circle)
 		g.setColor(Color.YELLOW);
 		g.drawLine((BoatController.board.getWidth()/2)+BoatController.board.getRadius()-75, BoatController.board.getHeight()/2,
 				(BoatController.board.getWidth()/2)+BoatController.board.getRadius()+100, BoatController.board.getHeight()/2);
@@ -207,9 +200,11 @@ public class View extends JPanel{
 			g.fill3DRect(20, 70, frameWidth - 39, frameHeight - 160, false);
 			g.setColor(new Color(0, 0, 0, 255));
 			g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),64));
-			g.drawString("Time limit reached", frameWidth/2 - 80, frameHeight/3);
-			g.drawString("Score: " + BoatController.game.getScore().toString(), frameWidth/2 - 80, frameHeight/2);
-			g.drawString("Laps Completed: " + BoatController.game.getLap().toString(), frameWidth/2 - 80, frameHeight*2/3);
+			g.drawString("Time limit reached", frameWidth/3, frameHeight*1/6);
+			g.drawString("Laps Completed: " + BoatController.game.getLap().toString(), frameWidth/3, frameHeight*1/3);
+			g.drawString("Score Before Penalty: " + BoatController.game.getScore().toString(), frameWidth/3, frameHeight/2);
+			g.drawString("Score Penalty to Estuary Damage: "+ BoatController.game.getDamagePenalty().toString(), frameWidth/3, frameHeight*2/3);
+			g.drawString("Final Score: " + (BoatController.game.getScore() - BoatController.game.getDamagePenalty()), frameWidth/3, frameHeight*5/6);
 		}
 	}
 	
@@ -217,7 +212,9 @@ public class View extends JPanel{
 	private void changeBoatAngle(){//rotates the boat image depending on the part of the circle it's on
 		/**
 		 * uses affineTranformation library to change the angle of the boat
+		 * 
 		 */
+		//Tried Graphics2D.rotate but it made the boat disappear...
 		tx = AffineTransform.getRotateInstance(boatAngle, boatImage.getWidth()/2, boatImage.getHeight()/2);
 		op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
 	}
@@ -232,14 +229,24 @@ public class View extends JPanel{
 		backgroundImage = createImage("images/tempBackGroundWithLand.jpg");
 		scaledBackground = backgroundImage.getScaledInstance(frameWidth, frameHeight, backgroundImage.SCALE_DEFAULT);
 		estuary = createImage("images/grass_tile.jpg");
-		seaWall = createImage("images/box2.png");
-		gabion = createImage("images/bucket.png");
-		damage1 = createImage("images/puddle small.png");
-		damage2 = createImage("images/puddle medium.png");
-		damage3 = createImage("images/puddle large.png");
+		
+		protections[1][3] = createImage("images/box2.png");
+		protections[1][2] = createImage("images/box2.png");
+		protections[1][1] = createImage("images/box2.png");
+		protections[1][0] = createImage("images/box2.png");
+		
+		protections[2][3] = createImage("images/gabion0.png");
+		protections[2][2] = createImage("images/gabion1.png");
+		protections[2][1] = createImage("images/gabion2.png");
+		protections[2][0] = createImage("images/gabion3.png");
+		
+		protections[0][0] = createImage("images/puddle small.png");
+		protections[0][1] = createImage("images/puddle medium.png");
+		protections[0][2] = createImage("images/puddle large.png");
+		
 		oyster = createImage("images/clam_back_0.png");
 		seaGrass = createImage("images/seagrass.png");
-		//TODO add the different levels of Gabion and seaWall damage
+		//TODO add the different levels of seaWall damage
 		rock = createImage("images/seed.png");//TODO make this actually be a better size/shape Will probably have to adjust the x y in paint for these
 	}
 	

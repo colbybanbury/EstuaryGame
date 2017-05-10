@@ -69,8 +69,7 @@ public class BoatController implements ActionListener{
 		if(boat.getXLoc()>= board.getLapLength()){
 			boat.setXLoc(0);
 			game.setLap(game.getLap()+1);
-			//TODO figure out how we want scoring to work
-			game.increaseScore(10);
+			game.increaseScore(100);
 		}
 		System.out.println("currently on estuary # " +(boat.getXLoc()*board.getLapDivisions())/board.getLapLength());
 		curEstuary = board.getLapPath()[(boat.getXLoc()*board.getLapDivisions())/board.getLapLength()];
@@ -121,10 +120,10 @@ public class BoatController implements ActionListener{
 			if(game.getTime() <= 0){
 				secondTimer.stop();
 				end = true;
-				//TODO tally up estuary damage at the end of the game and remove points
 				Estuary[] lapPath = board.getLapPath();
 				for (int i = 0; i < lapPath.length; i++){
-					game.decreaseScore(lapPath[i].getDamage());
+					game.increaseDamagePenalty(lapPath[i].getDamage());
+					
 				}
 			}
 		}
@@ -152,7 +151,6 @@ public class BoatController implements ActionListener{
     	//gets what ever powerup is at the boats current location and if there is one there it does whatever it needs to
     	curPowerUp = board.getPowerUps()[rowNum][columnNum];
     	System.out.println("boat is at powerUP["+(boat.getXLoc()*board.getLapDivisions())/board.getLapLength()+"][" + (int) ((boat.getRadiusScale() - 0.8)*7.5) +"]" );
-    	//TODO test this to make sure it's on the right powerUp, Did some testing and I think it works
     	switch(curPowerUp){
     	case OYSTER:
     		System.out.println("picked up an Oyster");
@@ -178,7 +176,7 @@ public class BoatController implements ActionListener{
     		}
     		break;
     	case ROCK:
-    		boat.setXLoc(boat.getXLoc() - 30);//TODO make this a bit cleaner. Speed can not be negative so don't do that
+    		boat.setXLoc(boat.getXLoc() - 30);
     		view.animate();
     		boat.setXLoc(boat.getXLoc() - 30);
     		view.animate();

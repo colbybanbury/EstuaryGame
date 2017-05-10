@@ -170,14 +170,12 @@ public class Board {
 	 * 
 	 */
 	public void drought(){
-		scentTrailHeight /= 4;
-		scentTrailHeight *= 3;
+		scentTrailHeight *= .75;
 		isDroughtHappening = true;
 	}
 	
 	public void stopDrought(){
-		scentTrailHeight *= 4;
-		scentTrailHeight /= 3;
+		scentTrailHeight /= .75;
 		isDroughtHappening = false;
 	}
 	
@@ -191,15 +189,13 @@ public class Board {
 	 */
 	public void storm(){
 		wavyFactor += 3;
-		scentTrailHeight /= 3;
-		scentTrailHeight *= 2;
+		scentTrailHeight *= 2/3;
 		isStormHappening = true;
 	}
 	
 	public void stopStorm(){
 		wavyFactor -= 3;
-		scentTrailHeight *= 3;
-		scentTrailHeight /= 2;
+		scentTrailHeight *= 3/2;
 		isStormHappening = false;
 	}
 	
