@@ -274,7 +274,7 @@ public class Board {
 	}
 	
 	public void rectangleUpdate(){
-		if (player.getStarted()){
+		if (player.getStarted() && !player.getFinished()){
 			
 			boolean spawnRectangle = true;
 			
@@ -320,7 +320,8 @@ public class Board {
 		}
 		
 		if(getProgress() >= width - 41){
-			player.finished = true;
+			player.setFinished(true);
+			player.setStarted(false);
 		}
 	}
 }
