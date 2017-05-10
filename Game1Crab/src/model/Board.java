@@ -28,8 +28,8 @@ public class Board {
 	public List<Rectangle> scentTrail = new ArrayList<Rectangle>(scentTrailDiv);
 	double progress = 0;
 	double[] progressArray = {-1.1, -0.8, -0.5, -0.2, -0.1, 0, 0.1, 0.2, 0.5, 0.8, 1.1};
-	int friendCounter;
-	public String[] facts = {"Welcome to Crab Game XL Lite II: Gabion Rises! Press Space to JUMP.", 
+	public int friendCounter;
+	public String[] facts = {"Welcome to Crab Run! Press Space to JUMP.", 
 							"The goal of this game is to fill up the progress bar above.", 
 							"You fill up the bar by staying within the scent trail leading you home.", 
 							"Avoid fish at all costs or you'll be forced to answer a question.", 
@@ -133,15 +133,29 @@ public class Board {
 	 * 
 	 * @return collided- boolean whether or not player has collided with enemy
 	 */
+	@SuppressWarnings("static-access")
 	public boolean checkCollision(){
 		// TODO: write test for no collisions condition
 		for (Iterator<Enemy> enemyIterator = enemies.iterator(); enemyIterator.hasNext();){
 			Enemy enemy = enemyIterator.next();
 			
 			if (player.getLocation().intersects(enemy.getLocation())){
+				
+				CrabController.view.jump.setEnabled(false);
+				CrabController.view.jump.setVisible(false);
+				
+				CrabController.view.answer1.setEnabled(true);
+				CrabController.view.answer1.setVisible(true);
+				
+				CrabController.view.answer2.setEnabled(true);
+				CrabController.view.answer2.setVisible(true);
+				
+				CrabController.view.answer3.setEnabled(true);
+				CrabController.view.answer3.setVisible(true);
+				
 				enemyIterator.remove();
 				player.setStarted(false);
-				setCurrQuestion((getCurrQuestion() + 1) % questions.length);				
+				setCurrQuestion((getCurrQuestion() + 1) % questions.length);
 				return true;
 			}
 		}
@@ -245,10 +259,6 @@ public class Board {
 				}
 			}
 			
-			if(friends.isEmpty()){
-				CrabController.setIsFriendTimerRunning(false);
-			}
-			
 			//Calculates how much of the player is in the scent trail
 			//Sets progress bar to increase/decrease accordingly
 			setProgress(checkSalinity() / 352);	
@@ -257,6 +267,7 @@ public class Board {
 			if (!enemies.isEmpty()){
 				player.setStarted(!checkCollision());
 			}
+			
 		}else{
 			setProgress(0);
 		} 
