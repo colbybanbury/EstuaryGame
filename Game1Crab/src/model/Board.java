@@ -29,17 +29,14 @@ public class Board {
 	double progress = 0;
 	double[] progressArray = {-1.1, -0.8, -0.5, -0.2, -0.1, 0, 0.1, 0.2, 0.5, 0.8, 1.1};
 	public int friendCounter;
-	public String[] facts = {"Welcome to Crab Run! Press Space to JUMP.", 
+	public String[] facts = {"Welcome to Crab Run! Press SPACE to Jump.", 
 							"The goal of this game is to fill up the progress bar above.", 
 							"You fill up the bar by staying within the scent trail leading you home.", 
 							"Avoid fish at all costs or you'll be forced to answer a question.", 
 							"Watch out for storms and droughts that make it more difficult to return home. Good Luck!"};
-	public String[] questions = {"QUESTION 1", "QUESTION 2", "QUESTION 3", "QUESTION 4", "QUESTION 5"};
-	public String[][] answers = {{"ANSWER 1a","ANSWER 1b","ANSWER 1c"}, 
-								{"ANSWER 2a", "ANSWER 2b", "ANSWER 2c"}, 
-								{"ANSWER 3a", "ANSWER 3b", "ANSWER 3c"}, 
-								{"ANSWER 4a", "ANSWER 4b", "ANSWER 4c"}, 
-								{"ANSWER 5a", "ANSWER 5b", "ANSWER 5c"}};
+	
+	public ArrayList<Question> questions = new ArrayList<Question>();
+	
 	public int currQuestion = -1;
 	private static boolean isDroughtHappening = false;
 	private static boolean isStormHappening = false;
@@ -60,6 +57,12 @@ public class Board {
 		scentTrail.add(new Rectangle(width, scentTrailHeight, width/scentTrailDiv, scentTrailHeight));
 		
 		this.friendCounter = 0;
+		
+		questions.add(new Question("QUESTION 1", "ANSWER 1a", "ANSWER 1b", "ANSWER 1c"));
+		questions.add(new Question("QUESTION 2", "ANSWER 2a", "ANSWER 2b", "ANSWER 2c"));
+		questions.add(new Question("QUESTION 3", "ANSWER 3a", "ANSWER 3b", "ANSWER 3c"));
+		questions.add(new Question("QUESTION 4", "ANSWER 4a", "ANSWER 4b", "ANSWER 4c"));
+		questions.add(new Question("QUESTION 5", "ANSWER 5a", "ANSWER 5b", "ANSWER 5c"));
 	}
 	
 	public int getWidth(){
@@ -155,7 +158,7 @@ public class Board {
 				
 				enemyIterator.remove();
 				player.setStarted(false);
-				setCurrQuestion((getCurrQuestion() + 1) % questions.length);
+				setCurrQuestion((getCurrQuestion() + 1) % questions.size());
 				return true;
 			}
 		}
@@ -268,9 +271,9 @@ public class Board {
 				player.setStarted(!checkCollision());
 			}
 			
-		}else{
+		}else if(!player.getFinished()){
 			setProgress(0);
-		} 
+		}
 	}
 	
 	public void rectangleUpdate(){

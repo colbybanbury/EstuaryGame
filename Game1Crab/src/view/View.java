@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
@@ -8,13 +9,18 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import java.text.StringCharacterIterator;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
@@ -230,18 +236,62 @@ public class View extends JPanel{
 			g.setColor(new Color(0, 0, 0, 255));
 			g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),48));
 			
-			int newX = ((CrabController.board.getWidth() - 39) - (g.getFontMetrics().stringWidth(CrabController.board.questions[CrabController.board.getCurrQuestion()]))) / 2;
+			StringCharacterIterator charIterator = new StringCharacterIterator(CrabController.board.questions.get(CrabController.board.getCurrQuestion()).getPrompt());
+			char c = charIterator.first();
+			int newX;
+			int index = 0;
+			ArrayList<String> questionLines = new ArrayList<String>();
 			
-			g.drawString(CrabController.board.questions[CrabController.board.getCurrQuestion()], 20 + newX, 115);
-
+			questionLines.add("");
+			
+			while(c!= StringCharacterIterator.DONE){
+				String newString = questionLines.get(index).concat(Character.toString(c));
+				questionLines.remove(index);
+				questionLines.add(newString);
+				newX = 25 + g.getFontMetrics().stringWidth(questionLines.get(index));
+			
+				if(newX >= CrabController.board.getWidth() - 30){
+					index++;
+					questionLines.add("");
+				}
+				c = charIterator.next();
+			}
+			
+			int yIncrement = 0;
+			for(String s: questionLines){
+				g.drawString(s, 20 + ((CrabController.board.getWidth() / 2) - (g.getFontMetrics().stringWidth(s)) / 2), 115 + yIncrement);
+			
+				yIncrement += 45;
+			}	
+			yIncrement += 15;
+			
 			g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),36));
 			
-			int answerYCoord = 180; // change
+			int answerYCoord = 115 + yIncrement;
 			
-			for (String s: CrabController.board.answers[CrabController.board.getCurrQuestion()]){
+			Rectangle2D answerRectangle;
+
+			int index1 = 0;
+			
+			for (String s: CrabController.board.questions.get(CrabController.board.getCurrQuestion()).getAnswers()){
+//				answerRectangle = g.getFontMetrics().getStringBounds(s, g);
+				
+//				System.out.println("INDEX " + index1 + ": " + g.getFontMetrics().getStringBounds(s, g));
+//				
+//				System.out.println("INDEX " + index1 + ": " + answerRectangle);
+				
+//				if(index == 0){
+//					answer1.setBounds((int) answerRectangle.getX(), (int) answerRectangle.getY(), (int) answerRectangle.getWidth(), (int) answerRectangle.getHeight());
+//				}else if(index == 1){
+//					answer2.setBounds((int) answerRectangle.getX(), (int) answerRectangle.getY(), (int) answerRectangle.getWidth(), (int) answerRectangle.getHeight());
+//				}else{
+//					answer3.setBounds((int) answerRectangle.getX(), (int) answerRectangle.getY(), (int) answerRectangle.getWidth(), (int) answerRectangle.getHeight());
+//				}
+					
 				g.drawString(s, 40, answerYCoord);
 				
-				answerYCoord += 70; // change
+				answerYCoord += 70;
+				index1++;
 			}			
 		} 
 		

@@ -83,14 +83,22 @@ public class BoardTest {
 	
 	@Test
 	public void checkCollisionTest5() {
-		//TODO: make this test check that there are no collisions
+		Board b1 = new Board(1000, 1200);
+		Player p1 = b1.player;
+		Enemy e1 = new Enemy(b1);
+		b1.enemies.add(e1);
+		p1.setXLoc(50);
+		p1.setYLoc(350+e1.getImgHeight()-1);
+		e1.setXLoc(50);
+		e1.setYLoc(550);
+		assertFalse(b1.checkCollision());
 	}
 	
 	@Test
 	public void droughtTest(){ //includes stopDraught test
 		Board b1 = new Board(1000, 1200);
 		b1.drought();
-		assertEquals(b1.scentTrailHeight, 200); //Height/3 results in truncation, so 133
+		assertEquals(b1.scentTrailHeight, 300); //Height/3 results in truncation, so 133
 												// it's actually height/2. Change this test
 												// if you change the implementation
 		b1.stopDrought();
@@ -101,7 +109,7 @@ public class BoardTest {
 	public void stormTest(){ //includes stopStorm() test
 		Board b1 = new Board(1000, 1200);
 		b1.storm();
-		assertEquals(b1.wavyFactor, 11, 0.1);  // third argument is a delta, now required
+		assertEquals(b1.wavyFactor, 4, 0.1);  // third argument is a delta, now required
 		b1.stopStorm();
 		assertEquals(b1.wavyFactor, 1, 0.1);
 	}
@@ -134,7 +142,7 @@ public class BoardTest {
 		b1.player.setStarted(true);
 		Enemy e1 = new Enemy(b1);
 		b1.enemies.add(e1);
-		e1.setXLoc(17 - e1.getImgWidth());
+		e1.setXLoc(13 - e1.getImgWidth());
 		b1.moverUpdate();
 		assertTrue(b1.enemies.isEmpty());
 	}
