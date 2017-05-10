@@ -11,7 +11,7 @@ public class FriendTest {
 		Board b = new Board(1000,1200);
 		Friend f = new Friend(b);
 		assertEquals(f.getXLoc(), 1000);
-		assertEquals(f.getYLoc(), 1086);
+		assertEquals(f.getYLoc(), 1200 - 129);
 		assertEquals(f.getXVel(), -14, 0.000);
 		assertEquals(f.getYVel(), 0, 0.000);
 		assertEquals(f.getYAcc(), 0, 0.000);
