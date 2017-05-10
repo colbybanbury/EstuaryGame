@@ -2,16 +2,19 @@ package view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
+import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
@@ -20,6 +23,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import controller.CrabController;
+import model.Friend;
 
 public class View extends JPanel{
 	private int frameHeight;
@@ -30,10 +34,12 @@ public class View extends JPanel{
 	public static JButton answer2 = new JButton("");
 	public static JButton answer3 = new JButton("");
 	
-	private BufferedImage backgroundImage;
+	private BufferedImage titleImage;
 	private BufferedImage[] crabImage;
 	private BufferedImage[] enemyImage;
 	private BufferedImage[] friendImage;
+	
+	private Font titleFont;
 	
 	JFrame frame;
 	
@@ -91,14 +97,37 @@ public class View extends JPanel{
 		});
 		
 		frame.add(jump);
-		//frame.add(answer1);
-		//frame.add(answer2);
-		//frame.add(answer3);
+		frame.add(answer1);
+		frame.add(answer2);
+		frame.add(answer3);
+		
+		answer1.setEnabled(false);
+		answer1.setVisible(false);
+		
+		answer2.setEnabled(false);
+		answer2.setVisible(false);
+		
+		answer3.setEnabled(false);
+		answer3.setVisible(false);
+		
 		frame.getContentPane().add(this);
 		frame.setBackground(Color.BLUE);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(frameWidth, frameHeight);
 		frame.setVisible(true);
+		
+		try {
+			this.titleFont = Font.createFont(Font.TRUETYPE_FONT, (new File("fonts/PWBubbles.ttf")));
+		} catch (FontFormatException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+        this.titleFont = titleFont.deriveFont(Font.PLAIN,20);
+        GraphicsEnvironment ge =
+            GraphicsEnvironment.getLocalGraphicsEnvironment();
+        ge.registerFont(titleFont);
+        
 	}
 	
 	public JFrame getFrame(){
@@ -128,11 +157,13 @@ public class View extends JPanel{
 		g.setColor(new Color(0, 0, 0, 255));
 		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),30));
 		
-		if (!CrabController.board.friends.isEmpty() && CrabController.getIsFriendTimerRunning()){
-			for (model.Friend f: CrabController.board.friends){
+		if (!CrabController.board.friends.isEmpty()){
+			for(Iterator<model.Friend> friendIterator = CrabController.board.friends.iterator(); friendIterator.hasNext();){
+				model.Friend f = friendIterator.next();
+				
 				g.drawImage(friendImage[f.getPicNum()], (int) f.getLocation().getX(), (int) f.getLocation().getY(), this);
 				
-					f.setTextSize(g.getFontMetrics().stringWidth(CrabController.board.facts[f.getFriendCounter()]));
+				f.setTextSize(g.getFontMetrics().stringWidth(CrabController.board.facts[f.getFriendCounter()]));
 					
 				g.drawString(CrabController.board.facts[f.getFriendCounter()], (int) (f.getLocation().getX() + f.getLocation().getWidth()), (int) f.getLocation().getY());
 			}
@@ -152,7 +183,8 @@ public class View extends JPanel{
 		g.fill3DRect(21, 41, (int) CrabController.board.getProgress(), 19, false);
 	
 
-		if(!CrabController.board.player.getStarted() && CrabController.getCanBeAskedAQuestion()){			
+		if(!CrabController.board.player.getStarted() && CrabController.getCanBeAskedAQuestion()){
+			
 			g.setColor(new Color(255, 255, 255, 255));
 			g.fill3DRect(20, 70, CrabController.board.getWidth() - 39, CrabController.board.getHeight() - 160, true);
 		
@@ -172,9 +204,30 @@ public class View extends JPanel{
 				
 				answerYCoord += 70; // change
 			}			
+		}else if(!CrabController.board.player.getStarted() && !CrabController.getCanBeAskedAQuestion()){
+			g.setColor(new Color(255, 255, 255, 127));
+			g.fill3DRect(0, 0, CrabController.board.getWidth(), CrabController.board.getHeight(), false);
+			
+			g.setColor(new Color(0, 0, 0, 255));
+			g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),34));
+			
+			int startScreenLength = g.getFontMetrics().stringWidth("[Press SPACE to start]");
+			
+			g.drawString("[Press SPACE to start]", (CrabController.board.getWidth() - startScreenLength) / 2, 3 * CrabController.board.getHeight() / 5);
+		
+			Font defaultFont = g.getFont();
+			
+			g.setFont(titleFont);
+			g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),218));
+			
+			int titleLength = g.getFontMetrics().stringWidth("CRAB RUN");
+			
+			g.drawString("CRAB RUN", (CrabController.board.getWidth() - titleLength) / 2, CrabController.board.getHeight() / 2);
+		
+			g.setFont(defaultFont);
 		}
 		
-		if(CrabController.getDroughtStatus() >= 2){			
+		if(CrabController.getDroughtStatus() >= 1){			
 			g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),52));
 			
 			int droughtLength = g.getFontMetrics().stringWidth("DROUGHT APPROACHING");
@@ -196,7 +249,6 @@ public class View extends JPanel{
 		crabImage[0] = createImage("images/bluecrab_0.png");
 		crabImage[1] = createImage("images/bluecrab_1.png");
 		crabImage[2] = createImage("images/bluecrab_2.png");
-		backgroundImage = createImage("images/tempBackGround.jpg");
 		enemyImage = new BufferedImage[3];
 		enemyImage[0] = createImage("images/fish_bass_left.png");
 		enemyImage[1] = createImage("images/fish_pickerel_left.png");
@@ -205,6 +257,7 @@ public class View extends JPanel{
 		friendImage[0] = createImage("images/bogturtle_left_0.png");
 		friendImage[1] = createImage("images/bogturtle_left_1.png");
 		friendImage[2] = createImage("images/bogturtle_left_2.png");
+		titleImage = createImage("images/title.png");
 	}
 	
 	private BufferedImage createImage(String file) {
