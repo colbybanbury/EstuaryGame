@@ -2,8 +2,9 @@ package model;
 
 public class Game {
 	Integer score = 0;
-	Integer time = 120; // one minutes?
+	Integer time = 60; // one minutes?
 	Integer lap = 0;
+	Integer damagePenalty = 0;
 	
 	public void decreaseScore(int scoreDown){
 		/** 
@@ -42,6 +43,15 @@ public class Game {
 	public void setLap(int lap) {
 		this.lap = lap;
 	}
-	
+
+	public void increaseDamagePenalty(int penalty){
+		/** 
+		 * increases damage penalty by one, done after game finishes to display
+		 */
+		damagePenalty+=penalty;
+	}	
+	public Integer getDamagePenalty(){
+		return damagePenalty;
+	}
 	
 }
