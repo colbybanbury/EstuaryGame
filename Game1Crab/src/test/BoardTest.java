@@ -99,7 +99,7 @@ public class BoardTest {
 	public void stormTest(){ //includes stopStorm() test
 		Board b1 = new Board(1000, 1200);
 		b1.storm();
-		assertEquals(b1.wavyFactor, 11, 0.1);  // third argument is a delta, now required
+		assertEquals(b1.wavyFactor, 4, 0.1);  // third argument is a delta, now required
 		b1.stopStorm();
 		assertEquals(b1.wavyFactor, 1, 0.1);
 	}
