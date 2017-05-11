@@ -1,6 +1,10 @@
 package model;
 
 public class Game {
+	/**
+	 * This class is used to keep track of scoring and timing, and transforming the project from
+	 * a working model into a game with objectives.
+	 */
 	Integer score = 0;
 	Integer time = 60; // one minutes?
 	Integer lap = 0;
