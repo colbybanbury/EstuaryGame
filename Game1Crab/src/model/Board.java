@@ -189,13 +189,15 @@ public class Board {
 	 */
 	public void storm(){
 		wavyFactor += 3;
-		scentTrailHeight *= 2/3;
+		scentTrailHeight /= 3;
+		scentTrailHeight *= 2;
 		isStormHappening = true;
 	}
 	
 	public void stopStorm(){
 		wavyFactor -= 3;
-		scentTrailHeight *= 3/2;
+		scentTrailHeight *= 3;
+		scentTrailHeight /= 2;
 		isStormHappening = false;
 	}
 	
