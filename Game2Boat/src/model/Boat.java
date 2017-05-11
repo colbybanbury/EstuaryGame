@@ -32,7 +32,7 @@ public class Boat {
 	
 	
 	/**
-	 * The trottle() method increases the speed by speedInc. If the speed exceeds the maxSpeed it is reset to maxSpeed.
+	 * The throttle() method increases the speed by speedInc. If the speed exceeds the maxSpeed it is reset to maxSpeed.
 	 *
 	 */
 	public void throttle(){	//called when button is pressed
