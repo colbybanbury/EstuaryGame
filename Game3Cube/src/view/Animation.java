@@ -12,10 +12,14 @@ import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
+import java.util.Scanner;
+
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.imageio.ImageIO;
@@ -24,10 +28,11 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 
 import model.Board;
 
-public class Animation extends JPanel implements MouseMotionListener, MouseListener, ActionListener{
+public class Animation extends JPanel implements MouseMotionListener, MouseListener{
 	int frameCount=1;
 	int numPics;
 	int numFrame;
@@ -48,16 +53,31 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 	private int nextX;
 	private int nextY;
 	int selectedImage;
+	private String ans="";
+	private Scanner s=new Scanner(System.in);
+	JLabel storyText=new JLabel();
 	
 	@Override
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
+		
+		//draw background
 		g.drawImage(backgroundImage, 0, 0, this);
+		
+		//draw boxes
 		for (int z=0;z<=board.getNumCubes();z++){
 			
-			g.drawRect(10+z*(board.getWidth()-20)/board.getNumCubes(),50,board.getCubes().get(z).getSideLength(),board.getCubes().get(z).getSideLength());
+			g.drawRect(10+z*(board.getWidth()-20)/board.getNumCubes(),150,board.getCubes().get(z).getSideLength(),board.getCubes().get(z).getSideLength());
 		}
+		
+		//draw story
+		
+		//g.setFont(f);
+		//g.drawString(ans, 100, 100);
+		
+		//draw cubes
 		System.out.println("painted");
+		
 		
 		for(int i=0;i<board.getNumCubes();i++){
 			Rectangle rTemp=board.getCubes().get(i).getLocation();
@@ -113,15 +133,37 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 		JPanel panel = new JPanel();
 		Animation animate=new Animation(board);
 		animate.setLayout(new BoxLayout(animate, BoxLayout.Y_AXIS));
+		
+		//add roll button
 		JButton rollButton=new JButton("ROLL");
+		
 		//rollButton.setBounds(frameWidth/2-50,frameHeight/2-50,100,50);
-		rollButton.setSize(200,100);
+		rollButton.setBounds(500, 10, 200,100);
 		rollButton.setAlignmentX(animate.CENTER_ALIGNMENT);
 		rollButton.setHorizontalAlignment(SwingConstants.CENTER);
-		rollButton.addActionListener(this);
+		ActionListener rollListener=new RollAction();
+		rollButton.addActionListener(rollListener);
+		
+		//add submit button
+		JButton submitButton=new JButton("WRITE STORY");
+		submitButton.setBounds(500, 500, 100,200);
+		submitButton.setAlignmentX(animate.CENTER_ALIGNMENT);
+		submitButton.setHorizontalAlignment(SwingConstants.CENTER);
+		ActionListener submitListener=new SubmitAction();
+		submitButton.addActionListener(submitListener);
 		animate.add(rollButton);
+		animate.add(submitButton);
     	frame.getContentPane().add(animate);
 
+    	
+    	//add text box
+    	Font f = new Font("Dialog", Font.PLAIN, 45);
+    	storyText.setFont(f);
+    	animate.add(storyText);
+    	//storyText.setLocation(1000,1000);
+    	
+    	
+    	
     	frame.addMouseListener(this);
     	frame.addMouseMotionListener(this);
     	
@@ -226,8 +268,8 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 		System.out.println("Mouse Released");
 		dragging=false;
 		for(int z=0;z<=board.getNumCubes();z++){
-			if(curX>(z*(board.getWidth()-20)/board.getNumCubes()) && curX<(z*(board.getWidth()-20)/board.getNumCubes())+board.getCubes().get(selectedImage).getSideLength() && curY>50 && curY<(50+board.getCubes().get(selectedImage).getSideLength()))
-				board.getCubes().get(selectedImage).changeLocation(10+z*(board.getWidth()-20)/board.getNumCubes(),50);
+			if(curX>(z*(board.getWidth()-20)/board.getNumCubes()) && curX<(z*(board.getWidth()-20)/board.getNumCubes())+board.getCubes().get(selectedImage).getSideLength() && curY>150 && curY<(150+board.getCubes().get(selectedImage).getSideLength()))
+				board.getCubes().get(selectedImage).changeLocation(10+z*(board.getWidth()-20)/board.getNumCubes(),150);
 			repaint();
 		}
 	}
@@ -242,10 +284,29 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 		System.out.println("Mouse Exited");
 	}
 	
-	public void actionPerformed(ActionEvent a){
+	class RollAction implements ActionListener{
+		public void actionPerformed(ActionEvent a){
 		
-		System.out.println("Mouse Clicked");
-		board.shuffle(numPics);
-		repaint();
-	}
+			System.out.println("Roll Clicked");
+			board.shuffle(numPics);
+			storyText.setText("");
+			repaint();
+		}
+	}//class RollAction
+	class SubmitAction implements ActionListener{
+	
+		public void actionPerformed(ActionEvent a){
+		
+			
+			System.out.println("Submit clicked");
+			//something to make text box print on page
+			//add text box
+	    	//JOptionPane.showInputDialog("Write Story Here");
+	    	//ans=s.nextLine();
+		
+	    	storyText.setText("WOWZAS");
+			System.out.println("ANSWER IS: "+ans);
+			repaint();
+		}
+	}//class SubmitAction
 }
