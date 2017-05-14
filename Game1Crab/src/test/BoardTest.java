@@ -95,8 +95,18 @@ public class BoardTest {
 	}
 	
 	@Test
-	public void droughtTest(){ //includes stopDraught test
+	public void droughtTest(){ //includes stopDraught, maybeAddDrought test
 		Board b1 = new Board(1000, 1200);
+		int prog = 0;
+		for (int i = 0; i < 600; i++){
+			b1.setProgress(10);
+			if (b1.getProgress() > 2*(1000-41)/5){
+				assertTrue(b1.maybeAddDrought());
+			}
+			else{
+				assertFalse(b1.maybeAddDrought());
+			}
+		}
 		b1.drought();
 		assertEquals(b1.scentTrailHeight, 300); // height * .75
 		b1.stopDrought();
