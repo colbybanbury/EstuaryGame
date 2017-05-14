@@ -167,7 +167,7 @@ public class BoardTest {
 		e1.setXLoc(50+b1.player.getImgWidth()+18 - 1);
 		e1.setYLoc(350);
 		b1.moverUpdate();
-		assertFalse(b1.player.getStarted());
+		assertFalse(b1.checkCollision());
 	}
 	
 	
