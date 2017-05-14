@@ -56,7 +56,7 @@ public class View extends JPanel{
 	
 	private BufferedImage oyster;
 	private BufferedImage seaGrass;
-	private BufferedImage rock;
+	private BufferedImage buoy;
 	
 	JFrame frame;
 	JPanel panel;
@@ -157,9 +157,10 @@ public class View extends JPanel{
 					break;
 				}
 			}
+			g.drawImage(buoy, (int) (BoatController.board.getWidth()/2 + (BoatController.board.getRadius()*.7) * Math.cos(tempTheta)), (int) (BoatController.board.getHeight()/2 + (BoatController.board.getRadius()*.7) * Math.sin(tempTheta)), this);
 		}
 		for(int i = 0; i< 3; i++){
-			int tempRadius  = (int) (BoatController.board.getRadius()* (0.9+0.1*i));
+			int tempRadius  = (int) (BoatController.board.getRadius()* (0.9+0.15*i));
 			for(int j = 0; j<BoatController.board.getLapDivisions(); j++){
 				double tempTheta = (2*Math.PI*j) / BoatController.board.getLapDivisions();
 				int tempX = (int) (frameWidth/2 + tempRadius * Math.cos(tempTheta)) + 15;
@@ -172,7 +173,7 @@ public class View extends JPanel{
 					g.drawImage(seaGrass, tempX, tempY, this);
 					break;
 				case ROCK:
-					g.drawImage(rock, tempX, tempY, this);
+					g.drawImage(buoy, tempX, tempY, this);
 					break;
 				default://NONE
 					break;
@@ -189,10 +190,19 @@ public class View extends JPanel{
 		g.drawString("Score: " + BoatController.game.getScore().toString(), 20, 40);
 		g.drawString("Time: " + BoatController.game.getTime().toString(), 20, 80);
 		//TODO improve background to actually have land around the estuaries
-		//TODO have a better indication of where the lap ends (where the boat starts at 0 degrees on the circle)
-		g.setColor(Color.YELLOW);
-		g.drawLine((BoatController.board.getWidth()/2)+BoatController.board.getRadius()-75, BoatController.board.getHeight()/2,
-				(BoatController.board.getWidth()/2)+BoatController.board.getRadius()+100, BoatController.board.getHeight()/2);
+		
+		int x1 = (BoatController.board.getWidth()/2)+BoatController.board.getRadius()-75;
+		int y = BoatController.board.getHeight()/2;
+		int x2 = (BoatController.board.getWidth()/2)+BoatController.board.getRadius()+100;
+		
+		for(int i = -5; i < 5; i++){//drawing the finish line
+			if(i%2==0)
+				g.setColor(Color.GREEN);
+			else
+				g.setColor(Color.WHITE);
+			g.drawLine(x1, y+i, x2, y+i);
+		}
+		
 		g.setColor(new Color(0,0,0,255));
 		
 		if(BoatController.end){
@@ -224,7 +234,7 @@ public class View extends JPanel{
 		 * loads the buffered images in from the images folder
 		 */
 		boatWake0 = createImage("images/boat.jpg");
-		boatWake1 = createImage("images/boatWake1.gif");
+		boatWake1 = createImage("images/boatWake1.gif");//TODO have a better indication of wake
 		boatWake2 = createImage("images/boatWake2.gif");
 		backgroundImage = createImage("images/tempBackGroundWithLand.jpg");
 		scaledBackground = backgroundImage.getScaledInstance(frameWidth, frameHeight, backgroundImage.SCALE_DEFAULT);
@@ -247,7 +257,7 @@ public class View extends JPanel{
 		oyster = createImage("images/clam_back_0.png");
 		seaGrass = createImage("images/seagrass.png");
 		//TODO add the different levels of seaWall damage
-		rock = createImage("images/seed.png");//TODO make this actually be a better size/shape Will probably have to adjust the x y in paint for these
+		buoy = createImage("images/bouy.png");
 	}
 	
 	private BufferedImage createImage(String file){
