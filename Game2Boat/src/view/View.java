@@ -209,12 +209,12 @@ public class View extends JPanel{
 			g.setColor(new Color(255, 255, 255, 255));
 			g.fill3DRect(20, 70, frameWidth - 39, frameHeight - 160, false);
 			g.setColor(new Color(0, 0, 0, 255));
-			g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),64));
-			g.drawString("Time limit reached", frameWidth/3, frameHeight*1/6);
-			g.drawString("Laps Completed: " + BoatController.game.getLap().toString(), frameWidth/3, frameHeight*1/3);
-			g.drawString("Score Before Penalty: " + BoatController.game.getScore().toString(), frameWidth/3, frameHeight/2);
-			g.drawString("Score Penalty to Estuary Damage: "+ BoatController.game.getDamagePenalty().toString(), frameWidth/3, frameHeight*2/3);
-			g.drawString("Final Score: " + (BoatController.game.getScore() - BoatController.game.getDamagePenalty()), frameWidth/3, frameHeight*5/6);
+			g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),52));
+			g.drawString("Time limit reached", frameWidth/4, frameHeight*1/6);
+			g.drawString("Laps Completed: " + BoatController.game.getLap().toString(), frameWidth/4, frameHeight*1/3);
+			g.drawString("Score Before Penalty: " + BoatController.game.getScore().toString(), frameWidth/4, frameHeight/2);
+			g.drawString("Score Penalty to Estuary Damage: "+ BoatController.game.getDamagePenalty().toString(), frameWidth/4, frameHeight*2/3);
+			g.drawString("Final Score: " + (BoatController.game.getScore() - BoatController.game.getDamagePenalty()), frameWidth/4, frameHeight*5/6);
 		}
 	}
 	
