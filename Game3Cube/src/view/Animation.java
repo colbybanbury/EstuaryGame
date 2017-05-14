@@ -124,7 +124,7 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
         		all_imgs[j][i] = img.getSubimage(imgWidth[j]*i, 0, imgWidth[j], imgHeight[j]);
     	}
     	backgroundImage = createImage("images/tempBackGround.jpg");
-    	board.addCubes(numPics);
+    	board.addCubes();
     	
 	}
 	

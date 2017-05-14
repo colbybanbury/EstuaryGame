@@ -61,7 +61,7 @@ public class Board {
 		return cubes;
 	}
 	
-	public void addCubes(int numPics){
+	public void addCubes(){
 		for (int i=0;i<NUM_CUBES;i++){
 			cubes.add(new Cube(i,0, this));
 		}
