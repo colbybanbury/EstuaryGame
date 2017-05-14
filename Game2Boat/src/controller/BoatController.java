@@ -122,7 +122,7 @@ public class BoatController implements ActionListener{
 				end = true;
 				Estuary[] lapPath = board.getLapPath();
 				for (int i = 0; i < lapPath.length; i++){
-					game.increaseDamagePenalty(lapPath[i].getDamage());
+					game.increaseDamagePenalty(lapPath[i].getDamage() * 10);
 					
 				}
 			}
