@@ -65,7 +65,7 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 		g.drawImage(backgroundImage, 0, 0, this);
 		
 		//draw boxes
-		for (int z=0;z<=board.getNumCubes();z++){
+		for (int z=0;z<board.getNumCubes();z++){
 			
 			g.drawRect(10+z*(board.getWidth()-20)/board.getNumCubes(),150,board.getCubes().get(z).getSideLength(),board.getCubes().get(z).getSideLength());
 		}
