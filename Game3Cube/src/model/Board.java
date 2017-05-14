@@ -20,7 +20,9 @@ public class Board {
 	public Board(int w, int h){
 		this.width = w;
 		this.height = h;
-		
+		for (int i=0;i<NUM_CUBES;i++){
+			cubes.add(new Cube(i,0, this));
+		}
 	}
 	/**
 	 * returns the height of the board
@@ -59,11 +61,5 @@ public class Board {
 	 */
 	public List<Cube> getCubes(){
 		return cubes;
-	}
-	
-	public void addCubes(){
-		for (int i=0;i<NUM_CUBES;i++){
-			cubes.add(new Cube(i,0, this));
-		}
 	}
 }
