@@ -190,10 +190,19 @@ public class View extends JPanel{
 		g.drawString("Score: " + BoatController.game.getScore().toString(), 20, 40);
 		g.drawString("Time: " + BoatController.game.getTime().toString(), 20, 80);
 		//TODO improve background to actually have land around the estuaries
-		//TODO have a better indication of where the lap ends (where the boat starts at 0 degrees on the circle)
-		g.setColor(Color.YELLOW);
-		g.drawLine((BoatController.board.getWidth()/2)+BoatController.board.getRadius()-75, BoatController.board.getHeight()/2,
-				(BoatController.board.getWidth()/2)+BoatController.board.getRadius()+100, BoatController.board.getHeight()/2);
+		
+		int x1 = (BoatController.board.getWidth()/2)+BoatController.board.getRadius()-75;
+		int y = BoatController.board.getHeight()/2;
+		int x2 = (BoatController.board.getWidth()/2)+BoatController.board.getRadius()+100;
+		
+		for(int i = -5; i < 5; i++){//drawing the finish line
+			if(i%2==0)
+				g.setColor(Color.GREEN);
+			else
+				g.setColor(Color.WHITE);
+			g.drawLine(x1, y+i, x2, y+i);
+		}
+		
 		g.setColor(new Color(0,0,0,255));
 		
 		if(BoatController.end){
@@ -225,7 +234,7 @@ public class View extends JPanel{
 		 * loads the buffered images in from the images folder
 		 */
 		boatWake0 = createImage("images/boat.jpg");
-		boatWake1 = createImage("images/boatWake1.gif");
+		boatWake1 = createImage("images/boatWake1.gif");//TODO have a better indication of wake
 		boatWake2 = createImage("images/boatWake2.gif");
 		backgroundImage = createImage("images/tempBackGroundWithLand.jpg");
 		scaledBackground = backgroundImage.getScaledInstance(frameWidth, frameHeight, backgroundImage.SCALE_DEFAULT);
