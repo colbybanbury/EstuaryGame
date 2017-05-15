@@ -4,13 +4,11 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.Timer;
 
 import game1.model.Board;
-import game1.model.Mover;
 import game1.model.Player;
 import game1.model.Enemy;
 import game1.model.Friend;
@@ -95,6 +93,7 @@ public class CrabController  implements ActionListener{
 	}
 	
 	public static void main(String[] args){
+		@SuppressWarnings("unused")
 		CrabController crabController = new CrabController();
 	}
 	

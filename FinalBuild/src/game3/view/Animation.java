@@ -11,28 +11,23 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
-import java.util.Random;
-import java.util.Scanner;
-
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.imageio.ImageIO;
-
 import java.awt.Rectangle;
 import java.awt.Toolkit;
-import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 
 import game3.model.Board;
 
 public class Animation extends JPanel implements MouseMotionListener, MouseListener{
+	private static final long serialVersionUID = -6799082996186437878L;
 	int frameCount=1;
 	int numPics;
 	int numFrame;
@@ -54,7 +49,6 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 	private int nextY;
 	int selectedImage;
 	private String ans="";
-	private Scanner s=new Scanner(System.in);
 	JLabel storyText=new JLabel();
 	
 	@Override
@@ -129,7 +123,7 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 	
 	public void paintBoard(){
 		JFrame frame = new JFrame();
-		JPanel panel = new JPanel();
+		new JPanel();
 		Animation animate=new Animation(board);
 		animate.setLayout(new BoxLayout(animate, BoxLayout.Y_AXIS));
 		
@@ -138,7 +132,7 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 		
 		//rollButton.setBounds(frameWidth/2-50,frameHeight/2-50,100,50);
 		rollButton.setBounds(500, 10, 200,100);
-		rollButton.setAlignmentX(animate.CENTER_ALIGNMENT);
+		rollButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		rollButton.setHorizontalAlignment(SwingConstants.CENTER);
 		ActionListener rollListener=new RollAction();
 		rollButton.addActionListener(rollListener);
@@ -146,7 +140,7 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 		//add submit button
 		JButton submitButton=new JButton("WRITE STORY");
 		submitButton.setBounds(500, 500, 100,200);
-		submitButton.setAlignmentX(animate.CENTER_ALIGNMENT);
+		submitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		submitButton.setHorizontalAlignment(SwingConstants.CENTER);
 		ActionListener submitListener=new SubmitAction();
 		submitButton.addActionListener(submitListener);

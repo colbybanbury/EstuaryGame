@@ -1,8 +1,5 @@
 package game2.model;
 
-import java.util.ArrayList;
-
-import game2.controller.BoatController;
 import game2.enums.POWER_UP;
 
 //Board class stores the size of the screen, size of the racing circle, an array of all of the sections of the estuary,
