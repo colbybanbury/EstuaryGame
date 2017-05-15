@@ -1,7 +1,6 @@
 package game1.view;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
@@ -9,33 +8,21 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.WindowEvent;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import java.text.StringCharacterIterator;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.Timer;
-
 import game1.controller.CrabController;
-import game1.model.Friend;
-import game2.controller.BoatController;
 
 public class CrabView extends JPanel{
+	private static final long serialVersionUID = 756483251818474362L;
 	private int frameHeight;
 	private int frameWidth;
 	

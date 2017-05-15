@@ -31,6 +31,7 @@ public class BoardTest {
 	@Test
 	public void checkCollisionTest1() { //Player same coords as Enemy
 		CrabController c1 = new CrabController("test");
+		@SuppressWarnings("static-access")
 		Board b1 = c1.board;
 		Player p1 = b1.player;
 		p1.setXLoc(350);
@@ -99,7 +100,6 @@ public class BoardTest {
 	@Test
 	public void droughtTest(){ //includes stopDraught, maybeAddDrought test
 		Board b1 = new Board(1000, 1200);
-		int prog = 0;
 		for (int i = 0; i < 600; i++){
 			b1.setProgress(10);
 			if (b1.getProgress() > 2*(1000-41)/5){
@@ -134,7 +134,6 @@ public class BoardTest {
 	//TODO
 	public void updateTest1(){ //player hasn't started
 		Board b1 = new Board(1000, 1200);
-		Player p1 = new Player(b1);
 		b1.moverUpdate();
 		assertEquals(b1.getProgress(), 0, 0.000);
 	}
@@ -142,7 +141,9 @@ public class BoardTest {
 	@Test
 	public void updateTest2(){ //player has started
 		Board b1 = new Board(1000, 1200);
-		Player p1 = new Player(b1);
+		b1.player.setStarted(true);
+		b1.moverUpdate();
+		assertEquals(b1.getProgress(), 0, 0.000);
 	}
 	
 

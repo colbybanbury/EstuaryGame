@@ -3,15 +3,7 @@ package menu.view;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.text.View;
-
-import game1.controller.CrabController;
-import game3.controller.CubeController;
 import menu.controller.MenuController;
-import game2.controller.BoatController;
-import game3.view.Animation;
-import game2.view.BoatView;
-import game1.view.CrabView;
 
 public class MenuView extends JPanel{
 	
@@ -22,18 +14,16 @@ public class MenuView extends JPanel{
  *  Right now the menu just passes control to the controller, 
  *  which creates the right image and runs.	
  */
-	
+
+	private static final long serialVersionUID = -2804351704146548063L;
+
 	static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	
-	private static int width = (int)screenSize.getWidth();
-	private static int height = (int)screenSize.getHeight();
 	static MenuController menu;
 
 	JFrame frame;
 	
 	public MenuView(int width, int height, MenuController menuController){
-		this.width = width;
-		this.height = height;
 		menu = menuController;
 		
 		frame = new JFrame();

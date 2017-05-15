@@ -3,8 +3,6 @@ package game2.view;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
@@ -15,14 +13,9 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.Timer;
-
 import game2.controller.BoatController;
-import game2.enums.POWER_UP;
 import game2.model.Estuary;
 
 /**
@@ -34,6 +27,7 @@ import game2.model.Estuary;
  */
 
 public class BoatView extends JPanel{
+	private static final long serialVersionUID = -4097539833539164268L;
 	private int frameHeight;
 	private int frameWidth;
 	
@@ -205,8 +199,8 @@ public class BoatView extends JPanel{
 		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),48));
 		
 		
-		g.drawString("Score: " + BoatController.Boatgame.getScore().toString(), frameWidth/45, frameHeight/28);
-		g.drawString("Time: " + BoatController.Boatgame.getTime().toString(), frameWidth/45, frameHeight/28 + 40);
+		g.drawString("Score: " + BoatController.Boatgame.getScore().toString(), frameWidth/45, frameHeight/27);
+		g.drawString("Time: " + BoatController.Boatgame.getTime().toString(), frameWidth/45, frameHeight/27 + 40);
 		//TODO improve background to actually have land around the estuaries
 		
 		int x1 = (BoatController.Boatboard.getWidth()/2)+BoatController.Boatboard.getRadius()-75;
@@ -254,7 +248,8 @@ public class BoatView extends JPanel{
 		g.fill3DRect(frameWidth *35 / 45, frameHeight / 6, frameWidth / 5, frameHeight/3 + 50, true);
 		g.setColor(new Color(0, 0, 0, 255));
 		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),40));
-		g.drawString("Estuary Protection:", frameWidth* 33 /42, frameHeight*4/16);
+		g.drawString("Estuary", frameWidth* 33 /42, frameHeight*4/16);
+		g.drawString(" Protection:", frameWidth* 33 /42, frameHeight*9/32);
 		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),24));
 		g.drawString("Gabions last longer", frameWidth *33 /42, frameHeight*6/16);
 		g.drawString("and are less invasive", frameWidth*33 /42, frameHeight*13/32);
@@ -298,7 +293,7 @@ public class BoatView extends JPanel{
 		boatWake1 = createImage("game2.images/images/boatWake1.gif");//TODO have a better indication of wake
 		boatWake2 = createImage("game2.images/images/boatWake2.gif");
 		backgroundImage = createImage("game2.images/images/tempBackGroundWithLand.jpg");
-		scaledBackground = backgroundImage.getScaledInstance(frameWidth, frameHeight, backgroundImage.SCALE_DEFAULT);
+		scaledBackground = backgroundImage.getScaledInstance(frameWidth, frameHeight, Image.SCALE_DEFAULT);
 		estuary = createImage("game2.images/images/grass_tile.jpg");
 		
 		protections[1][3] = createImage("game2.images/images/seaWall0.png");
