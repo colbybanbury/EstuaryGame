@@ -1,9 +1,14 @@
 package model;
 
 public class BoatGame {
+	/**
+	 * This class is used to keep track of scoring and timing, and transforming the project from
+	 * a working model into a game with objectives.
+	 */
 	Integer score = 0;
-	Integer time = 120; // one minutes?
+	Integer time = 60; // one minutes?
 	Integer lap = 0;
+	Integer damagePenalty = 0;
 	
 	public void decreaseScore(int scoreDown){
 		/** 
@@ -42,6 +47,15 @@ public class BoatGame {
 	public void setLap(int lap) {
 		this.lap = lap;
 	}
-	
+
+	public void increaseDamagePenalty(int penalty){
+		/** 
+		 * increases damage penalty by one, done after game finishes to display
+		 */
+		damagePenalty+=penalty;
+	}	
+	public Integer getDamagePenalty(){
+		return damagePenalty;
+	}
 	
 }
