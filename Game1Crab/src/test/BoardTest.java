@@ -3,6 +3,8 @@ package test;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import controller.CrabController;
 import model.Player;
 import model.Board;
 import model.Enemy;
@@ -29,7 +31,8 @@ public class BoardTest {
 	
 	@Test
 	public void checkCollisionTest1() { //Player same coords as Enemy
-		Board b1 = new Board(1000, 1200);
+		CrabController c1 = new CrabController("test");
+		Board b1 = c1.board;
 		Player p1 = b1.player;
 		p1.setXLoc(350);
 		p1.setYLoc(350);
