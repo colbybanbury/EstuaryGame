@@ -3,7 +3,6 @@ package game2.view;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -17,14 +16,10 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.Timer;
-
-import game1.controller.CrabController;
 import game2.controller.BoatController;
-import game2.enums.POWER_UP;
 import game2.model.Estuary;
+import javafx.event.ActionEvent;
 
 /**
  * 
@@ -35,6 +30,7 @@ import game2.model.Estuary;
  */
 
 public class BoatView extends JPanel{
+	private static final long serialVersionUID = -4097539833539164268L;
 	private int frameHeight;
 	private int frameWidth;
 	
@@ -106,7 +102,8 @@ public class BoatView extends JPanel{
 		menuButton.setText("MENU");
 		menuButton.setBackground(Color.BLUE);
 		menuButton.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
+			@Override
+			public void actionPerformed(java.awt.event.ActionEvent e) {
 				BoatController.stopTimers();
 				frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 				frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
@@ -316,7 +313,7 @@ public class BoatView extends JPanel{
 		boatWake1 = createImage("game2.images/images/boatWake1.gif");//TODO have a better indication of wake
 		boatWake2 = createImage("game2.images/images/boatWake2.gif");
 		backgroundImage = createImage("game2.images/images/tempBackGroundWithLand.jpg");
-		scaledBackground = backgroundImage.getScaledInstance(frameWidth, frameHeight, backgroundImage.SCALE_DEFAULT);
+		scaledBackground = backgroundImage.getScaledInstance(frameWidth, frameHeight, Image.SCALE_DEFAULT);
 		estuary = createImage("game2.images/images/grass_tile.jpg");
 		
 		protections[1][3] = createImage("game2.images/images/seaWall0.png");

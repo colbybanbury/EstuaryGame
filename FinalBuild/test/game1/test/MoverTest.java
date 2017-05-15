@@ -45,7 +45,6 @@ public class MoverTest {
 		int xLoc = m.getXLoc();
 		double yVel = m.getYVel();
 		double xVel = m.getXVel();
-		double yAcc = m.getYAcc();
 		m.update();
 		// not started
 		assertEquals(xLoc, m.getXLoc());

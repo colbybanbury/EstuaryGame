@@ -1,9 +1,5 @@
 package game2.model;
 
-import java.awt.Point;
-
-import game2.controller.BoatController;
-
 /**
  * @author colby
  * 

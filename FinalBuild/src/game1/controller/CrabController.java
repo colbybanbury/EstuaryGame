@@ -4,17 +4,18 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.awt.event.WindowEvent;
 import java.util.Random;
 
+import javax.swing.JFrame;
 import javax.swing.Timer;
 
 import game1.model.Board;
-import game1.model.Mover;
 import game1.model.Player;
 import game1.model.Enemy;
 import game1.model.Friend;
 import game1.view.CrabView;
+import game2.controller.BoatController;
 
 public class CrabController  implements ActionListener{
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -26,13 +27,13 @@ public class CrabController  implements ActionListener{
 	public static Player player;
 	public static CrabView view;
 	public Random rand;
-	private Timer timer;
-	private Timer enemyTimer;
-	private Timer timer3;
-	private Timer friendTimer;
-	private Timer rectangleTimer;
-	private Timer droughtTimer;
-	private Timer stormTimer;
+	private static Timer timer;
+	private static Timer enemyTimer;
+	private static Timer timer3;
+	private static Timer friendTimer;
+	private static Timer rectangleTimer;
+	private static Timer droughtTimer;
+	private static Timer stormTimer;
 	private static Timer gracePeriodTimer;
 	private static Timer questionBufferTimer;
 	private final int DELAY = 70; //update rate = 70ms
@@ -95,6 +96,7 @@ public class CrabController  implements ActionListener{
 	}
 	
 	public static void main(String[] args){
+		@SuppressWarnings("unused")
 		CrabController crabController = new CrabController();
 	}
 	
@@ -290,6 +292,12 @@ public class CrabController  implements ActionListener{
 			setAnswer3Wrong(true);
 		}
 	}
+	
+	public static void returnToMainMenu(JFrame frame){
+		CrabController.stopTimers();
+		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+	}
 
 	public static boolean getAnswer1Wrong() {
 		return answer1Wrong;
@@ -321,5 +329,17 @@ public class CrabController  implements ActionListener{
 
 	public static void setIsItQuestionBuffer(boolean isItQuestionBuffer) {
 		CrabController.isItQuestionBuffer = isItQuestionBuffer;
+	}
+	
+	public static void stopTimers(){
+		timer.stop();
+		enemyTimer.stop();
+		timer3.stop();
+		friendTimer.stop();
+		rectangleTimer.stop();
+		droughtTimer.stop();
+		stormTimer.stop();
+		gracePeriodTimer.stop();
+		questionBufferTimer.stop();
 	}
 }

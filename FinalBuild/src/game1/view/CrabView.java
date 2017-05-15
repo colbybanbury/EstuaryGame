@@ -1,7 +1,6 @@
 package game1.view;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
@@ -9,29 +8,21 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import java.text.StringCharacterIterator;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.Timer;
-
 import game1.controller.CrabController;
-import game1.model.Friend;
 
 public class CrabView extends JPanel{
+	private static final long serialVersionUID = 756483251818474362L;
 	private int frameHeight;
 	private int frameWidth;
 	
@@ -39,6 +30,7 @@ public class CrabView extends JPanel{
 	public static JButton answer1 = new JButton("");
 	public static JButton answer2 = new JButton("");
 	public static JButton answer3 = new JButton("");
+	public static JButton mainMenu = new JButton("");
 	
 	private BufferedImage[] crabImage;
 	private BufferedImage[] enemyImage;
@@ -105,10 +97,24 @@ public class CrabView extends JPanel{
 			}
 		});
 		
+		mainMenu.setContentAreaFilled(true);
+		mainMenu.setBorderPainted(true);
+		mainMenu.setEnabled(true);
+		mainMenu.setFont(mainMenu.getFont().deriveFont(mainMenu.getFont().getStyle(),48));
+		mainMenu.setText("RETURN TO MAIN MENU");
+		mainMenu.setBackground(Color.WHITE);
+		mainMenu.setBounds((CrabController.board.getWidth()/2) - 500, CrabController.board.getHeight() - 240 , 1000, 80);
+		mainMenu.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				CrabController.returnToMainMenu(frame);
+			}
+		});
+		
 		frame.add(jump);
 		frame.add(answer1);
 		frame.add(answer2);
 		frame.add(answer3);
+		frame.add(mainMenu);
 		
 		answer1.setEnabled(false);
 		answer1.setVisible(false);
@@ -118,6 +124,9 @@ public class CrabView extends JPanel{
 		
 		answer3.setEnabled(false);
 		answer3.setVisible(false);
+		
+		mainMenu.setEnabled(false);
+		mainMenu.setVisible(false);
 		
 		frame.getContentPane().add(this);
 		frame.setBackground(Color.BLUE);
@@ -207,6 +216,12 @@ public class CrabView extends JPanel{
 			g.drawString("YOU WIN", (CrabController.board.getWidth() - titleLength) / 2, CrabController.board.getHeight() / 2);
 		
 			g.setFont(defaultFont);
+			
+			jump.setEnabled(false);
+			jump.setVisible(false);
+			
+			mainMenu.setEnabled(true);
+			mainMenu.setVisible(true);
 			
 			//Add Replay button, oh boy
 			
@@ -314,20 +329,22 @@ public class CrabView extends JPanel{
 			g.setFont(defaultFont);
 		}
 		
-		if(CrabController.getDroughtStatus() >= 1){			
-			g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),52));
+		if(!CrabController.getIsItGracePeriod() && CrabController.board.player.getStarted()){
+			if(CrabController.getDroughtStatus() >= 1){			
+				g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),52));
+				
+				int droughtLength = g.getFontMetrics().stringWidth("DROUGHT APPROACHING");
+				
+				g.drawString("DROUGHT APPROACHING", (CrabController.board.getWidth() - droughtLength) / 2, CrabController.board.getHeight() / 2);
+			}
 			
-			int droughtLength = g.getFontMetrics().stringWidth("DROUGHT APPROACHING");
-			
-			g.drawString("DROUGHT APPROACHING", (CrabController.board.getWidth() - droughtLength) / 2, CrabController.board.getHeight() / 2);
-		}
-		
-		if(CrabController.getStormStatus() >= 4){			
-			g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),52));
-			
-			int stormLength = g.getFontMetrics().stringWidth("STORM APPROACHING");
-			
-			g.drawString("STORM APPROACHING", (CrabController.board.getWidth() - stormLength) / 2, CrabController.board.getHeight() / 2);
+			if(CrabController.getStormStatus() >= 4){			
+				g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),52));
+				
+				int stormLength = g.getFontMetrics().stringWidth("STORM APPROACHING");
+				
+				g.drawString("STORM APPROACHING", (CrabController.board.getWidth() - stormLength) / 2, CrabController.board.getHeight() / 2);
+			}
 		}
 	}
 	

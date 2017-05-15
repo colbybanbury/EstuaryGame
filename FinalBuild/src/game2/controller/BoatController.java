@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Random;
 
@@ -15,7 +14,6 @@ import game2.model.Board;
 import game2.model.Boat;
 import game2.model.Estuary;
 import game2.model.Game;
-import game2.view.BoatView;
 import game2.view.BoatView;
 
 public class BoatController implements ActionListener{
@@ -49,10 +47,10 @@ public class BoatController implements ActionListener{
 		spawn = true;
 		end = false;
 		wait = 0;
-		this.Boatboard = new Board(WIDTH, HEIGHT, LAPLENGTH, RADIUS);//adjust values for size of board and length of path
-		this.boat = new Boat();//adjust values on acceleration, speedInc, and max speed
-		this.Boatgame = new Game();
-		this.curEstuary = Boatboard.getLapPath()[0];//starts at the first estuary
+		BoatController.Boatboard = new Board(WIDTH, HEIGHT, LAPLENGTH, RADIUS);//adjust values for size of board and length of path
+		BoatController.boat = new Boat();//adjust values on acceleration, speedInc, and max speed
+		BoatController.Boatgame = new Game();
+		BoatController.curEstuary = Boatboard.getLapPath()[0];//starts at the first estuary
 		this.Boatview = new BoatView(WIDTH, HEIGHT);
 		
 		timer = new Timer(DELAY, this);
@@ -65,6 +63,7 @@ public class BoatController implements ActionListener{
 	
 	
 	public static void main(String[] args){
+		@SuppressWarnings("unused")
 		BoatController boatController = new BoatController();
 	}
 	
