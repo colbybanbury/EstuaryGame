@@ -34,6 +34,7 @@ public class CrabController  implements ActionListener{
 	private Timer droughtTimer;
 	private Timer stormTimer;
 	private static Timer gracePeriodTimer;
+	private static Timer questionBufferTimer;
 	private final int DELAY = 70; //update rate = 70ms
 	private final int DELAY2 = 1500; // update rate = 1.5s
 	private final int DELAY3 = 25500; //update rate = 25.5s (waits until the scentTrail bricks fill screen)
@@ -41,10 +42,12 @@ public class CrabController  implements ActionListener{
 	private final int DELAY5 = 6000; // update rate = 5s
 	private final int DELAY6 = 15000; // update rate = 15s
 	private final int secDELAY = 1000; // update rate = 1s
+	private final int questionBufferDELAY = 2250; // update rate 2.25 sec
    	private static boolean canBeAskedAQuestion = false;
    	private static boolean haventAddedDrought = true;
    	private static boolean haventAddedStorm = true;
    	private static boolean isItGracePeriod = false;
+   	private static boolean isItQuestionBuffer = false;
    	private static boolean answer1Wrong = false;
    	private static boolean answer2Wrong = false;
    	private static boolean answer3Wrong = false;
@@ -75,6 +78,7 @@ public class CrabController  implements ActionListener{
 		stormTimer.setInitialDelay(15000);
 		
 		gracePeriodTimer = new Timer(secDELAY, this);
+		questionBufferTimer = new Timer(questionBufferDELAY, this);
 		
 		this.rand = new Random();
 		
@@ -120,6 +124,9 @@ public class CrabController  implements ActionListener{
 				isItGracePeriod = false;
 				board.player.setStarted(true);
 			}
+		}else if(e.getSource() == questionBufferTimer){
+			setIsItQuestionBuffer(false);
+			questionBufferTimer.stop();
 		}else if(e.getSource() == droughtTimer){
 			if(board.maybeAddDrought() && haventAddedDrought){
 				board.drought();
@@ -174,6 +181,10 @@ public class CrabController  implements ActionListener{
 	
 	public static boolean getIsItGracePeriod(){
 		return isItGracePeriod;
+	}
+	
+	public static Timer getQuestionBufferTimer(){
+		return questionBufferTimer;
 	}
 	
 	public void onTick(){
@@ -295,5 +306,13 @@ public class CrabController  implements ActionListener{
 
 	public static void setAnswer3Wrong(boolean a3W) {
 		CrabController.answer3Wrong = a3W;
+	}
+
+	public static boolean getIsItQuestionBuffer() {
+		return isItQuestionBuffer;
+	}
+
+	public static void setIsItQuestionBuffer(boolean isItQuestionBuffer) {
+		CrabController.isItQuestionBuffer = isItQuestionBuffer;
 	}
 }
