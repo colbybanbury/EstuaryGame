@@ -13,7 +13,7 @@ import game3.view.Animation;
 import game2.view.BoatView;
 import game1.view.CrabView;
 
-public class MenuView {
+public class MenuView extends JPanel{
 	
 /*
  *  Has the old code for the games, but that can easily be changed out. 
@@ -28,30 +28,16 @@ public class MenuView {
 	private static int width = (int)screenSize.getWidth();
 	private static int height = (int)screenSize.getHeight();
 	static MenuController menu;
-	
-	private static JPanel menuPanel = new JPanel();
 
-	//public static CrabController game1Controller = new CrabController();
-	//public static BoatController game2Controller = new BoatController();
-	//public static CubeController game3Controller = new CubeController();
-	
-	//public static CrabView game1View = game1Controller.view;
-	//public static BoatView game2View = game2Controller.boatView;
-	//Animation game3view = new Animation(width, height)
+	JFrame frame;
 	
 	public MenuView(int width, int height, MenuController menuController){
 		this.width = width;
 		this.height = height;
 		menu = menuController;
-	}
-	
-	public static void main(String[] args){
-		run();
-	}
-	
-	public static void run(){
 		
-		JFrame frame = new JFrame("");
+		frame = new JFrame();
+		
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(width, height); //change to appropriate dimensions
@@ -63,9 +49,6 @@ public class MenuView {
 		//frame.add(game1View);
 		//frame.add(game2View);
 		
-		menuPanel.setBounds(width/2 - 400, height/2 - 400, 800, 800);
-		frame.add(menuPanel);
-		
 		//game1View.setVisible(false);
 		//game2View.setVisible(false);
 		
@@ -74,19 +57,25 @@ public class MenuView {
 		JButton game2button = new JButton("Game 2: Boat");
 		JButton game3button = new JButton("Game 3: Cube");
 		
-		game1button.setBounds(new Rectangle(50, 300, 200, 100));
-		game2button.setBounds(new Rectangle(300, 300, 200, 100));
-		game3button.setBounds(new Rectangle(550, 300, 200, 100));
+		game1button.setBounds(new Rectangle((width-600)/4, 300, 200, 100));
 		
-		menuPanel.add(game1button);
-		menuPanel.add(game2button);
-		menuPanel.add(game3button);
+		
+		
+		game2button.setBounds(new Rectangle((width-600)/2 + 200, 300, 200, 100));
+		
+		
+		
+		game3button.setBounds(new Rectangle(3*(width-600)/4 + 400, 300, 200, 100));
+		
+		frame.add(game1button);
+		frame.add(game2button);
+		frame.add(game3button);
 		
 		game1button.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				System.out.println("Game 1 Button Pressed");
 				//Give control to CrabController
-				game1pressed();
+				MenuController.game1pressed();
 			}
 		});
 		
@@ -94,7 +83,7 @@ public class MenuView {
 			public void actionPerformed(ActionEvent e){
 				System.out.println("Game 2 Button Pressed");
 				//Give control to BoatController
-				game2pressed();
+				MenuController.game2pressed();
 			}
 		});
 		
@@ -102,25 +91,18 @@ public class MenuView {
 			public void actionPerformed(ActionEvent e){
 				System.out.println("Game 3 Button Pressed");
 				//Give control to CubeController
-				game3pressed();
+				MenuController.game3pressed();
 			}
 		});
-	
 	}
 	
-	public static void game1pressed(){
-		//game1View.setVisible(true);
-		menuPanel.setVisible(false);
-		//game1Controller.run();
-		CrabController game1Controller = new CrabController();
+	public static void main(String[] args){
+		
+		
+		run();
 	}
 	
-	public static void game2pressed(){
-		BoatController game2Controller = new BoatController();
-	}
+	public static void run(){
 	
-	public static void game3pressed(){
-		CubeController game3Controller = new CubeController();
-	}
-	
+	}	
 }
