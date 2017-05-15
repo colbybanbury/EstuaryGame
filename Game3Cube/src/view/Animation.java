@@ -266,7 +266,7 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 		curY=curPoint.y;
 		System.out.println("Mouse Released");
 		dragging=false;
-		for(int z=0;z<=Board.NUM_CUBES;z++){
+		for(int z=0;z<Board.NUM_CUBES;z++){
 			if(curX>(z*(board.getWidth()-20)/Board.NUM_CUBES) && curX<(z*(board.getWidth()-20)/Board.NUM_CUBES)+board.getCubes().get(selectedImage).getSideLength() && curY>150 && curY<(150+board.getCubes().get(selectedImage).getSideLength()))
 				board.getCubes().get(selectedImage).changeLocation(10+z*(board.getWidth()-20)/Board.NUM_CUBES,150);
 			repaint();
