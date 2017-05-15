@@ -69,12 +69,12 @@ public class Board {
 		questions.add(new Question("In what state are the NERR's located?", "Delaware", "Oklahoma", "Canada"));
 		questions.add(new Question("In what state are the NERR's located?", "Florida", "Nevada", "Kansas"));
 		questions.add(new Question("In what state are the NERR's located?", "Texas", "Europe", "Idaho"));
-		questions.add(new Question("Which of these can change the saltiness of an estuary?", "Storms", "The Weekend", "Sunshine"));
+		questions.add(new Question("Which of these can change the saltiness of an estuary?", "Storms", "Tuesdays", "Sunshine"));
 		questions.add(new Question("Which of these can change the saltiness of an estuary?", "Drought", "Wind", "Winter"));
 		questions.add(new Question("Which of these can change the saltiness of an estuary?", "Construction", "Summer", "Clouds"));
 		questions.add(new Question("Gabions are made of what natural resource.", "Oyster Shells", "Concrete", "Wood"));
 		questions.add(new Question("Which of these is a type of estuary?", "Bar-Built Estuary", "Salt and Vinegar Estuary", "Geometric Estuary"));
-		questions.add(new Question("Which of these is a type of estuary?", "Coastal Plains Estuary", "Coniferous Estuary", "Book Bag Estuary"));
+		questions.add(new Question("Which of these is a type of estuary?", "Coastal Plains Estuary", "Coniferous Estuary", "Bubble Estuary"));
 		questions.add(new Question("Which of these is a type of estuary?", "Fjord Estuary", "Refrigerator Estuary", "iEstuary"));
 		questions.add(new Question("Which of these is a type of estuary?", "Tectonic Estuary", "Gemstone Estuary", "Big and Tall Estuary"));
 		questions.add(new Question("What are the sediment deposits at the end of rivers called?", "Deltas", "Gammas", "Omegas"));
@@ -83,7 +83,7 @@ public class Board {
 		questions.add(new Question("Turtles are this type of animal", "Reptiles", "Insects", "Rodents"));
 		questions.add(new Question("Which of these is the name of a fish?", "Sea Bass", "Tony", "Pomegranate"));
 		questions.add(new Question("Which of these is the name of a fish?", "Pickeral", "Grizzly", "Square"));
-		questions.add(new Question("Which of these is the name of a fish?", "Trout", "Octopus", "Snapchat"));
+		questions.add(new Question("Which of these is the name of a fish?", "Trout", "Emerald", "Snapchat"));
 		
 		Collections.shuffle(questions);
 		
