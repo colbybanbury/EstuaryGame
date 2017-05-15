@@ -36,7 +36,7 @@ public class BoatController implements ActionListener{
 	public static POWER_UP curPowerUp;
 	public View view;
 	private final int LAPLENGTH = 5000;
-	private final int RADIUS = (HEIGHT>WIDTH)? 3* WIDTH / 8 : 3*HEIGHT / 8;
+	private final int RADIUS = (HEIGHT>WIDTH)? 11* WIDTH / 32 : 11*HEIGHT / 32;
 	Random random = new Random();
 	private boolean spawn = true;//if a powerUp should spawn or be taken away
 	public static boolean end = false; //is the time up

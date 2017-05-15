@@ -29,6 +29,7 @@ import model.Estuary;
  * @author colby
  *
  *Creates all the visuals and calculates the positions of things on the screen.
+ *
  */
 
 public class View extends JPanel{
@@ -143,7 +144,7 @@ public class View extends JPanel{
 		 */
 		g.drawImage(scaledBackground, 0, 0, this);
 		g.drawImage(op.filter(boatImage, null), (int) boatX, (int)boatY, this);
-		g.drawImage(wakeImage, frameWidth / 2, frameHeight / 2, this );
+		g.drawImage(wakeImage, frameWidth / 2 - noWake.getWidth()/6, frameHeight / 2 - noWake.getHeight()/3, this );
 		for(int j = 0; j < BoatController.board.getLapDivisions(); j++){
 			Estuary e = BoatController.board.getLapPath()[j];
 			double tempTheta = (2*Math.PI*j) / BoatController.board.getLapDivisions();
@@ -210,11 +211,35 @@ public class View extends JPanel{
 			g.drawLine(x1, y+i, x2, y+i);
 		}
 		
-		g.setColor(new Color(0,0,0,255));
+		//Power Ups Key
+		g.setColor(new Color(255, 255, 255, 100));
+		g.fill3DRect(frameWidth / 45, frameHeight / 6, frameWidth / 5 +20, frameHeight/3 + 20, true);
+		g.setColor(new Color(0, 0, 0, 255));
+		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),40));
+		g.drawString("POWER UPS:", frameWidth/42, frameHeight*4/16);
+		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),24));
+		g.drawString("Pick up Oysters to Build Gabions", frameWidth/42, frameHeight*6/16);
+		g.drawImage(oyster, frameWidth/38, frameHeight*5/16, this);
+		g.drawString("Pick up Sea Grass to Build Gabions", frameWidth/42, frameHeight*8/16);
+		g.drawImage(seaGrass, frameWidth/38, frameHeight*7/16, this);
+		
+		int shift = frameHeight*4/10; //hight difference of the two games
+		
+		//Game Control key
+		g.setColor(new Color(255, 255, 255, 100));
+		g.fill3DRect(frameWidth / 45, frameHeight / 6 + shift, frameWidth / 5 +10, frameHeight/3, true);
+		g.setColor(new Color(0, 0, 0, 255));
+		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),40));
+		g.drawString("Controls:", frameWidth/42, frameHeight*4/16 + shift);
+		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),24));
+		g.drawString("Press SPACE to Trottle", frameWidth/42, frameHeight*5/16 + shift);
+		g.drawString("Press The LEFT", frameWidth/42, frameHeight*6/16 + shift);
+		g.drawString("and RIGTH Keys to Turn", frameWidth/42, frameHeight*13/32 + shift);
+	
 		
 		if(BoatController.end){
-			g.setColor(new Color(255, 255, 255, 255));
-			g.fill3DRect(20, 70, frameWidth - 39, frameHeight - 160, false);
+			g.setColor(new Color(255, 255, 255, 240));
+			g.fill3DRect(20, 70, frameWidth - 39, frameHeight - 160, true);
 			g.setColor(new Color(0, 0, 0, 255));
 			g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),52));
 			g.drawString("Time limit reached", frameWidth/4, frameHeight*1/6);
@@ -223,6 +248,8 @@ public class View extends JPanel{
 			g.drawString("Score Penalty to Estuary Damage: "+ BoatController.game.getDamagePenalty().toString(), frameWidth/4, frameHeight*2/3);
 			g.drawString("Final Score: " + (BoatController.game.getScore() - BoatController.game.getDamagePenalty()), frameWidth/4, frameHeight*5/6);
 		}
+
+		g.setColor(new Color(0,0,0,255));
 	}
 	
 	
@@ -243,7 +270,7 @@ public class View extends JPanel{
 		boatWake0 = createImage("images/boat.jpg");
 		boatWake1 = createImage("images/boatWake1.gif");//TODO have a better indication of wake
 		boatWake2 = createImage("images/boatWake2.gif");
-		backgroundImage = createImage("images/tempBackGroundWithLand.jpg");
+		backgroundImage = createImage("images/water.png");
 		scaledBackground = backgroundImage.getScaledInstance(frameWidth, frameHeight, backgroundImage.SCALE_DEFAULT);
 		estuary = createImage("images/grass_tile.jpg");
 		
