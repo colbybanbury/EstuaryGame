@@ -38,12 +38,15 @@ public class BoatController implements ActionListener{
 	private final int LAPLENGTH = 5000;
 	private final int RADIUS = (HEIGHT>WIDTH)? 11* WIDTH / 32 : 11*HEIGHT / 32;
 	Random random = new Random();
-	private boolean spawn = true;//if a powerUp should spawn or be taken away
-	public static boolean end = false; //is the time up
-	int wait = 0; //counter for how many powerUps are spawned before they are cleared
+	private boolean spawn;//if a powerUp should spawn or be taken away
+	public static boolean end; //is the time up
+	int wait; //counter for how many powerUps are spawned before they are cleared
 	
 	
 	public BoatController(){
+		spawn = true;
+		end = false;
+		wait = 0;
 		this.board = new Board(WIDTH, HEIGHT, LAPLENGTH, RADIUS);//adjust values for size of board and length of path
 		this.boat = new Boat();//adjust values on acceleration, speedInc, and max speed
 		this.game = new Game();

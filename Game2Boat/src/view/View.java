@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
@@ -81,7 +82,14 @@ public class View extends JPanel{
 			//action listener that calls the handling function in the controller
 			@Override
 			public void keyPressed(KeyEvent e){
-				BoatController.keyPressed(e);
+				if(BoatController.end){
+					if(e.getKeyCode() == KeyEvent.VK_SPACE){
+						frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+						frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+			    	}
+				}
+				else
+					BoatController.keyPressed(e);
 			}
 
 			@Override

@@ -24,9 +24,9 @@ public class BoatController implements ActionListener{
 	final int HEIGHT = (int)screenSize.getHeight() - 50;
 	final int WIDTH = (int)screenSize.getWidth();
 	
-	private Timer timer;
-	private Timer powerUpTimer;
-	private Timer secondTimer;
+	private static Timer timer;
+	private static Timer powerUpTimer;
+	private static Timer secondTimer;
 	private final int DELAY = 50;//update rate (50ms) may need to make faster
 	private final int SECOND_DELAY = 1000;//1000ms  = 1s
 	
@@ -37,7 +37,7 @@ public class BoatController implements ActionListener{
 	public static POWER_UP curPowerUp;
 	public BoatView Boatview;
 	private final int LAPLENGTH = 5000;
-	private final int RADIUS = (HEIGHT>WIDTH)? 3* WIDTH / 8 : 3*HEIGHT / 8;
+	private final int RADIUS = (HEIGHT>WIDTH)? 11* WIDTH / 32 : 11*HEIGHT / 32;
 	Random random = new Random();
 	private boolean spawn;//if a powerUp should spawn or be taken away
 	public static boolean end; //is the time up
@@ -45,7 +45,7 @@ public class BoatController implements ActionListener{
 	
 	MenuController mainMenu;
 	
-	//STAND-ALONE CONTROLLER
+
 	public BoatController(){
 		spawn = true;
 		end = false;
@@ -54,10 +54,7 @@ public class BoatController implements ActionListener{
 		this.boat = new Boat();//adjust values on acceleration, speedInc, and max speed
 		this.Boatgame = new BoatGame();
 		this.curEstuary = Boatboard.getLapPath()[0];//starts at the first estuary
-		
-		MenuController menuController = new MenuController();
-		
-		this.Boatview = new BoatView(WIDTH, HEIGHT, menuController);
+		this.Boatview = new BoatView(WIDTH, HEIGHT);
 		
 		timer = new Timer(DELAY, this);
 		powerUpTimer = new Timer(DELAY*50, this);
@@ -67,22 +64,6 @@ public class BoatController implements ActionListener{
 		secondTimer.start();
 	}
 	
-	public BoatController(MenuController menuController){
-		this.Boatboard = new BoatBoard(WIDTH, HEIGHT, LAPLENGTH, RADIUS);//adjust values for size of board and length of path
-		this.boat = new Boat();//adjust values on acceleration, speedInc, and max speed
-		this.Boatgame = new BoatGame();
-		this.curEstuary = Boatboard.getLapPath()[0];//starts at the first estuary
-		this.Boatview = new BoatView(WIDTH, HEIGHT, menuController);
-		this.mainMenu = menuController;
-		
-		timer = new Timer(DELAY, this);
-		powerUpTimer = new Timer(DELAY*50, this);
-		secondTimer = new Timer(SECOND_DELAY, this);
-		timer.start();
-		powerUpTimer.start();
-		secondTimer.start();
-		
-	}
 	
 	public static void main(String[] args){
 		BoatController boatController = new BoatController();
@@ -222,6 +203,12 @@ public class BoatController implements ActionListener{
 	
 	public static void turnRightAction(){
 		boat.turnRight();
+	}
+
+	public static void stopTimers() {
+		timer.stop();
+		powerUpTimer.stop();
+		secondTimer.stop();
 	}
 
 }

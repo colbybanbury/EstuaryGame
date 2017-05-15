@@ -20,10 +20,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-import javax.swing.WindowConstants;
 
 import controller.BoatController;
-import controller.MenuController;
 import enums.POWER_UP;
 import model.Estuary;
 
@@ -32,6 +30,7 @@ import model.Estuary;
  * @author colby
  *
  *Creates all the visuals and calculates the positions of things on the screen.
+ *
  */
 
 public class BoatView extends JPanel{
@@ -60,21 +59,19 @@ public class BoatView extends JPanel{
 	private BufferedImage oyster;
 	private BufferedImage seaGrass;
 	private BufferedImage buoy;
+	private BufferedImage wakeImage = null;
+	private BufferedImage noWake;
 	
 	JFrame frame;
 	JPanel panel;
 	
-	MenuController mainMenu;
-	
-	public BoatView(int w, int h, MenuController m){
+	public BoatView(int w, int h){
 		/**
 		 * sets up the frame, panel, and keylisteners. Calls load images to initialize the buffered images
 		 * 
 		 * @param w 	the width of the screen
 		 * @param h 	the height of the screen.
 		 */
-		
-		this.mainMenu = m;
 		
 		frame = new JFrame();
 		panel = new JPanel();
@@ -87,11 +84,13 @@ public class BoatView extends JPanel{
 			public void keyPressed(KeyEvent e){
 				if(BoatController.end){
 					if(e.getKeyCode() == KeyEvent.VK_SPACE){
+						BoatController.stopTimers();
 						frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 						frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 			    	}
 				}
-				BoatController.keyPressed(e);
+				else
+					BoatController.keyPressed(e);
 			}
 
 			@Override
@@ -129,13 +128,17 @@ public class BoatView extends JPanel{
 				BoatController.boat.getRadiusScale()) * Math.sin(boatTheta));
 		boatAngle = boatTheta - BoatController.boat.getPhi();
 		//^the angle around the circle + phi or the angle that that boat has turned
-		
 		if(BoatController.boat.getSpeed()> (BoatController.boat.getThreshold() / 3) *2){
 			if(BoatController.boat.getSpeed()> BoatController.boat.getThreshold()){
-				boatImage = boatWake2;}	//boat speed is over the threshold so max wake displayed
+				boatImage = boatWake2;
+				if(BoatController.curEstuary.getType() !=3 )//display a no wake sign if the player is damaging the estuary
+					wakeImage = noWake;
+			}	//boat speed is over the threshold so max wake displayed
 			else{boatImage = boatWake1;}//close to the threshold so middle wake
 		}
-		else{boatImage = boatWake0;}	//well under threshold so no wake
+		else{
+			boatImage = boatWake0;
+			wakeImage = null;}	//well under threshold so no wake
 		
 		changeBoatAngle();
 		
@@ -150,6 +153,7 @@ public class BoatView extends JPanel{
 		 */
 		g.drawImage(scaledBackground, 0, 0, this);
 		g.drawImage(op.filter(boatImage, null), (int) boatX, (int)boatY, this);
+		g.drawImage(wakeImage, frameWidth / 2 - noWake.getWidth()/6, frameHeight / 2 - noWake.getHeight()/3, this );
 		for(int j = 0; j < BoatController.Boatboard.getLapDivisions(); j++){
 			Estuary e = BoatController.Boatboard.getLapPath()[j];
 			double tempTheta = (2*Math.PI*j) / BoatController.Boatboard.getLapDivisions();
@@ -203,7 +207,6 @@ public class BoatView extends JPanel{
 		g.drawString("Score: " + BoatController.Boatgame.getScore().toString(), 20, 40);
 		g.drawString("Time: " + BoatController.Boatgame.getTime().toString(), 20, 80);
 		//TODO improve background to actually have land around the estuaries
-		//TODO add a warning at the center of the screen to warn that you are hurting the estuary
 		
 		int x1 = (BoatController.Boatboard.getWidth()/2)+BoatController.Boatboard.getRadius()-75;
 		int y = BoatController.Boatboard.getHeight()/2;
@@ -217,11 +220,36 @@ public class BoatView extends JPanel{
 			g.drawLine(x1, y+i, x2, y+i);
 		}
 		
-		g.setColor(new Color(0,0,0,255));
+		//Power Ups Key
+		g.setColor(new Color(255, 255, 255, 100));
+		g.fill3DRect(frameWidth / 45, frameHeight / 6, frameWidth / 5 +10, frameHeight/3 + 50, true);
+		g.setColor(new Color(0, 0, 0, 255));
+		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),40));
+		g.drawString("POWER UPS:", frameWidth/42, frameHeight*4/16);
+		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),24));
+		g.drawString("Pick up Oysters to Build Gabions", frameWidth/42, frameHeight*6/16);
+		g.drawImage(oyster, frameWidth/38, frameHeight*5/16, this);
+		g.drawString("Pick up Sea Grass to", frameWidth/42, frameHeight*8/16);
+		g.drawString("Undo Estuary Damage", frameWidth/42, frameHeight*17/32);
+		g.drawImage(seaGrass, frameWidth/38, frameHeight*7/16, this);
+		
+		int shift = frameHeight*4/10; //hight difference of the two games
+		
+		//Game Control key
+		g.setColor(new Color(255, 255, 255, 100));
+		g.fill3DRect(frameWidth / 45, frameHeight*5/24 + shift, frameWidth / 5 +10, frameHeight*2/9, true);
+		g.setColor(new Color(0, 0, 0, 255));
+		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),40));
+		g.drawString("Controls:", frameWidth/42, frameHeight*4/16 + shift);
+		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),24));
+		g.drawString("Press SPACE to Trottle", frameWidth/42, frameHeight*5/16 + shift);
+		g.drawString("Press The LEFT", frameWidth/42, frameHeight*6/16 + shift);
+		g.drawString("and RIGTH Keys to Turn", frameWidth/42, frameHeight*13/32 + shift);
+	
 		
 		if(BoatController.end){
-			g.setColor(new Color(255, 255, 255, 255));
-			g.fill3DRect(20, 70, frameWidth - 39, frameHeight - 160, false);
+			g.setColor(new Color(255, 255, 255, 240));
+			g.fill3DRect(20, 70, frameWidth - 39, frameHeight - 160, true);
 			g.setColor(new Color(0, 0, 0, 255));
 			g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),52));
 			g.drawString("Time limit reached", frameWidth/4, frameHeight*1/6);
@@ -229,8 +257,9 @@ public class BoatView extends JPanel{
 			g.drawString("Score Before Penalty: " + BoatController.Boatgame.getScore().toString(), frameWidth/4, frameHeight/2);
 			g.drawString("Score Penalty to Estuary Damage: "+ BoatController.Boatgame.getDamagePenalty().toString(), frameWidth/4, frameHeight*2/3);
 			g.drawString("Final Score: " + (BoatController.Boatgame.getScore() - BoatController.Boatgame.getDamagePenalty()), frameWidth/4, frameHeight*5/6);
-			endGameMenu();
 		}
+
+		g.setColor(new Color(0,0,0,255));
 	}
 	
 	
@@ -251,14 +280,14 @@ public class BoatView extends JPanel{
 		boatWake0 = createImage("BoatImages/boat.jpg");
 		boatWake1 = createImage("BoatImages/boatWake1.gif");//TODO have a better indication of wake
 		boatWake2 = createImage("BoatImages/boatWake2.gif");
-		backgroundImage = createImage("BoatImages/tempBackGroundWithLand.jpg");
+		backgroundImage = createImage("BoatImages/water.png");
 		scaledBackground = backgroundImage.getScaledInstance(frameWidth, frameHeight, backgroundImage.SCALE_DEFAULT);
 		estuary = createImage("BoatImages/grass_tile.jpg");
 		
-		protections[1][3] = createImage("BoatImages/box2.png");
-		protections[1][2] = createImage("BoatImages/box2.png");
-		protections[1][1] = createImage("BoatImages/box2.png");
-		protections[1][0] = createImage("BoatImages/box2.png");
+		protections[1][3] = createImage("BoatImages/seaWall0.png");
+		protections[1][2] = createImage("BoatImages/seaWall1.png");
+		protections[1][1] = createImage("BoatImages/seaWall2.png");
+		protections[1][0] = createImage("BoatImages/seaWall3.png");
 		
 		protections[2][3] = createImage("BoatImages/gabion0.png");
 		protections[2][2] = createImage("BoatImages/gabion1.png");
@@ -271,8 +300,8 @@ public class BoatView extends JPanel{
 		
 		oyster = createImage("BoatImages/clam_back_0.png");
 		seaGrass = createImage("BoatImages/seagrass.png");
-		//TODO add the different levels of seaWall damage
 		buoy = createImage("BoatImages/bouy.png");
+		noWake = createImage("BoatImages/noWake.png");
 	}
 	
 	private BufferedImage createImage(String file){
@@ -289,31 +318,4 @@ public class BoatView extends JPanel{
 		return null;
 	}
 
-	private void endGameMenu(){
-		JPanel endGamePanel = new JPanel();
-		
-		frame.getContentPane().add(endGamePanel);
-		
-		JButton playAgainButton = new JButton("Play Again");
-		JButton mainMenuButton = new JButton("Main Menu");
-		
-		endGamePanel.add(playAgainButton);
-		endGamePanel.add(mainMenuButton);
-		
-		playAgainButton.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				System.out.println("playAgainButton pressed");
-				//TODO: Reset view and play again
-				
-			}
-		});
-		
-		mainMenuButton.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				System.out.println("mainMenuButton pressed");
-				mainMenu.menuView.run();
-			}
-		});
-		
-	}
 }
