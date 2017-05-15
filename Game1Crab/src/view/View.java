@@ -40,10 +40,10 @@ public class View extends JPanel{
 	public static JButton answer2 = new JButton("");
 	public static JButton answer3 = new JButton("");
 	
-	private BufferedImage titleImage;
 	private BufferedImage[] crabImage;
 	private BufferedImage[] enemyImage;
 	private BufferedImage[] friendImage;
+	private BufferedImage wrongImage;
 	
 	private Font titleFont;
 	
@@ -69,6 +69,7 @@ public class View extends JPanel{
 		answer1.setContentAreaFilled(true);
 		answer1.setBorderPainted(true);
 		answer1.setEnabled(true);
+		answer1.setFont(answer1.getFont().deriveFont(answer1.getFont().getStyle(),30));
 		answer1.setText("ANSWER a");
 		answer1.setBackground(Color.RED);
 		answer1.setBounds(178, CrabController.board.getHeight() - 240 , 320, 80);
@@ -81,6 +82,7 @@ public class View extends JPanel{
 		answer2.setContentAreaFilled(true);
 		answer2.setBorderPainted(true);
 		answer2.setEnabled(true);
+		answer2.setFont(answer2.getFont().deriveFont(answer2.getFont().getStyle(),30));
 		answer2.setText("ANSWER b");
 		answer2.setBackground(Color.BLUE);
 		answer2.setBounds(518, CrabController.board.getHeight() - 240 , 320, 80);
@@ -93,6 +95,7 @@ public class View extends JPanel{
 		answer3.setContentAreaFilled(true);
 		answer3.setBorderPainted(true);
 		answer3.setEnabled(true);
+		answer3.setFont(answer3.getFont().deriveFont(answer3.getFont().getStyle(),30));
 		answer3.setText("ANSWER c");
 		answer3.setBackground(Color.GREEN);
 		answer3.setBounds(858, CrabController.board.getHeight() - 240 , 320, 80);
@@ -269,29 +272,29 @@ public class View extends JPanel{
 			
 			int answerYCoord = 115 + yIncrement;
 			
-			Rectangle2D answerRectangle;
-
-			int index1 = 0;
-			
 			for (String s: CrabController.board.questions.get(CrabController.board.getCurrQuestion()).getAnswers()){
-//				answerRectangle = g.getFontMetrics().getStringBounds(s, g);
-				
-//				System.out.println("INDEX " + index1 + ": " + g.getFontMetrics().getStringBounds(s, g));
-//				
-//				System.out.println("INDEX " + index1 + ": " + answerRectangle);
-				
-//				if(index == 0){
-//					answer1.setBounds((int) answerRectangle.getX(), (int) answerRectangle.getY(), (int) answerRectangle.getWidth(), (int) answerRectangle.getHeight());
-//				}else if(index == 1){
-//					answer2.setBounds((int) answerRectangle.getX(), (int) answerRectangle.getY(), (int) answerRectangle.getWidth(), (int) answerRectangle.getHeight());
-//				}else{
-//					answer3.setBounds((int) answerRectangle.getX(), (int) answerRectangle.getY(), (int) answerRectangle.getWidth(), (int) answerRectangle.getHeight());
-//				}
 					
+				if(CrabController.getAnswer1Wrong() && s.equals(CrabController.board.questions.get(CrabController.board.getCurrQuestion()).getAnswers().get(0))){
+					g.setColor(new Color(160, 160, 160, 255));
+					
+					g.drawImage(wrongImage, 50 + g.getFontMetrics().stringWidth(s), answerYCoord - 40, this);
+				}
+				if(CrabController.getAnswer2Wrong() && s.equals(CrabController.board.questions.get(CrabController.board.getCurrQuestion()).getAnswers().get(1))){
+					g.setColor(new Color(160, 160, 160, 255));
+					
+					g.drawImage(wrongImage, 50 + g.getFontMetrics().stringWidth(s), answerYCoord - 40, this);					
+				}
+				if(CrabController.getAnswer3Wrong() && s.equals(CrabController.board.questions.get(CrabController.board.getCurrQuestion()).getAnswers().get(2))){
+					g.setColor(new Color(160, 160, 160, 255));
+					
+					g.drawImage(wrongImage, 50 + g.getFontMetrics().stringWidth(s), answerYCoord - 40, this);					
+				}				
+
 				g.drawString(s, 40, answerYCoord);
 				
+				g.setColor(new Color(0, 0, 0, 255));
+					
 				answerYCoord += 70;
-				index1++;
 			}			
 		}else if(!CrabController.board.player.getStarted() && CrabController.getIsItGracePeriod()){
 			
@@ -341,7 +344,7 @@ public class View extends JPanel{
 		friendImage[0] = createImage("images/bogturtle_left_0.png");
 		friendImage[1] = createImage("images/bogturtle_left_1.png");
 		friendImage[2] = createImage("images/bogturtle_left_2.png");
-		titleImage = createImage("images/title.png");
+		wrongImage = createImage("images/no.png");
 	}
 	
 	private BufferedImage createImage(String file) {
