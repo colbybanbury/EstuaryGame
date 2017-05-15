@@ -45,6 +45,9 @@ public class CrabController  implements ActionListener{
    	private static boolean haventAddedDrought = true;
    	private static boolean haventAddedStorm = true;
    	private static boolean isItGracePeriod = false;
+   	private static boolean answer1Wrong = false;
+   	private static boolean answer2Wrong = false;
+   	private static boolean answer3Wrong = false;
    	private static int droughtStatus;
    	private static int stormStatus;
 	private static int gracePeriodCounter;
@@ -195,55 +198,102 @@ public class CrabController  implements ActionListener{
 	}
 	
 	public static void answerButton1Press(){		
-		gracePeriodCounter = 0;
-		gracePeriodTimer.restart();
-		isItGracePeriod = true;
-		
-		View.jump.setEnabled(true);
-		View.jump.setVisible(true);
-		
-		View.answer1.setEnabled(false);
-		View.answer1.setVisible(false);
-		
-		View.answer2.setEnabled(false);
-		View.answer2.setVisible(false);
-		
-		View.answer3.setEnabled(false);
-		View.answer3.setVisible(false);
-		
+		if(board.questions.get(board.getCurrQuestion()).getAnswers().get(0) == board.questions.get(board.getCurrQuestion()).getCorrectAnswer()){
+			gracePeriodCounter = 0;
+			gracePeriodTimer.restart();
+			isItGracePeriod = true;			
+
+			setAnswer1Wrong(false);
+			setAnswer2Wrong(false);
+			setAnswer3Wrong(false);
+			
+			View.jump.setEnabled(true);
+			View.jump.setVisible(true);
+			
+			View.answer1.setEnabled(false);
+			View.answer1.setVisible(false);
+			
+			View.answer2.setEnabled(false);
+			View.answer2.setVisible(false);
+			
+			View.answer3.setEnabled(false);
+			View.answer3.setVisible(false);
+		}else{
+			setAnswer1Wrong(true);
+		}
 	}
-	public static void answerButton2Press(){		
-		gracePeriodCounter = 0;
-		gracePeriodTimer.restart();
-		isItGracePeriod = true;
-		
-		View.jump.setEnabled(true);
-		View.jump.setVisible(true);
-		
-		View.answer1.setEnabled(false);
-		View.answer1.setVisible(false);
-		
-		View.answer2.setEnabled(false);
-		View.answer2.setVisible(false);
-		
-		View.answer3.setEnabled(false);
-		View.answer3.setVisible(false);
+	public static void answerButton2Press(){
+		if(board.questions.get(board.getCurrQuestion()).getAnswers().get(1) == board.questions.get(board.getCurrQuestion()).getCorrectAnswer()){
+			gracePeriodCounter = 0;
+			gracePeriodTimer.restart();
+			isItGracePeriod = true;			
+
+			setAnswer1Wrong(false);
+			setAnswer2Wrong(false);
+			setAnswer3Wrong(false);
+			
+			View.jump.setEnabled(true);
+			View.jump.setVisible(true);
+			
+			View.answer1.setEnabled(false);
+			View.answer1.setVisible(false);
+			
+			View.answer2.setEnabled(false);
+			View.answer2.setVisible(false);
+			
+			View.answer3.setEnabled(false);
+			View.answer3.setVisible(false);
+		}else{
+			setAnswer2Wrong(true);
+		}
 	}
 	public static void answerButton3Press(){
-		gracePeriodCounter = 0;
-		gracePeriodTimer.restart();
-		isItGracePeriod = true;
-		
-		View.jump.setEnabled(true);
-		View.jump.setVisible(true);
-		
-		View.answer1.setEnabled(false);
-		View.answer1.setVisible(false);
-		
-		View.answer2.setEnabled(false);
-		View.answer2.setVisible(false);
-		
-		View.answer3.setEnabled(false);
-		View.answer3.setVisible(false);
+		if(board.questions.get(board.getCurrQuestion()).getAnswers().get(2) == board.questions.get(board.getCurrQuestion()).getCorrectAnswer()){
+			gracePeriodCounter = 0;
+			gracePeriodTimer.restart();
+			isItGracePeriod = true;			
+
+			setAnswer1Wrong(false);
+			setAnswer2Wrong(false);
+			setAnswer3Wrong(false);
+			
+			View.jump.setEnabled(true);
+			View.jump.setVisible(true);
+			
+			View.answer1.setEnabled(false);
+			View.answer1.setVisible(false);
+			
+			View.answer2.setEnabled(false);
+			View.answer2.setVisible(false);
+			
+			View.answer3.setEnabled(false);
+			View.answer3.setVisible(false);
+		}else{
+			setAnswer3Wrong(true);
+		}
+	}
+
+	public static boolean getAnswer1Wrong() {
+		return answer1Wrong;
+	}
+
+	public static void setAnswer1Wrong(boolean a1W) {
+		CrabController.answer1Wrong = a1W;
+	}
+	
+	public static boolean getAnswer2Wrong() {
+		return answer2Wrong;
+	}
+
+	public static void setAnswer2Wrong(boolean a2W) {
+		CrabController.answer2Wrong = a2W;
+	}
+	
+	public static boolean getAnswer3Wrong() {
+		return answer3Wrong;
+	}
+
+	public static void setAnswer3Wrong(boolean a3W) {
+		CrabController.answer3Wrong = a3W;
 	}
 }
