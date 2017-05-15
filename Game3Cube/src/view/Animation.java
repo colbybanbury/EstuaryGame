@@ -65,9 +65,9 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 		g.drawImage(backgroundImage, 0, 0, this);
 		
 		//draw boxes
-		for (int z=0;z<board.getNumCubes();z++){
+		for (int z=0;z<Board.NUM_CUBES;z++){
 			
-			g.drawRect(10+z*(board.getWidth()-20)/board.getNumCubes(),150,board.getCubes().get(z).getSideLength(),board.getCubes().get(z).getSideLength());
+			g.drawRect(10+z*(board.getWidth()-20)/Board.NUM_CUBES,150,board.getCubes().get(z).getSideLength(),board.getCubes().get(z).getSideLength());
 		}
 		
 		//draw story
@@ -79,7 +79,7 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 		System.out.println("painted");
 		
 		
-		for(int i=0;i<board.getNumCubes();i++){
+		for(int i=0;i<Board.NUM_CUBES;i++){
 			Rectangle rTemp=board.getCubes().get(i).getLocation();
 			g.fillRect((int)rTemp.getX(),(int)rTemp.getY(),(int)rTemp.getWidth(),(int)rTemp.getHeight());
 			int r=board.getCubes().get(i).getPicNum();///make sure this is the right number
@@ -214,7 +214,7 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 		curX=point.x;
 		curY=point.y;
 		dragging=true;
-		for(int i=0;i< board.getNumCubes();i++){
+		for(int i=0;i< Board.NUM_CUBES;i++){
 			rTemp=board.getCubes().get(i).getLocation();
 			if(curX>rTemp.getX()&&curX<(rTemp.getX()+rTemp.getWidth())&&curY>rTemp.getY()&&curY<(rTemp.getY()+rTemp.getHeight()))
 			{
@@ -266,9 +266,9 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 		curY=curPoint.y;
 		System.out.println("Mouse Released");
 		dragging=false;
-		for(int z=0;z<=board.getNumCubes();z++){
-			if(curX>(z*(board.getWidth()-20)/board.getNumCubes()) && curX<(z*(board.getWidth()-20)/board.getNumCubes())+board.getCubes().get(selectedImage).getSideLength() && curY>150 && curY<(150+board.getCubes().get(selectedImage).getSideLength()))
-				board.getCubes().get(selectedImage).changeLocation(10+z*(board.getWidth()-20)/board.getNumCubes(),150);
+		for(int z=0;z<=Board.NUM_CUBES;z++){
+			if(curX>(z*(board.getWidth()-20)/Board.NUM_CUBES) && curX<(z*(board.getWidth()-20)/Board.NUM_CUBES)+board.getCubes().get(selectedImage).getSideLength() && curY>150 && curY<(150+board.getCubes().get(selectedImage).getSideLength()))
+				board.getCubes().get(selectedImage).changeLocation(10+z*(board.getWidth()-20)/Board.NUM_CUBES,150);
 			repaint();
 		}
 	}
