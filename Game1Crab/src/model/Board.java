@@ -2,6 +2,7 @@ package model;
 
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -58,11 +59,34 @@ public class Board {
 		
 		this.friendCounter = 0;
 		
-		questions.add(new Question("QUESTION 1", "ANSWER 1a", "ANSWER 1b", "ANSWER 1c"));
-		questions.add(new Question("QUESTION 2", "ANSWER 2a", "ANSWER 2b", "ANSWER 2c"));
-		questions.add(new Question("QUESTION 3", "ANSWER 3a", "ANSWER 3b", "ANSWER 3c"));
-		questions.add(new Question("QUESTION 4", "ANSWER 4a", "ANSWER 4b", "ANSWER 4c"));
-		questions.add(new Question("QUESTION 5", "ANSWER 5a", "ANSWER 5b", "ANSWER 5c"));
+		questions.add(new Question("Which of these animals live in an estuary?", "Crab", "Bear", "Human"));
+		questions.add(new Question("Which of these animals live in an estuary?", "Fish", "Giraffe", "Rhino"));
+		questions.add(new Question("Which of these animals live in an estuary?", "Turtle", "Elephant", "Tiger"));
+		questions.add(new Question("Is an estuary made of...?", "Salt and Fresh Water", "Salt Water", "Fresh Water"));
+		questions.add(new Question("These structures are the best at keeping the estuary from being washed away.", "Gabions", "Sea Walls", "Bulkheads"));
+		questions.add(new Question("How do crabs find their way to the estuary?", "Smelling the saltiness", "Internal compass", "Asking for directions"));
+		questions.add(new Question("Where do crabs give birth to their young?", "Salt Water", "Fresh Water", "In the Estuary"));
+		questions.add(new Question("In what state are the NERR's located?", "Delaware", "Oklahoma", "Canada"));
+		questions.add(new Question("In what state are the NERR's located?", "Florida", "Nevada", "Kansas"));
+		questions.add(new Question("In what state are the NERR's located?", "Texas", "Europe", "Idaho"));
+		questions.add(new Question("Which of these can change the saltiness of an estuary?", "Storms", "The Weekend", "Sunshine"));
+		questions.add(new Question("Which of these can change the saltiness of an estuary?", "Drought", "Wind", "Winter"));
+		questions.add(new Question("Which of these can change the saltiness of an estuary?", "Construction", "Summer", "Clouds"));
+		questions.add(new Question("Gabions are made of what natural resource.", "Oyster Shells", "Concrete", "Wood"));
+		questions.add(new Question("Which of these is a type of estuary?", "Bar-Built Estuary", "Salt and Vinegar Estuary", "Geometric Estuary"));
+		questions.add(new Question("Which of these is a type of estuary?", "Coastal Plains Estuary", "Coniferous Estuary", "Book Bag Estuary"));
+		questions.add(new Question("Which of these is a type of estuary?", "Fjord Estuary", "Refrigerator Estuary", "iEstuary"));
+		questions.add(new Question("Which of these is a type of estuary?", "Tectonic Estuary", "Gemstone Estuary", "Big and Tall Estuary"));
+		questions.add(new Question("What are the sediment deposits at the end of rivers called?", "Deltas", "Gammas", "Omegas"));
+		questions.add(new Question("Fish use these to breathe underwater.", "Gills", "Wings", "Horns"));
+		questions.add(new Question("Crabs are this type of animal.", "Crustaceans", "Mammals", "Dinosaurs"));
+		questions.add(new Question("Turtles are this type of animal", "Reptiles", "Insects", "Rodents"));
+		questions.add(new Question("Which of these is the name of a fish?", "Sea Bass", "Tony", "Pomegranate"));
+		questions.add(new Question("Which of these is the name of a fish?", "Pickeral", "Grizzly", "Square"));
+		questions.add(new Question("Which of these is the name of a fish?", "Trout", "Octopus", "Snapchat"));
+		
+		Collections.shuffle(questions);
+		
 	}
 	
 	public int getWidth(){
@@ -158,6 +182,8 @@ public class Board {
 				
 				enemyIterator.remove();
 				player.setStarted(false);
+				CrabController.setIsItQuestionBuffer(true);
+				CrabController.getQuestionBufferTimer().restart();
 				setCurrQuestion((getCurrQuestion() + 1) % questions.size());
 				return true;
 			}
@@ -269,7 +295,7 @@ public class Board {
 				player.setStarted(!checkCollision());
 			}
 			
-		}else if(!player.getFinished() && !CrabController.getIsItGracePeriod()){
+		}else if(!player.getFinished() && !CrabController.getIsItGracePeriod() && !CrabController.getIsItQuestionBuffer()){
 			setProgress(0);
 		}
 	}
