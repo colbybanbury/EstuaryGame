@@ -57,6 +57,8 @@ public class View extends JPanel{
 	private BufferedImage oyster;
 	private BufferedImage seaGrass;
 	private BufferedImage buoy;
+	private BufferedImage wakeImage = null;
+	private BufferedImage noWake;
 	
 	JFrame frame;
 	JPanel panel;
@@ -116,13 +118,17 @@ public class View extends JPanel{
 				BoatController.boat.getRadiusScale()) * Math.sin(boatTheta));
 		boatAngle = boatTheta - BoatController.boat.getPhi();
 		//^the angle around the circle + phi or the angle that that boat has turned
-		
 		if(BoatController.boat.getSpeed()> (BoatController.boat.getThreshold() / 3) *2){
 			if(BoatController.boat.getSpeed()> BoatController.boat.getThreshold()){
-				boatImage = boatWake2;}	//boat speed is over the threshold so max wake displayed
+				boatImage = boatWake2;
+				if(BoatController.curEstuary.getType() !=3 )//display a no wake sign if the player is damaging the estuary
+					wakeImage = noWake;
+			}	//boat speed is over the threshold so max wake displayed
 			else{boatImage = boatWake1;}//close to the threshold so middle wake
 		}
-		else{boatImage = boatWake0;}	//well under threshold so no wake
+		else{
+			boatImage = boatWake0;
+			wakeImage = null;}	//well under threshold so no wake
 		
 		changeBoatAngle();
 		
@@ -137,6 +143,7 @@ public class View extends JPanel{
 		 */
 		g.drawImage(scaledBackground, 0, 0, this);
 		g.drawImage(op.filter(boatImage, null), (int) boatX, (int)boatY, this);
+		g.drawImage(wakeImage, frameWidth / 2, frameHeight / 2, this );
 		for(int j = 0; j < BoatController.board.getLapDivisions(); j++){
 			Estuary e = BoatController.board.getLapPath()[j];
 			double tempTheta = (2*Math.PI*j) / BoatController.board.getLapDivisions();
@@ -190,7 +197,6 @@ public class View extends JPanel{
 		g.drawString("Score: " + BoatController.game.getScore().toString(), 20, 40);
 		g.drawString("Time: " + BoatController.game.getTime().toString(), 20, 80);
 		//TODO improve background to actually have land around the estuaries
-		//TODO add a warning at the center of the screen to warn that you are hurting the estuary
 		
 		int x1 = (BoatController.board.getWidth()/2)+BoatController.board.getRadius()-75;
 		int y = BoatController.board.getHeight()/2;
@@ -259,6 +265,7 @@ public class View extends JPanel{
 		seaGrass = createImage("images/seagrass.png");
 		//TODO add the different levels of seaWall damage
 		buoy = createImage("images/bouy.png");
+		noWake = createImage("images/noWake.png");
 	}
 	
 	private BufferedImage createImage(String file){
