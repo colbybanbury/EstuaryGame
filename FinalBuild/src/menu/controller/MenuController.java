@@ -8,28 +8,38 @@ import javax.swing.*;
 
 import menu.view.MenuView;
 import game1.view.CrabView;
+import game2.controller.BoatController;
+import game3.controller.CubeController;
 import game1.controller.CrabController;
 
 public class MenuController {
 	
 	static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	
 	final static int frameWidth =(int) screenSize.getWidth();
 	final static int frameHeight =(int) screenSize.getHeight();
+	
 	public static MenuView menuView;
 	
-	public void MenuController(){
-		MenuView v = new MenuView(frameWidth, frameHeight, this);
-		this.menuView = v;
+	public MenuController(){
+		this.menuView = new MenuView(frameWidth, frameHeight, this);
 	}
 	
 	public static void main(String[] args){
-		MenuController controller = new MenuController();	
-		menuView.run();
+		MenuController controller = new MenuController();
 	}
-	/*
-	public void game1pressed(){
+	
+	public static void game1pressed(){
+		MenuController.menuView.setVisible(false);
+		
 		CrabController game1Controller = new CrabController();
-		//View game1View = new View(frameWidth, frameHeight);
 	}
-	*/
+	
+	public static void game2pressed(){
+		BoatController game2Controller = new BoatController();
+	}
+	
+	public static void game3pressed(){
+		CubeController game3Controller = new CubeController();
+	}
 }
