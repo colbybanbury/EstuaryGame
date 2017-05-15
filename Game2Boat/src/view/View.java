@@ -213,21 +213,22 @@ public class View extends JPanel{
 		
 		//Power Ups Key
 		g.setColor(new Color(255, 255, 255, 100));
-		g.fill3DRect(frameWidth / 45, frameHeight / 6, frameWidth / 5 +20, frameHeight/3 + 20, true);
+		g.fill3DRect(frameWidth / 45, frameHeight / 6, frameWidth / 5 +10, frameHeight/3 + 50, true);
 		g.setColor(new Color(0, 0, 0, 255));
 		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),40));
 		g.drawString("POWER UPS:", frameWidth/42, frameHeight*4/16);
 		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),24));
 		g.drawString("Pick up Oysters to Build Gabions", frameWidth/42, frameHeight*6/16);
 		g.drawImage(oyster, frameWidth/38, frameHeight*5/16, this);
-		g.drawString("Pick up Sea Grass to Build Gabions", frameWidth/42, frameHeight*8/16);
+		g.drawString("Pick up Sea Grass to", frameWidth/42, frameHeight*8/16);
+		g.drawString("Undo Estuary Damage", frameWidth/42, frameHeight*17/32);
 		g.drawImage(seaGrass, frameWidth/38, frameHeight*7/16, this);
 		
 		int shift = frameHeight*4/10; //hight difference of the two games
 		
 		//Game Control key
 		g.setColor(new Color(255, 255, 255, 100));
-		g.fill3DRect(frameWidth / 45, frameHeight / 6 + shift, frameWidth / 5 +10, frameHeight/3, true);
+		g.fill3DRect(frameWidth / 45, frameHeight*5/24 + shift, frameWidth / 5 +10, frameHeight*2/9, true);
 		g.setColor(new Color(0, 0, 0, 255));
 		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),40));
 		g.drawString("Controls:", frameWidth/42, frameHeight*4/16 + shift);
@@ -274,10 +275,10 @@ public class View extends JPanel{
 		scaledBackground = backgroundImage.getScaledInstance(frameWidth, frameHeight, backgroundImage.SCALE_DEFAULT);
 		estuary = createImage("images/grass_tile.jpg");
 		
-		protections[1][3] = createImage("images/box2.png");
-		protections[1][2] = createImage("images/box2.png");
-		protections[1][1] = createImage("images/box2.png");
-		protections[1][0] = createImage("images/box2.png");
+		protections[1][3] = createImage("images/seaWall0.png");
+		protections[1][2] = createImage("images/seaWall1.png");
+		protections[1][1] = createImage("images/seaWall2.png");
+		protections[1][0] = createImage("images/seaWall3.png");
 		
 		protections[2][3] = createImage("images/gabion0.png");
 		protections[2][2] = createImage("images/gabion1.png");
@@ -290,7 +291,6 @@ public class View extends JPanel{
 		
 		oyster = createImage("images/clam_back_0.png");
 		seaGrass = createImage("images/seagrass.png");
-		//TODO add the different levels of seaWall damage
 		buoy = createImage("images/bouy.png");
 		noWake = createImage("images/noWake.png");
 	}
