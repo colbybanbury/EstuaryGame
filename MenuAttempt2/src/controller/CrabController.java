@@ -36,8 +36,8 @@ public class CrabController  implements ActionListener{
    	private static boolean canBeAskedAQuestion = false;
 	
 	public CrabController(){
-		this.crabBoard = new CrabBoard(WIDTH, HEIGHT);//adjust values for size of board and length of path
-		this.view = new CrabView(WIDTH, HEIGHT);
+		CrabController.crabBoard = new CrabBoard(WIDTH, HEIGHT);//adjust values for size of board and length of path
+		CrabController.view = new CrabView(WIDTH, HEIGHT);
 		
 		timer = new Timer(DELAY, this);
 		timer.start();
