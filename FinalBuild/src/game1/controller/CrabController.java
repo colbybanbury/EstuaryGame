@@ -86,6 +86,13 @@ public class CrabController  implements ActionListener{
 		CrabController.stormStatus = 0;
 		CrabController.gracePeriodCounter = 0;
 	}
+
+
+	public CrabController(String test){
+		CrabController.board = new Board(WIDTH, HEIGHT);		
+
+		questionBufferTimer = new Timer(questionBufferDELAY, this);
+	}
 	
 	public static void main(String[] args){
 		CrabController crabController = new CrabController();
