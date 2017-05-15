@@ -333,18 +333,18 @@ public class CrabView extends JPanel{
 	
 	private void loadImages(){
 		crabImage = new BufferedImage[3];
-		crabImage[0] = createImage("images/bluecrab_0.png");
-		crabImage[1] = createImage("images/bluecrab_1.png");
-		crabImage[2] = createImage("images/bluecrab_2.png");
+		crabImage[0] = createImage("game1.images/bluecrab_0.png");
+		crabImage[1] = createImage("game1.images/bluecrab_1.png");
+		crabImage[2] = createImage("game1.images/bluecrab_2.png");
 		enemyImage = new BufferedImage[3];
-		enemyImage[0] = createImage("images/fish_bass_left.png");
-		enemyImage[1] = createImage("images/fish_pickerel_left.png");
-		enemyImage[2] = createImage("images/fish_trout_left.png");
+		enemyImage[0] = createImage("game1.images/fish_bass_left.png");
+		enemyImage[1] = createImage("game1.images/fish_pickerel_left.png");
+		enemyImage[2] = createImage("game1.images/fish_trout_left.png");
 		friendImage = new BufferedImage[3];
-		friendImage[0] = createImage("images/bogturtle_left_0.png");
-		friendImage[1] = createImage("images/bogturtle_left_1.png");
-		friendImage[2] = createImage("images/bogturtle_left_2.png");
-		wrongImage = createImage("images/no.png");
+		friendImage[0] = createImage("game1.images/bogturtle_left_0.png");
+		friendImage[1] = createImage("game1.images/bogturtle_left_1.png");
+		friendImage[2] = createImage("game1.images/bogturtle_left_2.png");
+		wrongImage = createImage("game1.images/no.png");
 	}
 	
 	private BufferedImage createImage(String file) {
