@@ -205,8 +205,8 @@ public class BoatView extends JPanel{
 		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),48));
 		
 		
-		g.drawString("Score: " + BoatController.Boatgame.getScore().toString(), frameWidth/45, frameHeight/28);
-		g.drawString("Time: " + BoatController.Boatgame.getTime().toString(), frameWidth/45, frameHeight/28 + 40);
+		g.drawString("Score: " + BoatController.Boatgame.getScore().toString(), frameWidth/45, frameHeight/27);
+		g.drawString("Time: " + BoatController.Boatgame.getTime().toString(), frameWidth/45, frameHeight/27 + 40);
 		//TODO improve background to actually have land around the estuaries
 		
 		int x1 = (BoatController.Boatboard.getWidth()/2)+BoatController.Boatboard.getRadius()-75;
@@ -254,7 +254,8 @@ public class BoatView extends JPanel{
 		g.fill3DRect(frameWidth *35 / 45, frameHeight / 6, frameWidth / 5, frameHeight/3 + 50, true);
 		g.setColor(new Color(0, 0, 0, 255));
 		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),40));
-		g.drawString("Estuary Protection:", frameWidth* 33 /42, frameHeight*4/16);
+		g.drawString("Estuary", frameWidth* 33 /42, frameHeight*4/16);
+		g.drawString(" Protection:", frameWidth* 33 /42, frameHeight*9/32);
 		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),24));
 		g.drawString("Gabions last longer", frameWidth *33 /42, frameHeight*6/16);
 		g.drawString("and are less invasive", frameWidth*33 /42, frameHeight*13/32);
