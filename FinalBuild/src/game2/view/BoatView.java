@@ -222,7 +222,7 @@ public class BoatView extends JPanel{
 		}
 		
 		//Power Ups Key
-		g.setColor(new Color(255, 255, 255, 100));
+		g.setColor(new Color(255, 255, 255, 150));
 		g.fill3DRect(frameWidth / 45, frameHeight / 6, frameWidth / 5, frameHeight/3 + 50, true);
 		g.setColor(new Color(0, 0, 0, 255));
 		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),40));
@@ -238,7 +238,7 @@ public class BoatView extends JPanel{
 		int shift = frameHeight*4/10; //height difference of the two games
 		
 		//Game Control key
-		g.setColor(new Color(255, 255, 255, 100));
+		g.setColor(new Color(255, 255, 255, 150));
 		g.fill3DRect(frameWidth / 45, frameHeight*5/24 + shift, frameWidth / 5, frameHeight*2/9, true);
 		g.setColor(new Color(0, 0, 0, 255));
 		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),40));
@@ -248,6 +248,20 @@ public class BoatView extends JPanel{
 		g.drawString("Press The LEFT", frameWidth/42, frameHeight*6/16 + shift);
 		g.drawString("and RIGTH Keys to Turn", frameWidth/42, frameHeight*13/32 + shift);
 	
+		
+		//Power Ups Key
+		g.setColor(new Color(255, 255, 255, 150));
+		g.fill3DRect(frameWidth *35 / 45, frameHeight / 6, frameWidth / 5, frameHeight/3 + 50, true);
+		g.setColor(new Color(0, 0, 0, 255));
+		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),40));
+		g.drawString("Estuary Protection:", frameWidth* 33 /42, frameHeight*4/16);
+		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),24));
+		g.drawString("Gabions last longer", frameWidth *33 /42, frameHeight*6/16);
+		g.drawString("and are less invasive", frameWidth*33 /42, frameHeight*13/32);
+		g.drawImage(protections[2][3], frameWidth*32/38, frameHeight*5/16, this);
+		g.drawString("SeaWalls don't last as long", frameWidth *33 /42, frameHeight*8/16);
+		g.drawString("and disrupt the Esutuary more", frameWidth*33 /42, frameHeight*17/32);
+		g.drawImage(protections[1][3], frameWidth*32 /38, frameHeight*7/16, this);
 		
 		if(BoatController.end){
 			g.setColor(new Color(255, 255, 255, 240));
