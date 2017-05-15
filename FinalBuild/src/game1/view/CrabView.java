@@ -126,7 +126,7 @@ public class CrabView extends JPanel{
 		frame.setVisible(true);
 		
 		try {
-			this.titleFont = Font.createFont(Font.TRUETYPE_FONT, (new File("fonts/PWBubbles.ttf")));
+			this.titleFont = Font.createFont(Font.TRUETYPE_FONT, (new File("game1.fonts/PWBubbles.ttf")));
 		} catch (FontFormatException e1) {
 			e1.printStackTrace();
 		} catch (IOException e1) {
