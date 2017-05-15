@@ -26,10 +26,4 @@ public class MenuController {
 		MenuController controller = new MenuController();	
 		menuView.run();
 	}
-	/*
-	public void game1pressed(){
-		CrabController game1Controller = new CrabController();
-		//View game1View = new View(frameWidth, frameHeight);
-	}
-	*/
 }
