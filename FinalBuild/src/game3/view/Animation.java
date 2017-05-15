@@ -94,22 +94,22 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 	public Animation(Board b){
 		board=b;
 		String img_list[]={
-				"images/QuestionMark.png",
-				"images/blackduck_right.png",
-    			"images/bluecrab_0.png",
-    			"images/bogturtle_left_0.png",
-    			"images/clam_left_1.png",
-    			"images/fish_bass_left.png",
-    			"images/fish_catfish_left_0.png",
-    			"images/fish_group_right.png",
-    			"images/fish_pickerel_right.png",
-    			"images/fish_trout_right.png",
-    			"images/horseshoe_crab_left_1.png",
-    			"images/mallard_left.png",
-    			"images/mittencrab_0.png",
-    			"images/mittencrabs_spawn_2.png",
-    			"images/otter_left.png",
-    			"images/wood_duck_right.png"			
+				"game3.images/QuestionMark.png",
+				"game3.images/blackduck_right.png",
+    			"game3.images/bluecrab_0.png",
+    			"game3.images/bogturtle_left_0.png",
+    			"game3.images/clam_left_1.png",
+    			"game3.images/fish_bass_left.png",
+    			"game3.images/fish_catfish_left_0.png",
+    			"game3.images/fish_group_right.png",
+    			"game3.images/fish_pickerel_right.png",
+    			"game3.images/fish_trout_right.png",
+    			"game3.images/horseshoe_crab_left_1.png",
+    			"game3.images/mallard_left.png",
+    			"game3.images/mittencrab_0.png",
+    			"game3.images/mittencrabs_spawn_2.png",
+    			"game3.images/otter_left.png",
+    			"game3.images/wood_duck_right.png"			
     	};
     	
 		numPics=img_list.length;
@@ -123,7 +123,7 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
         	for(int i = 0; i < frameCount; i++)
         		all_imgs[j][i] = img.getSubimage(imgWidth[j]*i, 0, imgWidth[j], imgHeight[j]);
     	}
-    	backgroundImage = createImage("images/tempBackGround.jpg");
+    	backgroundImage = createImage("game3.images/tempBackGround.jpg");
     	
 	}
 	
