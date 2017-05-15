@@ -33,17 +33,21 @@ public class CrabController  implements ActionListener{
 	private Timer rectangleTimer;
 	private Timer droughtTimer;
 	private Timer stormTimer;
+	private static Timer gracePeriodTimer;
 	private final int DELAY = 70; //update rate = 70ms
 	private final int DELAY2 = 1500; // update rate = 1.5s
 	private final int DELAY3 = 25500; //update rate = 25.5s (waits until the scentTrail bricks fill screen)
    	private final int DELAY4 = 7; //update rate = 7ms
 	private final int DELAY5 = 6000; // update rate = 5s
 	private final int DELAY6 = 15000; // update rate = 15s
+	private final int secDELAY = 1000; // update rate = 1s
    	private static boolean canBeAskedAQuestion = false;
    	private static boolean haventAddedDrought = true;
    	private static boolean haventAddedStorm = true;
+   	private static boolean isItGracePeriod = false;
    	private static int droughtStatus;
    	private static int stormStatus;
+	private static int gracePeriodCounter;
 	
 	public CrabController(){
 		CrabController.board = new Board(WIDTH, HEIGHT);//adjust values for size of board and length of path
@@ -67,10 +71,13 @@ public class CrabController  implements ActionListener{
 		stormTimer = new Timer(DELAY6/2, this);
 		stormTimer.setInitialDelay(15000);
 		
+		gracePeriodTimer = new Timer(secDELAY, this);
+		
 		this.rand = new Random();
 		
-		this.droughtStatus = 0;
-		this.stormStatus = 0;
+		CrabController.droughtStatus = 0;
+		CrabController.stormStatus = 0;
+		CrabController.gracePeriodCounter = 0;
 	}
 	
 	public static void main(String[] args){
@@ -103,6 +110,13 @@ public class CrabController  implements ActionListener{
 			board.friends.add(new Friend(board));
 		}else if(e.getSource() == rectangleTimer){
 			onTick2();
+		}else if(e.getSource() == gracePeriodTimer){
+			gracePeriodCounter++;
+			if(gracePeriodCounter >= 3){
+				gracePeriodTimer.stop();
+				isItGracePeriod = false;
+				board.player.setStarted(true);
+			}
 		}else if(e.getSource() == droughtTimer){
 			if(board.maybeAddDrought() && haventAddedDrought){
 				board.drought();
@@ -151,6 +165,14 @@ public class CrabController  implements ActionListener{
 		return stormStatus;
 	}
 	
+	public static int getGracePeriodCounter(){
+		return gracePeriodCounter;
+	}
+	
+	public static boolean getIsItGracePeriod(){
+		return isItGracePeriod;
+	}
+	
 	public void onTick(){
 		board.moverUpdate();
 		view.animate();
@@ -173,7 +195,9 @@ public class CrabController  implements ActionListener{
 	}
 	
 	public static void answerButton1Press(){		
-		board.player.setStarted(true);
+		gracePeriodCounter = 0;
+		gracePeriodTimer.restart();
+		isItGracePeriod = true;
 		
 		View.jump.setEnabled(true);
 		View.jump.setVisible(true);
@@ -189,7 +213,9 @@ public class CrabController  implements ActionListener{
 		
 	}
 	public static void answerButton2Press(){		
-		board.player.setStarted(true);
+		gracePeriodCounter = 0;
+		gracePeriodTimer.restart();
+		isItGracePeriod = true;
 		
 		View.jump.setEnabled(true);
 		View.jump.setVisible(true);
@@ -203,8 +229,10 @@ public class CrabController  implements ActionListener{
 		View.answer3.setEnabled(false);
 		View.answer3.setVisible(false);
 	}
-	public static void answerButton3Press(){		
-		board.player.setStarted(true);
+	public static void answerButton3Press(){
+		gracePeriodCounter = 0;
+		gracePeriodTimer.restart();
+		isItGracePeriod = true;
 		
 		View.jump.setEnabled(true);
 		View.jump.setVisible(true);
