@@ -22,20 +22,20 @@ public class Cube {
 		this.cubeNum=cubeNum;
 		this.picNum = picNum;
 		this.board = b;
-		this.sideLength=((board.getWidth()-20)/board.NUM_CUBES)-10;
+		this.sideLength=((board.getWidth()-20)/Board.NUM_CUBES)-10;
 		/*
 		location = new Rectangle(rand.nextInt(board.getWidth() - sideLength),
 								rand.nextInt(board.getHeight() - sideLength),
 								sideLength,sideLength);
 		*/
-		location = new Rectangle(10+ cubeNum * (board.getWidth()-20) / board.NUM_CUBES, board.getHeight() / 2, sideLength, sideLength);
+		location = new Rectangle(10+ cubeNum * (board.getWidth()-20) / Board.NUM_CUBES, board.getHeight() / 2, sideLength, sideLength);
 	}
 	/**
 	 * Moves cube to random location within Board, assigns new picNum
 	 * (as if rolling a real cube on a board)
 	 */
 	public void roll(int numPics){
-		location.setLocation(10+ cubeNum * (board.getWidth()-20) / board.NUM_CUBES, board.getHeight() / 2);
+		location.setLocation(10+ cubeNum * (board.getWidth()-20) / Board.NUM_CUBES, board.getHeight() / 2);
 		picNum = rand.nextInt(numPics-1)+1;
 		
 	}
