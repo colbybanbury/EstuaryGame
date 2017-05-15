@@ -3,6 +3,7 @@ package game1.test;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+import game1.controller.CrabController;
 import game1.model.Player;
 import game1.model.Board;
 import game1.model.Enemy;
