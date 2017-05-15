@@ -16,6 +16,7 @@ import model.Boat;
 import model.Estuary;
 import model.BoatGame;
 import view.BoatView;
+import view.MenuView;
 
 public class BoatController implements ActionListener{
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -42,13 +43,34 @@ public class BoatController implements ActionListener{
 	public static boolean end = false; //is the time up
 	int wait = 0; //counter for how many powerUps are spawned before they are cleared
 	
+	MenuController mainMenu;
 	
+	//STAND-ALONE CONTROLLER
 	public BoatController(){
 		this.Boatboard = new BoatBoard(WIDTH, HEIGHT, LAPLENGTH, RADIUS);//adjust values for size of board and length of path
 		this.boat = new Boat();//adjust values on acceleration, speedInc, and max speed
 		this.Boatgame = new BoatGame();
 		this.curEstuary = Boatboard.getLapPath()[0];//starts at the first estuary
-		this.Boatview = new BoatView(WIDTH, HEIGHT);
+		
+		MenuController menuController = new MenuController();
+		
+		this.Boatview = new BoatView(WIDTH, HEIGHT, menuController);
+		
+		timer = new Timer(DELAY, this);
+		powerUpTimer = new Timer(DELAY*50, this);
+		secondTimer = new Timer(SECOND_DELAY, this);
+		timer.start();
+		powerUpTimer.start();
+		secondTimer.start();
+	}
+	
+	public BoatController(MenuController menuController){
+		this.Boatboard = new BoatBoard(WIDTH, HEIGHT, LAPLENGTH, RADIUS);//adjust values for size of board and length of path
+		this.boat = new Boat();//adjust values on acceleration, speedInc, and max speed
+		this.Boatgame = new BoatGame();
+		this.curEstuary = Boatboard.getLapPath()[0];//starts at the first estuary
+		this.Boatview = new BoatView(WIDTH, HEIGHT, menuController);
+		this.mainMenu = menuController;
 		
 		timer = new Timer(DELAY, this);
 		powerUpTimer = new Timer(DELAY*50, this);
@@ -60,7 +82,7 @@ public class BoatController implements ActionListener{
 	}
 	
 	public static void main(String[] args){
-		BoatController boatControll = new BoatController();
+		BoatController boatController = new BoatController();
 	}
 	
 	public void onTick(){

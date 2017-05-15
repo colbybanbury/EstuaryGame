@@ -39,10 +39,10 @@ public class MenuView {
 	//public static BoatView game2View = game2Controller.boatView;
 	//Animation game3view = new Animation(width, height)
 	
-	public MenuView(int width, int height, MenuController menuCntrlr){
+	public MenuView(int width, int height, MenuController menuController){
 		this.width = width;
 		this.height = height;
-		menu = menuCntrlr;
+		menu = menuController;
 	}
 	
 	public static void main(String[] args){
