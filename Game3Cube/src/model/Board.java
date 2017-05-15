@@ -10,7 +10,7 @@ import java.util.Random;
 public class Board {
 	private int width, height;
 	static Random rand=new Random();;
-	static final int NUM_CUBES = 6;
+	public static final int NUM_CUBES = 6;
 	public List<Cube> cubes = new ArrayList<Cube>(NUM_CUBES);
 	/**
 	 * Constructor for the class
@@ -37,13 +37,6 @@ public class Board {
 	 */
 	public int getWidth(){
 		return width;
-	}
-	/**
-	 * returns the number of cubes in the board
-	 * @return NUM_CUBES
-	 */
-	public int getNumCubes(){
-		return NUM_CUBES;
 	}
 	/**
 	 * rolls all dice on the board (gives them a random location and 
