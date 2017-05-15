@@ -222,41 +222,43 @@ public class BoatView extends JPanel{
 		
 		//Power Ups Key
 		g.setColor(new Color(255, 255, 255, 100));
-		g.fill3DRect(frameWidth / 45, frameHeight / 6, frameWidth / 5 +10, frameHeight/3 + 50, true);
+		g.fill3DRect(frameWidth / 45, frameHeight / 6, frameWidth / 5, frameHeight/3 + 50, true);
 		g.setColor(new Color(0, 0, 0, 255));
 		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),40));
 		g.drawString("POWER UPS:", frameWidth/42, frameHeight*4/16);
 		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),24));
-		g.drawString("Pick up Oysters to Build Gabions", frameWidth/42, frameHeight*6/16);
+		g.drawString("Pick up Oysters to", frameWidth/42, frameHeight*6/16);
+		g.drawString("Build Gabions", frameWidth/42, frameHeight*13/32);
 		g.drawImage(oyster, frameWidth/38, frameHeight*5/16, this);
 		g.drawString("Pick up Sea Grass to", frameWidth/42, frameHeight*8/16);
 		g.drawString("Undo Estuary Damage", frameWidth/42, frameHeight*17/32);
 		g.drawImage(seaGrass, frameWidth/38, frameHeight*7/16, this);
 		
-		int shift = frameHeight*4/10; //hight difference of the two games
+		int shift = frameHeight*4/10; //height difference of the two games
 		
 		//Game Control key
 		g.setColor(new Color(255, 255, 255, 100));
-		g.fill3DRect(frameWidth / 45, frameHeight*5/24 + shift, frameWidth / 5 +10, frameHeight*2/9, true);
+		g.fill3DRect(frameWidth / 45, frameHeight*5/24 + shift, frameWidth / 5, frameHeight*2/9, true);
 		g.setColor(new Color(0, 0, 0, 255));
 		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),40));
 		g.drawString("Controls:", frameWidth/42, frameHeight*4/16 + shift);
 		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),24));
-		g.drawString("Press SPACE to Trottle", frameWidth/42, frameHeight*5/16 + shift);
+		g.drawString("Press SPACE to Throttle", frameWidth/42, frameHeight*5/16 + shift);
 		g.drawString("Press The LEFT", frameWidth/42, frameHeight*6/16 + shift);
 		g.drawString("and RIGTH Keys to Turn", frameWidth/42, frameHeight*13/32 + shift);
 	
 		
 		if(BoatController.end){
 			g.setColor(new Color(255, 255, 255, 240));
-			g.fill3DRect(20, 70, frameWidth - 39, frameHeight - 160, true);
+			g.fill3DRect(20, 70, frameWidth - 39, frameHeight - 100, true);
 			g.setColor(new Color(0, 0, 0, 255));
 			g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),52));
-			g.drawString("Time limit reached", frameWidth/4, frameHeight*1/6);
-			g.drawString("Laps Completed: " + BoatController.Boatgame.getLap().toString(), frameWidth/4, frameHeight*1/3);
-			g.drawString("Score Before Penalty: " + BoatController.Boatgame.getScore().toString(), frameWidth/4, frameHeight/2);
-			g.drawString("Score Penalty to Estuary Damage: "+ BoatController.Boatgame.getDamagePenalty().toString(), frameWidth/4, frameHeight*2/3);
-			g.drawString("Final Score: " + (BoatController.Boatgame.getScore() - BoatController.Boatgame.getDamagePenalty()), frameWidth/4, frameHeight*5/6);
+			g.drawString("Time limit reached", frameWidth/4, frameHeight*2/12);
+			g.drawString("Laps Completed: " + BoatController.Boatgame.getLap().toString(), frameWidth/4, frameHeight*4/12);
+			g.drawString("Score Before Penalty: " + BoatController.Boatgame.getScore().toString(), frameWidth/4, frameHeight*5/12);
+			g.drawString("Score Penalty to Estuary Damage: "+ BoatController.Boatgame.getDamagePenalty().toString(), frameWidth/4, frameHeight*6/12);
+			g.drawString("Final Score: " + (BoatController.Boatgame.getScore() - BoatController.Boatgame.getDamagePenalty()), frameWidth/4, frameHeight*7/12);
+			g.drawString("Press SPACE to Return to the Menu", frameWidth/4, frameHeight*11/12);
 		}
 
 		g.setColor(new Color(0,0,0,255));
