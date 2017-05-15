@@ -190,6 +190,7 @@ public class View extends JPanel{
 		g.drawString("Score: " + BoatController.game.getScore().toString(), 20, 40);
 		g.drawString("Time: " + BoatController.game.getTime().toString(), 20, 80);
 		//TODO improve background to actually have land around the estuaries
+		//TODO add a warning at the center of the screen to warn that you are hurting the estuary
 		
 		int x1 = (BoatController.board.getWidth()/2)+BoatController.board.getRadius()-75;
 		int y = BoatController.board.getHeight()/2;
