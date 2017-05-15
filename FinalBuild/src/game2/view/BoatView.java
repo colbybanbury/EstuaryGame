@@ -21,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import game1.controller.CrabController;
 import game2.controller.BoatController;
 import game2.enums.POWER_UP;
 import game2.model.Estuary;
@@ -65,6 +66,8 @@ public class BoatView extends JPanel{
 	JFrame frame;
 	JPanel panel;
 	
+	public static JButton menuButton = new JButton("MENU");
+	
 	public BoatView(int w, int h){
 		/**
 		 * sets up the frame, panel, and keylisteners. Calls load images to initialize the buffered images
@@ -72,7 +75,8 @@ public class BoatView extends JPanel{
 		 * @param w 	the width of the screen
 		 * @param h 	the height of the screen.
 		 */
-		
+		this.frameHeight = h;
+		this.frameWidth = w;
 		frame = new JFrame();
 		panel = new JPanel();
 		
@@ -82,14 +86,7 @@ public class BoatView extends JPanel{
 			//action listener that calls the handling function in the controller
 			@Override
 			public void keyPressed(KeyEvent e){
-				if(BoatController.end){
-					if(e.getKeyCode() == KeyEvent.VK_SPACE){
-						BoatController.stopTimers();
-						frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-						frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
-			    	}
-				}
-				else
+				if(!BoatController.end)
 					BoatController.keyPressed(e);
 			}
 
@@ -100,11 +97,29 @@ public class BoatView extends JPanel{
 			public void keyTyped(KeyEvent e) {}
 		});
 		
+		
+		menuButton.setBounds(frameWidth*6/20, frameHeight*8/12, frameWidth/6, frameHeight/6);
+		menuButton.setContentAreaFilled(true);
+		menuButton.setBorderPainted(true);
+		menuButton.setEnabled(true);
+		menuButton.setFont(menuButton.getFont().deriveFont(menuButton.getFont().getStyle(),30));
+		menuButton.setText("MENU");
+		menuButton.setBackground(Color.BLUE);
+		menuButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				BoatController.stopTimers();
+				frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+				frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+			}
+		});
+		
+		frame.add(menuButton);
+		menuButton.setEnabled(false);
+		menuButton.setVisible(false);
+		
 		panel.setFocusable(true);
         panel.requestFocusInWindow();
 		
-		this.frameHeight = h;
-		this.frameWidth = w;
 		loadImages();
 		
 		
@@ -205,8 +220,8 @@ public class BoatView extends JPanel{
 		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),48));
 		
 		
-		g.drawString("Score: " + BoatController.Boatgame.getScore().toString(), frameWidth/45, frameHeight/27);
-		g.drawString("Time: " + BoatController.Boatgame.getTime().toString(), frameWidth/45, frameHeight/27 + 40);
+		g.drawString("Score: " + BoatController.Boatgame.getScore().toString(), frameWidth/45, frameHeight/20);
+		g.drawString("Time: " + BoatController.Boatgame.getTime().toString(), frameWidth/45, frameHeight/20 + 40);
 		//TODO improve background to actually have land around the estuaries
 		
 		int x1 = (BoatController.Boatboard.getWidth()/2)+BoatController.Boatboard.getRadius()-75;
@@ -265,8 +280,10 @@ public class BoatView extends JPanel{
 		g.drawImage(protections[1][3], frameWidth*32 /38, frameHeight*7/16, this);
 		
 		if(BoatController.end){
+			menuButton.setEnabled(true);
+			menuButton.setVisible(true);
 			g.setColor(new Color(255, 255, 255, 240));
-			g.fill3DRect(20, 70, frameWidth - 39, frameHeight - 100, true);
+			g.fill3DRect(frameWidth/20, frameHeight/20, frameWidth*18/20, frameHeight*16/20, true);
 			g.setColor(new Color(0, 0, 0, 255));
 			g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),52));
 			g.drawString("Time limit reached", frameWidth/4, frameHeight*2/12);
@@ -274,7 +291,7 @@ public class BoatView extends JPanel{
 			g.drawString("Score Before Penalty: " + BoatController.Boatgame.getScore().toString(), frameWidth/4, frameHeight*5/12);
 			g.drawString("Score Penalty to Estuary Damage: "+ BoatController.Boatgame.getDamagePenalty().toString(), frameWidth/4, frameHeight*6/12);
 			g.drawString("Final Score: " + (BoatController.Boatgame.getScore() - BoatController.Boatgame.getDamagePenalty()), frameWidth/4, frameHeight*7/12);
-			g.drawString("Press SPACE to Return to the Menu", frameWidth/4, frameHeight*11/12);
+			//g.drawString("Press SPACE to Return to the Menu", frameWidth/4, frameHeight*11/12);
 		}
 
 		g.setColor(new Color(0,0,0,255));
