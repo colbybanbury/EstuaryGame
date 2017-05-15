@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import controller.BoatController;
+import controller.MenuController;
 import enums.POWER_UP;
 import model.Estuary;
 
@@ -61,13 +62,17 @@ public class BoatView extends JPanel{
 	JFrame frame;
 	JPanel panel;
 	
-	public BoatView(int w, int h){
+	MenuController mainMenu;
+	
+	public BoatView(int w, int h, MenuController m){
 		/**
 		 * sets up the frame, panel, and keylisteners. Calls load images to initialize the buffered images
 		 * 
 		 * @param w 	the width of the screen
 		 * @param h 	the height of the screen.
 		 */
+		
+		this.mainMenu = m;
 		
 		frame = new JFrame();
 		panel = new JPanel();
@@ -216,6 +221,7 @@ public class BoatView extends JPanel{
 			g.drawString("Score Before Penalty: " + BoatController.Boatgame.getScore().toString(), frameWidth/4, frameHeight/2);
 			g.drawString("Score Penalty to Estuary Damage: "+ BoatController.Boatgame.getDamagePenalty().toString(), frameWidth/4, frameHeight*2/3);
 			g.drawString("Final Score: " + (BoatController.Boatgame.getScore() - BoatController.Boatgame.getDamagePenalty()), frameWidth/4, frameHeight*5/6);
+			endGameMenu();
 		}
 	}
 	
@@ -275,4 +281,31 @@ public class BoatView extends JPanel{
 		return null;
 	}
 
+	private void endGameMenu(){
+		JPanel endGamePanel = new JPanel();
+		
+		frame.getContentPane().add(endGamePanel);
+		
+		JButton playAgainButton = new JButton("Play Again");
+		JButton mainMenuButton = new JButton("Main Menu");
+		
+		endGamePanel.add(playAgainButton);
+		endGamePanel.add(mainMenuButton);
+		
+		playAgainButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				System.out.println("playAgainButton pressed");
+				//TODO: Reset view and play again
+				
+			}
+		});
+		
+		mainMenuButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				System.out.println("mainMenuButton pressed");
+				mainMenu.menuView.run();
+			}
+		});
+		
+	}
 }

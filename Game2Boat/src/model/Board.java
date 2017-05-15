@@ -46,8 +46,8 @@ public class Board {
 			powerUps[lapDivisions*3/4][1] = POWER_UP.ROCK;
 			powerUps[lapDivisions*3/4][2] = POWER_UP.ROCK;//placing a dock in the way
 			
-			powerUps[lapDivisions*27/32][0] = POWER_UP.ROCK;
-			powerUps[lapDivisions*27/32][1] = POWER_UP.ROCK;//placing a dock in the way
+			powerUps[lapDivisions*28/32][0] = POWER_UP.ROCK;
+			powerUps[lapDivisions*28/32][1] = POWER_UP.ROCK;//placing a dock in the way
 		}
 	}
 
