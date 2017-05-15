@@ -228,7 +228,7 @@ public class View extends JPanel{
 			g.drawString("CRAB RUN", (CrabController.board.getWidth() - titleLength) / 2, CrabController.board.getHeight() / 2);
 		
 			g.setFont(defaultFont);
-		}else if(!CrabController.board.player.getStarted() && CrabController.getCanBeAskedAQuestion()){
+		}else if(!CrabController.board.player.getStarted() && CrabController.getCanBeAskedAQuestion() && !CrabController.getIsItGracePeriod()){
 			
 			g.setColor(new Color(255, 255, 255, 255));
 			g.fill3DRect(20, 70, CrabController.board.getWidth() - 39, CrabController.board.getHeight() - 160, true);
@@ -293,7 +293,23 @@ public class View extends JPanel{
 				answerYCoord += 70;
 				index1++;
 			}			
-		} 
+		}else if(!CrabController.board.player.getStarted() && CrabController.getIsItGracePeriod()){
+			
+			g.setColor(new Color(255, 255, 255, 127));
+			g.fill3DRect(0, 0, CrabController.board.getWidth(), CrabController.board.getHeight(), false);
+			
+			Font defaultFont = g.getFont();
+			
+			g.setFont(titleFont);
+			g.setColor(new Color(0, 0, 0, 255));
+			g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),218));
+			
+			int titleLength = g.getFontMetrics().stringWidth(String.valueOf(CrabController.getGracePeriodCounter()));
+			
+			g.drawString(String.valueOf(3 - CrabController.getGracePeriodCounter()), (CrabController.board.getWidth() - titleLength) / 2, CrabController.board.getHeight() / 2);
+		
+			g.setFont(defaultFont);
+		}
 		
 		if(CrabController.getDroughtStatus() >= 1){			
 			g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),52));
