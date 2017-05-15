@@ -163,8 +163,9 @@ public class BoatView extends JPanel{
 				//g.drawImage(estuary, tempX, tempY, this);
 				switch(e.getType()){//draws the protection type on top of the estuary centered
 				case 0:
-					if(e.getDamage()>0)
-						g.drawImage(protections[0][e.getDamage()/3], tempX, tempY, this);
+					int dam = ((e.getDamage()/3)<=3)? e.getDamage() : 3;
+					if(dam>0)
+						g.drawImage(protections[0][dam/3], tempX, tempY, this);
 					break;
 				case 1://sea wall
 					g.drawImage(protections[1][e.getIntegrity()*3/2], tempX + (estuary.getWidth()/2 - protections[1][0].getWidth()/2), tempY + (estuary.getHeight()/2 - protections[1][0].getHeight()/3), this);
@@ -204,8 +205,8 @@ public class BoatView extends JPanel{
 		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),48));
 		
 		
-		g.drawString("Score: " + BoatController.Boatgame.getScore().toString(), 20, 40);
-		g.drawString("Time: " + BoatController.Boatgame.getTime().toString(), 20, 80);
+		g.drawString("Score: " + BoatController.Boatgame.getScore().toString(), frameWidth/45, frameHeight/28);
+		g.drawString("Time: " + BoatController.Boatgame.getTime().toString(), frameWidth/45, frameHeight/28 + 40);
 		//TODO improve background to actually have land around the estuaries
 		
 		int x1 = (BoatController.Boatboard.getWidth()/2)+BoatController.Boatboard.getRadius()-75;
@@ -282,7 +283,7 @@ public class BoatView extends JPanel{
 		boatWake0 = createImage("BoatImages/boat.jpg");
 		boatWake1 = createImage("BoatImages/boatWake1.gif");//TODO have a better indication of wake
 		boatWake2 = createImage("BoatImages/boatWake2.gif");
-		backgroundImage = createImage("BoatImages/water.png");
+		backgroundImage = createImage("BoatImages/tempBackGroundWithLand.jpg");
 		scaledBackground = backgroundImage.getScaledInstance(frameWidth, frameHeight, backgroundImage.SCALE_DEFAULT);
 		estuary = createImage("BoatImages/grass_tile.jpg");
 		

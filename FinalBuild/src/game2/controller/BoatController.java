@@ -16,6 +16,7 @@ import game2.model.Boat;
 import game2.model.Estuary;
 import game2.model.Game;
 import game2.view.BoatView;
+import game2.view.BoatView;
 
 public class BoatController implements ActionListener{
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -23,18 +24,18 @@ public class BoatController implements ActionListener{
 	final int HEIGHT = (int)screenSize.getHeight() - 50;
 	final int WIDTH = (int)screenSize.getWidth();
 	
-	private Timer timer;
-	private Timer powerUpTimer;
-	private Timer secondTimer;
+	private static Timer timer;
+	private static Timer powerUpTimer;
+	private static Timer secondTimer;
 	private final int DELAY = 50;//update rate (50ms) may need to make faster
 	private final int SECOND_DELAY = 1000;//1000ms  = 1s
 	
-	public static Board board;
+	public static Board Boatboard;
 	public static Boat boat;
-	public static Game game;
+	public static Game Boatgame;
 	public static Estuary curEstuary;
 	public static POWER_UP curPowerUp;
-	public BoatView view;
+	public BoatView Boatview;
 	private final int LAPLENGTH = 5000;
 	private final int RADIUS = (HEIGHT>WIDTH)? 11* WIDTH / 32 : 11*HEIGHT / 32;
 	Random random = new Random();
@@ -43,15 +44,16 @@ public class BoatController implements ActionListener{
 	int wait; //counter for how many powerUps are spawned before they are cleared
 	
 	
+
 	public BoatController(){
 		spawn = true;
 		end = false;
 		wait = 0;
-		this.board = new Board(WIDTH, HEIGHT, LAPLENGTH, RADIUS);//adjust values for size of board and length of path
+		this.Boatboard = new Board(WIDTH, HEIGHT, LAPLENGTH, RADIUS);//adjust values for size of board and length of path
 		this.boat = new Boat();//adjust values on acceleration, speedInc, and max speed
-		this.game = new Game();
-		this.curEstuary = board.getLapPath()[0];//starts at the first estuary
-		this.view = new BoatView(WIDTH, HEIGHT);
+		this.Boatgame = new Game();
+		this.curEstuary = Boatboard.getLapPath()[0];//starts at the first estuary
+		this.Boatview = new BoatView(WIDTH, HEIGHT);
 		
 		timer = new Timer(DELAY, this);
 		powerUpTimer = new Timer(DELAY*50, this);
@@ -59,49 +61,49 @@ public class BoatController implements ActionListener{
 		timer.start();
 		powerUpTimer.start();
 		secondTimer.start();
-		
 	}
 	
+	
 	public static void main(String[] args){
-		BoatController boatControll = new BoatController();
+		BoatController boatController = new BoatController();
 	}
 	
 	public void onTick(){
 		System.out.println("onTick() ran");
 		boat.move();
-		if(boat.getXLoc()>= board.getLapLength()){
+		if(boat.getXLoc()>= Boatboard.getLapLength()){
 			boat.setXLoc(0);
-			game.setLap(game.getLap()+1);
-			game.increaseScore(100);
+			Boatgame.setLap(Boatgame.getLap()+1);
+			Boatgame.increaseScore(100);
 		}
-		System.out.println("currently on estuary # " +(boat.getXLoc()*board.getLapDivisions())/board.getLapLength());
-		curEstuary = board.getLapPath()[(boat.getXLoc()*board.getLapDivisions())/board.getLapLength()];
+		System.out.println("currently on estuary # " +(boat.getXLoc()*Boatboard.getLapDivisions())/Boatboard.getLapLength());
+		curEstuary = Boatboard.getLapPath()[(boat.getXLoc()*Boatboard.getLapDivisions())/Boatboard.getLapLength()];
 		//^finds current estuary. curEsutuary = (xLoc * estuaryCount)/lapLength)
 		boat.generateWake(curEstuary); //can return a boolean if it damages it if necessary
-		view.animate();
+		Boatview.animate();
 		
 		checkCollision();
 	}
 	
 	private void powerUpTick(boolean spawn){
 		if(spawn){
-			int a = random.nextInt(board.getLapDivisions());
+			int a = random.nextInt(Boatboard.getLapDivisions());
 			int b = random.nextInt(3);
 			System.out.println("spawning powerUp");
-			if(board.getPowerUps()[a][b] != POWER_UP.ROCK){//don't replace rocks
+			if(Boatboard.getPowerUps()[a][b] != POWER_UP.ROCK){//don't replace rocks
 				if(random.nextInt(5)==0)
-					board.getPowerUps()[a][b] = POWER_UP.SEAGRASS;//happens less often than oysters
+					Boatboard.getPowerUps()[a][b] = POWER_UP.SEAGRASS;//happens less often than oysters
 				else
-					board.getPowerUps()[a][b] = POWER_UP.OYSTER;
+					Boatboard.getPowerUps()[a][b] = POWER_UP.OYSTER;
 			}
 			
 		}
 		else{//clear powerups
 			System.out.println("De-spawning powerUps");
 			for(int i = 0; i<3; i++){
-				for(int j = 0; j < board.getLapDivisions(); j++){
-					if(board.getPowerUps()[j][i] != POWER_UP.ROCK)//but don't clear rocks
-						board.getPowerUps()[j][i] = POWER_UP.NONE;
+				for(int j = 0; j < Boatboard.getLapDivisions(); j++){
+					if(Boatboard.getPowerUps()[j][i] != POWER_UP.ROCK)//but don't clear rocks
+						Boatboard.getPowerUps()[j][i] = POWER_UP.NONE;
 				}
 			}
 		}
@@ -119,13 +121,13 @@ public class BoatController implements ActionListener{
 			wait = (wait +1) % 5;
 		}
 		if(e.getSource() == secondTimer){
-			game.decreaseTime();
-			if(game.getTime() <= 0){
+			Boatgame.decreaseTime();
+			if(Boatgame.getTime() <= 0){
 				secondTimer.stop();
 				end = true;
-				Estuary[] lapPath = board.getLapPath();
+				Estuary[] lapPath = Boatboard.getLapPath();
 				for (int i = 0; i < lapPath.length; i++){
-					game.increaseDamagePenalty(lapPath[i].getDamage() * 10);
+					Boatgame.increaseDamagePenalty(lapPath[i].getDamage() * 10);
 					
 				}
 			}
@@ -149,42 +151,42 @@ public class BoatController implements ActionListener{
     }
     
     public void checkCollision(){
-    	int rowNum = (boat.getXLoc()*board.getLapDivisions())/board.getLapLength();
+    	int rowNum = (boat.getXLoc()*Boatboard.getLapDivisions())/Boatboard.getLapLength();
     	int columnNum = (int) ((boat.getRadiusScale() - 0.8)*7.5);
     	//gets what ever powerup is at the boats current location and if there is one there it does whatever it needs to
-    	curPowerUp = board.getPowerUps()[rowNum][columnNum];
-    	System.out.println("boat is at powerUP["+(boat.getXLoc()*board.getLapDivisions())/board.getLapLength()+"][" + (int) ((boat.getRadiusScale() - 0.8)*7.5) +"]" );
+    	curPowerUp = Boatboard.getPowerUps()[rowNum][columnNum];
+    	System.out.println("boat is at powerUP["+(boat.getXLoc()*Boatboard.getLapDivisions())/Boatboard.getLapLength()+"][" + (int) ((boat.getRadiusScale() - 0.8)*7.5) +"]" );
     	switch(curPowerUp){
     	case OYSTER:
     		System.out.println("picked up an Oyster");
-    		board.getPowerUps()[rowNum][columnNum] = POWER_UP.NONE;
+    		Boatboard.getPowerUps()[rowNum][columnNum] = POWER_UP.NONE;
     		//activates oyster power up
     		Estuary tempE;
     		for(int i = -1; i<=1; i++){ 
-    			int temp = (i+(boat.getXLoc()*board.getLapDivisions())/board.getLapLength())%board.getLapDivisions();
+    			int temp = (i+(boat.getXLoc()*Boatboard.getLapDivisions())/Boatboard.getLapLength())%Boatboard.getLapDivisions();
     			if (temp <0){
-    				temp += board.getLapDivisions();
+    				temp += Boatboard.getLapDivisions();
     			}
-    			tempE = board.getLapPath()[temp];
+    			tempE = Boatboard.getLapPath()[temp];
     			if(tempE.getType()!=3){//as long as the estuary isn't open water
     				tempE.setType(2);}// makes the current estuary and the two adjacent estuaries have gabions
     		}
     		break;
     	case SEAGRASS:
     		System.out.println("picked up SeaGrass");
-    		board.getPowerUps()[rowNum][columnNum] = POWER_UP.NONE;
+    		Boatboard.getPowerUps()[rowNum][columnNum] = POWER_UP.NONE;
     		//activates sea grass
-    		for(Estuary e: board.getLapPath()){
+    		for(Estuary e: Boatboard.getLapPath()){
     			e.setDamage(0);//resets the damage on all of the Estuaries
     		}
     		break;
     	case ROCK:
     		boat.setXLoc(boat.getXLoc() - 30);
-    		view.animate();
+    		Boatview.animate();
     		boat.setXLoc(boat.getXLoc() - 30);
-    		view.animate();
+    		Boatview.animate();
     		boat.setXLoc(boat.getXLoc() - 30);
-    		view.animate();
+    		Boatview.animate();
     		boat.setXLoc(boat.getXLoc() - 30);
     		boat.setSpeed(0);
     		break;
@@ -200,6 +202,12 @@ public class BoatController implements ActionListener{
 	
 	public static void turnRightAction(){
 		boat.turnRight();
+	}
+
+	public static void stopTimers() {
+		timer.stop();
+		powerUpTimer.stop();
+		secondTimer.stop();
 	}
 
 }
