@@ -269,7 +269,7 @@ public class Board {
 				player.setStarted(!checkCollision());
 			}
 			
-		}else if(!player.getFinished()){
+		}else if(!player.getFinished() && !CrabController.getIsItGracePeriod()){
 			setProgress(0);
 		}
 	}
