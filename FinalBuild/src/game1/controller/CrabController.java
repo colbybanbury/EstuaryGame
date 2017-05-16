@@ -314,6 +314,7 @@ public class CrabController implements ActionListener{
 
 		timer.start();
 		
+		@SuppressWarnings("unused")
 		CrabController c1 = new CrabController();
 	}
 
