@@ -31,6 +31,7 @@ public class CrabView extends JPanel{
 	public static JButton answer2 = new JButton("");
 	public static JButton answer3 = new JButton("");
 	public static JButton mainMenu = new JButton("");
+	public static JButton replay = new JButton("");
 	
 	private BufferedImage[] crabImage;
 	private BufferedImage[] enemyImage;
@@ -110,11 +111,28 @@ public class CrabView extends JPanel{
 			}
 		});
 		
+		replay.setContentAreaFilled(true);
+		replay.setBorderPainted(true);
+		replay.setEnabled(true);
+		replay.setFont(replay.getFont().deriveFont(replay.getFont().getStyle(),48));
+		replay.setText("REPLAY");
+		replay.setBackground(Color.WHITE);
+		replay.setBounds((CrabController.board.getWidth()/2) - 500, CrabController.board.getHeight() - 140 , 1000, 80);
+		replay.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				CrabController.replayGame(frame);
+			}
+		});
+		
 		frame.add(jump);
 		frame.add(answer1);
 		frame.add(answer2);
 		frame.add(answer3);
 		frame.add(mainMenu);
+		frame.add(replay);
+		
+		jump.setEnabled(true);
+		jump.setVisible(true);
 		
 		answer1.setEnabled(false);
 		answer1.setVisible(false);
@@ -127,6 +145,9 @@ public class CrabView extends JPanel{
 		
 		mainMenu.setEnabled(false);
 		mainMenu.setVisible(false);
+		
+		replay.setEnabled(false);
+		replay.setVisible(false);
 		
 		frame.getContentPane().add(this);
 		frame.setBackground(Color.BLUE);
@@ -222,6 +243,9 @@ public class CrabView extends JPanel{
 			
 			mainMenu.setEnabled(true);
 			mainMenu.setVisible(true);
+			
+			replay.setEnabled(true);
+			replay.setVisible(true);
 			
 			//Add Replay button, oh boy
 			
