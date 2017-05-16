@@ -219,10 +219,12 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 		System.out.println("Entered moved all cubes");
 				//add TextField
 		    	this.add(storyField);
+		    	storyField.setVisible(true);
 		    	
 		    	
 		    	//add submit button
 		    	this.add(submitButton);
+		    	submitButton.setVisible(true);
 		    
 		    	//add space at bottom
 		    	this.add(Box.createRigidArea(new Dimension(0,100)));
@@ -324,9 +326,12 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 			board.shuffle(numPics);
 			storyField.setText("Enter your story here");
 			storyText.setText("");
-			repaint();
 			storyText.setVisible(false);
-			//storyField.setVisible(false);
+			storyField.setVisible(false);
+			submitButton.setVisible(false);
+			repaint();
+			
+			
 		}
 	}//class RollAction
 	class SubmitAction implements ActionListener{
@@ -337,6 +342,7 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 			ans=storyField.getText();
 	    	storyText.setText(ans);
 			System.out.println("ANSWER IS: "+ans);
+			storyText.setVisible(true);
 			repaint();
 		}
 	}//class SubmitAction
