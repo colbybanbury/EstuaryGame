@@ -76,8 +76,8 @@ public class Boat {
 		if (this.getSpeed() > threshold){
 			System.out.println("generated Wake");
 			//damage scales based on how much you are above the threshold
-			curEstuary.damage((this.getSpeed()- threshold)/DAMAGE_SCALE + 1);
-			return (this.getSpeed()- threshold)/DAMAGE_SCALE + 1;
+			return curEstuary.damage((this.getSpeed()- threshold)/DAMAGE_SCALE + 1);
+			
 		}
 		return 0;
 	}
