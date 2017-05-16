@@ -213,4 +213,29 @@ public class BoardTest {
 		assertEquals(l1.size(), 2);
 	}
 
+	@Test
+	public void rectangleUpdate2(){
+		Board b1 = new Board(1000, 1000);
+		Player p1 = b1.player;
+		List<Rectangle> l1 = b1.scentTrail;
+		p1.setStarted(true);
+		b1.drought();
+		assertEquals(l1.size(), 1);
+		b1.rectangleUpdate();
+		assertEquals(l1.size(), 2);
+		b1.stopDrought();
+	}
+	
+	@Test
+	public void rectangleUpdate3(){
+		Board b1 = new Board(1000, 1000);
+		Player p1 = b1.player;
+		List<Rectangle> l1 = b1.scentTrail;
+		p1.setStarted(true);
+		b1.storm();
+		assertEquals(l1.size(), 1);
+		b1.rectangleUpdate();
+		assertEquals(l1.size(), 2);
+		b1.stopStorm();
+	}
 }
