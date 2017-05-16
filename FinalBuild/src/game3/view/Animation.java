@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.Rectangle;
+import java.awt.TextField;
 import java.awt.Toolkit;
 import java.awt.Color;
 import java.awt.Component;
@@ -54,7 +55,7 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 	int selectedImage;
 	private String ans="";
 	JLabel storyText=new JLabel();
-	JTextField storyField=new JTextField("Enter your story here",1);
+	JTextField storyField=new JTextField("Enter your story here",10);
 	
 	@Override
 	public void paintComponent(Graphics g){
@@ -124,7 +125,7 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 		JFrame frame = new JFrame();
 		System.out.println("created jframe");
 		setMaximumSize(new Dimension(frameWidth,frameHeight));
-		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		System.out.println("set layout");
     	
     	Font f = new Font("Dialog", Font.PLAIN, 45);
@@ -137,6 +138,7 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
     	//add TextField
     	storyField.setFont(y);
     	this.add(storyField);
+    	storyField.setAlignmentX(Component.CENTER_ALIGNMENT);
     	storyField.setPreferredSize(new Dimension(800,45));
     	storyField.setMaximumSize(new Dimension(800,45));
     	
@@ -146,14 +148,14 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
     	//add submit button
 		JButton submitButton=new JButton("SUBMIT STORY");
 		submitButton.setFont(bold);
+		submitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		submitButton.setPreferredSize(new Dimension(200,40));
     	submitButton.setMaximumSize(new Dimension(200,40));
-		submitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		ActionListener submitListener=new SubmitAction();
-		submitButton.addActionListener(submitListener);
+    	ActionListener submitListener=new SubmitAction();
+    	submitButton.addActionListener(submitListener);
     	this.add(submitButton);
     	
-    	//add text box
+    	//add story text box
     	storyText.setFont(f);
     	this.add(storyText);
     	storyText.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -318,7 +320,6 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 		
 			System.out.println("Submit clicked");
 			ans=storyField.getText();
-			storyField.setText("");
 	    	storyText.setText(ans);
 			System.out.println("ANSWER IS: "+ans);
 			repaint();

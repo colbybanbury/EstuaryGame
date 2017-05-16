@@ -64,6 +64,7 @@ public class BoatView extends JPanel{
 	JPanel panel;
 	
 	public static JButton menuButton = new JButton("MENU");
+	public static JButton replayButton = new JButton("REPLAY");
 	
 	public BoatView(int w, int h){
 		/**
@@ -95,7 +96,7 @@ public class BoatView extends JPanel{
 		});
 		
 		
-		menuButton.setBounds(frameWidth/2 - frameWidth/12, frameHeight*8/12, frameWidth/6, frameHeight/6);
+		menuButton.setBounds(frameWidth/2 - frameWidth/6 - 5, frameHeight*8/12, frameWidth/6, frameHeight/6);
 		menuButton.setContentAreaFilled(true);
 		menuButton.setBorderPainted(true);
 		menuButton.setEnabled(true);
@@ -111,15 +112,35 @@ public class BoatView extends JPanel{
 			}
 		});
 		
+		replayButton.setBounds(frameWidth/2 + 5, frameHeight*8/12, frameWidth/6, frameHeight/6);
+		replayButton.setContentAreaFilled(true);
+		replayButton.setBorderPainted(true);
+		replayButton.setEnabled(true);
+		replayButton.setFont(replayButton.getFont().deriveFont(replayButton.getFont().getStyle(),30));
+		replayButton.setText("REPLAY");
+		replayButton.setBackground(Color.GRAY);
+		replayButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				BoatController.stopTimers();
+				frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+				frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+				BoatController b1 = new BoatController();
+			}
+		});
+		
 		frame.add(menuButton);
+		frame.add(replayButton);
+		
 		menuButton.setEnabled(false);
 		menuButton.setVisible(false);
+		replayButton.setEnabled(false);
+		replayButton.setVisible(false);
 		
 		panel.setFocusable(true);
         panel.requestFocusInWindow();
 		
-		loadImages();
-		
+		loadImages();		
 		
 		frame.getContentPane().add(this);
 		frame.setBackground(Color.BLUE);
@@ -170,8 +191,8 @@ public class BoatView extends JPanel{
 		for(int j = 0; j < BoatController.Boatboard.getLapDivisions(); j++){
 			Estuary e = BoatController.Boatboard.getLapPath()[j];
 			double tempTheta = (2*Math.PI*j) / BoatController.Boatboard.getLapDivisions();
-			int tempX =   (int) (BoatController.Boatboard.getWidth()/2 + (BoatController.Boatboard.getRadius()+100) * Math.cos(tempTheta));
-			int tempY = (int) (BoatController.Boatboard.getHeight()/2 + (BoatController.Boatboard.getRadius()+100) * Math.sin(tempTheta));
+			int tempX =   (int) (BoatController.Boatboard.getWidth()/2 + (BoatController.Boatboard.getRadius()+150) * Math.cos(tempTheta));
+			int tempY = (int) (BoatController.Boatboard.getHeight()/2 + (BoatController.Boatboard.getRadius()+150) * Math.sin(tempTheta));
 			if(e.getType()!=3){
 				//g.drawImage(estuary, tempX, tempY, this);
 				switch(e.getType()){//draws the protection type on top of the estuary centered
@@ -280,6 +301,8 @@ public class BoatView extends JPanel{
 		if(BoatController.end){
 			menuButton.setEnabled(true);
 			menuButton.setVisible(true);
+			replayButton.setEnabled(true);
+			replayButton.setVisible(true);
 			g.setColor(new Color(255, 255, 255, 240));
 			g.fill3DRect(frameWidth/20, frameHeight/20, frameWidth*18/20, frameHeight*16/20, true);
 			g.setColor(new Color(0, 0, 0, 255));
@@ -314,7 +337,7 @@ public class BoatView extends JPanel{
 		boatWake1 = createImage("game2.images/images/boatWake1.gif");//TODO have a better indication of wake
 		boatWake2 = createImage("game2.images/images/boatWake2.gif");
 		backgroundImage = createImage("game2.images/images/tempBackGroundWithLand.jpg");
-		scaledBackground = backgroundImage.getScaledInstance(frameWidth, frameHeight, Image.SCALE_DEFAULT);
+		scaledBackground = backgroundImage.getScaledInstance(frameWidth +100, frameHeight+100, Image.SCALE_DEFAULT);
 		estuary = createImage("game2.images/images/grass_tile.jpg");
 		
 		protections[1][3] = createImage("game2.images/images/seaWall0.png");

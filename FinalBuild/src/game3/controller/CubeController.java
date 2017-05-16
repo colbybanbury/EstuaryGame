@@ -11,15 +11,16 @@ public class CubeController{
 	static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	final static int frameWidth=(int) screenSize.getWidth();
 	final static int frameHeight=(int) screenSize.getHeight();
+	Board board;
 	
 	public CubeController(){
-		Board board=new Board(frameWidth,frameHeight);
+
+		this.board = new Board(frameWidth,frameHeight);
 		Animation animation=new Animation(board);
-	    //animation.paintBoard();
+	    animation.paintBoard();
 	}
+	
 	public static void main(String args[]){
-		CubeController cubeControl=new CubeController();
-		
-		
+		CubeController cubeController = new CubeController();
 	}
 }
