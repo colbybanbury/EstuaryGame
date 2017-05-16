@@ -64,7 +64,7 @@ public class Board {
 		questions.add(new Question("Which of these animals live in an estuary?", "Fish", "Giraffe", "Rhino"));
 		questions.add(new Question("Which of these animals live in an estuary?", "Turtle", "Elephant", "Tiger"));
 		questions.add(new Question("Is an estuary made of...?", "Salt and Fresh Water", "Salt Water", "Fresh Water"));
-		questions.add(new Question("These structures are the best at keeping the estuary from being washed away.", "Gabions", "Sea Walls", "Bulkheads"));
+		questions.add(new Question("  These structures are the best at keeping the estuary from      being washed away.", "Gabions", "Sea Walls", "Bulkheads"));
 		questions.add(new Question("How do crabs find their way to the estuary?", "Smelling the saltiness", "Internal compass", "Asking for directions"));
 		questions.add(new Question("Where do crabs give birth to their young?", "Salt Water", "Fresh Water", "In the Estuary"));
 		questions.add(new Question("In what state are the NERR's located?", "Delaware", "Oklahoma", "Canada"));

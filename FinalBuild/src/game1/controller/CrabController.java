@@ -120,9 +120,16 @@ public class CrabController implements ActionListener{
 			}
 		}else if(e.getSource() == enemyTimer){
 			if(board.player.getStarted()){
-				int doSpawn = rand.nextInt(5);
-				if(doSpawn % 2 == 0){
-					board.enemies.add(new Enemy(board));
+				if(!haventAddedDrought && !haventAddedStorm){
+					int doSpawn = rand.nextInt(10);
+					if(doSpawn >= 2){
+						board.enemies.add(new Enemy(board));
+					}
+				}else{
+					int doSpawn = rand.nextInt(5);
+					if(doSpawn % 2 == 0){
+						board.enemies.add(new Enemy(board));
+					}
 				}
 			}
 		}else if(e.getSource() == timer3){
