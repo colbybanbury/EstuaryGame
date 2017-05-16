@@ -3,8 +3,8 @@ package game1.model;
 import java.awt.Rectangle;
 
 public class Player extends Mover{
-	int picNum = 0;
-	boolean finished = false;
+	int picNum;
+	boolean finished;
 	
 	public Player(Board b){ 
 		this.yVel = 0;
@@ -13,7 +13,8 @@ public class Player extends Mover{
 		this.yAcc = 4.2;
 		this.board = b;
 		this.started = false;
-		
+		this.finished = false;
+		this.picNum = 0;		
 	}
 	
 	@Override
