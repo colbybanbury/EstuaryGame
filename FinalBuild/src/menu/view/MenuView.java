@@ -85,7 +85,7 @@ public class MenuView extends JPanel{
 		game2button.setFont(boatFont);
 		game2button.setFont(game2button.getFont().deriveFont(game2button.getFont().getStyle(),48));
 		game2button.setText("ESTUARY RACER");
-		game2button.setBackground(Color.GREEN);
+		game2button.setBackground(new Color(153, 51, 255, 255));
 		
 		game3button.setContentAreaFilled(true);
 		game3button.setBorderPainted(true);
@@ -93,7 +93,7 @@ public class MenuView extends JPanel{
 		game3button.setFont(cubeFont);
 		game3button.setFont(game3button.getFont().deriveFont(game3button.getFont().getStyle(),38));
 		game3button.setText("Story Cubes");
-		game3button.setBackground(Color.RED);
+		game3button.setBackground(new Color(255, 0, 0, 255));
 		
 		game1button.setBounds(new Rectangle((width-1200)/4, 300, 400, 100));		
 		game2button.setBounds(new Rectangle((width-1200)/2 + 400, 300, 400, 100));		
