@@ -83,7 +83,7 @@ public class Board {
 		questions.add(new Question("Crabs are this type of animal.", "Crustaceans", "Mammals", "Dinosaurs"));
 		questions.add(new Question("Turtles are this type of animal", "Reptiles", "Insects", "Rodents"));
 		questions.add(new Question("Which of these is the name of a fish?", "Sea Bass", "Tony", "Pomegranate"));
-		questions.add(new Question("Which of these is the name of a fish?", "Pickeral", "Grizzly", "Square"));
+		questions.add(new Question("Which of these is the name of a fish?", "Pickerel", "Grizzly", "Square"));
 		questions.add(new Question("Which of these is the name of a fish?", "Trout", "Emerald", "Snapchat"));
 		
 		Collections.shuffle(questions);		
