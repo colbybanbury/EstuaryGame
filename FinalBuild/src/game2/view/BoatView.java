@@ -19,6 +19,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import game2.controller.BoatController;
 import game2.model.Estuary;
+import java.awt.event.ActionEvent;
+
 
 /**
  * 
@@ -102,7 +104,7 @@ public class BoatView extends JPanel{
 		menuButton.setBackground(Color.GRAY);
 		menuButton.addActionListener(new ActionListener(){
 			@Override
-			public void actionPerformed(java.awt.event.ActionEvent e) {
+			public void actionPerformed(ActionEvent e) {
 				BoatController.stopTimers();
 				frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 				frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));

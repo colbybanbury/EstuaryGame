@@ -15,7 +15,6 @@ import game1.model.Player;
 import game1.model.Enemy;
 import game1.model.Friend;
 import game1.view.CrabView;
-import game2.controller.BoatController;
 
 public class CrabController  implements ActionListener{
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -44,14 +43,14 @@ public class CrabController  implements ActionListener{
 	private final int DELAY6 = 15000; // update rate = 15s
 	private final int secDELAY = 1000; // update rate = 1s
 	private final int questionBufferDELAY = 2250; // update rate 2.25 sec
-   	private static boolean canBeAskedAQuestion = false;
-   	private static boolean haventAddedDrought = true;
-   	private static boolean haventAddedStorm = true;
-   	private static boolean isItGracePeriod = false;
-   	private static boolean isItQuestionBuffer = false;
-   	private static boolean answer1Wrong = false;
-   	private static boolean answer2Wrong = false;
-   	private static boolean answer3Wrong = false;
+   	private static boolean canBeAskedAQuestion;
+   	private static boolean haventAddedDrought;
+   	private static boolean haventAddedStorm;
+   	private static boolean isItGracePeriod;
+   	private static boolean isItQuestionBuffer;
+   	private static boolean answer1Wrong;
+   	private static boolean answer2Wrong;
+   	private static boolean answer3Wrong;
    	private static int droughtStatus;
    	private static int stormStatus;
 	private static int gracePeriodCounter;
@@ -86,6 +85,15 @@ public class CrabController  implements ActionListener{
 		CrabController.droughtStatus = 0;
 		CrabController.stormStatus = 0;
 		CrabController.gracePeriodCounter = 0;
+		
+		CrabController.canBeAskedAQuestion = false;
+		CrabController.haventAddedDrought = true;
+		CrabController.haventAddedStorm = true;
+		CrabController.isItGracePeriod = false;
+		CrabController.isItQuestionBuffer = false;
+		CrabController.answer1Wrong = false;
+		CrabController.answer2Wrong = false;
+		CrabController.answer3Wrong = false;
 	}
 
 
@@ -298,6 +306,16 @@ public class CrabController  implements ActionListener{
 		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 	}
+	
+	public static void replayGame(JFrame frame){
+		CrabController.stopTimers();
+		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+
+		timer.start();
+		
+		CrabController c1 = new CrabController();
+	}
 
 	public static boolean getAnswer1Wrong() {
 		return answer1Wrong;
@@ -332,14 +350,23 @@ public class CrabController  implements ActionListener{
 	}
 	
 	public static void stopTimers(){
+		timer.restart();
 		timer.stop();
+		enemyTimer.restart();
 		enemyTimer.stop();
+		timer3.restart();
 		timer3.stop();
+		friendTimer.restart();
 		friendTimer.stop();
+		rectangleTimer.restart();
 		rectangleTimer.stop();
+		droughtTimer.restart();
 		droughtTimer.stop();
+		stormTimer.restart();
 		stormTimer.stop();
+		gracePeriodTimer.restart();
 		gracePeriodTimer.stop();
+		questionBufferTimer.restart();
 		questionBufferTimer.stop();
 	}
 }

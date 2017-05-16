@@ -38,9 +38,10 @@ public class Board {
 	
 	public ArrayList<Question> questions = new ArrayList<Question>();
 	
+	private static boolean isDroughtHappening;
+	private static boolean isStormHappening;
+	
 	public int currQuestion = -1;
-	private static boolean isDroughtHappening = false;
-	private static boolean isStormHappening = false;
 	
 	/**
 	 * Board constructor.
@@ -85,7 +86,10 @@ public class Board {
 		questions.add(new Question("Which of these is the name of a fish?", "Pickeral", "Grizzly", "Square"));
 		questions.add(new Question("Which of these is the name of a fish?", "Trout", "Emerald", "Snapchat"));
 		
-		Collections.shuffle(questions);
+		Collections.shuffle(questions);		
+
+		Board.isDroughtHappening = false;
+		Board.isStormHappening = false;
 		
 	}
 	
