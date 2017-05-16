@@ -19,7 +19,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import game2.controller.BoatController;
 import game2.model.Estuary;
-import javafx.event.ActionEvent;
 
 /**
  * 
@@ -94,13 +93,13 @@ public class BoatView extends JPanel{
 		});
 		
 		
-		menuButton.setBounds(frameWidth*6/20, frameHeight*8/12, frameWidth/6, frameHeight/6);
+		menuButton.setBounds(frameWidth/2 - frameWidth/12, frameHeight*8/12, frameWidth/6, frameHeight/6);
 		menuButton.setContentAreaFilled(true);
 		menuButton.setBorderPainted(true);
 		menuButton.setEnabled(true);
 		menuButton.setFont(menuButton.getFont().deriveFont(menuButton.getFont().getStyle(),30));
 		menuButton.setText("MENU");
-		menuButton.setBackground(Color.BLUE);
+		menuButton.setBackground(Color.GRAY);
 		menuButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -283,12 +282,12 @@ public class BoatView extends JPanel{
 			g.fill3DRect(frameWidth/20, frameHeight/20, frameWidth*18/20, frameHeight*16/20, true);
 			g.setColor(new Color(0, 0, 0, 255));
 			g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),52));
-			g.drawString("Time limit reached", frameWidth/4, frameHeight*2/12);
+			g.drawString("Time Limit Reached", frameWidth/4, frameHeight*2/12);
+			g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),48));
 			g.drawString("Laps Completed: " + BoatController.Boatgame.getLap().toString(), frameWidth/4, frameHeight*4/12);
 			g.drawString("Score Before Penalty: " + BoatController.Boatgame.getScore().toString(), frameWidth/4, frameHeight*5/12);
 			g.drawString("Score Penalty to Estuary Damage: "+ BoatController.Boatgame.getDamagePenalty().toString(), frameWidth/4, frameHeight*6/12);
 			g.drawString("Final Score: " + (BoatController.Boatgame.getScore() - BoatController.Boatgame.getDamagePenalty()), frameWidth/4, frameHeight*7/12);
-			//g.drawString("Press SPACE to Return to the Menu", frameWidth/4, frameHeight*11/12);
 		}
 
 		g.setColor(new Color(0,0,0,255));
