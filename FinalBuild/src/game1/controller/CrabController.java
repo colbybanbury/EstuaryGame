@@ -16,7 +16,7 @@ import game1.model.Enemy;
 import game1.model.Friend;
 import game1.view.CrabView;
 
-public class CrabController  implements ActionListener{
+public class CrabController implements ActionListener{
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
 	final int HEIGHT = (int)screenSize.getHeight();
