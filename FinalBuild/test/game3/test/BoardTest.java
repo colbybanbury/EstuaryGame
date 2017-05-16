@@ -16,7 +16,7 @@ public class BoardTest {
 		for (Cube c : b.getCubes()){
 			assertTrue(c.getPicNum() < 12);
 			assertEquals(c.getLocation().getX(), 10+ c.getCubeNum() * (b.getWidth()-20) / Board.NUM_CUBES, 0.01); 
-			assertEquals(c.getLocation().getY(), b.getHeight() / 2, 0.01);
+			assertEquals(c.getLocation().getY(), b.getHeight() *5/9, 0.01);
 		}
 	}
 
