@@ -42,7 +42,7 @@ public class CrabController implements ActionListener{
 	private final int DELAY5 = 6000; // update rate = 5s
 	private final int DELAY6 = 15000; // update rate = 15s
 	private final int secDELAY = 1000; // update rate = 1s
-	private final int questionBufferDELAY = 2250; // update rate 2.25 sec
+	private final int questionBufferDELAY = 4000; // update rate 4 sec
    	private static boolean canBeAskedAQuestion;
    	private static boolean haventAddedDrought;
    	private static boolean haventAddedStorm;
