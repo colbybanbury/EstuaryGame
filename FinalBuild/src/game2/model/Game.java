@@ -1,5 +1,9 @@
 package game2.model;
 
+/**
+ * @author colby
+ *
+ */
 public class Game {
 	/**
 	 * This class is used to keep track of scoring and timing, and transforming the project from
@@ -57,5 +61,9 @@ public class Game {
 	public Integer getDamagePenalty(){
 		return damagePenalty;
 	}
+	public void setDamagePenalty(Integer damagePenalty) {
+		this.damagePenalty = damagePenalty;
+	}
+	
 	
 }

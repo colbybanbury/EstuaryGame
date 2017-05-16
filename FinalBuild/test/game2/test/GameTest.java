@@ -25,6 +25,8 @@ public class GameTest {
 		assertEquals((int)g1.getDamagePenalty(), 0);
 		g1.increaseDamagePenalty(2);
 		assertEquals((int)g1.getDamagePenalty(), 2);
+		g1.setDamagePenalty(0);
+		assertEquals((int)g1.getDamagePenalty(), 0);
 	}
 	@Test
 	public void timeTest(){

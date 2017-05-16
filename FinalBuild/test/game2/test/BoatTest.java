@@ -145,12 +145,12 @@ public class BoatTest {
 			System.out.println(b1.getSpeed());
 			if (b1.getSpeed() > threshold){
 				damage+=(b1.getSpeed()- threshold)/Boat.DAMAGE_SCALE + 1;
-				assertTrue(b1.generateWake(e1));
+				assertTrue(b1.generateWake(e1)!=0);
 				System.out.println(((b1.getSpeed()- threshold)/Boat.DAMAGE_SCALE + 1) + " vs " + e1.getDamage());
 				assertEquals(damage, e1.getDamage());
 			}
 			else {
-				assertFalse(b1.generateWake(e1));
+				assertFalse(b1.generateWake(e1)!=0);
 				assertEquals(damage, e1.getDamage());
 			}
 			damage = e1.getDamage();
