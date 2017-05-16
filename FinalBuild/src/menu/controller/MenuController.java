@@ -24,7 +24,7 @@ public class MenuController implements ActionListener{
 	public static MenuView menuView;
 	
 	public MenuController(){
-		MenuController.menuView = new MenuView(frameWidth, frameHeight, this);
+		MenuController.menuView = new MenuView(frameWidth, frameHeight);
 		
 		this.tick = new Timer(100, this); // .1 sec
 	}
