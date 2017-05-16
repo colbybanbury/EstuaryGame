@@ -57,6 +57,12 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 	JLabel storyText=new JLabel();
 	JTextField storyField=new JTextField("Enter your story here",10);
 	
+	///////
+	
+	JFrame frame = new JFrame();
+	
+	///////
+	
 	@Override
 	public void paintComponent(Graphics g){
 		System.out.println("entered paintComponent");
@@ -117,13 +123,9 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
     	}
     	backgroundImage = createImage("game3.images/tempBackGround.jpg");
     	
-    	paintBoard();
-	}
-	
-	public void paintBoard(){
-		System.out.println("entered paintboard()");
-		JFrame frame = new JFrame();
-		System.out.println("created jframe");
+    	///////
+    	
+		//System.out.println("created jframe");
 		setMaximumSize(new Dimension(frameWidth,frameHeight));
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		System.out.println("set layout");
@@ -189,6 +191,15 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
     	frame.setVisible(true);
     	System.out.println("made frame visible");
     	
+    	///////
+	}
+	
+	public void paintBoard(){
+		System.out.println("entered paintboard()");
+    	
+		///////
+		
+		
     	for(int i = 0; i < 1000; i++){
     		frame.revalidate();
     		System.out.println("about to paint");
