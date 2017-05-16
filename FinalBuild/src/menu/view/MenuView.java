@@ -20,6 +20,7 @@ public class MenuView extends JPanel{
 	private Font crabFont;
 	private Font boatFont;
 	private Font cubeFont;
+	private Font titleFont;
 	
 	private static JButton game1button = new JButton("");
 	private static JButton game2button = new JButton("");
@@ -70,6 +71,18 @@ public class MenuView extends JPanel{
         GraphicsEnvironment ge3 =
             GraphicsEnvironment.getLocalGraphicsEnvironment();
         ge3.registerFont(cubeFont);
+        
+        try {
+			this.titleFont = Font.createFont(Font.TRUETYPE_FONT, (new File("game1.fonts/palamecia titling.ttf")));
+		} catch (FontFormatException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+        this.titleFont = titleFont.deriveFont(Font.PLAIN,20);
+        GraphicsEnvironment ge4 =
+            GraphicsEnvironment.getLocalGraphicsEnvironment();
+        ge4.registerFont(titleFont);
 		
 		game1button.setContentAreaFilled(true);
 		game1button.setBorderPainted(true);
@@ -145,10 +158,11 @@ public class MenuView extends JPanel{
 	public void paint(Graphics g){
 		g.drawImage(scaledBackground, 0, 0, null);	
 
-		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),90));		
+		g.setFont(titleFont);
+		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),160));
 		int titleLength = g.getFontMetrics().stringWidth("CHOOSE A GAME");	
 		
-		g.drawString("CHOOSE A GAME", (frameWidth - titleLength)/2, 140);
+		g.drawString("CHOOSE A GAME", (frameWidth - titleLength)/2, 160);
 	}
 	
 	private void loadImages(){
