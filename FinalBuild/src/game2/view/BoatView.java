@@ -191,8 +191,8 @@ public class BoatView extends JPanel{
 		for(int j = 0; j < BoatController.Boatboard.getLapDivisions(); j++){
 			Estuary e = BoatController.Boatboard.getLapPath()[j];
 			double tempTheta = (2*Math.PI*j) / BoatController.Boatboard.getLapDivisions();
-			int tempX =   (int) (BoatController.Boatboard.getWidth()/2 + (BoatController.Boatboard.getRadius()+150) * Math.cos(tempTheta));
-			int tempY = (int) (BoatController.Boatboard.getHeight()/2 + (BoatController.Boatboard.getRadius()+150) * Math.sin(tempTheta));
+			int tempX =   (int) (BoatController.Boatboard.getWidth()/2 + (BoatController.Boatboard.getRadius()*14/10) * Math.cos(tempTheta));
+			int tempY = (int) (BoatController.Boatboard.getHeight()/2 + (BoatController.Boatboard.getRadius()*14/10) * Math.sin(tempTheta));
 			if(e.getType()!=3){
 				//g.drawImage(estuary, tempX, tempY, this);
 				switch(e.getType()){//draws the protection type on top of the estuary centered
@@ -265,7 +265,7 @@ public class BoatView extends JPanel{
 		g.setColor(new Color(0, 0, 0, 255));
 		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),40));
 		g.drawString("POWER UPS:", frameWidth/42, frameHeight*4/16);
-		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),24));
+		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),20));
 		g.drawString("Pick up oysters to build", frameWidth/42, frameHeight*6/16);
 		g.drawString("gabions and score points", frameWidth/42, frameHeight*13/32);
 		g.drawImage(oyster, frameWidth/38, frameHeight*5/16, this);
@@ -281,7 +281,7 @@ public class BoatView extends JPanel{
 		g.setColor(new Color(0, 0, 0, 255));
 		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),40));
 		g.drawString("Controls:", frameWidth/42, frameHeight*4/16 + shift);
-		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),24));
+		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),20));
 		g.drawString("Press SPACE to throttle", frameWidth/42, frameHeight*5/16 + shift);
 		g.drawString("Press The LEFT", frameWidth/42, frameHeight*6/16 + shift);
 		g.drawString("and RIGTH Keys to turn", frameWidth/42, frameHeight*13/32 + shift);
@@ -294,7 +294,7 @@ public class BoatView extends JPanel{
 		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),40));
 		g.drawString("Estuary", frameWidth* 33 /42, frameHeight*4/16);
 		g.drawString(" Protection:", frameWidth* 33 /42, frameHeight*9/32);
-		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),24));
+		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),20));
 		g.drawString("Gabions last longer", frameWidth *33 /42, frameHeight*6/16);
 		g.drawString("and are less invasive", frameWidth*33 /42, frameHeight*13/32);
 		g.drawImage(protections[2][3], frameWidth*32/38, frameHeight*5/16, this);
