@@ -325,6 +325,8 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 			storyField.setText("Enter your story here");
 			storyText.setText("");
 			repaint();
+			storyText.setVisible(false);
+			//storyField.setVisible(false);
 		}
 	}//class RollAction
 	class SubmitAction implements ActionListener{
