@@ -55,7 +55,10 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 	int selectedImage;
 	private String ans="";
 	JLabel storyText=new JLabel();
-	JTextField storyField=new JTextField("Enter your story here",10);
+	JTextField storyField=new JTextField("Enter your story here",20);
+	JButton rollButton=new JButton("ROLL");
+	JButton submitButton=new JButton("SUBMIT STORY");
+	private boolean filled=false;
 	
 	///////
 	
@@ -123,13 +126,11 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
     	}
     	backgroundImage = createImage("game3.images/tempBackGround.jpg");
     	
-    	///////
     	
-		//System.out.println("created jframe");
-		setMaximumSize(new Dimension(frameWidth,frameHeight));
+		
+		this.setMaximumSize(new Dimension(frameWidth,frameHeight));
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-		System.out.println("set layout");
-    	
+		
     	Font f = new Font("Dialog", Font.PLAIN, 45);
     	Font y = new Font("Dialog", Font.PLAIN, 18);
     	Font bold = new Font("Dialog", Font.BOLD, 20);
@@ -137,25 +138,17 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
     	//add space at top
     	add(Box.createRigidArea(new Dimension(0,15)));
     	
-    	//add TextField
-    	storyField.setFont(y);
-    	this.add(storyField);
-    	storyField.setAlignmentX(Component.CENTER_ALIGNMENT);
-    	storyField.setPreferredSize(new Dimension(800,45));
-    	storyField.setMaximumSize(new Dimension(800,45));
+    	//add roll button
+    	rollButton.setPreferredSize(new Dimension(100,40));
+    	rollButton.setMaximumSize(new Dimension(100,40));
+    	rollButton.setFont(bold);
+    	rollButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+    	ActionListener rollListener=new RollAction();
+    	rollButton.addActionListener(rollListener);
+    	this.add(rollButton);
     	
     	//add space 
-    	this.add(Box.createRigidArea(new Dimension(0,10)));
-    	
-    	//add submit button
-		JButton submitButton=new JButton("SUBMIT STORY");
-		submitButton.setFont(bold);
-		submitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		submitButton.setPreferredSize(new Dimension(200,40));
-    	submitButton.setMaximumSize(new Dimension(200,40));
-    	ActionListener submitListener=new SubmitAction();
-    	submitButton.addActionListener(submitListener);
-    	this.add(submitButton);
+    	this.add(Box.createRigidArea(new Dimension(0,50)));
     	
     	//add story text box
     	storyText.setFont(f);
@@ -163,19 +156,22 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
     	storyText.setAlignmentX(Component.CENTER_ALIGNMENT);
     	storyText.setForeground(Color.WHITE);
     	
-    	//add roll button
-    	JButton rollButton=new JButton("ROLL");
-    	rollButton.setPreferredSize(new Dimension(100,40));
-    	rollButton.setMaximumSize(new Dimension(100,40));
-    	rollButton.setFont(bold);
-    	rollButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-    	ActionListener rollListener=new RollAction();
-    	rollButton.addActionListener(rollListener);
+    	//make next ones appear at bottom
     	this.add(Box.createVerticalGlue());
-    	this.add(rollButton);
     	
-    	//add space at bottom
-    	this.add(Box.createRigidArea(new Dimension(0,20)));
+    	//define story field
+    	storyField.setFont(new Font("Dialog", Font.PLAIN, 18));
+    	storyField.setAlignmentX(Component.CENTER_ALIGNMENT);
+    	storyField.setPreferredSize(new Dimension(1200,150));
+    	storyField.setMaximumSize(new Dimension(1200,150));
+    	
+    	//define submit button
+    	submitButton.setFont(new Font("Dialog", Font.BOLD, 20));
+		submitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		submitButton.setPreferredSize(new Dimension(200,40));
+    	submitButton.setMaximumSize(new Dimension(200,40));
+    	ActionListener submitListener=new SubmitAction();
+    	submitButton.addActionListener(submitListener);
     	
     	//add mouse motion listener
     	frame.addMouseListener(this);
@@ -225,16 +221,19 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 		return null;
 	}
 	
-	public void rollCubes(){
-		/*board.shuffle(numPics);
+	public void movedAllCubes(){
 		
-		try {
-			Thread.sleep(100);
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		repaint();*/
+		System.out.println("Entered moved all cubes");
+				//add TextField
+		    	this.add(storyField);
+		    	
+		    	
+		    	//add submit button
+		    	this.add(submitButton);
+		    
+		    	//add space at bottom
+		    	this.add(Box.createRigidArea(new Dimension(0,100)));
+			
 	}
 	
 	@Override
@@ -301,8 +300,18 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 		for(int z=0;z<Board.NUM_CUBES;z++){
 			if(curX>(10+z*(board.getWidth()-20)/Board.NUM_CUBES) && curX<(10+z*(board.getWidth()-20)/Board.NUM_CUBES)+board.getCubes().get(selectedImage).getSideLength() && curY>board.getHeight()/4 && curY<(board.getHeight()/4+board.getCubes().get(selectedImage).getSideLength()))
 				board.getCubes().get(selectedImage).changeLocation(10+z*(board.getWidth()-20)/Board.NUM_CUBES,board.getHeight()/4);
-			repaint();
+			
 		}
+		filled=true;
+		for(Cube c:board.getCubes()){
+			if(Math.abs(c.getLocation().getY()-board.getHeight()/4)>=20){
+				filled=false;
+			}
+		}
+		if(filled)
+			movedAllCubes();
+		revalidate();
+		repaint();
 	}
 	
 	@Override
