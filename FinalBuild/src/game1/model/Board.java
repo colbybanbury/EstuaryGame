@@ -28,7 +28,7 @@ public class Board {
 	int waveDirection = 1; // 1 = up, -1 = down
 	public List<Rectangle> scentTrail = new ArrayList<Rectangle>(scentTrailDiv);
 	double progress = 0;
-	double[] progressArray = {-1.1, -0.8, -0.5, -0.2, -0.1, 0, 0.1, 0.2, 0.5, 0.8, 1.1};
+	double[] progressArray = {-1.1, -0.8, -0.5, -0.2, -0.1, 0, 0.3, 0.5, 0.9, 1.5, 1.9};
 	public int friendCounter;
 	public String[] facts = {"Welcome to Crab Run! Press SPACE to Jump.", 
 							"The goal of this game is to fill up the progress bar above.", 
