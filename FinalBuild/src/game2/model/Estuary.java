@@ -38,21 +38,26 @@ public class Estuary{
 		}
 	}
 	
-	public void damage(int wakeDamage){
+	public int damage(int wakeDamage){
 		/**
 		 * updates integrity of the wall and returns the damage left over
 		 * @param wakeDamage amount of damage to add to the estuary
 		 */
 		
 		if(type!=3){	//if it's not open water
-			if(integrity>wakeDamage)
+			if(integrity>wakeDamage){
 				integrity -= wakeDamage;
+				return 0;
+			}
 			else{
-				damage += wakeDamage - integrity;
+				int tempDamage = wakeDamage - integrity;
+				damage += tempDamage;
 				integrity = 0;
 				type = 0;
+				return tempDamage;
 			}
 		}
+		return 0;
 	}
 	
 	public int getDamage() {

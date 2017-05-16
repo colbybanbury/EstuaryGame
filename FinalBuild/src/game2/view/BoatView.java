@@ -239,7 +239,7 @@ public class BoatView extends JPanel{
 		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),48));
 		
 		
-		g.drawString("Score: " + BoatController.Boatgame.getScore().toString(), frameWidth/45, frameHeight/20);
+		g.drawString("Score: " + (BoatController.Boatgame.getScore() - BoatController.Boatgame.getDamagePenalty()), frameWidth/45, frameHeight/20);
 		g.drawString("Time: " + BoatController.Boatgame.getTime().toString(), frameWidth/45, frameHeight/20 + 40);
 		//TODO improve background to actually have land around the estuaries
 		
@@ -262,11 +262,11 @@ public class BoatView extends JPanel{
 		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),40));
 		g.drawString("POWER UPS:", frameWidth/42, frameHeight*4/16);
 		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),24));
-		g.drawString("Pick up Oysters to", frameWidth/42, frameHeight*6/16);
-		g.drawString("Build Gabions", frameWidth/42, frameHeight*13/32);
+		g.drawString("Pick up oysters to build", frameWidth/42, frameHeight*6/16);
+		g.drawString("gabions and score points", frameWidth/42, frameHeight*13/32);
 		g.drawImage(oyster, frameWidth/38, frameHeight*5/16, this);
-		g.drawString("Pick up Sea Grass to", frameWidth/42, frameHeight*8/16);
-		g.drawString("Undo Estuary Damage", frameWidth/42, frameHeight*17/32);
+		g.drawString("Pick up sea grass to", frameWidth/42, frameHeight*8/16);
+		g.drawString("undo estuary damage", frameWidth/42, frameHeight*17/32);
 		g.drawImage(seaGrass, frameWidth/38, frameHeight*7/16, this);
 		
 		int shift = frameHeight*4/10; //height difference of the two games
@@ -278,9 +278,9 @@ public class BoatView extends JPanel{
 		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),40));
 		g.drawString("Controls:", frameWidth/42, frameHeight*4/16 + shift);
 		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),24));
-		g.drawString("Press SPACE to Throttle", frameWidth/42, frameHeight*5/16 + shift);
+		g.drawString("Press SPACE to throttle", frameWidth/42, frameHeight*5/16 + shift);
 		g.drawString("Press The LEFT", frameWidth/42, frameHeight*6/16 + shift);
-		g.drawString("and RIGTH Keys to Turn", frameWidth/42, frameHeight*13/32 + shift);
+		g.drawString("and RIGTH Keys to turn", frameWidth/42, frameHeight*13/32 + shift);
 	
 		
 		//Power Ups Key
@@ -294,8 +294,8 @@ public class BoatView extends JPanel{
 		g.drawString("Gabions last longer", frameWidth *33 /42, frameHeight*6/16);
 		g.drawString("and are less invasive", frameWidth*33 /42, frameHeight*13/32);
 		g.drawImage(protections[2][3], frameWidth*32/38, frameHeight*5/16, this);
-		g.drawString("SeaWalls don't last as long", frameWidth *33 /42, frameHeight*8/16);
-		g.drawString("and disrupt the Esutuary more", frameWidth*33 /42, frameHeight*17/32);
+		g.drawString("SeaWalls erode faster", frameWidth *33 /42, frameHeight*8/16);
+		g.drawString("and disrupt the esutuary", frameWidth*33 /42, frameHeight*17/32);
 		g.drawImage(protections[1][3], frameWidth*32 /38, frameHeight*7/16, this);
 		
 		if(BoatController.end){
@@ -337,7 +337,7 @@ public class BoatView extends JPanel{
 		boatWake1 = createImage("game2.images/images/boatWake1.gif");//TODO have a better indication of wake
 		boatWake2 = createImage("game2.images/images/boatWake2.gif");
 		backgroundImage = createImage("game2.images/images/tempBackGroundWithLand.jpg");
-		scaledBackground = backgroundImage.getScaledInstance(frameWidth +100, frameHeight+100, Image.SCALE_DEFAULT);
+		scaledBackground = backgroundImage.getScaledInstance(frameWidth*110/100, frameHeight*110/100, Image.SCALE_DEFAULT);
 		estuary = createImage("game2.images/images/grass_tile.jpg");
 		
 		protections[1][3] = createImage("game2.images/images/seaWall0.png");

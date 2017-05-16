@@ -91,7 +91,7 @@ public class BoatController implements ActionListener{
 		System.out.println("currently on estuary # " +(boat.getXLoc()*Boatboard.getLapDivisions())/Boatboard.getLapLength());
 		curEstuary = Boatboard.getLapPath()[(boat.getXLoc()*Boatboard.getLapDivisions())/Boatboard.getLapLength()];
 		//^finds current estuary. curEsutuary = (xLoc * estuaryCount)/lapLength)
-		boat.generateWake(curEstuary); //can return a boolean if it damages it if necessary
+		Boatgame.increaseDamagePenalty(boat.generateWake(curEstuary)); //can return a boolean if it damages it if necessary
 		Boatview.animate();
 		
 		checkCollision();
@@ -143,11 +143,6 @@ public class BoatController implements ActionListener{
 			if(Boatgame.getTime() <= 0){
 				secondTimer.stop();
 				end = true;
-				Estuary[] lapPath = Boatboard.getLapPath();
-				for (int i = 0; i < lapPath.length; i++){
-					Boatgame.increaseDamagePenalty(lapPath[i].getDamage() * 10);
-					
-				}
 			}
 		}
     }
@@ -185,6 +180,7 @@ public class BoatController implements ActionListener{
     	System.out.println("boat is at powerUP["+(boat.getXLoc()*Boatboard.getLapDivisions())/Boatboard.getLapLength()+"][" + (int) ((boat.getRadiusScale() - 0.8)*7.5) +"]" );
     	switch(curPowerUp){
     	case OYSTER:
+    		Boatgame.increaseScore(20);
     		System.out.println("picked up an Oyster");
     		Boatboard.getPowerUps()[rowNum][columnNum] = POWER_UP.NONE;
     		//activates oyster power up
@@ -205,6 +201,7 @@ public class BoatController implements ActionListener{
     		//activates sea grass
     		for(Estuary e: Boatboard.getLapPath()){
     			e.setDamage(0);//resets the damage on all of the Estuaries
+    			Boatgame.setDamagePenalty(0);
     		}
     		break;
     	case ROCK:
