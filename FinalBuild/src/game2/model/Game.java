@@ -6,7 +6,7 @@ public class Game {
 	 * a working model into a game with objectives.
 	 */
 	Integer score = 0;
-	Integer time = 5; // one minutes?
+	Integer time = 60; // one minutes?
 	Integer lap = 0;
 	Integer damagePenalty = 0;
 	

@@ -2,6 +2,9 @@ package game1.test;
 
 import static org.junit.Assert.*;
 
+import java.awt.Rectangle;
+import java.util.List;
+
 import org.junit.Test;
 import game1.controller.CrabController;
 import game1.model.Player;
@@ -197,6 +200,17 @@ public class BoardTest {
 		e1.setYLoc(350);
 		b1.moverUpdate();
 		assertTrue(p1.getStarted());
+	}
+	
+	@Test
+	public void rectangleUpdate1(){
+		Board b1 = new Board(1000, 1000);
+		Player p1 = b1.player;
+		List<Rectangle> l1 = b1.scentTrail;
+		p1.setStarted(true);
+		assertEquals(l1.size(), 1);
+		b1.rectangleUpdate();
+		assertEquals(l1.size(), 2);
 	}
 
 }
