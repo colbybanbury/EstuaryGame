@@ -16,6 +16,12 @@ import game2.model.Estuary;
 import game2.model.Game;
 import game2.view.BoatView;
 
+/**
+ * 
+ * @author colby
+ *
+ *Controls the Boat Game
+ */
 public class BoatController implements ActionListener{
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	
@@ -44,6 +50,9 @@ public class BoatController implements ActionListener{
 	
 
 	public BoatController(){
+		/**
+		 * initializes the boat game and sets up all the timers
+		 */
 		spawn = true;
 		end = false;
 		wait = 0;
@@ -68,6 +77,10 @@ public class BoatController implements ActionListener{
 	}
 	
 	public void onTick(){
+		/**
+		 * onTick is called when the main timer ticks. It updates the model with move() and calls animate in the view
+		 * It also calls CheckCollision()
+		 */
 		System.out.println("onTick() ran");
 		boat.move();
 		if(boat.getXLoc()>= Boatboard.getLapLength()){
@@ -85,6 +98,9 @@ public class BoatController implements ActionListener{
 	}
 	
 	private void powerUpTick(boolean spawn){
+		/*
+		 * called by the powerUp timer on tick. spawns powerups in a random place
+		 */
 		if(spawn){
 			int a = random.nextInt(Boatboard.getLapDivisions());
 			int b = random.nextInt(3);
@@ -111,6 +127,9 @@ public class BoatController implements ActionListener{
 	
 	@Override
     public void actionPerformed(ActionEvent e) {
+		/**
+		 * handles the timers and has the end condition
+		 */
 		if(e.getSource() == timer){
 			onTick();
 		}
@@ -134,6 +153,9 @@ public class BoatController implements ActionListener{
     }
 	
     public static void keyPressed(KeyEvent e) {
+    	/**
+		 * handles that key presses the get passed up from the view
+		 */
     	int key = e.getKeyCode();
     	if (key == KeyEvent.VK_LEFT) {
     		System.out.println("left key sensed");
@@ -150,6 +172,12 @@ public class BoatController implements ActionListener{
     }
     
     public void checkCollision(){
+    	/**
+		 * checks collisions with power ups.
+		 * oysters spawn more gabions
+		 * seaGrass repairs damage done to estuaries
+		 * rocks repell the boat
+		 */
     	int rowNum = (boat.getXLoc()*Boatboard.getLapDivisions())/Boatboard.getLapLength();
     	int columnNum = (int) ((boat.getRadiusScale() - 0.8)*7.5);
     	//gets what ever powerup is at the boats current location and if there is one there it does whatever it needs to
@@ -204,6 +232,9 @@ public class BoatController implements ActionListener{
 	}
 
 	public static void stopTimers() {
+		/**
+		 * stops all the timers when this game is closed
+		 */
 		timer.stop();
 		powerUpTimer.stop();
 		secondTimer.stop();
