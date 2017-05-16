@@ -359,7 +359,7 @@ public class CrabView extends JPanel{
 				
 				int droughtLength = g.getFontMetrics().stringWidth("DROUGHT APPROACHING");
 				
-				g.drawString("DROUGHT APPROACHING", (CrabController.board.getWidth() - droughtLength) / 2, CrabController.board.getHeight() / 2);
+				g.drawString("DROUGHT INCOMING", (CrabController.board.getWidth() - droughtLength) / 2, CrabController.board.getHeight() / 2);
 			}
 			
 			if(CrabController.getStormStatus() >= 4){			
