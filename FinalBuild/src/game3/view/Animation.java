@@ -12,6 +12,9 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -98,62 +101,21 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 	
 	public Animation(Board b){
 		board=b;
-		String img_list[]={
-				"game3.images/resized/QuestionMark.png",
-				"game3.images/resized/apple.png",
-				"game3.images/resized/banana.png",
-				"game3.images/resized/blackduck_right.png",
-				"game3.images/resized/bluecrab_0.png",
-				"game3.images/resized/bogturtle_left_0.png",
-				"game3.images/resized/can.png",
-				"game3.images/resized/cattails.png",
-				"game3.images/resized/clam_left_1.png",
-				"game3.images/resized/cleanvessel.png",
-				"game3.images/resized/cordgrass.png",
-				"game3.images/resized/crumbledpaper.png",
-				"game3.images/resized/crushedcan.png",
-				"game3.images/resized/deadfish.png",
-				"game3.images/resized/denrec_armsout.png",
-				"game3.images/resized/dirtyvessel.png",
-				"game3.images/resized/fish_bass_left.png",
-				"game3.images/resized/fish_catfish_left_0.png",
-				"game3.images/resized/fish_group_right.png",
-				"game3.images/resized/fish_pickerel_right.png",
-				"game3.images/resized/fish_trout_right.png",
-				"game3.images/resized/fisherman_1.png",
-				"game3.images/resized/fisherman_walk_left_2.png",
-				"game3.images/resized/gabion0.png",
-				"game3.images/resized/horseshoeCrabScientist_happy.png",
-				"game3.images/resized/horseshoeCrabScientist_sad.png",
-				"game3.images/resized/horseshoe_crab_left_1.png",
-				"game3.images/resized/hotrod_vessel.png",
-				"game3.images/resized/leaf.png",
-				"game3.images/resized/mallard_left.png",
-				"game3.images/resized/mittencrab_0.png",
-				"game3.images/resized/mittencrabs_spawn_2.png",
-				"game3.images/resized/oil_spill.png",
-				"game3.images/resized/otter_left.png",
-				"game3.images/resized/researcher_standing.png",
-				"game3.images/resized/seaWall0.png",
-				"game3.images/resized/seaWall2.png",
-				"game3.images/resized/soda.png",
-				"game3.images/resized/trash.png",
-				"game3.images/resized/trashbag.png",
-				"game3.images/resized/vessel.png",
-				"game3.images/resized/wood_duck_right.png"
-    	};
-		numPics=img_list.length;
-		//all_imgs= new BufferedImage[numPics][10];
+		List<String> img_list = new ArrayList<>();
+		File folder = new File("game3.images/cubes");
+		img_list.add("game3.images/QuestionMark.png");
+		for (File filename : folder.listFiles()){
+			img_list.add(filename.getPath());
+		}
+		
+		numPics=img_list.size();
 		System.out.println(numPics);
-		//System.out.println(all_imgs.length);
 		pics = new Image[numPics];
     	for(int j=0;j<numPics;j++)
     	{
-    		//BufferedImage img = createImage(img_list[j]);
-    		System.out.println(img_list[j]);
-        	pics[j] = createImage(img_list[j]).getScaledInstance(imgWidth, imgHeight, Image.SCALE_DEFAULT);
-        	//for(int i = 0; i < frameCount; i++)
-        	//	all_imgs[j][i] = img.getSubimage(img.getWidth()*i, 0, img.getWidth(), img.getHeight());
+    		System.out.println(img_list.get(j));
+        	pics[j] = createImage(img_list.get(j)).getScaledInstance(imgWidth, imgHeight, Image.SCALE_DEFAULT);
+        	
     	}
     	backgroundImage = createImage("game3.images/tempBackGround.jpg");
     	
