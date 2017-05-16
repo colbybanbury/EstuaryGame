@@ -268,5 +268,42 @@ public class BoardTest {
 			assertEquals(i, l1.size());
 			b1.rectangleUpdate();
 		}
+		for (int i = 0; i < 1000; i++){
+			b1.rectangleUpdate();
+		}
+	}
+	
+	@Test
+	public void rectangleUpdate6(){
+		Board b1 = new Board(1000, 1000);
+		Player p1 = b1.player;
+		List<Rectangle> l1 = b1.scentTrail;
+		p1.setStarted(true);
+		b1.storm();
+		assertEquals(l1.size(), 1);
+		for (int i = 1; i < 333; i++){
+			assertEquals(i, l1.size());
+			b1.rectangleUpdate();
+		}
+		for (int i = 0; i < 1000; i++){
+			b1.rectangleUpdate();
+		}
+	}
+	
+	@Test
+	public void rectangleUpdate7(){
+		Board b1 = new Board(1000, 1000);
+		Player p1 = b1.player;
+		List<Rectangle> l1 = b1.scentTrail;
+		p1.setStarted(true);
+		b1.drought();
+		assertEquals(l1.size(), 1);
+		for (int i = 1; i < 333; i++){
+			//assertEquals(i, l1.size());
+			b1.rectangleUpdate();
+		}
+		for (int i = 0; i < 1000; i++){
+			b1.rectangleUpdate();
+		}
 	}
 }
