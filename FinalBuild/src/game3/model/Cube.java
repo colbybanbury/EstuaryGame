@@ -28,14 +28,14 @@ public class Cube {
 								rand.nextInt(board.getHeight() - sideLength),
 								sideLength,sideLength);
 		*/
-		location = new Rectangle(10+ cubeNum * (board.getWidth()-20) / Board.NUM_CUBES, board.getHeight() / 2, sideLength, sideLength);
+		location = new Rectangle(10+ cubeNum * (board.getWidth()-20) / Board.NUM_CUBES, board.getHeight() *5/ 9, sideLength, sideLength);
 	}
 	/**
 	 * Moves cube to random location within Board, assigns new picNum
 	 * (as if rolling a real cube on a board)
 	 */
 	public void roll(int numPics){
-		location.setLocation(10+ cubeNum * (board.getWidth()-20) / Board.NUM_CUBES, board.getHeight() / 2);
+		location.setLocation(10+ cubeNum * (board.getWidth()-20) / Board.NUM_CUBES, board.getHeight() *5/9);
 		picNum = rand.nextInt(numPics-1)+1;
 		
 	}

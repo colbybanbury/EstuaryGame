@@ -12,19 +12,23 @@ import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 
 import game3.model.Board;
+import game3.model.Cube;
 
 public class Animation extends JPanel implements MouseMotionListener, MouseListener{
 	private static final long serialVersionUID = -6799082996186437878L;
@@ -50,36 +54,29 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 	int selectedImage;
 	private String ans="";
 	JLabel storyText=new JLabel();
+	JTextField storyField=new JTextField("Enter your story here",1);
 	
 	@Override
 	public void paintComponent(Graphics g){
+		System.out.println("entered paintComponent");
 		super.paintComponent(g);
-		
+		System.out.println("exited super paintComponent");
 		//draw background
 		g.drawImage(backgroundImage, 0, 0, this);
+		System.out.println("drew background image");
 		
-		//draw boxes
-		for (int z=0;z<Board.NUM_CUBES;z++){
-			
-			g.drawRect(10+z*(board.getWidth()-20)/Board.NUM_CUBES,150,board.getCubes().get(z).getSideLength(),board.getCubes().get(z).getSideLength());
+		
+		for (Cube c:board.getCubes()){
+			//draw boxes	
+			g.drawRect(10+c.getCubeNum()*(board.getWidth()-20)/Board.NUM_CUBES,board.getHeight()/4,c.getSideLength(),c.getSideLength());
 		}
-		
-		//draw story
-		
-		//g.setFont(f);
-		//g.drawString(ans, 100, 100);
-		
-		//draw cubes
-		System.out.println("painted");
-		
-		
-		for(int i=0;i<Board.NUM_CUBES;i++){
-			Rectangle rTemp=board.getCubes().get(i).getLocation();
+		for (Cube c:board.getCubes()){
+			//draw cubes
+			Rectangle rTemp=c.getLocation();
 			g.fillRect((int)rTemp.getX(),(int)rTemp.getY(),(int)rTemp.getWidth(),(int)rTemp.getHeight());
-			int r=board.getCubes().get(i).getPicNum();///make sure this is the right number
-			g.drawImage(all_imgs[r][0], (int) (rTemp.getX()+rTemp.getWidth()/2-imgWidth[r]/2),(int) (rTemp.getY()+rTemp.getHeight()/2-imgHeight[r]/2), 
-					(int) imgWidth[r],(int) imgHeight[r], (ImageObserver) this);
-		}//for
+			g.drawImage(all_imgs[c.getPicNum()][0], (int) (rTemp.getX()+rTemp.getWidth()/2-imgWidth[c.getPicNum()]/2),(int) (rTemp.getY()+rTemp.getHeight()/2-imgHeight[c.getPicNum()]/2), 
+					(int) imgWidth[c.getPicNum()],(int) imgHeight[c.getPicNum()], (ImageObserver) this);
+		}//for each loop
 		
 	}
 	
@@ -119,55 +116,83 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
     	}
     	backgroundImage = createImage("game3.images/tempBackGround.jpg");
     	
+    	paintBoard();
 	}
 	
 	public void paintBoard(){
+		System.out.println("entered paintboard()");
 		JFrame frame = new JFrame();
-		new JPanel();
-		Animation animate=new Animation(board);
-		animate.setLayout(new BoxLayout(animate, BoxLayout.Y_AXIS));
-		
-		//add roll button
-		JButton rollButton=new JButton("ROLL");
-		
-		//rollButton.setBounds(frameWidth/2-50,frameHeight/2-50,100,50);
-		rollButton.setBounds(500, 10, 200,100);
-		rollButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		rollButton.setHorizontalAlignment(SwingConstants.CENTER);
-		ActionListener rollListener=new RollAction();
-		rollButton.addActionListener(rollListener);
-		
-		//add submit button
-		JButton submitButton=new JButton("WRITE STORY");
-		submitButton.setBounds(500, 500, 100,200);
+		System.out.println("created jframe");
+		setMaximumSize(new Dimension(frameWidth,frameHeight));
+		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		System.out.println("set layout");
+    	
+    	Font f = new Font("Dialog", Font.PLAIN, 45);
+    	Font y = new Font("Dialog", Font.PLAIN, 18);
+    	Font bold = new Font("Dialog", Font.BOLD, 20);
+
+    	//add space at top
+    	add(Box.createRigidArea(new Dimension(0,15)));
+    	
+    	//add TextField
+    	storyField.setFont(y);
+    	this.add(storyField);
+    	storyField.setPreferredSize(new Dimension(800,45));
+    	storyField.setMaximumSize(new Dimension(800,45));
+    	
+    	//add space 
+    	this.add(Box.createRigidArea(new Dimension(0,10)));
+    	
+    	//add submit button
+		JButton submitButton=new JButton("SUBMIT STORY");
+		submitButton.setFont(bold);
+		submitButton.setPreferredSize(new Dimension(200,40));
+    	submitButton.setMaximumSize(new Dimension(200,40));
 		submitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		submitButton.setHorizontalAlignment(SwingConstants.CENTER);
 		ActionListener submitListener=new SubmitAction();
 		submitButton.addActionListener(submitListener);
-		animate.add(rollButton);
-		animate.add(submitButton);
-    	frame.getContentPane().add(animate);
-
+    	this.add(submitButton);
     	
     	//add text box
-    	Font f = new Font("Dialog", Font.PLAIN, 45);
     	storyText.setFont(f);
-    	animate.add(storyText);
-    	//storyText.setLocation(1000,1000);
+    	this.add(storyText);
+    	storyText.setAlignmentX(Component.CENTER_ALIGNMENT);
+    	storyText.setForeground(Color.WHITE);
     	
+    	//add roll button
+    	JButton rollButton=new JButton("ROLL");
+    	rollButton.setPreferredSize(new Dimension(100,40));
+    	rollButton.setMaximumSize(new Dimension(100,40));
+    	rollButton.setFont(bold);
+    	rollButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+    	ActionListener rollListener=new RollAction();
+    	rollButton.addActionListener(rollListener);
+    	this.add(Box.createVerticalGlue());
+    	this.add(rollButton);
     	
+    	//add space at bottom
+    	this.add(Box.createRigidArea(new Dimension(0,20)));
     	
+    	//add mouse motion listener
     	frame.addMouseListener(this);
     	frame.addMouseMotionListener(this);
+    	System.out.println("added mouse motion listeners");
     	
     	
+    	frame.setContentPane(this);
+    	this.setOpaque(true);
+    	System.out.println("added animation to frame");
     	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	frame.setSize(Animation.frameWidth, Animation.frameHeight);
     	frame.setVisible(true);
+    	System.out.println("made frame visible");
     	
     	for(int i = 0; i < 1000; i++){
-    		frame.repaint();
     		frame.revalidate();
+    		System.out.println("about to paint");
+    		frame.repaint();
+    		System.out.println("repainted");
+    		
     		try {
     			Thread.sleep(100);
     		} catch (InterruptedException e) {
@@ -261,8 +286,8 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 		System.out.println("Mouse Released");
 		dragging=false;
 		for(int z=0;z<Board.NUM_CUBES;z++){
-			if(curX>(z*(board.getWidth()-20)/Board.NUM_CUBES) && curX<(z*(board.getWidth()-20)/Board.NUM_CUBES)+board.getCubes().get(selectedImage).getSideLength() && curY>150 && curY<(150+board.getCubes().get(selectedImage).getSideLength()))
-				board.getCubes().get(selectedImage).changeLocation(10+z*(board.getWidth()-20)/Board.NUM_CUBES,150);
+			if(curX>(10+z*(board.getWidth()-20)/Board.NUM_CUBES) && curX<(10+z*(board.getWidth()-20)/Board.NUM_CUBES)+board.getCubes().get(selectedImage).getSideLength() && curY>board.getHeight()/4 && curY<(board.getHeight()/4+board.getCubes().get(selectedImage).getSideLength()))
+				board.getCubes().get(selectedImage).changeLocation(10+z*(board.getWidth()-20)/Board.NUM_CUBES,board.getHeight()/4);
 			repaint();
 		}
 	}
@@ -282,6 +307,7 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 		
 			System.out.println("Roll Clicked");
 			board.shuffle(numPics);
+			storyField.setText("Enter your story here");
 			storyText.setText("");
 			repaint();
 		}
@@ -290,14 +316,10 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 	
 		public void actionPerformed(ActionEvent a){
 		
-			
 			System.out.println("Submit clicked");
-			//something to make text box print on page
-			//add text box
-	    	//JOptionPane.showInputDialog("Write Story Here");
-	    	//ans=s.nextLine();
-		
-	    	storyText.setText("WOWZAS");
+			ans=storyField.getText();
+			storyField.setText("");
+	    	storyText.setText(ans);
 			System.out.println("ANSWER IS: "+ans);
 			repaint();
 		}

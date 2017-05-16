@@ -12,11 +12,14 @@ public class CubeController{
 	final static int frameWidth=(int) screenSize.getWidth();
 	final static int frameHeight=(int) screenSize.getHeight();
 	
-	public static void main(String args[]){
-		
+	public CubeController(){
 		Board board=new Board(frameWidth,frameHeight);
 		Animation animation=new Animation(board);
-	    animation.paintBoard();
+	    //animation.paintBoard();
+	}
+	public static void main(String args[]){
+		CubeController cubeControl=new CubeController();
+		
 		
 	}
 }
