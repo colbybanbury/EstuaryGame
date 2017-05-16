@@ -191,8 +191,8 @@ public class BoatView extends JPanel{
 		for(int j = 0; j < BoatController.Boatboard.getLapDivisions(); j++){
 			Estuary e = BoatController.Boatboard.getLapPath()[j];
 			double tempTheta = (2*Math.PI*j) / BoatController.Boatboard.getLapDivisions();
-			int tempX =   (int) (BoatController.Boatboard.getWidth()/2 + (BoatController.Boatboard.getRadius()+100) * Math.cos(tempTheta));
-			int tempY = (int) (BoatController.Boatboard.getHeight()/2 + (BoatController.Boatboard.getRadius()+100) * Math.sin(tempTheta));
+			int tempX =   (int) (BoatController.Boatboard.getWidth()/2 + (BoatController.Boatboard.getRadius()+150) * Math.cos(tempTheta));
+			int tempY = (int) (BoatController.Boatboard.getHeight()/2 + (BoatController.Boatboard.getRadius()+150) * Math.sin(tempTheta));
 			if(e.getType()!=3){
 				//g.drawImage(estuary, tempX, tempY, this);
 				switch(e.getType()){//draws the protection type on top of the estuary centered
@@ -337,7 +337,7 @@ public class BoatView extends JPanel{
 		boatWake1 = createImage("game2.images/images/boatWake1.gif");//TODO have a better indication of wake
 		boatWake2 = createImage("game2.images/images/boatWake2.gif");
 		backgroundImage = createImage("game2.images/images/tempBackGroundWithLand.jpg");
-		scaledBackground = backgroundImage.getScaledInstance(frameWidth, frameHeight, Image.SCALE_DEFAULT);
+		scaledBackground = backgroundImage.getScaledInstance(frameWidth +100, frameHeight+100, Image.SCALE_DEFAULT);
 		estuary = createImage("game2.images/images/grass_tile.jpg");
 		
 		protections[1][3] = createImage("game2.images/images/seaWall0.png");
