@@ -42,8 +42,8 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
     static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	final static int frameWidth=(int) screenSize.getWidth();
 	final static int frameHeight=(int) screenSize.getHeight();
-	final static int[] imgWidth={100,256,243,227,254,249,241,256,252,253,279,256,254,256,257,254};
-	final static int[] imgHeight={100,166,119,125,97,132,249,256,84,95,173,166,124,256,257,159};
+	//final static int[] imgWidth={100,256,243,227,254,249,241,256,252,253,279,256,254,256,257,254};
+	//final static int[] imgHeight={100,166,119,125,97,132,249,256,84,95,173,166,124,256,257,159};
 	static int imgWidthTemp;
 	static int imgHeightTemp;
 	static Board board;
@@ -81,8 +81,9 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 			//draw cubes
 			Rectangle rTemp=c.getLocation();
 			g.fillRect((int)rTemp.getX(),(int)rTemp.getY(),(int)rTemp.getWidth(),(int)rTemp.getHeight());
-			g.drawImage(all_imgs[c.getPicNum()][0], (int) (rTemp.getX()+rTemp.getWidth()/2-imgWidth[c.getPicNum()]/2),(int) (rTemp.getY()+rTemp.getHeight()/2-imgHeight[c.getPicNum()]/2), 
-					(int) imgWidth[c.getPicNum()],(int) imgHeight[c.getPicNum()], (ImageObserver) this);
+			BufferedImage curPic = pics[c.getPicNum()];
+			g.drawImage(curPic, (int) (rTemp.getX()+rTemp.getWidth()/2-curPic.getWidth()/2),(int) (rTemp.getY()+rTemp.getHeight()/2-curPic.getHeight()/2), 
+					(int) curPic.getHeight(),(int) curPic.getHeight(), (ImageObserver) this);
 		}//for each loop
 		
 	}
@@ -92,34 +93,62 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 	public Animation(Board b){
 		board=b;
 		String img_list[]={
-				"game3.images/QuestionMark.png",
-				"game3.images/blackduck_right.png",
-    			"game3.images/bluecrab_0.png",
-    			"game3.images/bogturtle_left_0.png",
-    			"game3.images/clam_left_1.png",
-    			"game3.images/fish_bass_left.png",
-    			"game3.images/fish_catfish_left_0.png",
-    			"game3.images/fish_group_right.png",
-    			"game3.images/fish_pickerel_right.png",
-    			"game3.images/fish_trout_right.png",
-    			"game3.images/horseshoe_crab_left_1.png",
-    			"game3.images/mallard_left.png",
-    			"game3.images/mittencrab_0.png",
-    			"game3.images/mittencrabs_spawn_2.png",
-    			"game3.images/otter_left.png",
-    			"game3.images/wood_duck_right.png"			
+				"game3.images/resized/QuestionMark.png",
+				"game3.images/resized/apple.png",
+				"game3.images/resized/banana.png",
+				"game3.images/resized/blackduck_right.png",
+				"game3.images/resized/bluecrab_0.png",
+				"game3.images/resized/bogturtle_left_0.png",
+				"game3.images/resized/can.png",
+				"game3.images/resized/cattails.png",
+				"game3.images/resized/clam_left_1.png",
+				"game3.images/resized/cleanvessel.png",
+				"game3.images/resized/cordgrass.png",
+				"game3.images/resized/crumbledpaper.png",
+				"game3.images/resized/crushedcan.png",
+				"game3.images/resized/deadfish.png",
+				"game3.images/resized/denrec_armsout.png",
+				"game3.images/resized/dirtyvessel.png",
+				"game3.images/resized/fish_bass_left.png",
+				"game3.images/resized/fish_catfish_left_0.png",
+				"game3.images/resized/fish_group_right.png",
+				"game3.images/resized/fish_pickerel_right.png",
+				"game3.images/resized/fish_trout_right.png",
+				"game3.images/resized/fisherman_1.png",
+				"game3.images/resized/fisherman_walk_left_2.png",
+				"game3.images/resized/gabion0.png",
+				"game3.images/resized/horseshoeCrabScientist_happy.png",
+				"game3.images/resized/horseshoeCrabScientist_sad.png",
+				"game3.images/resized/horseshoe_crab_left_1.png",
+				"game3.images/resized/hotrod_vessel.png",
+				"game3.images/resized/leaf.png",
+				"game3.images/resized/list",
+				"game3.images/resized/mallard_left.png",
+				"game3.images/resized/mittencrab_0.png",
+				"game3.images/resized/mittencrabs_spawn_2.png",
+				"game3.images/resized/oil_spill.png",
+				"game3.images/resized/otter_left.png",
+				"game3.images/resized/researcher_standing.png",
+				"game3.images/resized/seaWall0.png",
+				"game3.images/resized/seaWall2.png",
+				"game3.images/resized/soda.png",
+				"game3.images/resized/trash.png",
+				"game3.images/resized/trashbag.png",
+				"game3.images/resized/vessel.png",
+				"game3.images/resized/wood_duck_right.png"
     	};
     	
 		numPics=img_list.length;
 		all_imgs= new BufferedImage[numPics][10];
 		System.out.println(numPics);
 		System.out.println(all_imgs.length);
+		pics = new BufferedImage[numPics];
     	for(int j=0;j<numPics;j++)
     	{
-    		BufferedImage img = createImage(img_list[j]);
-        	//pics = new BufferedImage[10];
-        	for(int i = 0; i < frameCount; i++)
-        		all_imgs[j][i] = img.getSubimage(imgWidth[j]*i, 0, imgWidth[j], imgHeight[j]);
+    		//BufferedImage img = createImage(img_list[j]);
+        	pics[j] = createImage(img_list[j]);
+        	//for(int i = 0; i < frameCount; i++)
+        	//	all_imgs[j][i] = img.getSubimage(img.getWidth()*i, 0, img.getWidth(), img.getHeight());
     	}
     	backgroundImage = createImage("game3.images/tempBackGround.jpg");
     	
