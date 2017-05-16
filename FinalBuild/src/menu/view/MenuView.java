@@ -9,14 +9,13 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import game1.controller.CrabController;
 import menu.controller.MenuController;
 
 public class MenuView extends JPanel{
 
 	private static final long serialVersionUID = -2804351704146548063L;
-	static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();	
-	static MenuController menu;
+	private int frameHeight;
+	private int frameWidth;	
 	JFrame frame;	
 	private Font crabFont;
 	private Font boatFont;
@@ -27,10 +26,11 @@ public class MenuView extends JPanel{
 	private static JButton game3button = new JButton("");
 
 	private BufferedImage background;
+	private Image scaledBackground;
 	
-	public MenuView(int width, int height, MenuController menuController){
-		menu = menuController;
-		
+	public MenuView(int width, int height){
+		frameHeight = height;
+		frameWidth = width;
 		frame = new JFrame();
 		
 		loadImages();
@@ -77,7 +77,7 @@ public class MenuView extends JPanel{
 		game1button.setFont(crabFont);
 		game1button.setFont(game1button.getFont().deriveFont(game1button.getFont().getStyle(),56));
 		game1button.setText("CRAB RUN");
-		game1button.setBackground(Color.BLUE);
+		game1button.setBackground(new Color(103, 229, 255, 255));
 		
 		game2button.setContentAreaFilled(true);
 		game2button.setBorderPainted(true);
@@ -143,11 +143,17 @@ public class MenuView extends JPanel{
 	}
 	
 	public void paint(Graphics g){
-		g.drawImage(background, 0, 0, this);
+		g.drawImage(scaledBackground, 0, 0, this);	
+
+		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),90));		
+		int titleLength = g.getFontMetrics().stringWidth("CHOOSE A GAME");	
+		
+		g.drawString("CHOOSE A GAME", (frameWidth - titleLength)/2, 140);
 	}
 	
 	private void loadImages(){
 		background = createImage("menu.images/2D_estuary.jpg");
+		scaledBackground = background.getScaledInstance(frameWidth, frameHeight, Image.SCALE_DEFAULT);
 	}
 	
 	private BufferedImage createImage(String file) {
