@@ -234,14 +234,18 @@ public class BoatView extends JPanel{
 		}
 		System.out.println("In BoatView x: " + boatX + ", y: " + boatY);
 		
+		if(!BoatController.start){
+			g.setColor(new Color(255, 255, 255, 210));
+			g.fill3DRect(frameWidth *28 /64, frameHeight *29 / 64, frameWidth *10/ 64, frameHeight/12, true);
+			g.setColor(new Color(0, 0, 0, 255));
+			g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),24));
+			g.drawString("Press SPACE to start" , frameWidth*29/64, frameHeight/2);
+		}
 		
 		g.setColor(new Color(0, 0, 0, 255));
 		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),48));
-		
-		
 		g.drawString("Score: " + (BoatController.Boatgame.getScore() - BoatController.Boatgame.getDamagePenalty()), frameWidth/45, frameHeight/20);
 		g.drawString("Time: " + BoatController.Boatgame.getTime().toString(), frameWidth/45, frameHeight/20 + 40);
-		//TODO improve background to actually have land around the estuaries
 		
 		int x1 = (BoatController.Boatboard.getWidth()/2)+BoatController.Boatboard.getRadius()-75;
 		int y = BoatController.Boatboard.getHeight()/2;

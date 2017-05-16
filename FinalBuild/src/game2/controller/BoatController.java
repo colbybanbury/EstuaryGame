@@ -46,6 +46,7 @@ public class BoatController implements ActionListener{
 	private boolean spawn;//if a powerUp should spawn or be taken away
 	public static boolean end; //is the time up
 	int wait; //counter for how many powerUps are spawned before they are cleared
+	public static boolean start;
 	
 	
 
@@ -67,7 +68,7 @@ public class BoatController implements ActionListener{
 		secondTimer = new Timer(SECOND_DELAY, this);
 		timer.start();
 		powerUpTimer.start();
-		secondTimer.start();
+		start = false;
 	}
 	
 	
@@ -162,7 +163,13 @@ public class BoatController implements ActionListener{
     	}
     	if(key == KeyEvent.VK_SPACE){
     		System.out.println("space key sensed");
-    		boat.throttle();
+    		if(!start){
+    			secondTimer.start();
+    			start = true;
+    			boat.throttle();
+    		}
+    		else
+    			boat.throttle();
     	}
     }
     
