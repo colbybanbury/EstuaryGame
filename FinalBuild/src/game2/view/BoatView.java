@@ -293,7 +293,7 @@ public class BoatView extends JPanel{
 		g.setColor(new Color(0, 0, 0, 255));
 		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),40));
 		g.drawString("Estuary", frameWidth* 33 /42, frameHeight*4/16);
-		g.drawString(" Protection:", frameWidth* 33 /42, frameHeight*9/32);
+		g.drawString(" Protection:", frameWidth* 33 /42, frameHeight*19/64);
 		g.setFont(g.getFont().deriveFont(g.getFont().getStyle(),20));
 		g.drawString("Gabions last longer", frameWidth *33 /42, frameHeight*6/16);
 		g.drawString("and are less invasive", frameWidth*33 /42, frameHeight*13/32);
