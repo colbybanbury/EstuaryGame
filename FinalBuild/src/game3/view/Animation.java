@@ -1,6 +1,7 @@
 package game3.view;
 
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,8 +37,10 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 	int frameCount=1;
 	int numPics;
 	int numFrame;
-	BufferedImage[] pics;
-    BufferedImage all_imgs[][];
+	int imgHeight = Cube.SIDE_LENGTH;
+	int imgWidth = Cube.SIDE_LENGTH;
+	Image[] pics;
+    //BufferedImage all_imgs[][];
     private BufferedImage backgroundImage;
     static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	final static int frameWidth=(int) screenSize.getWidth();
@@ -78,15 +81,15 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 		
 		for (Cube c:board.getCubes()){
 			//draw boxes	
-			g.drawRect(10+c.getCubeNum()*(board.getWidth()-20)/Board.NUM_CUBES,board.getHeight()/4,c.getSideLength(),c.getSideLength());
+			g.drawRect(10+c.getCubeNum()*(board.getWidth()-20)/Board.NUM_CUBES,board.getHeight()/4,Cube.SIDE_LENGTH,Cube.SIDE_LENGTH);
 		}
 		for (Cube c:board.getCubes()){
 			//draw cubes
 			Rectangle rTemp=c.getLocation();
 			g.fillRect((int)rTemp.getX(),(int)rTemp.getY(),(int)rTemp.getWidth(),(int)rTemp.getHeight());
-			BufferedImage curPic = pics[c.getPicNum()];
-			g.drawImage(curPic, (int) (rTemp.getX()+rTemp.getWidth()/2-curPic.getWidth()/2),(int) (rTemp.getY()+rTemp.getHeight()/2-curPic.getHeight()/2), 
-					(int) curPic.getHeight(),(int) curPic.getHeight(), (ImageObserver) this);
+			Image curPic = pics[c.getPicNum()];
+			g.drawImage(curPic, (int) (rTemp.getX()+rTemp.getWidth()/2-imgWidth/2),(int) (rTemp.getY()+rTemp.getHeight()/2-imgHeight/2), 
+					(int) imgWidth,(int) imgHeight, (ImageObserver) this);
 		}//for each loop
 		
 	}
@@ -125,7 +128,6 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 				"game3.images/resized/horseshoe_crab_left_1.png",
 				"game3.images/resized/hotrod_vessel.png",
 				"game3.images/resized/leaf.png",
-				"game3.images/resized/list",
 				"game3.images/resized/mallard_left.png",
 				"game3.images/resized/mittencrab_0.png",
 				"game3.images/resized/mittencrabs_spawn_2.png",
@@ -140,16 +142,16 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 				"game3.images/resized/vessel.png",
 				"game3.images/resized/wood_duck_right.png"
     	};
-    	
 		numPics=img_list.length;
-		all_imgs= new BufferedImage[numPics][10];
+		//all_imgs= new BufferedImage[numPics][10];
 		System.out.println(numPics);
-		System.out.println(all_imgs.length);
-		pics = new BufferedImage[numPics];
+		//System.out.println(all_imgs.length);
+		pics = new Image[numPics];
     	for(int j=0;j<numPics;j++)
     	{
     		//BufferedImage img = createImage(img_list[j]);
-        	pics[j] = createImage(img_list[j]);
+    		System.out.println(img_list[j]);
+        	pics[j] = createImage(img_list[j]).getScaledInstance(imgWidth, imgHeight, Image.SCALE_DEFAULT);
         	//for(int i = 0; i < frameCount; i++)
         	//	all_imgs[j][i] = img.getSubimage(img.getWidth()*i, 0, img.getWidth(), img.getHeight());
     	}
@@ -327,7 +329,7 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 		System.out.println("Mouse Released");
 		dragging=false;
 		for(int z=0;z<Board.NUM_CUBES;z++){
-			if(curX>(10+z*(board.getWidth()-20)/Board.NUM_CUBES) && curX<(10+z*(board.getWidth()-20)/Board.NUM_CUBES)+board.getCubes().get(selectedImage).getSideLength() && curY>board.getHeight()/4 && curY<(board.getHeight()/4+board.getCubes().get(selectedImage).getSideLength()))
+			if(curX>(10+z*(board.getWidth()-20)/Board.NUM_CUBES) && curX<(10+z*(board.getWidth()-20)/Board.NUM_CUBES)+Cube.SIDE_LENGTH && curY>board.getHeight()/4 && curY<(board.getHeight()/4+Cube.SIDE_LENGTH))
 				board.getCubes().get(selectedImage).changeLocation(10+z*(board.getWidth()-20)/Board.NUM_CUBES,board.getHeight()/4);
 			
 		}

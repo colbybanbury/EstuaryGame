@@ -9,7 +9,7 @@ public class Cube {
 	private Rectangle location;
 	private int picNum;
 	private int cubeNum;
-	private int sideLength;
+	public static int SIDE_LENGTH;
 	private Random rand = new Random();
 	private Board board;
 	
@@ -22,13 +22,13 @@ public class Cube {
 		this.cubeNum=cubeNum;
 		this.picNum = picNum;
 		this.board = b;
-		this.sideLength=((board.getWidth()-20)/Board.NUM_CUBES)-10;
+		Cube.SIDE_LENGTH=((board.getWidth()-20)/Board.NUM_CUBES)-10;
 		/*
 		location = new Rectangle(rand.nextInt(board.getWidth() - sideLength),
 								rand.nextInt(board.getHeight() - sideLength),
 								sideLength,sideLength);
 		*/
-		location = new Rectangle(10+ cubeNum * (board.getWidth()-20) / Board.NUM_CUBES, board.getHeight() *5/ 9, sideLength, sideLength);
+		location = new Rectangle(10+ cubeNum * (board.getWidth()-20) / Board.NUM_CUBES, board.getHeight() *5/ 9, SIDE_LENGTH, SIDE_LENGTH);
 	}
 	/**
 	 * Moves cube to random location within Board, assigns new picNum
@@ -54,9 +54,6 @@ public class Cube {
 		return location;
 	}
 	
-	public int getSideLength(){
-		return sideLength;
-	}
 	/**
 	 * changed the location of that cube
 	 * @param x
