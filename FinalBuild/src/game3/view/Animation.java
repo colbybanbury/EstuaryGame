@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import java.awt.Rectangle;
+import java.awt.TextField;
 import java.awt.Toolkit;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -50,6 +51,7 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 	int selectedImage;
 	private String ans="";
 	JLabel storyText=new JLabel();
+	TextField textBox;
 	
 	@Override
 	public void paintComponent(Graphics g){
@@ -125,7 +127,7 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 		JFrame frame = new JFrame();
 		new JPanel();
 		Animation animate=new Animation(board);
-		animate.setLayout(new BoxLayout(animate, BoxLayout.Y_AXIS));
+		//animate.setLayout(new BoxLayout(animate, BoxLayout.Y_AXIS)); 	DON'T USE LAYOUTS	
 		
 		//add roll button
 		JButton rollButton=new JButton("ROLL");
@@ -137,6 +139,10 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 		ActionListener rollListener=new RollAction();
 		rollButton.addActionListener(rollListener);
 		
+		//add text box
+    	textBox = new TextField("Enter your story here:", 20);
+    	textBox.setBounds(700, 100, 100, 100);
+		
 		//add submit button
 		JButton submitButton=new JButton("WRITE STORY");
 		submitButton.setBounds(500, 500, 100,200);
@@ -144,12 +150,16 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 		submitButton.setHorizontalAlignment(SwingConstants.CENTER);
 		ActionListener submitListener=new SubmitAction();
 		submitButton.addActionListener(submitListener);
+		
+		animate.add(textBox);
 		animate.add(rollButton);
 		animate.add(submitButton);
     	frame.getContentPane().add(animate);
+    	
 
     	
-    	//add text box
+
+    	
     	Font f = new Font("Dialog", Font.PLAIN, 45);
     	storyText.setFont(f);
     	animate.add(storyText);
