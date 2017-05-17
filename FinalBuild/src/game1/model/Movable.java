@@ -1,6 +1,10 @@
 package game1.model;
 import java.awt.Rectangle;
 
+/**
+ * Interface of all methods shared by any characters on screen that move (Player, Friend, Enemy)
+ *
+ */
 public interface Movable {
 	public void setYLoc(int yLoc);
 	public int getYLoc();
