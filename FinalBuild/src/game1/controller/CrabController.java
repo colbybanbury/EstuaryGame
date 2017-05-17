@@ -16,6 +16,11 @@ import game1.model.Enemy;
 import game1.model.Friend;
 import game1.view.CrabView;
 
+/**
+ * Controls interaction between View and Model for this game, contains methods for events that occur in game
+ * @author Zachary Irons
+ *
+ */
 public class CrabController implements ActionListener{
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -55,6 +60,10 @@ public class CrabController implements ActionListener{
    	private static int stormStatus;
 	private static int gracePeriodCounter;
 	
+	/**
+	 * Initialize variables, set up timers, create instances of view and board for the game to be played
+	 * (Calling this constructor will run the game)
+	 */
 	public CrabController(){
 		CrabController.board = new Board(WIDTH, HEIGHT);//adjust values for size of board and length of path
 		CrabController.view = new CrabView(WIDTH, HEIGHT);
@@ -96,18 +105,24 @@ public class CrabController implements ActionListener{
 		CrabController.answer3Wrong = false;
 	}
 
-
+	/**
+	 * Test constructor, initiates game with a question
+	 * @param test passed to indicate game is being tested
+	 */
 	public CrabController(String test){
 		CrabController.board = new Board(WIDTH, HEIGHT);		
 
 		questionBufferTimer = new Timer(questionBufferDELAY, this);
 	}
-	
+
 	public static void main(String[] args){
 		@SuppressWarnings("unused")
 		CrabController crabController = new CrabController();
 	}
 	
+	/**
+	 * default action listener
+	 */
 	@Override
     public void actionPerformed(ActionEvent e){
 		if(e.getSource() == timer){
@@ -211,17 +226,25 @@ public class CrabController implements ActionListener{
 		return questionBufferTimer;
 	}
 	
+	/**
+	 * called by timer to update movers on board and re-animate screen
+	 */
 	public void onTick(){
 		board.moverUpdate();
 		view.animate();
 	}
 	
+	/**
+	 * called by timer to update scentTrail on board and re-animate screen
+	 */
 	public void onTick2(){
 		board.rectangleUpdate();
 		view.animate();
 	}
 	
-	
+	/**
+	 * called when spacebar is pressed/mouse is clicked
+	 */
 	public static void buttonPress(){
 		if (!board.player.getStarted()){
 			if(!canBeAskedAQuestion){
@@ -232,6 +255,9 @@ public class CrabController implements ActionListener{
 		board.player.jump();
 	}
 	
+	/**
+	 * Called when first answer is selected, returns to game if associated answer is correct
+	 */
 	public static void answerButton1Press(){		
 		if(board.questions.get(board.getCurrQuestion()).getAnswers().get(0) == board.questions.get(board.getCurrQuestion()).getCorrectAnswer()){
 			gracePeriodCounter = 0;
@@ -257,6 +283,9 @@ public class CrabController implements ActionListener{
 			setAnswer1Wrong(true);
 		}
 	}
+	/**
+	 * Called when second answer is selected, returns to game if associated answer is correct
+	 */
 	public static void answerButton2Press(){
 		if(board.questions.get(board.getCurrQuestion()).getAnswers().get(1) == board.questions.get(board.getCurrQuestion()).getCorrectAnswer()){
 			gracePeriodCounter = 0;
@@ -282,6 +311,9 @@ public class CrabController implements ActionListener{
 			setAnswer2Wrong(true);
 		}
 	}
+	/**
+	 * Called when third answer is selected, returns to game if associated answer is correct
+	 */
 	public static void answerButton3Press(){
 		if(board.questions.get(board.getCurrQuestion()).getAnswers().get(2) == board.questions.get(board.getCurrQuestion()).getCorrectAnswer()){
 			gracePeriodCounter = 0;
@@ -307,13 +339,20 @@ public class CrabController implements ActionListener{
 			setAnswer3Wrong(true);
 		}
 	}
-	
+	/**
+	 * returns to main menu when main menu button is pressed
+	 * @param frame current window that will be closed on click
+	 */
 	public static void returnToMainMenu(JFrame frame){
 		CrabController.stopTimers();
 		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 	}
 	
+	/**
+	 * closes and re-opens game
+	 * @param frame current window that will be closed on click
+	 */
 	public static void replayGame(JFrame frame){
 		CrabController.stopTimers();
 		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -357,6 +396,9 @@ public class CrabController implements ActionListener{
 		CrabController.isItQuestionBuffer = isItQuestionBuffer;
 	}
 	
+	/**
+	 * stops and resets all timers associated with game
+	 */
 	public static void stopTimers(){
 		timer.restart();
 		timer.stop();

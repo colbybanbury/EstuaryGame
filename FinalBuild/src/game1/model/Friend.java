@@ -2,11 +2,19 @@ package game1.model;
 
 import java.awt.Rectangle;
 
+/**
+ * Turtles (or other animals) that move across the bottom of the screen with useful hints for the player
+ *
+ */
 public class Friend extends Mover{
 	public int friendCounter;
 	public int textSize;
 	private int picNum = 0;
 	
+	/**
+	 * Creates new instance of Friend
+	 * @param b board to spawn the friend within
+	 */
 	public Friend(Board b){ 
 		this.yVel = 0;
 		this.xVel = -14;
@@ -21,6 +29,9 @@ public class Friend extends Mover{
 		b.friendCounter++;
 	}
 	
+	/**
+	 * animates legs, updates position on screen
+	 */
 	@Override
 	public void update(){
 		super.update();

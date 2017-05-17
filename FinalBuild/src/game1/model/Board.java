@@ -111,13 +111,12 @@ public class Board {
 		return progress;
 	}
 
+	/**
+	 * increases progress value (represented by bar at top of screen)
+	 * @param progress integer ranging from 0 to 10 that determines how much of the player is within the
+	 * 					scent trail (0 being completely out, 10 being completely within)
+	 */
 	public void setProgress(int progress){
-		//TODO: write test for this function
-		/* cases:
-		 * 		1. progress is less than zero
-		 * 		2. progress is greater than width - 41
-		 * 		3. progress is between above ranges
-		 */
 		if (this.progress + progressArray[progress] <= 0){
 			this.progress = 0;
 		}else if(this.progress + progressArray[progress] >= width - 41){
@@ -204,11 +203,17 @@ public class Board {
 		isDroughtHappening = true;
 	}
 	
+	/**
+	 * returns game to normal setting after drought has been initialized
+	 */
 	public void stopDrought(){
 		scentTrailHeight /= .75;
 		isDroughtHappening = false;
 	}
-	
+	/**
+	 * determines whether a drought should be initialized
+	 * @return boolean
+	 */
 	public boolean maybeAddDrought(){
 		return getProgress() > 2*(width-41)/5;
 	}
@@ -223,25 +228,22 @@ public class Board {
 		scentTrailHeight *= 2;
 		isStormHappening = true;
 	}
-	
+	/**
+	 * returns game to normal setting after storm has been initialized
+	 */
 	public void stopStorm(){
 		wavyFactor -= 3;
 		scentTrailHeight *= 3;
 		scentTrailHeight /= 2;
 		isStormHappening = false;
 	}
-	
+	/**
+	 * determines whether a storm should be initialized
+	 * @return boolean
+	 */
 	public boolean maybeAddStorm(){
 		return getProgress() > (width-41)/2;
 	}
-	
-	/**
-	 * Causes the scent trail to become patchy
-	 * 
-	 */
-	public void construction(){
-		// TODO: come up with a way to implement holes in scent trail
-	}	
 
 	/**
 	 * Updates the positions of player, enemies, friends, and scent trail rectangles.
@@ -249,20 +251,6 @@ public class Board {
 	 * 
 	 */
 	public void moverUpdate(){
-		// TODO: write tests for this method
-		/*
-		 * cases:
-		 * 		1. started
-		 * 			a. scentTrail goes off screen up
-		 * 			b. scentTrail goes off screen down
-		 * 			c. leading rectangle of scentTrail goes off screen (x < 0)
-		 * 			d. enemy goes off screen (x < 0)
-		 * 			e. friend goes off screen (x < 0)
-		 * 			f. enemy is on screen
-		 * 				i. collision between player and enemy
-		 * 				ii. no collision
-		 * 		2. not started (progress = 0)
-		 */
 		if (player.getStarted()){
 			
 			//Updates player location
@@ -303,7 +291,10 @@ public class Board {
 			setProgress(0);
 		}
 	}
-	
+	/**
+	 * updates locations of rectangles that compose the scent trail
+	 * moves all rectangles one width to the left, removes rectangles out of bounds, adds rectangles to far right
+	 */
 	public void rectangleUpdate(){
 		if (player.getStarted() && !player.getFinished()){
 			

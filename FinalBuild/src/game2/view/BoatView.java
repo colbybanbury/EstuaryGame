@@ -66,13 +66,13 @@ public class BoatView extends JPanel{
 	public static JButton menuButton = new JButton("MENU");
 	public static JButton replayButton = new JButton("REPLAY");
 	
+	/**
+	 * sets up the frame, panel, and keylisteners. Calls load images to initialize the buffered images
+	 * 
+	 * @param w 	the width of the screen
+	 * @param h 	the height of the screen.
+	 */
 	public BoatView(int w, int h){
-		/**
-		 * sets up the frame, panel, and keylisteners. Calls load images to initialize the buffered images
-		 * 
-		 * @param w 	the width of the screen
-		 * @param h 	the height of the screen.
-		 */
 		this.frameHeight = h;
 		this.frameWidth = w;
 		frame = new JFrame();
@@ -149,12 +149,12 @@ public class BoatView extends JPanel{
 		frame.setVisible(true);
 	}
 	
+	/**
+	 * Is called every tick. Calculates the boats x and y on the screen along with the the angle of the boat.
+	 * It determines what level of wake it should display.
+	 * It calls change boat angle as well and repaint as well.
+	 */
 	public void animate(){
-		/**
-		 * Is called every tick. Calculates the boats x and y on the screen along with the the angle of the boat.
-		 * It determines what level of wake it should display.
-		 * It calls change boat angle as well and repaint as well.
-		 */
 		boatTheta = (2*Math.PI*BoatController.boat.getXLoc()) / BoatController.Boatboard.getLapLength();
 		boatX = BoatController.Boatboard.getWidth()/2 + ((BoatController.Boatboard.getRadius()*
 				BoatController.boat.getRadiusScale()) * Math.cos(boatTheta));
@@ -179,12 +179,12 @@ public class BoatView extends JPanel{
 		frame.repaint();
 	}
 	
+	/**
+	 * draws everything on the screen as well as calculates the x and y locations of the estuaries.
+	 * different types of estuaries have different levels of damage draws as well as different kinds of protection.
+	 * Powerups x and y locations are also calculated
+	 */
 	public void paint(Graphics g){
-		/**
-		 * draws everything on the screen as well as calculates the x and y locations of the estuaries.
-		 * different types of estuaries have different levels of damage draws as well as different kinds of protection.
-		 * Powerups x and y locations are also calculated
-		 */
 		g.drawImage(scaledBackground, 0, 0, this);
 		g.drawImage(op.filter(boatImage, null), (int) boatX, (int)boatY, this);
 		g.drawImage(wakeImage, frameWidth / 2 - noWake.getWidth()/6, frameHeight / 2 - noWake.getHeight()/3, this );
@@ -322,21 +322,20 @@ public class BoatView extends JPanel{
 		g.setColor(new Color(0,0,0,255));
 	}
 	
-	
+	/**
+	 * uses affineTranformation library to change the angle of the boat
+	 * 
+	 */
 	private void changeBoatAngle(){//rotates the boat image depending on the part of the circle it's on
-		/**
-		 * uses affineTranformation library to change the angle of the boat
-		 * 
-		 */
 		//Tried Graphics2D.rotate but it made the boat disappear...
 		tx = AffineTransform.getRotateInstance(boatAngle, boatImage.getWidth()/2, boatImage.getHeight()/2);
 		op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
 	}
 	
+	/**
+	 * loads the buffered images in from the images folder
+	 */
 	private void loadImages(){
-		/**
-		 * loads the buffered images in from the images folder
-		 */
 		boatWake0 = createImage("game2.images/images/boat.jpg");
 		boatWake1 = createImage("game2.images/images/boatWake1.gif");//TODO have a better indication of wake
 		boatWake2 = createImage("game2.images/images/boatWake2.gif");
@@ -364,10 +363,10 @@ public class BoatView extends JPanel{
 		noWake = createImage("game2.images/images/noWake.png");
 	}
 	
+	/**
+	 * is used to read in each image
+	 */
 	private BufferedImage createImage(String file){
-		/**
-		 * is used to read in each image
-		 */
 		BufferedImage bufferedImage;
 		try {
 			bufferedImage = ImageIO.read(new File(file));
