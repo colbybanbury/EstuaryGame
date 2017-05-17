@@ -35,6 +35,13 @@ import java.awt.Font;
 import game3.model.Board;
 import game3.model.Cube;
 
+
+/**
+ * 
+ * @author Cathrine and Collin
+ *Controls the visuals of the Cube game. Imports all the images and handles all the button actions.
+ *Contains the loop that repaints and rechecks conditions.
+ */
 public class Animation extends JPanel implements MouseMotionListener, MouseListener{
 	private static final long serialVersionUID = -6799082996186437878L;
 	int frameCount=1;
@@ -183,6 +190,9 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
     	///////
 	}
 	
+	/**
+	 * repaints and revaluates over and over
+	 */
 	public void paintBoard(){
 		System.out.println("entered paintboard()");
     	
@@ -203,6 +213,11 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
     	}
 	}
 	
+	/**
+	 * imports images from a file
+	 * @param file_name		the name of the file that the image is being imported from
+	 * @return BufferedImage the imported image
+	 */
 	private BufferedImage createImage(String file_name){
 		BufferedImage bufferedImage;
     	try {
@@ -214,23 +229,27 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 		return null;
 	}
 	
+	/**
+	 * called when all the cubes are in place. Sets storyField and submitButton to visable
+	 */
 	public void movedAllCubes(){
-		
 		System.out.println("Entered moved all cubes");
-				//add TextField
-		    	this.add(storyField);
-		    	storyField.setVisible(true);
-		    	
-		    	
-		    	//add submit button
-		    	this.add(submitButton);
-		    	submitButton.setVisible(true);
-		    
-		    	//add space at bottom
-		    	this.add(Box.createRigidArea(new Dimension(0,100)));
-			
+		//add TextField
+    	this.add(storyField);
+    	storyField.setVisible(true);
+
+    	//add submit button
+    	this.add(submitButton);
+    	submitButton.setVisible(true);
+    
+    	//add space at bottom
+    	this.add(Box.createRigidArea(new Dimension(0,100)));		
 	}
 	
+	/**
+	 * 	handles the mouse press and determines if the mouse clicked on a image
+	 * @param MouseEvent e
+	 */
 	@Override
 	public void mousePressed(MouseEvent e){
 		System.out.println("Mouse Pressed");
@@ -252,6 +271,10 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 	
 	}
 	
+	/**
+	 * handles the mouse drag and what image it is dragging
+	 * @param MouseEvent e
+	 */
 	@Override
 	public void mouseDragged(MouseEvent e){
 		Point curPoint=e.getPoint();
@@ -285,6 +308,9 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 		repaint();*/
 	}
 	
+	/**
+	 * lets go of the image it was dragging and sets the new location of that image
+	 */
 	@Override
 	public void mouseReleased(MouseEvent e){
 		Point curPoint=e.getPoint();
@@ -319,6 +345,12 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 		System.out.println("Mouse Exited");
 	}
 	
+	/**
+	 * 
+	 * @author cathrine
+	 * handles the roll action and re hides storyText, storyField, and submitButton
+	 *
+	 */
 	class RollAction implements ActionListener{
 		public void actionPerformed(ActionEvent a){
 		
@@ -334,6 +366,12 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 			
 		}
 	}//class RollAction
+	
+	/**
+	 * 
+	 * @author Cathrine
+	 *	Handles the submit button
+	 */
 	class SubmitAction implements ActionListener{
 	
 		public void actionPerformed(ActionEvent a){
