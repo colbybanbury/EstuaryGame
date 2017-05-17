@@ -12,6 +12,13 @@ import game2.controller.BoatController;
 import game3.controller.CubeController;
 import game1.controller.CrabController;
 
+/**
+ * 
+ * @author Zach
+ * @author chris
+ * Menu controller. Run the game from here. Detects screen size. Calls the other controllers.
+ * calls animate from the view on tick
+ */
 public class MenuController implements ActionListener{
 	
 	static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -23,6 +30,9 @@ public class MenuController implements ActionListener{
 	
 	public static MenuView menuView;
 	
+	/**
+	 * creates an instance of the menu view and creates the timer to control menuView.animate()
+	 */
 	public MenuController(){
 		MenuController.menuView = new MenuView(frameWidth, frameHeight);
 		
@@ -49,6 +59,9 @@ public class MenuController implements ActionListener{
 		CubeController game3Controller = new CubeController();
 	}
 
+	/**
+	 * if the timer ticks call animate()
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == tick){
