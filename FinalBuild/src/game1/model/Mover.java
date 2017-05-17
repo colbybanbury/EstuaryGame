@@ -4,6 +4,10 @@ import java.awt.Rectangle;
 
 import game1.model.Board;
 
+/**
+ * Abstract class that outlines behaviour of movable figures in the game (Friend, Enemy, Player)
+ *
+ */
 public abstract class Mover implements Movable{
 	public double yVel;
 	public double xVel;
@@ -46,6 +50,9 @@ public abstract class Mover implements Movable{
 		return this.yAcc;
 	}
 	
+	/**
+	 * If the Mover is "started", change location on screen based on velocities and accelerations
+	 */
 	public void update(){		
 		if (this.started){
 			
