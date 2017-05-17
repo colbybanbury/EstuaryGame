@@ -337,7 +337,7 @@ public class BoatView extends JPanel{
 	 */
 	private void loadImages(){
 		boatWake0 = createImage("game2.images/images/boat.jpg");
-		boatWake1 = createImage("game2.images/images/boatWake1.gif");//TODO have a better indication of wake
+		boatWake1 = createImage("game2.images/images/boatWake1.gif");
 		boatWake2 = createImage("game2.images/images/boatWake2.gif");
 		backgroundImage = createImage("game2.images/images/tempBackGroundWithLand.jpg");
 		scaledBackground = backgroundImage.getScaledInstance(frameWidth*110/100, frameHeight*110/100, Image.SCALE_DEFAULT);

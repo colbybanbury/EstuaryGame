@@ -135,12 +135,6 @@ public class Board {
 	 * 					 and any possible rectangle it could intersect
 	 */
 	public int checkSalinity(){
-		// TODO: write tests for this method
-		/* cases:
-		 * 		1. player is inside scent trail
-		 * 		2. player is outside scent trail
-		 * 		3. player is partially in scent trail
-		 */
 		int totalOverlap = 0;
 		Rectangle intersect;
 		for (Rectangle r : scentTrail){
@@ -165,7 +159,6 @@ public class Board {
 	 */
 	@SuppressWarnings("static-access")
 	public boolean checkCollision(){
-		// TODO: write test for no collisions condition
 		for (Iterator<Enemy> enemyIterator = enemies.iterator(); enemyIterator.hasNext();){
 			Enemy enemy = enemyIterator.next();
 			
