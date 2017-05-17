@@ -57,6 +57,7 @@ public class Cube {
 	public void changeLocation(int x, int y){
 		location.setLocation(x, y);
 	}
+	
 	public int getCubeNum(){ return cubeNum; }
 	
 }
