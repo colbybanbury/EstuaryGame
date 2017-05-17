@@ -21,6 +21,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import game1.controller.CrabController;
 
+/**
+ * 
+ * @author Zach
+ * handles the visuals of the Crab game
+ *
+ */
 public class CrabView extends JPanel{
 	private static final long serialVersionUID = 756483251818474362L;
 	private int frameHeight;
@@ -42,6 +48,11 @@ public class CrabView extends JPanel{
 	
 	JFrame frame;
 	
+	/**
+	 * calls loadImages(), creates the game buttons, adds them to the frame, and imports the special font.
+	 * @param w		width of the screen
+	 * @param h		height of the screen
+	 */
 	public CrabView(int w, int h){
 		frame = new JFrame();
 		this.frameHeight = h;
@@ -177,6 +188,10 @@ public class CrabView extends JPanel{
 		frame.repaint();
 	}
 	
+	/**
+	 * draws the frame. Has conditions for the different modes like,
+	 *  start of the game, standard gameplay, question, grace period after question, end screen.
+	 */
 	public void paint(Graphics g){
 		
 		g.setColor(new Color(103, 229, 255, 255));
@@ -372,6 +387,9 @@ public class CrabView extends JPanel{
 		}
 	}
 	
+	/**
+	 * loads all of the games images
+	 */
 	private void loadImages(){
 		crabImage = new BufferedImage[3];
 		crabImage[0] = createImage("game1.images/bluecrab_0.png");
@@ -388,6 +406,9 @@ public class CrabView extends JPanel{
 		wrongImage = createImage("game1.images/no.png");
 	}
 	
+	/**
+	 * reads an image from a file and returns it
+	 */
 	private BufferedImage createImage(String file) {
 		BufferedImage bufferedImage;
 		try {
