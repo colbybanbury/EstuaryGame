@@ -3,11 +3,19 @@ package game1.model;
 import java.awt.Rectangle;
 import java.util.Random;
 
+/**
+ * Fish (or other animals) that obstruct the player and trigger question events
+ *
+ */
 public class Enemy extends Mover{
 	private int type;
 	static int TYPES = 3; // number of different enemy sprites
 	Random rand = new Random();
 
+	/**
+	 * Create instance of an Enemy
+	 * @param b board to spawn the enemy within
+	 */
 	public Enemy(Board b){ 
 		this.yVel = 0;		
 		Random rand = new Random();		
