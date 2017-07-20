@@ -1,25 +1,25 @@
 package game2.model;
 
+/**
+ * Barriers that prevent the shore from being damaged (includes empty shore
+ * and empty water)
+ * @author Colby Banbury, Collin Clark
+ */
 public class Estuary{
-	/**
-	 * Barriers that prevent the shore from being damaged (includes empty shore
-	 * and empty water)
-	 * @author Colby Banbury, Collin Clark
-	 */
 	private int damage = 0;//increase as the estuary gets damaged without protection
 
 	private int integrity;//how much more damage the protection can take before it falls
 	private int type; //0 is empty, 1 is sea wall, 2 is Gabion
 						//needed for different image representations
 	
+	/**
+	 * constructor
+	 * @param t type of estuary. Ranges between 0 and 3. 0: no wall. 1: sea wall.
+	 * 2: gabion. 3: open water
+	 * @param cX x location in view (soon to be changed to linear representation)
+	 * @param cY y location in view (soon to be changed to linear representation)
+	 */
 	public Estuary(int t){
-		/**
-		 * constructor
-		 * @param t type of estuary. Ranges between 0 and 3. 0: no wall. 1: sea wall.
-		 * 2: gabion. 3: open water
-		 * @param cX x location in view (soon to be changed to linear representation)
-		 * @param cY y location in view (soon to be changed to linear representation)
-		 */
 		
 		this.type = t;
 		switch(t){
@@ -38,12 +38,11 @@ public class Estuary{
 		}
 	}
 	
+	/**
+	 * updates integrity of the wall and returns the damage left over
+	 * @param wakeDamage amount of damage to add to the estuary
+	 */
 	public int damage(int wakeDamage){
-		/**
-		 * updates integrity of the wall and returns the damage left over
-		 * @param wakeDamage amount of damage to add to the estuary
-		 */
-		
 		if(type!=3){	//if it's not open water
 			if(integrity>wakeDamage){
 				integrity -= wakeDamage;
@@ -80,11 +79,11 @@ public class Estuary{
 		return type;
 	}
 
+	/**
+	 * updates type and integrity changes with it
+	 * @param type type to change estuary to
+	 */
 	public void setType(int type) {	
-		/**
-		 * updates type and integrity changes with it
-		 * @param type type to change estuary to
-		 */
 		this.type = type;
 		switch(type){
 		case 0: 

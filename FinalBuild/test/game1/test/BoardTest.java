@@ -22,7 +22,6 @@ public class BoardTest {
 	}
 
 	@Test
-	//TODO
 	public void checkSalinityTest() {
 		Board b1 = new Board(1000, 1200);
 		Player p1 = new Player(b1);
@@ -47,7 +46,6 @@ public class BoardTest {
 	}
 	
 	@Test
-	//TODO: Replace values for different image heights/widths
 	public void checkCollisionTest2() { //Right edge of Player meets Left edge of Enemy
 		Board b1 = new Board(1000, 1200);
 		Player p1 = b1.player;
@@ -61,7 +59,6 @@ public class BoardTest {
 	}
 	
 	@Test
-	//TODO: Replace values for different image heights/widths
 	public void checkCollisionTest3() { //Bottom of Player meets Top of Enemy
 		Board b1 = new Board(1000, 1200);
 		Player p1 = b1.player;
@@ -128,13 +125,6 @@ public class BoardTest {
 	}
 	
 	@Test
-	//TODO
-	public void constructionTest(){
-		//Not sure how to test (yet)
-	}
-	
-	@Test
-	//TODO
 	public void updateTest1(){ //player hasn't started
 		Board b1 = new Board(1000, 1200);
 		b1.moverUpdate();

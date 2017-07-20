@@ -11,6 +11,14 @@ import javax.swing.*;
 
 import menu.controller.MenuController;
 
+/**
+ * 
+ * @author Zach
+ * @author chris
+ * 
+ * handles the visuals for the menu and creates the buttons to call the other games
+ *
+ */
 public class MenuView extends JPanel{
 
 	private static final long serialVersionUID = -2804351704146548063L;
@@ -29,6 +37,14 @@ public class MenuView extends JPanel{
 	private BufferedImage background;
 	private Image scaledBackground;
 	
+	/**
+	 * 
+	 * @param width
+	 * @param height
+	 * 
+	 * scales to the size of the screen, calls loadImages(), creates the three buttons,
+	 *  and imports the special fonts
+	 */
 	public MenuView(int width, int height){
 		frameHeight = height;
 		frameWidth = width;
@@ -155,6 +171,9 @@ public class MenuView extends JPanel{
 		frame.repaint();
 	}
 	
+	/**
+	 * draws the background and prints choose a game
+	 */
 	public void paint(Graphics g){
 		g.drawImage(scaledBackground, 0, 0, null);	
 
@@ -165,11 +184,19 @@ public class MenuView extends JPanel{
 		g.drawString("CHOOSE A GAME", (frameWidth - titleLength)/2, 160);
 	}
 	
+	/**
+	 * loads in the background and scales it
+	 */
 	private void loadImages(){
 		background = createImage("menu.images/2D_estuary.jpg");
 		scaledBackground = background.getScaledInstance(frameWidth, frameHeight, Image.SCALE_DEFAULT);
 	}
 	
+	/**
+	 * reads an image from a file and returns it
+	 * @param file	name of the file the the image is read from
+	 * @return BufferedImage 	image read from the file
+	 */
 	private BufferedImage createImage(String file) {
 		BufferedImage bufferedImage;
 		try {

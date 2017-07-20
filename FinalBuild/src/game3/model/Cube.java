@@ -23,11 +23,6 @@ public class Cube {
 		this.picNum = picNum;
 		this.board = b;
 		Cube.SIDE_LENGTH=((board.getWidth()-20)/Board.NUM_CUBES)-10;
-		/*
-		location = new Rectangle(rand.nextInt(board.getWidth() - sideLength),
-								rand.nextInt(board.getHeight() - sideLength),
-								sideLength,sideLength);
-		*/
 		location = new Rectangle(10+ cubeNum * (board.getWidth()-20) / Board.NUM_CUBES, board.getHeight() *5/ 9, SIDE_LENGTH, SIDE_LENGTH);
 	}
 	/**
@@ -62,6 +57,7 @@ public class Cube {
 	public void changeLocation(int x, int y){
 		location.setLocation(x, y);
 	}
+	
 	public int getCubeNum(){ return cubeNum; }
 	
 }
