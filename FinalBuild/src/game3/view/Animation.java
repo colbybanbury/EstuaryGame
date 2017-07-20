@@ -180,7 +180,8 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
     	frame.setVisible(true);
     	System.out.println("made frame visible");
     	
-    	///////
+
+    	frame.add(submitButton);
 	}
 	
 	public void paintBoard(){
@@ -223,7 +224,6 @@ public class Animation extends JPanel implements MouseMotionListener, MouseListe
 		    	
 		    	
 		    	//add submit button
-		    	this.add(submitButton);
 		    	submitButton.setVisible(true);
 		    
 		    	//add space at bottom
